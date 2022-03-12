@@ -1,8 +1,17 @@
 {
   "version": 2,
-  "dgSpecHash": "RaQ18YqWPV79enqNpcWsSQbpFvbs6SvkO3igYYS2mBewEMyzGXoa/azJ3eP1Kfq2px/jdqRubINrUs7gxZLzeA==",
+  "dgSpecHash": "eBQCmZOE7N60GY6WirPFxc+3dFBnnZEnkLOuZ/lZZygudRz1T8UrGFbiQ7eBcmjGCqqpc7+ND4cT+QfWdzGvcg==",
   "success": true,
   "projectFilePath": "D:\\Polyathlon\\Polyathlon\\Polyathlon.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\vaant\\.nuget\\packages\\couchdb.net\\3.1.1\\couchdb.net.3.1.1.nupkg.sha512",
+    "C:\\Users\\vaant\\.nuget\\packages\\flurl\\3.0.1\\flurl.3.0.1.nupkg.sha512",
+    "C:\\Users\\vaant\\.nuget\\packages\\flurl.http\\3.0.1\\flurl.http.3.0.1.nupkg.sha512",
+    "C:\\Users\\vaant\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
+    "C:\\Users\\vaant\\.nuget\\packages\\microsoft.netcore.platforms\\2.1.2\\microsoft.netcore.platforms.2.1.2.nupkg.sha512",
+    "C:\\Users\\vaant\\.nuget\\packages\\newtonsoft.json\\12.0.2\\newtonsoft.json.12.0.2.nupkg.sha512",
+    "C:\\Users\\vaant\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\4.5.2\\system.runtime.compilerservices.unsafe.4.5.2.nupkg.sha512",
+    "C:\\Users\\vaant\\.nuget\\packages\\system.text.encoding.codepages\\4.5.1\\system.text.encoding.codepages.4.5.1.nupkg.sha512"
+  ],
   "logs": []
 }
