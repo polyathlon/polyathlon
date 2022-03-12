@@ -1,0 +1,17 @@
+D:\Polyathlon\Polyathlon\bin\Debug\net6.0-windows\Polyathlon.exe
+D:\Polyathlon\Polyathlon\bin\Debug\net6.0-windows\Polyathlon.deps.json
+D:\Polyathlon\Polyathlon\bin\Debug\net6.0-windows\Polyathlon.runtimeconfig.json
+D:\Polyathlon\Polyathlon\bin\Debug\net6.0-windows\Polyathlon.dll
+D:\Polyathlon\Polyathlon\bin\Debug\net6.0-windows\ref\Polyathlon.dll
+D:\Polyathlon\Polyathlon\bin\Debug\net6.0-windows\Polyathlon.pdb
+D:\Polyathlon\Polyathlon\obj\Debug\net6.0-windows\Polyathlon.csproj.AssemblyReference.cache
+D:\Polyathlon\Polyathlon\obj\Debug\net6.0-windows\Polyathlon.Form1.resources
+D:\Polyathlon\Polyathlon\obj\Debug\net6.0-windows\Polyathlon.csproj.GenerateResource.cache
+D:\Polyathlon\Polyathlon\obj\Debug\net6.0-windows\Polyathlon.GeneratedMSBuildEditorConfig.editorconfig
+D:\Polyathlon\Polyathlon\obj\Debug\net6.0-windows\Polyathlon.AssemblyInfoInputs.cache
+D:\Polyathlon\Polyathlon\obj\Debug\net6.0-windows\Polyathlon.AssemblyInfo.cs
+D:\Polyathlon\Polyathlon\obj\Debug\net6.0-windows\Polyathlon.csproj.CoreCompileInputs.cache
+D:\Polyathlon\Polyathlon\obj\Debug\net6.0-windows\Polyathlon.dll
+D:\Polyathlon\Polyathlon\obj\Debug\net6.0-windows\ref\Polyathlon.dll
+D:\Polyathlon\Polyathlon\obj\Debug\net6.0-windows\Polyathlon.pdb
+D:\Polyathlon\Polyathlon\obj\Debug\net6.0-windows\Polyathlon.genruntimeconfig.cache
