@@ -1,3 +1,5 @@
+using Polyathlon.Forms;
+
 namespace Polyathlon
 {
     public partial class Form1 : Form
@@ -9,9 +11,16 @@ namespace Polyathlon
 
         private void Button1_Click(object sender, EventArgs e)
         {
-            using Forms.DatabaseSettingsForm databaseSettingsForm = new();
+            using DatabaseSettingsForm databaseSettingsForm = new();
 
             databaseSettingsForm.ShowDialog();
+        }
+
+        private void Button2_Click(object sender, EventArgs e)
+        {
+            using RegionsForm regionsForm = new();
+
+            regionsForm.ShowDialog();
         }
     }
 }

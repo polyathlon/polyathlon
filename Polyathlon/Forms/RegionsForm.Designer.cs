@@ -28,19 +28,70 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.createDBButton = new System.Windows.Forms.Button();
+            this.outputRegionsButton = new System.Windows.Forms.Button();
+            this.gridControl1 = new DevExpress.XtraGrid.GridControl();
+            this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
+            ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
             this.SuspendLayout();
+            // 
+            // createDBButton
+            // 
+            this.createDBButton.Location = new System.Drawing.Point(50, 250);
+            this.createDBButton.Name = "createDBButton";
+            this.createDBButton.Size = new System.Drawing.Size(75, 23);
+            this.createDBButton.TabIndex = 0;
+            this.createDBButton.Text = "Create DB";
+            this.createDBButton.UseVisualStyleBackColor = true;
+            this.createDBButton.Click += new System.EventHandler(this.CreateDBButton_Click);
+            // 
+            // outputRegionsButton
+            // 
+            this.outputRegionsButton.Location = new System.Drawing.Point(290, 250);
+            this.outputRegionsButton.Name = "outputRegionsButton";
+            this.outputRegionsButton.Size = new System.Drawing.Size(75, 23);
+            this.outputRegionsButton.TabIndex = 1;
+            this.outputRegionsButton.Text = "Output";
+            this.outputRegionsButton.UseVisualStyleBackColor = true;
+            this.outputRegionsButton.Click += new System.EventHandler(this.OutputRegionsButton_Click);
+            // 
+            // gridControl1
+            // 
+            this.gridControl1.Location = new System.Drawing.Point(0, 0);
+            this.gridControl1.MainView = this.gridView1;
+            this.gridControl1.Name = "gridControl1";
+            this.gridControl1.Size = new System.Drawing.Size(430, 200);
+            this.gridControl1.TabIndex = 2;
+            this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
+            this.gridView1});
+            // 
+            // gridView1
+            // 
+            this.gridView1.GridControl = this.gridControl1;
+            this.gridView1.Name = "gridView1";
             // 
             // RegionsForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(430, 293);
+            this.Controls.Add(this.gridControl1);
+            this.Controls.Add(this.outputRegionsButton);
+            this.Controls.Add(this.createDBButton);
             this.Name = "RegionsForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "RegionsForm";
+            ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
+
+        private Button createDBButton;
+        private Button outputRegionsButton;
+        private DevExpress.XtraGrid.GridControl gridControl1;
+        private DevExpress.XtraGrid.Views.Grid.GridView gridView1;
     }
 }
