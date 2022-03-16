@@ -3,12 +3,13 @@
 //using System.ComponentModel;
 //using System.Data;
 //using System.Drawing;
-//using System.Linq;
+using System.Linq;
 //using System.Text;
 //using System.Threading.Tasks;
 using System.Windows.Forms;
 using CouchDB.Driver;
 //using CouchDB.Driver.Options;
+using CouchDB.Driver.Extensions;
 
 namespace Polyathlon.Forms
 {
@@ -55,7 +56,7 @@ namespace Polyathlon.Forms
 
         private async void OutputRegionsButton_Click(object sender, EventArgs e)
         {
-            // Получение сервера по Host, используя базовую аутентификацию
+            // Получение клиента по Host, используя базовую аутентификацию
             await using var client = new CouchClient(Settings.Data.settingsDB.Host, builder => builder
                 .UseBasicAuthentication(Settings.Data.settingsDB.UserName,
                                         Settings.Data.settingsDB.Password));
@@ -64,10 +65,9 @@ namespace Polyathlon.Forms
             {
                 // Получение БД regions
                 var regions = client.GetDatabase<Entities.Region>();
-
-                // Получение коллекции документов
-                var content = regions.ToArray();
-                if (content.Length == 0)
+                // Получение документов
+                var content = regions.Take(int.MaxValue).ToList();
+                if (content.Count == 0)
                 {
                     MessageBox.Show("Документов нет");
                 }

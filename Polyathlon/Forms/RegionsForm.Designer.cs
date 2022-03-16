@@ -38,9 +38,9 @@
             // 
             // createDBButton
             // 
-            this.createDBButton.Location = new System.Drawing.Point(50, 250);
+            this.createDBButton.Location = new System.Drawing.Point(220, 460);
             this.createDBButton.Name = "createDBButton";
-            this.createDBButton.Size = new System.Drawing.Size(75, 23);
+            this.createDBButton.Size = new System.Drawing.Size(100, 60);
             this.createDBButton.TabIndex = 0;
             this.createDBButton.Text = "Create DB";
             this.createDBButton.UseVisualStyleBackColor = true;
@@ -48,9 +48,9 @@
             // 
             // outputRegionsButton
             // 
-            this.outputRegionsButton.Location = new System.Drawing.Point(290, 250);
+            this.outputRegionsButton.Location = new System.Drawing.Point(550, 460);
             this.outputRegionsButton.Name = "outputRegionsButton";
-            this.outputRegionsButton.Size = new System.Drawing.Size(75, 23);
+            this.outputRegionsButton.Size = new System.Drawing.Size(100, 60);
             this.outputRegionsButton.TabIndex = 1;
             this.outputRegionsButton.Text = "Output";
             this.outputRegionsButton.UseVisualStyleBackColor = true;
@@ -61,7 +61,7 @@
             this.gridControl1.Location = new System.Drawing.Point(0, 0);
             this.gridControl1.MainView = this.gridView1;
             this.gridControl1.Name = "gridControl1";
-            this.gridControl1.Size = new System.Drawing.Size(430, 200);
+            this.gridControl1.Size = new System.Drawing.Size(920, 430);
             this.gridControl1.TabIndex = 2;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
@@ -74,7 +74,7 @@
             // RegionsForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.ClientSize = new System.Drawing.Size(430, 293);
+            this.ClientSize = new System.Drawing.Size(916, 542);
             this.Controls.Add(this.gridControl1);
             this.Controls.Add(this.outputRegionsButton);
             this.Controls.Add(this.createDBButton);

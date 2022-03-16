@@ -13,8 +13,12 @@
         "packagesPath": "C:\\Users\\robez\\.nuget\\packages\\",
         "outputPath": "D:\\Project Files\\C#\\polyathlon\\Polyathlon\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "D:\\Programs\\Software Tools\\DevExpress 21.2\\Components\\Offline Packages"
+        ],
         "configFilePaths": [
           "C:\\Users\\robez\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 21.2.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -22,6 +26,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "D:\\Programs\\Software Tools\\DevExpress 21.2\\Components\\System\\Components\\Packages": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -42,7 +47,11 @@
           "dependencies": {
             "CouchDB.NET": {
               "target": "Package",
-              "version": "[3.1.1, )"
+              "version": "[3.2.0-Preview, )"
+            },
+            "devexpress.win.design": {
+              "target": "Package",
+              "version": "[21.2.5, )"
             }
           },
           "imports": [
@@ -59,7 +68,7 @@
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             },
-            "Microsoft.WindowsDesktop.App.WindowsForms": {
+            "Microsoft.WindowsDesktop.App": {
               "privateAssets": "none"
             }
           },
