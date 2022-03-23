@@ -10,17 +10,25 @@ internal static class Program
     [STAThread]
     static void Main()
     {
+        bool exit;
+        using IDisposable singleInstanceApplicationGuard = Helpers.DirectoryHelper.SingleInstanceApplicationGuard("Polyathlon2022", out exit);
 
-        
-        // To customize application configuration such as set high DPI settings or default font,
-        // see https://aka.ms/applicationconfiguration.
+        //if (exit && IsTablet)
+        if (exit)
+            return;
 
-        Application.CurrentCulture = CultureInfo.GetCultureInfo("en-us");
+            // To customize application configuration such as set high DPI settings or default font,
+            // see https://aka.ms/applicationconfiguration.
+
+            Application.CurrentCulture = CultureInfo.GetCultureInfo("en-us");
         
         
         ApplicationConfiguration.Initialize();        
 
         MainForm = new MainForm();
+
+        if (IsTablet)
+            SetupAsTablet();        
 
         Application.Run(MainForm);
     }

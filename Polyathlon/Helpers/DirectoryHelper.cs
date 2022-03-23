@@ -1,14 +1,7 @@
 ﻿
-using Microsoft.Win32;
-using System;
 using System.Diagnostics;
-using System.Drawing;
-using System.IO;
-using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Security;
-using System.Threading;
-using System.Windows.Interop;
 
 namespace Polyathlon.Helpers;
 
@@ -90,6 +83,7 @@ internal class DirectoryHelper
     public static IDisposable SingleInstanceApplicationGuard(string applicationName, out bool exit)
     {
         Mutex mutex = new(initiallyOwned: true, applicationName);
+
         if (mutex.WaitOne(0, exitContext: false))
         {
             exit = false;
