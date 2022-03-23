@@ -11,6 +11,7 @@
   <ItemGroup>
     <PackageReference Include="CouchDB.NET" Version="3.2.0-Preview" />
     <PackageReference Include="devexpress.win.design" Version="21.2.5" />
+    <PackageReference Include="System.Management" Version="6.0.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -26,6 +27,13 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Models\" />
+    <Folder Include="Views\" />
+    <Folder Include="ViewModels\" />
+    <Folder Include="DataModel\" />
   </ItemGroup>
 
 </Project>
