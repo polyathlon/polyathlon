@@ -26,11 +26,11 @@ namespace Polyathlon.Forms
 
             timer = new System.Windows.Forms.Timer();
 
+            progressBarControl.Position = 0;
 
+            timer.Interval = 300;
 
-            timer.Interval = 3000;
-
-            //starts the timer
+            
 
             timer.Start();
 
@@ -38,17 +38,18 @@ namespace Polyathlon.Forms
         }
 
         void timer_Tick(object sender, EventArgs e)
-
         {
-
-            //after 3 sec stop the timer
-
-            timer.Stop();
-
-            //display mainform
-
-            this.Hide();
-
+            if (progressBarControl.Position < 100)
+            {
+                progressBarControl.Position += 10;
+            }
+            else
+            {
+                timer.Stop();
+                progressBarControl.Position += 10;
+                timer.Stop();
+                this.Hide();
+            }
         }
     }
 }
