@@ -2,8 +2,6 @@ using System;
 using System.Linq;
 using System.Linq.Expressions;
 using DevExpress.Data.Utils;
-using DevExpress.DevAV.Common.ViewModel;
-using DevExpress.DevAV.DevAVDbDataModel1;
 using DevExpress.Mvvm;
 using DevExpress.Mvvm.POCO;
 using System.Text.RegularExpressions;

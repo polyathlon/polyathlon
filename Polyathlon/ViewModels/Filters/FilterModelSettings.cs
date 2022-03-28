@@ -6,7 +6,8 @@ using System.Linq;
 using System.Linq.Expressions;
 using DevExpress.Data.Filtering;
 
-namespace DevExpress.DevAV.ViewModels {
+
+namespace Polyathlon.ViewModels {
     public interface IFilterModelPageSpecificSettings {
         FilterInfoList StaticFilters { get; set; }
         FilterInfoList CustomFilters { get; set; }
@@ -28,8 +29,8 @@ namespace DevExpress.DevAV.ViewModels {
     
     public class FilterModelPageSpecificSettings<TSettings> : IFilterModelPageSpecificSettings where TSettings : ApplicationSettingsBase {
         static FilterModelPageSpecificSettings() {
-            var enums = typeof(EmployeeStatus).Assembly.GetTypes().Where(t => t.IsEnum);
-            foreach(Type e in enums) EnumProcessingHelper.RegisterEnum(e);
+            //var enums = typeof(EmployeeStatus).Assembly.GetTypes().Where(t => t.IsEnum);
+            //foreach(Type e in enums) EnumProcessingHelper.RegisterEnum(e);
         }
         readonly TSettings settings;
         readonly PropertyDescriptor staticFiltersProperty;

@@ -5,7 +5,7 @@ using DevExpress.Mvvm;
 using DevExpress.Mvvm.POCO;
 using System;
 
-namespace DevExpress.DevAV.ViewModels {
+namespace Polyathlon.ViewModels {
     public abstract class FilterViewModelBase {
         public Action NavigateAction { get; set; }
         protected IFilterModelPageSpecificSettings settings;
