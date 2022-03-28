@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Polyathlon
+namespace Polyathlon.Settings
 {
     internal class SettingsDB
     {

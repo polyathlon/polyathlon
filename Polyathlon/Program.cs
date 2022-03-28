@@ -17,10 +17,14 @@ internal static class Program
         if (exit)
             return;
 
-            // To customize application configuration such as set high DPI settings or default font,
-            // see https://aka.ms/applicationconfiguration.
+        // To customize application configuration such as set high DPI settings or default font,
+        // see https://aka.ms/applicationconfiguration.
 
-            Application.CurrentCulture = CultureInfo.GetCultureInfo("en-us");
+        float fontSize = 11f;
+        //DevExpress.XtraEditors.WindowsFormsSettings.DefaultFont = new Font("Segoe UI", fontSize);
+        //DevExpress.XtraEditors.WindowsFormsSettings.DefaultMenuFont = new Font("Segoe UI", fontSize);
+
+        Application.CurrentCulture = CultureInfo.GetCultureInfo("en-us");
         
         
         ApplicationConfiguration.Initialize();        
