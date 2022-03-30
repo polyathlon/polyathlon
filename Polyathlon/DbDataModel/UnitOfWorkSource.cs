@@ -4,8 +4,6 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq.Expressions;
 using System.Collections.Generic;
-using DevExpress.DevAV.Common.Utils;
-using DevExpress.DevAV.Common.DataModel;
 using DevExpress.DevAV.Common.DataModel.EntityFramework;
 using DevExpress.DevAV;
 using DevExpress.Mvvm;
@@ -14,7 +12,8 @@ using System.ComponentModel;
 using DevExpress.Data.Linq;
 using DevExpress.Data.Linq.Helpers;
 using DevExpress.Data.Async.Helpers;
-using Polyathlon.DataModel
+using Polyathlon.DataModel;
+using Polyathlon.DbDataModel;
 
 namespace Polyathlon.DbDataModel
 {

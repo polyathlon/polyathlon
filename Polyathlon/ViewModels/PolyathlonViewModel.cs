@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks; 
+using System.Threading.Tasks;
+using DevExpress.Mvvm.POCO;
 using Polyathlon.Helpers.ViewModel;
 using Polyathlon.DbDataModel;
 
 namespace Polyathlon.ViewModels
 {
-    internal partial class PolyathlonViewModel : DocumentsViewModel<PolyathlonModuleDescription, IDevAVDbUnitOfWork>
+    internal partial class PolyathlonViewModel : DocumentsViewModel<PolyathlonModuleDescription, IDbUnitOfWork>
     {
         const string MyWorldGroup = "My World";
         const string OperationsGroup = "Operations";
@@ -55,7 +56,7 @@ namespace Polyathlon.ViewModels
     }
     public partial class PolyathlonModuleDescription : ModuleDescription<PolyathlonModuleDescription>
     {
-        public PolyathlonModuleDescription(string title, string documentType, string group, Func<PolyathlonModuleDescription, object> peekCollectionViewModelFactory = null)
+        public PolyathlonModuleDescription(string title, string documentType, string group, Func<PolyathlonModuleDescription, object>? peekCollectionViewModelFactory = null)
             : base(title, documentType, group, peekCollectionViewModelFactory)
         {
         }
