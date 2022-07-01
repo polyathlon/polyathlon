@@ -8,7 +8,7 @@ using System.Collections.Generic;
 //using DevExpress.DevAV.Common.DataModel;
 //using DevExpress.DevAV.Common.DataModel.EntityFramework;
 using DevExpress.DevAV;
-
+using Polyathlon.DbDataModel;
 
 namespace Polyathon.DbDataModel
 {

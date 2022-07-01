@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace Polyathlon.Helpers.ViewModel
+namespace Polyathlon.ViewModel
 {
     /// <summary>
     /// Represents the type of an entity state change notification that is shown when the IUnitOfWork.SaveChanges method has been called.

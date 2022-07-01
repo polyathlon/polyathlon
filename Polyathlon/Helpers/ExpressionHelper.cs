@@ -37,7 +37,7 @@ namespace Polyathlon.Helpers {
         /// <param name="owner">An instance of the TOwner type which type is used as a key to cache compiled lambda expressions.</param>
         /// <param name="getPropertyExpression">A lambda expression that returns the primary key value for a given entity.</param>
         public static EntityTraits<TPropertyOwner, TProperty> GetEntityTraits<TOwner, TPropertyOwner, TProperty>(TOwner owner, Expression<Func<TPropertyOwner, TProperty>> getPropertyExpression) {
-            object traits = null;
+            object? traits = null;
             if(!TraitsCache.TryGetValue(owner.GetType(), out traits)) {
                 traits = new EntityTraits<TPropertyOwner, TProperty>(getPropertyExpression.Compile(), GetSetValueActionExpression(getPropertyExpression).Compile(), GetHasValueFunctionExpression(getPropertyExpression).Compile());
                 TraitsCache[owner.GetType()] = traits;
