@@ -17,10 +17,10 @@ namespace Polyathlon
         protected override void OnConfiguring(CouchOptionsBuilder optionsBuilder)
         {
             optionsBuilder
-                .UseEndpoint(Settings.Data.settingsDB.Host)
+                .UseEndpoint(Settings.Settings.Data.settingsDB.Host)
                 .EnsureDatabaseExists()
-                .UseBasicAuthentication(Settings.Data.settingsDB.UserName,
-                                        Settings.Data.settingsDB.Password);
+                .UseBasicAuthentication(Settings.Settings.Data.settingsDB.UserName,
+                                        Settings.Settings.Data.settingsDB.Password);
         }
     }
 }

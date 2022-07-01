@@ -23,9 +23,9 @@ namespace Polyathlon.Forms
         private async void CreateDBButton_Click(object sender, EventArgs e)
         {
             // Получение сервера по Host, используя базовую аутентификацию
-            await using var client = new CouchClient(Settings.Data.settingsDB.Host, builder => builder
-                .UseBasicAuthentication(Settings.Data.settingsDB.UserName,
-                                        Settings.Data.settingsDB.Password));
+            await using var client = new CouchClient(Settings.Settings.Data.settingsDB.Host, builder => builder
+                .UseBasicAuthentication(Settings.Settings.Data.settingsDB.UserName,
+                                        Settings.Settings.Data.settingsDB.Password));
 
             try
             {
@@ -57,9 +57,9 @@ namespace Polyathlon.Forms
         private async void OutputRegionsButton_Click(object sender, EventArgs e)
         {
             // Получение клиента по Host, используя базовую аутентификацию
-            await using var client = new CouchClient(Settings.Data.settingsDB.Host, builder => builder
-                .UseBasicAuthentication(Settings.Data.settingsDB.UserName,
-                                        Settings.Data.settingsDB.Password));
+            await using var client = new CouchClient(Settings.Settings.Data.settingsDB.Host, builder => builder
+                .UseBasicAuthentication(Settings.Settings.Data.settingsDB.UserName,
+                                        Settings.Settings.Data.settingsDB.Password));
 
             try
             {

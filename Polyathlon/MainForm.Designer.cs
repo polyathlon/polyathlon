@@ -33,9 +33,11 @@
             this.tileNavPane = new DevExpress.XtraBars.Navigation.TileNavPane();
             this.tileBar = new DevExpress.XtraBars.Navigation.TileBar();
             this.navigationFrame1 = new DevExpress.XtraBars.Navigation.NavigationFrame();
+            this.button1 = new System.Windows.Forms.Button();
             this.mvvmContext1 = new DevExpress.Utils.MVVM.MVVMContext(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.tileNavPane)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.navigationFrame1)).BeginInit();
+            this.navigationFrame1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.mvvmContext1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -67,9 +69,9 @@
             this.tileNavPane.DefaultCategory.Tile.DropDownOptions.BeakColor = System.Drawing.Color.Empty;
             this.tileNavPane.Dock = System.Windows.Forms.DockStyle.Top;
             this.tileNavPane.Location = new System.Drawing.Point(0, 0);
-            this.tileNavPane.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.tileNavPane.Margin = new System.Windows.Forms.Padding(2);
             this.tileNavPane.Name = "tileNavPane";
-            this.tileNavPane.Size = new System.Drawing.Size(2221, 128);
+            this.tileNavPane.Size = new System.Drawing.Size(970, 64);
             this.tileNavPane.TabIndex = 0;
             this.tileNavPane.Text = "tileNavPane1";
             this.tileNavPane.Visible = false;
@@ -86,15 +88,15 @@
             this.tileBar.IndentBetweenGroups = 10;
             this.tileBar.IndentBetweenItems = 10;
             this.tileBar.ItemPadding = new System.Windows.Forms.Padding(8, 6, 12, 6);
-            this.tileBar.Location = new System.Drawing.Point(0, 128);
-            this.tileBar.Margin = new System.Windows.Forms.Padding(8, 10, 8, 10);
+            this.tileBar.Location = new System.Drawing.Point(0, 64);
+            this.tileBar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tileBar.Name = "tileBar";
-            this.tileBar.Padding = new System.Windows.Forms.Padding(59, 22, 59, 64);
+            this.tileBar.Padding = new System.Windows.Forms.Padding(30, 11, 30, 32);
             this.tileBar.ScrollMode = DevExpress.XtraEditors.TileControlScrollMode.ScrollButtons;
             this.tileBar.SelectionBorderWidth = 2;
             this.tileBar.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
             this.tileBar.SelectionColorMode = DevExpress.XtraBars.Navigation.SelectionColorMode.UseItemBackColor;
-            this.tileBar.Size = new System.Drawing.Size(2221, 220);
+            this.tileBar.Size = new System.Drawing.Size(970, 110);
             this.tileBar.TabIndex = 0;
             this.tileBar.Text = "tileBar";
             this.tileBar.VerticalContentAlignment = DevExpress.Utils.VertAlignment.Bottom;
@@ -102,15 +104,26 @@
             // 
             // navigationFrame1
             // 
+            this.navigationFrame1.Controls.Add(this.button1);
             this.navigationFrame1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.navigationFrame1.Location = new System.Drawing.Point(0, 348);
-            this.navigationFrame1.Margin = new System.Windows.Forms.Padding(21, 32, 21, 32);
+            this.navigationFrame1.Location = new System.Drawing.Point(0, 174);
+            this.navigationFrame1.Margin = new System.Windows.Forms.Padding(10, 16, 10, 16);
             this.navigationFrame1.Name = "navigationFrame1";
             this.navigationFrame1.SelectedPage = null;
-            this.navigationFrame1.Size = new System.Drawing.Size(2221, 1402);
+            this.navigationFrame1.Size = new System.Drawing.Size(970, 361);
             this.navigationFrame1.TabIndex = 2;
             this.navigationFrame1.Text = "navigationFrame1";
             this.navigationFrame1.TransitionAnimationProperties.FrameInterval = 5000;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(198, 98);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 30);
+            this.button1.TabIndex = 0;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // mvvmContext1
             // 
@@ -119,18 +132,19 @@
             // MainForm
             // 
             this.Appearance.Options.UseFont = true;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(16F, 40F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(2221, 1750);
+            this.ClientSize = new System.Drawing.Size(970, 535);
             this.Controls.Add(this.navigationFrame1);
             this.Controls.Add(this.tileBar);
             this.Controls.Add(this.tileNavPane);
-            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Полиатлон 2022";
             ((System.ComponentModel.ISupportInitialize)(this.tileNavPane)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.navigationFrame1)).EndInit();
+            this.navigationFrame1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.mvvmContext1)).EndInit();
             this.ResumeLayout(false);
 
@@ -143,5 +157,6 @@
         private DevExpress.XtraBars.Navigation.TileBar tileBar;
         private DevExpress.XtraBars.Navigation.NavigationFrame navigationFrame1;
         private DevExpress.Utils.MVVM.MVVMContext mvvmContext1;
+        private Button button1;
     }
 }

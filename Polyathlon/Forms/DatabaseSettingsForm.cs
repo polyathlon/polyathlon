@@ -19,18 +19,18 @@ namespace Polyathlon.Forms
 
         private void DatabaseSettingsForm_Load(object sender, EventArgs e)
         {
-            outputUserNameTextBox.Text = Settings.Data.settingsDB.UserName;
-            outputPasswordTextBox.Text = Settings.Data.settingsDB.Password;
-            outputHostNameTextBox.Text = Settings.Data.settingsDB.HostName;
-            outputPortTextBox.Text = Settings.Data.settingsDB.Port;
+            outputUserNameTextBox.Text = Settings.Settings.Data.settingsDB.UserName;
+            outputPasswordTextBox.Text = Settings.Settings.Data.settingsDB.Password;
+            outputHostNameTextBox.Text = Settings.Settings.Data.settingsDB.HostName;
+            outputPortTextBox.Text = Settings.Settings.Data.settingsDB.Port;
         }
 
         private void SaveButton_Click(object sender, EventArgs e)
         {
-            Settings.Data.settingsDB.UserName = outputUserNameTextBox.Text;
-            Settings.Data.settingsDB.Password = outputPasswordTextBox.Text;
-            Settings.Data.settingsDB.HostName = outputHostNameTextBox.Text;
-            Settings.Data.settingsDB.Port = outputPortTextBox.Text;
+            Settings.Settings.Data.settingsDB.UserName = outputUserNameTextBox.Text;
+            Settings.Settings.Data.settingsDB.Password = outputPasswordTextBox.Text;
+            Settings.Settings.Data.settingsDB.HostName = outputHostNameTextBox.Text;
+            Settings.Settings.Data.settingsDB.Port = outputPortTextBox.Text;
 
             Properties.Settings.Default.UserName = outputUserNameTextBox.Text;
             Properties.Settings.Default.Password = outputPasswordTextBox.Text;
