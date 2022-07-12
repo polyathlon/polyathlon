@@ -240,11 +240,11 @@ namespace Polyathlon.Helpers.ViewModel
     //        get { return DocumentManagerService; }
     //    }
 
-        IEnumerable<object>? ISupportLogicalLayout.LookupViewModels
-        {
-            get { return null; }
-        }
-    }
+        //IEnumerable<object>? ISupportLogicalLayout.LookupViewModels
+        //{
+        //    get { return null; }
+        //}
+}
 
     ///// <summary>
     ///// A base class representing a navigation list entry.
@@ -253,8 +253,8 @@ namespace Polyathlon.Helpers.ViewModel
     //public abstract partial class ModuleDescription<TModule> where TModule : ModuleDescription<TModule>
     //{
 
-        readonly Func<TModule, object> peekCollectionViewModelFactory;
-        object peekCollectionViewModel;
+        //readonly Func<TModule, object> peekCollectionViewModelFactory;
+        //object peekCollectionViewModel;
 
         /// <summary>
         /// Initializes a new instance of the ModuleDescription class.
@@ -263,13 +263,13 @@ namespace Polyathlon.Helpers.ViewModel
         /// <param name="documentType">A string value that specifies the view type of corresponding document.</param>
         /// <param name="group">A navigation list entry group name.</param>
         /// <param name="peekCollectionViewModelFactory">An optional parameter that provides a function used to create a PeekCollectionViewModel that provides quick navigation between collection views.</param>
-        public ModuleDescription(string title, string documentType, string group, Func<TModule, object> peekCollectionViewModelFactory = null)
-        {
-            ModuleTitle = title;
-            ModuleGroup = group;
-            DocumentType = documentType;
-            this.peekCollectionViewModelFactory = peekCollectionViewModelFactory;
-        }
+        //public ModuleDescription(string title, string documentType, string group, Func<TModule, object> peekCollectionViewModelFactory = null)
+        //{
+        //    ModuleTitle = title;
+        //    ModuleGroup = group;
+        //    DocumentType = documentType;
+        //    this.peekCollectionViewModelFactory = peekCollectionViewModelFactory;
+        //}
 
     //    /// <summary>
     //    /// The navigation list entry display text.
@@ -304,11 +304,11 @@ namespace Polyathlon.Helpers.ViewModel
         /// <summary>
         /// Creates and returns a new instance of the corresponding PeekCollectionViewModel that provides quick navigation between collection views.
         /// </summary>
-        public object CreatePeekCollectionViewModel()
-        {
-            return peekCollectionViewModelFactory((TModule)this);
-        }
-    }
+        //public object CreatePeekCollectionViewModel()
+        //{
+        //    return peekCollectionViewModelFactory((TModule)this);
+        //}
+    //}
 
     ///// <summary>
     ///// Represents a navigation pane state.
@@ -331,4 +331,4 @@ namespace Polyathlon.Helpers.ViewModel
     //    /// </summary>
     //    Off
     //}
-}
+//}

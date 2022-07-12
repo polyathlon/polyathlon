@@ -19,10 +19,10 @@ namespace Polyathlon.ViewModel
     /// <typeparam name="TEntity">An entity type.</typeparam>
     /// <typeparam name="TPrimaryKey">A primary key value type.</typeparam>
     /// <typeparam name="TUnitOfWork">A unit of work type.</typeparam>
-    public partial class CollectionViewModel<TEntity, TPrimaryKey, TUnitOfWork> : CollectionViewModel<TEntity, TEntity, TPrimaryKey, TUnitOfWork>
-        where TEntity : class
-        where TUnitOfWork : IUnitOfWork
-    {
+    //public partial class CollectionViewModel<TEntity, TPrimaryKey, TUnitOfWork> : CollectionViewModel<TEntity, TEntity, TPrimaryKey, TUnitOfWork>
+    //    where TEntity : class
+    //    where TUnitOfWork : IUnitOfWork
+    //{
 
         /// <summary>
         /// Creates a new instance of CollectionViewModel as a POCO view model.
@@ -33,16 +33,16 @@ namespace Polyathlon.ViewModel
         /// <param name="newEntityInitializer">An optional parameter that provides a function to initialize a new entity. This parameter is used in the detail collection view models when creating a single object view model for a new entity.</param>
         /// <param name="canCreateNewEntity">A function that is called before an attempt to create a new entity is made. This parameter is used together with the newEntityInitializer parameter.</param>
         /// <param name="ignoreSelectEntityMessage">An optional parameter that used to specify that the selected entity should not be managed by PeekCollectionViewModel.</param>
-        public static CollectionViewModel<TEntity, TPrimaryKey, TUnitOfWork> CreateCollectionViewModel(
-            IUnitOfWorkFactory<TUnitOfWork> unitOfWorkFactory,
-            Func<TUnitOfWork, IRepository<TEntity, TPrimaryKey>> getRepositoryFunc,
-            Func<IRepositoryQuery<TEntity>, IQueryable<TEntity>>? projection = null,
-            Action<TEntity>? newEntityInitializer = null,
-            Func<bool>? canCreateNewEntity = null,
-            bool ignoreSelectEntityMessage = false)
-        {
-            return ViewModelSource.Create(() => new CollectionViewModel<TEntity, TPrimaryKey, TUnitOfWork>(unitOfWorkFactory, getRepositoryFunc, projection, newEntityInitializer, canCreateNewEntity, ignoreSelectEntityMessage));
-        }
+        //public static CollectionViewModel<TEntity, TPrimaryKey, TUnitOfWork> CreateCollectionViewModel(
+        //    IUnitOfWorkFactory<TUnitOfWork> unitOfWorkFactory,
+        //    Func<TUnitOfWork, IRepository<TEntity, TPrimaryKey>> getRepositoryFunc,
+        //    Func<IRepositoryQuery<TEntity>, IQueryable<TEntity>>? projection = null,
+        //    Action<TEntity>? newEntityInitializer = null,
+        //    Func<bool>? canCreateNewEntity = null,
+        //    bool ignoreSelectEntityMessage = false)
+        //{
+        //    //return ViewModelSource.Create(() => new CollectionViewModel<TEntity, TPrimaryKey, TUnitOfWork>(unitOfWorkFactory, getRepositoryFunc, projection, newEntityInitializer, canCreateNewEntity, ignoreSelectEntityMessage));
+        //}
 
         /// <summary>
         /// Initializes a new instance of the CollectionViewModel class.
@@ -54,18 +54,18 @@ namespace Polyathlon.ViewModel
         /// <param name="newEntityInitializer">An optional parameter that provides a function to initialize a new entity. This parameter is used in the detail collection view models when creating a single object view model for a new entity.</param>
         /// <param name="canCreateNewEntity">A function that is called before an attempt to create a new entity is made. This parameter is used together with the newEntityInitializer parameter.</param>
         /// <param name="ignoreSelectEntityMessage">An optional parameter that used to specify that the selected entity should not be managed by PeekCollectionViewModel.</param>
-        protected CollectionViewModel(
-            IUnitOfWorkFactory<TUnitOfWork> unitOfWorkFactory,
-            Func<TUnitOfWork, IRepository<TEntity, TPrimaryKey>> getRepositoryFunc,
-            Func<IRepositoryQuery<TEntity>, IQueryable<TEntity>>? projection = null,
-            Action<TEntity>? newEntityInitializer = null,
-            Func<bool>? canCreateNewEntity = null,
-            bool ignoreSelectEntityMessage = false
-            )
-            : base(unitOfWorkFactory, getRepositoryFunc, projection, newEntityInitializer, canCreateNewEntity, ignoreSelectEntityMessage)
-        {
-        }
-    }
+        //protected CollectionViewModel(
+        //    IUnitOfWorkFactory<TUnitOfWork> unitOfWorkFactory,
+        //    Func<TUnitOfWork, IRepository<TEntity, TPrimaryKey>> getRepositoryFunc,
+        //    Func<IRepositoryQuery<TEntity>, IQueryable<TEntity>>? projection = null,
+        //    Action<TEntity>? newEntityInitializer = null,
+        //    Func<bool>? canCreateNewEntity = null,
+        //    bool ignoreSelectEntityMessage = false
+        //    )
+        //    : base(unitOfWorkFactory, getRepositoryFunc, projection, newEntityInitializer, canCreateNewEntity, ignoreSelectEntityMessage)
+        //{
+        //}
+    //}
 
     /// <summary>
     /// The base class for a POCO view models exposing a collection of entities of a given type and CRUD operations against these entities. 
@@ -75,54 +75,54 @@ namespace Polyathlon.ViewModel
     /// <typeparam name="TProjection">A projection entity type.</typeparam>
     /// <typeparam name="TPrimaryKey">A primary key value type.</typeparam>
     /// <typeparam name="TUnitOfWork">A unit of work type.</typeparam>
-    public partial class CollectionViewModel<TEntity, TProjection, TPrimaryKey, TUnitOfWork> : CollectionViewModelBase<TEntity, TProjection, TPrimaryKey, TUnitOfWork>
-        where TEntity : class
-        where TProjection : class
-        where TUnitOfWork : IUnitOfWork
-    {
+    //public partial class CollectionViewModel<TEntity, TProjection, TPrimaryKey, TUnitOfWork> : CollectionViewModelBase<TEntity, TProjection, TPrimaryKey, TUnitOfWork>
+    //    where TEntity : class
+    //    where TProjection : class
+    //    where TUnitOfWork : IUnitOfWork
+    //{
 
-        /// <summary>
-        /// Creates a new instance of CollectionViewModel as a POCO view model.
-        /// </summary>
-        /// <param name="unitOfWorkFactory">A factory used to create a unit of work instance.</param>
-        /// <param name="getRepositoryFunc">A function that returns a repository representing entities of the given type.</param>
-        /// <param name="projection">A LINQ function used to customize a query for entities. The parameter, for example, can be used for sorting data and/or for projecting data to a custom type that does not match the repository entity type.</param>
-        /// <param name="newEntityInitializer">An optional parameter that provides a function to initialize a new entity. This parameter is used in the detail collection view models when creating a single object view model for a new entity.</param>
-        /// <param name="canCreateNewEntity">A function that is called before an attempt to create a new entity is made. This parameter is used together with the newEntityInitializer parameter.</param>
-        /// <param name="ignoreSelectEntityMessage">An optional parameter that used to specify that the selected entity should not be managed by PeekCollectionViewModel.</param>
-        public static CollectionViewModel<TEntity, TProjection, TPrimaryKey, TUnitOfWork> CreateProjectionCollectionViewModel(
-            IUnitOfWorkFactory<TUnitOfWork> unitOfWorkFactory,
-            Func<TUnitOfWork, IRepository<TEntity, TPrimaryKey>> getRepositoryFunc,
-            Func<IRepositoryQuery<TEntity>, IQueryable<TProjection>> projection,
-            Action<TEntity>? newEntityInitializer = null,
-            Func<bool>? canCreateNewEntity = null,
-            bool ignoreSelectEntityMessage = false)
-        {
-            return ViewModelSource.Create(() => new CollectionViewModel<TEntity, TProjection, TPrimaryKey, TUnitOfWork>(unitOfWorkFactory, getRepositoryFunc, projection, newEntityInitializer, canCreateNewEntity, ignoreSelectEntityMessage));
-        }
+    //    /// <summary>
+    //    /// Creates a new instance of CollectionViewModel as a POCO view model.
+    //    /// </summary>
+    //    /// <param name="unitOfWorkFactory">A factory used to create a unit of work instance.</param>
+    //    /// <param name="getRepositoryFunc">A function that returns a repository representing entities of the given type.</param>
+    //    /// <param name="projection">A LINQ function used to customize a query for entities. The parameter, for example, can be used for sorting data and/or for projecting data to a custom type that does not match the repository entity type.</param>
+    //    /// <param name="newEntityInitializer">An optional parameter that provides a function to initialize a new entity. This parameter is used in the detail collection view models when creating a single object view model for a new entity.</param>
+    //    /// <param name="canCreateNewEntity">A function that is called before an attempt to create a new entity is made. This parameter is used together with the newEntityInitializer parameter.</param>
+    //    /// <param name="ignoreSelectEntityMessage">An optional parameter that used to specify that the selected entity should not be managed by PeekCollectionViewModel.</param>
+    //    //public static CollectionViewModel<TEntity, TProjection, TPrimaryKey, TUnitOfWork> CreateProjectionCollectionViewModel(
+    //    //    IUnitOfWorkFactory<TUnitOfWork> unitOfWorkFactory,
+    //    //    Func<TUnitOfWork, IRepository<TEntity, TPrimaryKey>> getRepositoryFunc,
+    //    //    Func<IRepositoryQuery<TEntity>, IQueryable<TProjection>> projection,
+    //    //    Action<TEntity>? newEntityInitializer = null,
+    //    //    Func<bool>? canCreateNewEntity = null,
+    //    //    bool ignoreSelectEntityMessage = false)
+    //    //{
+    //    //    return ViewModelSource.Create(() => new CollectionViewModel<TEntity, TProjection, TPrimaryKey, TUnitOfWork>(unitOfWorkFactory, getRepositoryFunc, projection, newEntityInitializer, canCreateNewEntity, ignoreSelectEntityMessage));
+    //    //}
 
-        /// <summary>
-        /// Initializes a new instance of the CollectionViewModel class.
-        /// This constructor is declared protected to avoid an undesired instantiation of the CollectionViewModel type without the POCO proxy factory.
-        /// </summary>
-        /// <param name="unitOfWorkFactory">A factory used to create a unit of work instance.</param>
-        /// <param name="getRepositoryFunc">A function that returns a repository representing entities of the given type.</param>
-        /// <param name="projection">A LINQ function used to customize a query for entities. The parameter, for example, can be used for sorting data and/or for projecting data to a custom type that does not match the repository entity type.</param>
-        /// <param name="newEntityInitializer">An optional parameter that provides a function to initialize a new entity. This parameter is used in the detail collection view models when creating a single object view model for a new entity.</param>
-        /// <param name="canCreateNewEntity">A function that is called before an attempt to create a new entity is made. This parameter is used together with the newEntityInitializer parameter.</param>
-        /// <param name="ignoreSelectEntityMessage">An optional parameter that used to specify that the selected entity should not be managed by PeekCollectionViewModel.</param>
-        protected CollectionViewModel(
-            IUnitOfWorkFactory<TUnitOfWork> unitOfWorkFactory,
-            Func<TUnitOfWork, IRepository<TEntity, TPrimaryKey>> getRepositoryFunc,
-            Func<IRepositoryQuery<TEntity>, IQueryable<TProjection>> projection,
-            Action<TEntity>? newEntityInitializer = null,
-            Func<bool>? canCreateNewEntity = null,
-            bool ignoreSelectEntityMessage = false
-            )
-            : base(unitOfWorkFactory, getRepositoryFunc, projection, newEntityInitializer, canCreateNewEntity, ignoreSelectEntityMessage)
-        {
-        }
-    }
+    //    /// <summary>
+    //    /// Initializes a new instance of the CollectionViewModel class.
+    //    /// This constructor is declared protected to avoid an undesired instantiation of the CollectionViewModel type without the POCO proxy factory.
+    //    /// </summary>
+    //    /// <param name="unitOfWorkFactory">A factory used to create a unit of work instance.</param>
+    //    /// <param name="getRepositoryFunc">A function that returns a repository representing entities of the given type.</param>
+    //    /// <param name="projection">A LINQ function used to customize a query for entities. The parameter, for example, can be used for sorting data and/or for projecting data to a custom type that does not match the repository entity type.</param>
+    //    /// <param name="newEntityInitializer">An optional parameter that provides a function to initialize a new entity. This parameter is used in the detail collection view models when creating a single object view model for a new entity.</param>
+    //    /// <param name="canCreateNewEntity">A function that is called before an attempt to create a new entity is made. This parameter is used together with the newEntityInitializer parameter.</param>
+    //    /// <param name="ignoreSelectEntityMessage">An optional parameter that used to specify that the selected entity should not be managed by PeekCollectionViewModel.</param>
+    //    //protected CollectionViewModel(
+    //    //    IUnitOfWorkFactory<TUnitOfWork> unitOfWorkFactory,
+    //    //    Func<TUnitOfWork, IRepository<TEntity, TPrimaryKey>> getRepositoryFunc,
+    //    //    Func<IRepositoryQuery<TEntity>, IQueryable<TProjection>> projection,
+    //    //    Action<TEntity>? newEntityInitializer = null,
+    //    //    Func<bool>? canCreateNewEntity = null,
+    //    //    bool ignoreSelectEntityMessage = false
+    //    //    )
+    //    //    : base(unitOfWorkFactory, getRepositoryFunc, projection, newEntityInitializer, canCreateNewEntity, ignoreSelectEntityMessage)
+    //    //{
+    //    //}
+    //}
 
     /// <summary>
     /// The base class for POCO view models exposing a collection of entities of a given type and CRUD operations against these entities.
@@ -178,7 +178,7 @@ namespace Polyathlon.ViewModel
         {
             if (canCreateNewEntity != null && !canCreateNewEntity())
                 return;
-            DocumentManagerService.ShowNewEntityDocument(this, newEntityInitializer);
+            //DocumentManagerService.ShowNewEntityDocument(this, newEntityInitializer);
         }
 
         /// <summary>
@@ -202,10 +202,10 @@ namespace Polyathlon.ViewModel
             }
             if (projectionEntity == null)
             {
-                DestroyDocument(DocumentManagerService.FindEntityDocument<TEntity, TPrimaryKey>(primaryKey));
+                //DestroyDocument(DocumentManagerService.FindEntityDocument<TEntity, TPrimaryKey>(primaryKey));
                 return;
             }
-            DocumentManagerService.ShowExistingEntityDocument<TEntity, TPrimaryKey>(this, primaryKey);
+            //DocumentManagerService.ShowExistingEntityDocument<TEntity, TPrimaryKey>(this, primaryKey);
         }
 
         /// <summary>
@@ -225,26 +225,26 @@ namespace Polyathlon.ViewModel
         /// <param name="projectionEntity">An entity to edit.</param>
         public virtual void Delete(TProjection projectionEntity)
         {
-            if (MessageBoxService.ShowMessage(string.Format(CommonResources.Confirmation_Delete, typeof(TEntity).Name), CommonResources.Confirmation_Caption, MessageButton.YesNo) != MessageResult.Yes)
-                return;
-            try
-            {
-                Entities.Remove(projectionEntity);
-                TPrimaryKey primaryKey = Repository.GetProjectionPrimaryKey(projectionEntity);
-                TEntity entity = Repository.Find(primaryKey);
-                if (entity != null)
-                {
-                    OnBeforeEntityDeleted(primaryKey, entity);
-                    Repository.Remove(entity);
-                    Repository.UnitOfWork.SaveChanges();
-                    OnEntityDeleted(primaryKey, entity);
-                }
-            }
-            catch (DbException e)
-            {
-                Refresh();
-                MessageBoxService.ShowMessage(e.ErrorMessage, e.ErrorCaption, MessageButton.OK, MessageIcon.Error);
-            }
+            //if (MessageBoxService.ShowMessage(string.Format(CommonResources.Confirmation_Delete, typeof(TEntity).Name), CommonResources.Confirmation_Caption, MessageButton.YesNo) != MessageResult.Yes)
+            //    return;
+            //try
+            //{
+            //    Entities.Remove(projectionEntity);
+            //    TPrimaryKey primaryKey = Repository.GetProjectionPrimaryKey(projectionEntity);
+            //    TEntity entity = Repository.Find(primaryKey);
+            //    if (entity != null)
+            //    {
+            //        OnBeforeEntityDeleted(primaryKey, entity);
+            //        Repository.Remove(entity);
+            //        Repository.UnitOfWork.SaveChanges();
+            //        OnEntityDeleted(primaryKey, entity);
+            //    }
+            //}
+            //catch (DbException e)
+            //{
+            //    Refresh();
+            //    MessageBoxService.ShowMessage(e.ErrorMessage, e.ErrorCaption, MessageButton.OK, MessageIcon.Error);
+            //}
         }
 
         /// <summary>
@@ -265,19 +265,19 @@ namespace Polyathlon.ViewModel
         [Display(AutoGenerateField = false)]
         public virtual void Save(TProjection projectionEntity)
         {
-            var entity = Repository.FindExistingOrAddNewEntity(projectionEntity, (p, e) => { ApplyProjectionPropertiesToEntity(p, e); });
-            try
-            {
-                OnBeforeEntitySaved(entity);
-                Repository.UnitOfWork.SaveChanges();
-                var primaryKey = Repository.GetPrimaryKey(entity);
-                Repository.SetProjectionPrimaryKey(projectionEntity, primaryKey);
-                OnEntitySaved(primaryKey, entity);
-            }
-            catch (DbException e)
-            {
-                MessageBoxService.ShowMessage(e.ErrorMessage, e.ErrorCaption, MessageButton.OK, MessageIcon.Error);
-            }
+            //var entity = Repository.FindExistingOrAddNewEntity(projectionEntity, (p, e) => { ApplyProjectionPropertiesToEntity(p, e); });
+            //try
+            //{
+            //    OnBeforeEntitySaved(entity);
+            //    Repository.UnitOfWork.SaveChanges();
+            //    var primaryKey = Repository.GetPrimaryKey(entity);
+            //    Repository.SetProjectionPrimaryKey(projectionEntity, primaryKey);
+            //    OnEntitySaved(primaryKey, entity);
+            //}
+            //catch (DbException e)
+            //{
+            //    MessageBoxService.ShowMessage(e.ErrorMessage, e.ErrorCaption, MessageButton.OK, MessageIcon.Error);
+            //}
         }
 
         /// <summary>
@@ -323,17 +323,17 @@ namespace Polyathlon.ViewModel
             Messenger.Default.Send(new EntityMessage<TEntity, TPrimaryKey>(primaryKey, EntityMessageType.Deleted));
         }
 
-        protected override Func<TProjection> GetSelectedEntityCallback()
-        {
-            var entity = SelectedEntity;
-            return () => FindLocalProjectionWithSameKey(entity);
-        }
+        //protected override Func<TProjection> GetSelectedEntityCallback()
+        //{
+        //    var entity = SelectedEntity;
+        //    return () => FindLocalProjectionWithSameKey(entity);
+        //}
 
-        TProjection FindLocalProjectionWithSameKey(TProjection projectionEntity)
-        {
-            bool primaryKeyAvailable = projectionEntity != null && Repository.ProjectionHasPrimaryKey(projectionEntity);
-            return primaryKeyAvailable ? ChangeTrackerWithKey.FindLocalProjectionByKey(Repository.GetProjectionPrimaryKey(projectionEntity)) : null;
-        }
+        //TProjection FindLocalProjectionWithSameKey(TProjection projectionEntity)
+        //{
+        //    //bool primaryKeyAvailable = projectionEntity != null && Repository.ProjectionHasPrimaryKey(projectionEntity);
+        //    //return primaryKeyAvailable ? ChangeTrackerWithKey.FindLocalProjectionByKey(Repository.GetProjectionPrimaryKey(projectionEntity)) : null;
+        //}
 
         protected virtual void OnBeforeEntitySaved(TEntity entity) { }
 
@@ -370,10 +370,10 @@ namespace Polyathlon.ViewModel
 
         void UpdateCommands()
         {
-            TProjection projectionEntity = null;
-            this.RaiseCanExecuteChanged(x => x.Edit(projectionEntity));
-            this.RaiseCanExecuteChanged(x => x.Delete(projectionEntity));
-            this.RaiseCanExecuteChanged(x => x.Save(projectionEntity));
+            //TProjection projectionEntity = null;
+            //this.RaiseCanExecuteChanged(x => x.Edit(projectionEntity));
+            //this.RaiseCanExecuteChanged(x => x.Delete(projectionEntity));
+            //this.RaiseCanExecuteChanged(x => x.Save(projectionEntity));
         }
 
         protected void DestroyDocument(IDocument document)

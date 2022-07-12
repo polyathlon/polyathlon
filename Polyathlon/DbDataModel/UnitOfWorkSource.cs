@@ -14,7 +14,7 @@ using System.ComponentModel;
 using DevExpress.Data.Linq;
 using DevExpress.Data.Linq.Helpers;
 using DevExpress.Data.Async.Helpers;
-using Polyathlon.DataModel
+using Polyathlon.DataModel;
 
 namespace Polyathlon.DbDataModel
 {

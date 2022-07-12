@@ -12,7 +12,8 @@ namespace Polyathlon
 {
     internal class MyCouchDBContext : CouchContext
     {
-        public CouchDatabase<Entities.Region> Regions { get; set; }
+        //public CouchDatabase<Entities.Region> Regions { get; set; }
+        public CouchDatabase<Entities.Rebel> Rebels { get; set; }
 
         protected override void OnConfiguring(CouchOptionsBuilder optionsBuilder)
         {

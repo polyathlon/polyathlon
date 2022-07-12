@@ -35,9 +35,12 @@
             this.navigationFrame1 = new DevExpress.XtraBars.Navigation.NavigationFrame();
             this.button1 = new System.Windows.Forms.Button();
             this.mvvmContext1 = new DevExpress.Utils.MVVM.MVVMContext(this.components);
+            this.button2 = new System.Windows.Forms.Button();
+            this.couchServer1 = new Polyathlon.MyCouchDB.CouchServer(this.components);
+            this.button3 = new System.Windows.Forms.Button();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.tileNavPane)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.navigationFrame1)).BeginInit();
-            this.navigationFrame1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.mvvmContext1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -71,7 +74,7 @@
             this.tileNavPane.Location = new System.Drawing.Point(0, 0);
             this.tileNavPane.Margin = new System.Windows.Forms.Padding(2);
             this.tileNavPane.Name = "tileNavPane";
-            this.tileNavPane.Size = new System.Drawing.Size(970, 64);
+            this.tileNavPane.Size = new System.Drawing.Size(1212, 80);
             this.tileNavPane.TabIndex = 0;
             this.tileNavPane.Text = "tileNavPane1";
             this.tileNavPane.Visible = false;
@@ -88,15 +91,15 @@
             this.tileBar.IndentBetweenGroups = 10;
             this.tileBar.IndentBetweenItems = 10;
             this.tileBar.ItemPadding = new System.Windows.Forms.Padding(8, 6, 12, 6);
-            this.tileBar.Location = new System.Drawing.Point(0, 64);
-            this.tileBar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.tileBar.Location = new System.Drawing.Point(0, 80);
+            this.tileBar.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
             this.tileBar.Name = "tileBar";
-            this.tileBar.Padding = new System.Windows.Forms.Padding(30, 11, 30, 32);
+            this.tileBar.Padding = new System.Windows.Forms.Padding(38, 14, 38, 40);
             this.tileBar.ScrollMode = DevExpress.XtraEditors.TileControlScrollMode.ScrollButtons;
             this.tileBar.SelectionBorderWidth = 2;
             this.tileBar.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
             this.tileBar.SelectionColorMode = DevExpress.XtraBars.Navigation.SelectionColorMode.UseItemBackColor;
-            this.tileBar.Size = new System.Drawing.Size(970, 110);
+            this.tileBar.Size = new System.Drawing.Size(1212, 138);
             this.tileBar.TabIndex = 0;
             this.tileBar.Text = "tileBar";
             this.tileBar.VerticalContentAlignment = DevExpress.Utils.VertAlignment.Bottom;
@@ -104,22 +107,23 @@
             // 
             // navigationFrame1
             // 
-            this.navigationFrame1.Controls.Add(this.button1);
             this.navigationFrame1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.navigationFrame1.Location = new System.Drawing.Point(0, 174);
-            this.navigationFrame1.Margin = new System.Windows.Forms.Padding(10, 16, 10, 16);
+            this.navigationFrame1.Location = new System.Drawing.Point(0, 218);
+            this.navigationFrame1.Margin = new System.Windows.Forms.Padding(12, 20, 12, 20);
             this.navigationFrame1.Name = "navigationFrame1";
             this.navigationFrame1.SelectedPage = null;
-            this.navigationFrame1.Size = new System.Drawing.Size(970, 361);
+            this.navigationFrame1.Size = new System.Drawing.Size(1212, 451);
             this.navigationFrame1.TabIndex = 2;
             this.navigationFrame1.Text = "navigationFrame1";
             this.navigationFrame1.TransitionAnimationProperties.FrameInterval = 5000;
+            this.navigationFrame1.Click += new System.EventHandler(this.navigationFrame1_Click);
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(198, 98);
+            this.button1.Location = new System.Drawing.Point(185, 15);
+            this.button1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 30);
+            this.button1.Size = new System.Drawing.Size(94, 38);
             this.button1.TabIndex = 0;
             this.button1.Text = "button1";
             this.button1.UseVisualStyleBackColor = true;
@@ -129,12 +133,52 @@
             // 
             this.mvvmContext1.ContainerControl = this;
             // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(349, 18);
+            this.button2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(94, 38);
+            this.button2.TabIndex = 3;
+            this.button2.Text = "button2";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // couchServer1
+            // 
+            this.couchServer1.Password = "";
+            this.couchServer1.Uri = new System.Uri("https://localhost:5984/", System.UriKind.Absolute);
+            this.couchServer1.UserName = "";
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(518, 18);
+            this.button3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(94, 38);
+            this.button3.TabIndex = 4;
+            this.button3.Text = "button3";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(705, 18);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(124, 32);
+            this.textBox1.TabIndex = 5;
+            // 
             // MainForm
             // 
             this.Appearance.Options.UseFont = true;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(970, 535);
+            this.ClientSize = new System.Drawing.Size(1212, 669);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.button3);
+            this.Controls.Add(this.button2);
             this.Controls.Add(this.navigationFrame1);
             this.Controls.Add(this.tileBar);
             this.Controls.Add(this.tileNavPane);
@@ -144,9 +188,9 @@
             this.Text = "Полиатлон 2022";
             ((System.ComponentModel.ISupportInitialize)(this.tileNavPane)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.navigationFrame1)).EndInit();
-            this.navigationFrame1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.mvvmContext1)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -158,5 +202,9 @@
         private DevExpress.XtraBars.Navigation.NavigationFrame navigationFrame1;
         private DevExpress.Utils.MVVM.MVVMContext mvvmContext1;
         private Button button1;
+        private Button button2;
+        private MyCouchDB.CouchServer couchServer1;
+        private Button button3;
+        private TextBox textBox1;
     }
 }

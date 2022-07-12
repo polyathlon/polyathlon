@@ -12,6 +12,7 @@
   <ItemGroup>
     <PackageReference Include="CouchDB.NET" Version="3.2.0-Preview" />
     <PackageReference Include="devexpress.win.design" Version="21.2.5" />
+    <PackageReference Include="Flurl.Http" Version="3.2.4" />
     <PackageReference Include="System.Management" Version="6.0.0" />
   </ItemGroup>
 

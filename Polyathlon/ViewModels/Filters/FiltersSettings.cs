@@ -24,8 +24,8 @@ namespace Polyathlon.ViewModels {
         //    return ViewModelSource.Create<CustomerFilterViewModel>().SetParentViewModel(parentViewModel);
         //}
 
-        public static void RegisterEntityChangedMessageHandler<TEntity, TPrimaryKey>(object recipient, Action handler) {
-            Messenger.Default.Register<EntityMessage<TEntity, TPrimaryKey>>(recipient, message => handler());
-        }
+        //public static void RegisterEntityChangedMessageHandler<TEntity, TPrimaryKey>(object recipient, Action handler) {
+        //    Messenger.Default.Register<EntityMessage<TEntity, TPrimaryKey>>(recipient, message => handler());
+        //}
     }
 }
