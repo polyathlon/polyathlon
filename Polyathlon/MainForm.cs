@@ -21,6 +21,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using DevExpress.Utils.MVVM.Services;
 using Polyathlon.DataModel;
+using Polyathlon.ViewModels;
 //using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Polyathlon
@@ -65,12 +66,12 @@ namespace Polyathlon
             textBox1.Text = rss["rows"].ToString();// responseBody.Content.ReadAsStringAsync().Result;
 
 
-            //var fluentAPI = mvvmContext.OfType<DevAVDbViewModel>();
-            //fluentAPI.SetItemsSourceBinding(tileBar,
-            //    tb => tb.Groups, x => x.ModuleGroups,
-            //    (group, moduleGroup) => object.Equals(group.Tag, moduleGroup),
-            //    moduleGroup => CreateGroup(fluentAPI, moduleGroup)
-            //);
+            var fluentAPI = mvvmContext.OfType<PolyathlonViewModel>();
+            fluentAPI.SetItemsSourceBinding(tileBar,
+                tb => tb.Groups, x => x.ModuleGroups,
+                (group, moduleGroup) => object.Equals(group.Tag, moduleGroup),
+                moduleGroup => CreateGroup(fluentAPI, moduleGroup)
+            );
             //fluentAPI.WithEvent(this, "Load")
             //    .EventToCommand(x => x.OnLoaded(null), x => x.DefaultModule);
             //fluentAPI.WithEvent(this, "Closing")
