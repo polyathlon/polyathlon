@@ -27,9 +27,10 @@ namespace Polyathlon.DbDataModel
         /// <summary>
         /// Returns the IUnitOfWorkFactory implementation.
         /// </summary>
-        //public static IUnitOfWorkFactory<IDbUnitOfWork> GetUnitOfWorkFactory()
-        //{
-        //    return new DbUnitOfWorkFactory<IDbUnitOfWork>(() => new DbUnitOfWork(() => new Db()));
-        //}
+        public static IUnitOfWorkFactory<IDbUnitOfWork> GetUnitOfWorkFactory()
+        {
+            return new DbUnitOfWorkFactory<IDbUnitOfWork>(null);
+            //return new DbUnitOfWorkFactory<IDbUnitOfWork>(() => new DbUnitOfWork(() => new Db()));
+        }
     }
 }

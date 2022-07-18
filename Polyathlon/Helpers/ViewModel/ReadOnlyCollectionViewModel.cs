@@ -13,7 +13,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Polyathlon.DataModel;
 
-namespace Polyathlon.ViewModel
+namespace Polyathlon.Helpers.ViewModel
 {
     /// <summary>
     /// The base class for POCO view models exposing a read-only collection of entities of a given type. 

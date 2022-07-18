@@ -48,7 +48,6 @@
   <ItemGroup>
     <Folder Include="Models\" />
     <Folder Include="DbDataModel\" />
-    <Folder Include="Views\" />
   </ItemGroup>
 
   <ItemGroup>
