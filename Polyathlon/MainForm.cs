@@ -22,6 +22,14 @@ using Newtonsoft.Json.Linq;
 using DevExpress.Utils.MVVM.Services;
 using Polyathlon.DataModel;
 using Polyathlon.ViewModels;
+
+using DevExpress.Utils.MVVM;
+using DevExpress.Utils.Taskbar;
+using DevExpress.Utils.Taskbar.Core;
+using DevExpress.XtraBars.Navigation;
+
+
+
 //using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Polyathlon
@@ -43,11 +51,11 @@ namespace Polyathlon
             mvvmContext.RegisterService("FilterDialogService", DevExpress.Utils.MVVM.Services.DialogService.CreateFlyoutDialogService(this));
 
             string modules = @"{""total_rows"":4,""offset"":0,""rows"":[
-{ ""id"":""module:8997d7edcad3eae911a0c9abb100097a"",""key"":""module:8997d7edcad3eae911a0c9abb100097a"",""value"":{ ""rev"":""1-52dc66bc4a76166e8348d4b76e2b4b78""},""doc"":{ ""_id"":""module:8997d7edcad3eae911a0c9abb100097a"",""_rev"":""1-52dc66bc4a76166e8348d4b76e2b4b78"",""title"":""Мой просмотр"",""group"":""Operation"",""ViewDocumentType"":""MyView""} },
-{ ""id"":""module:8997d7edcad3eae911a0c9abb1002c9a"",""key"":""module:8997d7edcad3eae911a0c9abb1002c9a"",""value"":{ ""rev"":""2-f95dbc40cbfc2d4f619df957835df54e""},""doc"":{ ""_id"":""module:8997d7edcad3eae911a0c9abb1002c9a"",""_rev"":""2-f95dbc40cbfc2d4f619df957835df54e"",""title"":""Мой просмотр"",""group"":""Operation"",""ViewDocumentType"":""MyView""} },
-{ ""id"":""module:8997d7edcad3eae911a0c9abb1006720"",""key"":""module:8997d7edcad3eae911a0c9abb1006720"",""value"":{ ""rev"":""2-2f60825a429913c4900c1b1d331eb217""},""doc"":{ ""_id"":""module:8997d7edcad3eae911a0c9abb1006720"",""_rev"":""2-2f60825a429913c4900c1b1d331eb217"",""name"":""Владислав""} },
-{ ""id"":""module:8997d7edcad3eae911a0c9abb100a34b"",""key"":""module:8997d7edcad3eae911a0c9abb100a34b"",""value"":{ ""rev"":""2-7582e5ecd3bdc143cc19789f6856cd5c""},""doc"":{ ""_id"":""module:8997d7edcad3eae911a0c9abb100a34b"",""_rev"":""2-7582e5ecd3bdc143cc19789f6856cd5c"",""name"":""Ektyf""} }
-]}";
+                { ""id"":""module:8997d7edcad3eae911a0c9abb100097a"",""key"":""module:8997d7edcad3eae911a0c9abb100097a"",""value"":{ ""rev"":""1-52dc66bc4a76166e8348d4b76e2b4b78""},""doc"":{ ""_id"":""module:8997d7edcad3eae911a0c9abb100097a"",""_rev"":""1-52dc66bc4a76166e8348d4b76e2b4b78"",""title"":""Мой просмотр"",""group"":""Operation"",""ViewDocumentType"":""MyView""} },
+                { ""id"":""module:8997d7edcad3eae911a0c9abb1002c9a"",""key"":""module:8997d7edcad3eae911a0c9abb1002c9a"",""value"":{ ""rev"":""2-f95dbc40cbfc2d4f619df957835df54e""},""doc"":{ ""_id"":""module:8997d7edcad3eae911a0c9abb1002c9a"",""_rev"":""2-f95dbc40cbfc2d4f619df957835df54e"",""title"":""Мой просмотр"",""group"":""Operation"",""ViewDocumentType"":""MyView""} },
+                { ""id"":""module:8997d7edcad3eae911a0c9abb1006720"",""key"":""module:8997d7edcad3eae911a0c9abb1006720"",""value"":{ ""rev"":""2-2f60825a429913c4900c1b1d331eb217""},""doc"":{ ""_id"":""module:8997d7edcad3eae911a0c9abb1006720"",""_rev"":""2-2f60825a429913c4900c1b1d331eb217"",""name"":""Владислав""} },
+                { ""id"":""module:8997d7edcad3eae911a0c9abb100a34b"",""key"":""module:8997d7edcad3eae911a0c9abb100a34b"",""value"":{ ""rev"":""2-7582e5ecd3bdc143cc19789f6856cd5c""},""doc"":{ ""_id"":""module:8997d7edcad3eae911a0c9abb100a34b"",""_rev"":""2-7582e5ecd3bdc143cc19789f6856cd5c"",""name"":""Ektyf""} }
+                ]}";
 
             JObject rss = JObject.Parse(modules);
 
@@ -82,6 +90,32 @@ namespace Polyathlon
             //fluentAPI.BindCommand(navButtonClose, x => x.Exit());
 
             //tileBar.SelectedItem = GetItem(fluentAPI.ViewModel.DefaultModule);
+        }
+
+        TileBarGroup CreateGroup(MVVMContextFluentAPI<PolyathlonViewModel> fluentAPI, IGrouping<string, PolyathlonModuleDescription> moduleGroup)
+        {
+            TileBarGroup group = new TileBarGroup() { Tag = moduleGroup };
+            group.Text = moduleGroup.Key.ToUpper();
+            foreach (PolyathlonModuleDescription module in moduleGroup)
+                group.Items.Add(RegisterModuleItem(fluentAPI, module));
+            return group;
+        }
+
+        TileBarItem RegisterModuleItem(MVVMContextFluentAPI<PolyathlonViewModel> fluentAPI, PolyathlonModuleDescription module)
+        {
+            TileBarItem item = new TileBarItem() { Tag = module };
+            item.Text = module.ModuleTitle;
+            item.Elements[0].ImageUri = MenuExtensions.GetImageUri(module.ModuleTitle);
+            item.AppearanceItem.Normal.BackColor = TileColorConverter.GetBackColor(module);
+            item.ItemSize = TileBarItemSize.Wide;
+            if (module.FilterViewModel != null)
+            {
+                item.ShowDropDownButton = (module.FilterViewModel.CustomFilters.Count() > 0) ? Utils.DefaultBoolean.True : Utils.DefaultBoolean.False;
+                item.DropDownControl = CreateFiltersContainer(module.FilterViewModel);
+                item.DropDownOptions.BackColorMode = BackColorMode.UseTileBackColor;
+            }
+            fluentAPI.BindCommand(item, x => x.Show(null), x => module);
+            return item;
         }
 
         private void button1_Click(object sender, EventArgs e)
