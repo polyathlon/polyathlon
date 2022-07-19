@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Polyathlon.Helpers.ViewModel;
+﻿using Polyathlon.Helpers.ViewModel;
 using Polyathlon.DbDataModel;
+using DevExpress.Mvvm;
 
 namespace Polyathlon.ViewModels
 {
     //internal partial class PolyathlonViewModel : DocumentsViewModel<DevAVDbModuleDescription, IDbUnitOfWork>
-    internal partial class PolyathlonViewModel : DocumentsViewModel<PolyathlonModuleDescription, IDbUnitOfWork>
+    public partial class PolyathlonViewModel : DocumentsViewModel<PolyathlonModuleDescription, IDbUnitOfWork>
     {
         //    public const string EmployeeCollectionViewDocumentType = "EmployeeCollectionView";
         //    public const string EmployeeViewDocumentType = "EmployeeView";

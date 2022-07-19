@@ -32,7 +32,7 @@ namespace Polyathlon.Helpers.ViewModel
         protected DocumentsViewModel(IUnitOfWorkFactory<TUnitOfWork> unitOfWorkFactory)
         {
             this.unitOfWorkFactory = unitOfWorkFactory;
-            Modules = CreateModules().ToArray();
+            Modules = CreateModules();
             foreach (var module in Modules)
                 Messenger.Default.Register<NavigateMessage<TModule>>(this, module, x => Show(x.Token));
             Messenger.Default.Register<DestroyOrphanedDocumentsMessage>(this, x => DestroyOrphanedDocuments());
@@ -51,7 +51,7 @@ namespace Polyathlon.Helpers.ViewModel
         /// <summary>
         /// Navigation list that represents a collection of module descriptions.
         /// </summary>
-        public TModule[] Modules { get; private set; }
+        public List<TModule> Modules { get; private set; }
 
         /// <summary>
         /// A currently selected navigation list entry. This property is writable. When this property is assigned a new value, it triggers the navigating to the corresponding document.
@@ -201,7 +201,7 @@ namespace Polyathlon.Helpers.ViewModel
             return module => PeekCollectionViewModel<TModule, TEntity, TPrimaryKey, TUnitOfWork>.Create(module, unitOfWorkFactory, getRepositoryFunc).SetParentViewModel(this);
         }
 
-        protected abstract TModule[] CreateModules();
+        protected abstract List<TModule> CreateModules();
 
         protected TUnitOfWork CreateUnitOfWork()
         {
@@ -277,6 +277,18 @@ namespace Polyathlon.Helpers.ViewModel
         /// Contains the corresponding document view type.
         /// </summary>
         public string DocumentType { get; private set; }
+
+
+        /// <summary>
+        /// Color of tileBarItem.
+        /// </summary>
+        public string TileColor { get; private set; }
+
+
+        /// <summary>
+        /// Font Size of tileBarItem.
+        /// </summary>
+        public string TileFontSize { get; private set; }
 
         /// <summary>
         /// A primary instance of corresponding PeekCollectionViewModel used to quick navigation between collection views.

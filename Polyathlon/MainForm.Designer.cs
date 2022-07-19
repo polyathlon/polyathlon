@@ -32,6 +32,7 @@
             DevExpress.XtraEditors.TileItemElement tileItemElement1 = new DevExpress.XtraEditors.TileItemElement();
             DevExpress.XtraEditors.TileItemElement tileItemElement2 = new DevExpress.XtraEditors.TileItemElement();
             DevExpress.XtraEditors.TileItemElement tileItemElement3 = new DevExpress.XtraEditors.TileItemElement();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.defaultLookAndFeel1 = new DevExpress.LookAndFeel.DefaultLookAndFeel(this.components);
             this.tileNavPane = new DevExpress.XtraBars.Navigation.TileNavPane();
             this.tileBar = new DevExpress.XtraBars.Navigation.TileBar();
@@ -92,6 +93,8 @@
             this.tileBar.AppearanceGroupText.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
             this.tileBar.AppearanceGroupText.Options.UseFont = true;
             this.tileBar.AppearanceGroupText.Options.UseForeColor = true;
+            this.tileBar.AppearanceItem.Normal.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.tileBar.AppearanceItem.Normal.Options.UseFont = true;
             this.tileBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(232)))), ((int)(((byte)(232)))));
             this.tileBar.Dock = System.Windows.Forms.DockStyle.Top;
             this.tileBar.DropDownButtonWidth = 30;
@@ -101,7 +104,7 @@
             this.tileBar.IndentBetweenItems = 28;
             this.tileBar.ItemImageScaleMode = DevExpress.XtraEditors.TileItemImageScaleMode.Squeeze;
             this.tileBar.ItemPadding = new System.Windows.Forms.Padding(8, 6, 8, 6);
-            this.tileBar.ItemSize = 110;
+            this.tileBar.ItemSize = 100;
             this.tileBar.Location = new System.Drawing.Point(0, 80);
             this.tileBar.Margin = new System.Windows.Forms.Padding(4);
             this.tileBar.MaxId = 4;
@@ -112,7 +115,7 @@
             this.tileBar.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
             this.tileBar.SelectionColorMode = DevExpress.XtraBars.Navigation.SelectionColorMode.UseItemBackColor;
             this.tileBar.ShowGroupText = false;
-            this.tileBar.Size = new System.Drawing.Size(1720, 176);
+            this.tileBar.Size = new System.Drawing.Size(1720, 150);
             this.tileBar.TabIndex = 0;
             this.tileBar.Text = "tileBar";
             this.tileBar.VerticalContentAlignment = DevExpress.Utils.VertAlignment.Bottom;
@@ -133,7 +136,7 @@
             this.tileBarItem1.DropDownOptions.BeakColor = System.Drawing.Color.Empty;
             tileItemElement1.Appearance.Normal.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             tileItemElement1.Appearance.Normal.Options.UseFont = true;
-            tileItemElement1.ImageOptions.ImageUri.Uri = "business%20objects/bo_employee;Svg";
+            tileItemElement1.ImageOptions.ImageUri.Uri = "hybriddemo_dashboard;Svg";
             tileItemElement1.Text = "Регион";
             this.tileBarItem1.Elements.Add(tileItemElement1);
             this.tileBarItem1.Id = 0;
@@ -148,7 +151,7 @@
             this.tileBarItem2.DropDownOptions.BeakColor = System.Drawing.Color.Empty;
             tileItemElement2.Appearance.Normal.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             tileItemElement2.Appearance.Normal.Options.UseFont = true;
-            tileItemElement2.ImageOptions.ImageUri.Uri = "business%20objects/bo_employee;Svg";
+            tileItemElement2.ImageOptions.ImageUri.Uri = "arrows/next;Svg";
             tileItemElement2.Text = "Регион";
             this.tileBarItem2.Elements.Add(tileItemElement2);
             this.tileBarItem2.Id = 2;
@@ -158,10 +161,12 @@
             // tileBarItem3
             // 
             this.tileBarItem3.AllowGlyphSkinning = DevExpress.Utils.DefaultBoolean.True;
+            this.tileBarItem3.AllowHtmlText = DevExpress.Utils.DefaultBoolean.True;
             this.tileBarItem3.DropDownOptions.BeakColor = System.Drawing.Color.Empty;
             tileItemElement3.Appearance.Normal.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             tileItemElement3.Appearance.Normal.Options.UseFont = true;
-            tileItemElement3.ImageOptions.ImageUri.Uri = "business%20objects/bo_employee;Svg";
+            tileItemElement3.ImageOptions.ImageSize = new System.Drawing.Size(40, 40);
+            tileItemElement3.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("resource.SvgImage")));
             tileItemElement3.Text = "Регион";
             this.tileBarItem3.Elements.Add(tileItemElement3);
             this.tileBarItem3.Id = 3;
@@ -171,11 +176,11 @@
             // navigationFrame
             // 
             this.navigationFrame.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.navigationFrame.Location = new System.Drawing.Point(0, 256);
+            this.navigationFrame.Location = new System.Drawing.Point(0, 230);
             this.navigationFrame.Margin = new System.Windows.Forms.Padding(12, 20, 12, 20);
             this.navigationFrame.Name = "navigationFrame";
             this.navigationFrame.SelectedPage = null;
-            this.navigationFrame.Size = new System.Drawing.Size(1720, 413);
+            this.navigationFrame.Size = new System.Drawing.Size(1720, 439);
             this.navigationFrame.TabIndex = 2;
             this.navigationFrame.Text = "navigationFrame1";
             this.navigationFrame.TransitionAnimationProperties.FrameInterval = 5000;

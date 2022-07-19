@@ -24,10 +24,10 @@ using Polyathlon.DataModel;
 using Polyathlon.ViewModels;
 
 using DevExpress.Utils.MVVM;
-using DevExpress.Utils.Taskbar;
-using DevExpress.Utils.Taskbar.Core;
+//using DevExpress.Utils.Taskbar;
+//using DevExpress.Utils.Taskbar.Core;
 using DevExpress.XtraBars.Navigation;
-
+using Polyathlon.Helpers.Views;
 
 
 //using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -41,14 +41,19 @@ namespace Polyathlon
             using Forms.SplashScreenForm splashScreenForm = new();
             splashScreenForm.ShowDialog();
             InitializeComponent();
-            //if (!mvvmContext.IsDesignMode)
-            //    InitializeNavigation();
+            if (!mvvmContext.IsDesignMode)
+                InitializeNavigation();
         }
 
         void InitializeNavigation()
         {
             mvvmContext.RegisterService(DocumentManagerService.Create(navigationFrame));
             mvvmContext.RegisterService("FilterDialogService", DevExpress.Utils.MVVM.Services.DialogService.CreateFlyoutDialogService(this));
+
+            ModuleModel moduleModel1 = new ModuleModel() { Id = "11", Rev = "112", Group = "222", Title = "1", tileColor = Color.FromArgb(255, 254, 253), ViewDocumentType = "1" };
+            string json = JsonConvert.SerializeObject(moduleModel1);
+            Debug.WriteLine(json);
+            ModuleModel moduleModel2 = JsonConvert.DeserializeObject<ModuleModel>(json);
 
             string modules = @"{""total_rows"":4,""offset"":0,""rows"":[
                 { ""id"":""module:8997d7edcad3eae911a0c9abb100097a"",""key"":""module:8997d7edcad3eae911a0c9abb100097a"",""value"":{ ""rev"":""1-52dc66bc4a76166e8348d4b76e2b4b78""},""doc"":{ ""_id"":""module:8997d7edcad3eae911a0c9abb100097a"",""_rev"":""1-52dc66bc4a76166e8348d4b76e2b4b78"",""title"":""Мой просмотр"",""group"":""Operation"",""ViewDocumentType"":""MyView""} },
@@ -75,6 +80,7 @@ namespace Polyathlon
 
 
             var fluentAPI = mvvmContext.OfType<PolyathlonViewModel>();
+            //fluentAPI.ViewModel.Modules = fluentAPI.ViewModel.Modules.Append(new PolyathlonModuleDescription(documentType: moduleModel1.ViewDocumentType, group: moduleModel1.Group, title: moduleModel1.Title)).ToArray();
             fluentAPI.SetItemsSourceBinding(tileBar,
                 tb => tb.Groups, x => x.ModuleGroups,
                 (group, moduleGroup) => object.Equals(group.Tag, moduleGroup),
@@ -105,15 +111,16 @@ namespace Polyathlon
         {
             TileBarItem item = new TileBarItem() { Tag = module };
             item.Text = module.ModuleTitle;
+            tileBarItem2.Elements[0].ImageUri = "hybriddemo_dashboard;Svg";
             item.Elements[0].ImageUri = MenuExtensions.GetImageUri(module.ModuleTitle);
             item.AppearanceItem.Normal.BackColor = TileColorConverter.GetBackColor(module);
             item.ItemSize = TileBarItemSize.Wide;
-            if (module.FilterViewModel != null)
-            {
-                item.ShowDropDownButton = (module.FilterViewModel.CustomFilters.Count() > 0) ? Utils.DefaultBoolean.True : Utils.DefaultBoolean.False;
-                item.DropDownControl = CreateFiltersContainer(module.FilterViewModel);
-                item.DropDownOptions.BackColorMode = BackColorMode.UseTileBackColor;
-            }
+            //if (module.FilterViewModel != null)
+            //{
+            //    item.ShowDropDownButton = (module.FilterViewModel.CustomFilters.Count() > 0) ? Utils.DefaultBoolean.True : Utils.DefaultBoolean.False;
+            //    item.DropDownControl = CreateFiltersContainer(module.FilterViewModel);
+            //    item.DropDownOptions.BackColorMode = BackColorMode.UseTileBackColor;
+            //}
             fluentAPI.BindCommand(item, x => x.Show(null), x => module);
             return item;
         }
@@ -211,5 +218,31 @@ namespace Polyathlon
         {
 
         }
+        #region TileColorConverter
+        static class TileColorConverter
+        {
+            public static Color GetBackColor(PolyathlonModuleDescription module)
+            {
+                switch (module.DocumentType)
+                {
+                    case "1":
+                        return Color.FromArgb(0x00, 0x87, 0x9C);
+                    case "2":
+                        return Color.FromArgb(0xCC, 0x6D, 0x00);
+                    case "3":
+                        return Color.FromArgb(0x40, 0x40, 0x40);
+                    case "4":
+                        return Color.FromArgb(0x00, 0x73, 0xC4);
+                    case "5":
+                        return Color.FromArgb(0x40, 0x40, 0x40);
+                    case "6":
+                        return Color.FromArgb(0x3E, 0x70, 0x38);
+                    case "7":
+                        return Color.FromArgb(0x40, 0x40, 0x40);
+                }
+                return Color.FromArgb(0x40, 0x40, 0x40);
+            }
+        }
+        #endregion
     }
 }

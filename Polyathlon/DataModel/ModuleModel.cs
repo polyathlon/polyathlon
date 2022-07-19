@@ -16,6 +16,6 @@ namespace Polyathlon.DataModel
         public string? Title { get; set; }
         public string? Group { get; set; }
         public string? ViewDocumentType { get; set; }
-
+        public Color? tileColor { get; set; }
     }
 }
