@@ -50,7 +50,7 @@ namespace Polyathlon
             mvvmContext.RegisterService(DocumentManagerService.Create(navigationFrame));
             mvvmContext.RegisterService("FilterDialogService", DevExpress.Utils.MVVM.Services.DialogService.CreateFlyoutDialogService(this));
 
-            ModuleModel moduleModel1 = new ModuleModel() { Id = "11", Rev = "112", Group = "222", Title = "1", tileColor = Color.FromArgb(255, 254, 253), ViewDocumentType = "1" };
+            ModuleModel moduleModel1 = new ModuleModel() { Id = "11", Rev = "112", Group = "222", Title = "1", TileColor = Color.FromArgb(255, 254, 253), ViewDocumentType = "1" };
             string json = JsonConvert.SerializeObject(moduleModel1);
             Debug.WriteLine(json);
             ModuleModel moduleModel2 = JsonConvert.DeserializeObject<ModuleModel>(json);
@@ -113,7 +113,7 @@ namespace Polyathlon
             item.Text = module.ModuleTitle;
             tileBarItem2.Elements[0].ImageUri = "hybriddemo_dashboard;Svg";
             item.Elements[0].ImageUri = MenuExtensions.GetImageUri(module.ModuleTitle);
-            item.AppearanceItem.Normal.BackColor = TileColorConverter.GetBackColor(module);
+            item.AppearanceItem.Normal.BackColor = module.TileColor;//TileColorConverter.GetBackColor(module);
             item.ItemSize = TileBarItemSize.Wide;
             //if (module.FilterViewModel != null)
             //{

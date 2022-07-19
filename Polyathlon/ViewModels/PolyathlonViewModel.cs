@@ -35,8 +35,8 @@ namespace Polyathlon.ViewModels
         protected override List<PolyathlonModuleDescription> CreateModules()
         {
             string moduleContent = @"{'total_rows':4,'offset':0,'rows':[
-                { 'id':'module:8997d7edcad3eae911a0c9abb100097a','key':'module:8997d7edcad3eae911a0c9abb100097a','value':{ 'rev':'1-52dc66bc4a76166e8348d4b76e2b4b78'},'doc':{ '_id':'module:8997d7edcad3eae911a0c9abb100097a','_rev':'1-52dc66bc4a76166e8348d4b76e2b4b78','title':'Модуль 1','group':'Operation','ViewDocumentType':'MyView'} },
-                { 'id':'module:8997d7edcad3eae911a0c9abb1002c9a','key':'module:8997d7edcad3eae911a0c9abb1002c9a','value':{ 'rev':'2-f95dbc40cbfc2d4f619df957835df54e'},'doc':{ '_id':'module:8997d7edcad3eae911a0c9abb1002c9a','_rev':'2-f95dbc40cbfc2d4f619df957835df54e','title':'Модуль 2','group':'Operation','ViewDocumentType':'MyView2'} }          
+                { 'id':'module:8997d7edcad3eae911a0c9abb100097a','key':'module:8997d7edcad3eae911a0c9abb100097a','value':{ 'rev':'1-52dc66bc4a76166e8348d4b76e2b4b78'},'doc':{ '_id':'module:8997d7edcad3eae911a0c9abb100097a','_rev':'1-52dc66bc4a76166e8348d4b76e2b4b78','title':'Модуль 1','group':'Operation','ViewDocumentType':'MyView', 'tileColor':'128,255,255,0'} },
+                { 'id':'module:8997d7edcad3eae911a0c9abb1002c9a','key':'module:8997d7edcad3eae911a0c9abb1002c9a','value':{ 'rev':'2-f95dbc40cbfc2d4f619df957835df54e'},'doc':{ '_id':'module:8997d7edcad3eae911a0c9abb1002c9a','_rev':'2-f95dbc40cbfc2d4f619df957835df54e','title':'Модуль 2','group':'Operation','ViewDocumentType':'MyView2', 'tileColor':'0,255,0'} }          
             ]}";
             
             JObject jModules = JObject.Parse(moduleContent);
@@ -48,7 +48,7 @@ namespace Polyathlon.ViewModels
             foreach (JToken row in rows)
             {
                 ModuleModel moduleModel = row["doc"].ToObject<ModuleModel>();
-                PolyathlonModuleDescription moduleDescription = new PolyathlonModuleDescription(documentType: moduleModel.ViewDocumentType, group: moduleModel.Group, title: moduleModel.Title);
+                PolyathlonModuleDescription moduleDescription = new PolyathlonModuleDescription(tileColor: moduleModel.TileColor, documentType: moduleModel.ViewDocumentType, group: moduleModel.Group, title: moduleModel.Title);
                 Modules.Add(moduleDescription);
             }
 
@@ -79,13 +79,13 @@ namespace Polyathlon.ViewModels
 
     public partial class PolyathlonModuleDescription : ModuleDescription<PolyathlonModuleDescription>
     {
-        public PolyathlonModuleDescription(string title, string documentType, string group, Func<PolyathlonModuleDescription, object> peekCollectionViewModelFactory = null)
-            : base(title, documentType, group, peekCollectionViewModelFactory)
+        public PolyathlonModuleDescription(string title, Color tileColor, string documentType, string group, Func<PolyathlonModuleDescription, object> peekCollectionViewModelFactory = null)
+            : base(title, documentType, group, tileColor, peekCollectionViewModelFactory)
         {
         }
 
-        public PolyathlonModuleDescription(string title, string documentType, string group, FilterViewModelBase filterViewModel)
-            : base(title, documentType, group)
+        public PolyathlonModuleDescription(string title, Color tileColor, string documentType, string group, FilterViewModelBase filterViewModel)
+            : base(title, documentType, group, tileColor)
         {
             FilterViewModel = filterViewModel;
         }

@@ -255,11 +255,12 @@ namespace Polyathlon.Helpers.ViewModel
         /// <param name = "documentType" > A string value that specifies the view type of corresponding document.</param>
         /// <param name = "group" > A navigation list entry group name.</param>
         /// <param name = "peekCollectionViewModelFactory" > An optional parameter that provides a function used to create a PeekCollectionViewModel that provides quick navigation between collection views.</param>
-        public ModuleDescription(string title, string documentType, string group, Func<TModule, object> peekCollectionViewModelFactory = null)
+        public ModuleDescription(string title, string documentType, string group, Color tileColor, Func<TModule, object> peekCollectionViewModelFactory = null)
         {
             ModuleTitle = title;
             ModuleGroup = group;
             DocumentType = documentType;
+            TileColor = tileColor;
             this.peekCollectionViewModelFactory = peekCollectionViewModelFactory;
         }
 
@@ -282,8 +283,7 @@ namespace Polyathlon.Helpers.ViewModel
         /// <summary>
         /// Color of tileBarItem.
         /// </summary>
-        public string TileColor { get; private set; }
-
+        public Color TileColor { get; private set; }
 
         /// <summary>
         /// Font Size of tileBarItem.
