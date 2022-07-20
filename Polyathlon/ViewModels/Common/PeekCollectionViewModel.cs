@@ -10,7 +10,7 @@ using DevExpress.Mvvm.DataAnnotations;
 using Polyathlon.DataModel;
 //using DevExpress.DevAV.Common.ViewModel
 
-namespace Polyathlon.Helpers.ViewModel
+namespace Polyathlon.ViewModels.Common
 {
     /// <summary>
     /// A POCO view model exposing a read-only collection of entities of a given type. It is designed for quick navigation between collection views.

@@ -2,14 +2,14 @@
 using Polyathlon.Settings;
 using DevExpress.Mvvm;
 
-namespace Polyathlon.Helpers.ViewModel
+namespace Polyathlon.ViewModels.Common
 {
     public class PersistentLayoutHelper
     {
         public static string? PersistentLogicalLayout
         {
-            get { return Polyathlon.Settings.LayoutSettings.Default.LogicalLayout; }
-            set { Polyathlon.Settings.LayoutSettings.Default.LogicalLayout = value; }
+            get { return Settings.LayoutSettings.Default.LogicalLayout; }
+            set { Settings.LayoutSettings.Default.LogicalLayout = value; }
         }
 
         static Dictionary<string, string>? persistentViewsLayout;
@@ -19,7 +19,7 @@ namespace Polyathlon.Helpers.ViewModel
             {
                 if (persistentViewsLayout == null)
                 {
-                    persistentViewsLayout = LogicalLayoutSerializationHelper.Deserialize(Polyathlon.Settings.LayoutSettings.Default.ViewsLayout);
+                    persistentViewsLayout = LogicalLayoutSerializationHelper.Deserialize(Settings.LayoutSettings.Default.ViewsLayout);
                 }
                 return persistentViewsLayout;
             }
@@ -28,7 +28,7 @@ namespace Polyathlon.Helpers.ViewModel
         public static void TryDeserializeLayout(ILayoutSerializationService service, string viewName)
         {
             string? state = null;
-            if (service != null && PersistentLayoutHelper.PersistentViewsLayout.TryGetValue(viewName, out state))
+            if (service != null && PersistentViewsLayout.TryGetValue(viewName, out state))
             {
                 service.Deserialize(state);
             }
@@ -38,14 +38,14 @@ namespace Polyathlon.Helpers.ViewModel
         {
             if (service != null)
             {
-                PersistentLayoutHelper.PersistentViewsLayout[viewName] = service.Serialize();
+                PersistentViewsLayout[viewName] = service.Serialize();
             }
         }
 
         public static void SaveLayout()
         {
-            Polyathlon.Settings.LayoutSettings.Default.ViewsLayout = LogicalLayoutSerializationHelper.Serialize(PersistentViewsLayout);
-            Polyathlon.Settings.LayoutSettings.Default.Save();
+            Settings.LayoutSettings.Default.ViewsLayout = LogicalLayoutSerializationHelper.Serialize(PersistentViewsLayout);
+            Settings.LayoutSettings.Default.Save();
         }
 
         public static void ResetLayout()

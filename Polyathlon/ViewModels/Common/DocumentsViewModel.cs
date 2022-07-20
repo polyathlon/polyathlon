@@ -7,8 +7,9 @@ using System.ComponentModel;
 using Polyathlon.DataModel;
 using DevExpress.Mvvm;
 using DevExpress.Mvvm.POCO;
+using Newtonsoft.Json;
 
-namespace Polyathlon.Helpers.ViewModel
+namespace Polyathlon.ViewModels.Common
 {
     /// <summary>
     /// The base class for POCO view models that operate the collection of documents.
@@ -144,12 +145,7 @@ namespace Polyathlon.Helpers.ViewModel
         public virtual void OnLoaded(TModule module)
         {
             IsLoaded = true;
-
-
-
             Show(module);
-
-
         }
 
         bool documentChanging = false;
@@ -255,15 +251,21 @@ namespace Polyathlon.Helpers.ViewModel
         /// <param name = "documentType" > A string value that specifies the view type of corresponding document.</param>
         /// <param name = "group" > A navigation list entry group name.</param>
         /// <param name = "peekCollectionViewModelFactory" > An optional parameter that provides a function used to create a PeekCollectionViewModel that provides quick navigation between collection views.</param>
-        public ModuleDescription(string title, string documentType, string group, Color tileColor, Func<TModule, object> peekCollectionViewModelFactory = null)
+        public ModuleDescription(string moduleTitle, string moduleGroup, string documentType, Color tileColor, int tileFontSize, Func<TModule, object> peekCollectionViewModelFactory = null)
         {
-            ModuleTitle = title;
-            ModuleGroup = group;
+            ModuleTitle = moduleTitle;
+            ModuleGroup = moduleGroup;
             DocumentType = documentType;
             TileColor = tileColor;
+            TileFontSize = tileFontSize;
             this.peekCollectionViewModelFactory = peekCollectionViewModelFactory;
         }
 
+
+        [JsonProperty("_id")]
+        public string? ModuleId { get; set; }
+        [JsonProperty("_rev")]
+        public string? ModuleRev { get; set; }
         /// <summary>
         /// The navigation list entry display text.
         /// </summary>
@@ -288,7 +290,7 @@ namespace Polyathlon.Helpers.ViewModel
         /// <summary>
         /// Font Size of tileBarItem.
         /// </summary>
-        public string TileFontSize { get; private set; }
+        public int TileFontSize { get; private set; }
 
         /// <summary>
         /// A primary instance of corresponding PeekCollectionViewModel used to quick navigation between collection views.
@@ -305,10 +307,10 @@ namespace Polyathlon.Helpers.ViewModel
             }
         }
 
-    /// <summary>
-    /// Creates and returns a new instance of the corresponding PeekCollectionViewModel that provides quick navigation between collection views.
-    /// </summary>
-    public object CreatePeekCollectionViewModel()
+        /// <summary>
+        /// Creates and returns a new instance of the corresponding PeekCollectionViewModel that provides quick navigation between collection views.
+        /// </summary>
+        public object CreatePeekCollectionViewModel()
         {
             return peekCollectionViewModelFactory((TModule)this);
         }

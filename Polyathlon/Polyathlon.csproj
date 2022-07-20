@@ -54,10 +54,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Helpers\ViewModel\" />
     <Folder Include="Helpers\Views\" />
     <Folder Include="Models\" />
     <Folder Include="DbDataModel\" />
-    <Folder Include="ViewModels\Common\" />
   </ItemGroup>
 
   <ItemGroup>

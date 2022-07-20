@@ -12,8 +12,9 @@ using System.Collections.ObjectModel;
 using System.Threading;
 using System.Threading.Tasks;
 using Polyathlon.DataModel;
+using Polyathlon.Helpers.ViewModel;
 
-namespace Polyathlon.Helpers.ViewModel
+namespace Polyathlon.ViewModels.Common
 {
     /// <summary>
     /// The base class for POCO view models exposing a read-only collection of entities of a given type. 
@@ -202,7 +203,7 @@ namespace Polyathlon.Helpers.ViewModel
         protected override Func<TProjection> GetSelectedEntityCallback()
         {
             int selectedItemIndex = Entities.IndexOf(SelectedEntity);
-            return () => (selectedItemIndex >= 0 && selectedItemIndex < Entities.Count) ? Entities[selectedItemIndex] : null;
+            return () => selectedItemIndex >= 0 && selectedItemIndex < Entities.Count ? Entities[selectedItemIndex] : null;
         }
 
         protected override void OnIsLoadingChanged()

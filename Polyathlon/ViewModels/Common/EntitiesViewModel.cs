@@ -12,6 +12,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Polyathlon.DataModel;
 using Polyathlon.Helpers;
+using Polyathlon.ViewModels.Common;
 
 namespace Polyathlon.Helpers.ViewModel
 {

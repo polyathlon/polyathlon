@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace Polyathlon.Helpers.ViewModel
+namespace Polyathlon.ViewModels.Common
 {
     /// <summary>
     /// Represents the type of an entity state change notification that is shown when the IUnitOfWork.SaveChanges method has been called.
@@ -35,8 +35,8 @@ namespace Polyathlon.Helpers.ViewModel
         /// <param name="messageType">An entity state change notification type.</param>
         public EntityMessage(TPrimaryKey primaryKey, EntityMessageType messageType)
         {
-            this.PrimaryKey = primaryKey;
-            this.MessageType = messageType;
+            PrimaryKey = primaryKey;
+            MessageType = messageType;
         }
 
         /// <summary>

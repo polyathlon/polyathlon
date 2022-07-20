@@ -1,6 +1,6 @@
-﻿using Polyathlon.Helpers.ViewModel;
-using Polyathlon.DbDataModel;
+﻿using Polyathlon.DbDataModel;
 using DevExpress.Mvvm;
+using Polyathlon.ViewModels.Common;
 
 namespace Polyathlon.ViewModels
 {
@@ -28,7 +28,7 @@ namespace Polyathlon.ViewModels
 
         public override PolyathlonModuleDescription DefaultModule
         {
-            get { return Modules.Where(m => m.DocumentType == "EmployeeCollectionView").First(); }
+            get { return Modules.Where(m => m.DocumentType == "MyView").First(); }
         }
         public IList<IGrouping<string, PolyathlonModuleDescription>> ModuleGroups
         {

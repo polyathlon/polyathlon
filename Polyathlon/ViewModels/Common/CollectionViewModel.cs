@@ -10,7 +10,7 @@ using DevExpress.Mvvm.DataAnnotations;
 
 using Polyathlon.DataModel;
 
-namespace Polyathlon.Helpers.ViewModel
+namespace Polyathlon.ViewModels.Common
 {
     /// <summary>
     /// The base class for a POCO view models exposing a colection of entities of a given type and CRUD operations against these entities.
