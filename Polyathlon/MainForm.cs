@@ -22,6 +22,7 @@ using Newtonsoft.Json.Linq;
 using DevExpress.Utils.MVVM.Services;
 using Polyathlon.DataModel;
 using Polyathlon.ViewModels;
+using CSharp.Ulid;
 
 using DevExpress.Utils.MVVM;
 //using DevExpress.Utils.Taskbar;
@@ -244,5 +245,20 @@ namespace Polyathlon
             }
         }
         #endregion
+
+        private void navButton2_ElementClick(object sender, NavElementEventArgs e)
+        {
+             Ulid[] U = new Ulid[100];
+            for (int i = 0; i < 100; i++)
+            {
+                Thread.Sleep(1);
+                U[i] = Ulid.NewUlid();                
+            }
+            for (int i = 0; i < 100; i++)
+            {
+                Debug.WriteLine(U[i]);
+                
+            }
+        }
     }
 }

@@ -29,12 +29,18 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            DevExpress.XtraEditors.TileItemElement tileItemElement2 = new DevExpress.XtraEditors.TileItemElement();
+            DevExpress.XtraEditors.TileItemElement tileItemElement1 = new DevExpress.XtraEditors.TileItemElement();
+            DevExpress.XtraEditors.TileItemElement tileItemElement3 = new DevExpress.XtraEditors.TileItemElement();
             DevExpress.XtraEditors.TileItemElement tileItemElement4 = new DevExpress.XtraEditors.TileItemElement();
             DevExpress.XtraEditors.TileItemElement tileItemElement5 = new DevExpress.XtraEditors.TileItemElement();
-            DevExpress.XtraEditors.TileItemElement tileItemElement6 = new DevExpress.XtraEditors.TileItemElement();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.defaultLookAndFeel1 = new DevExpress.LookAndFeel.DefaultLookAndFeel(this.components);
             this.tileNavPane = new DevExpress.XtraBars.Navigation.TileNavPane();
+            this.navButton2 = new DevExpress.XtraBars.Navigation.NavButton();
+            this.tileNavCategory3 = new DevExpress.XtraBars.Navigation.TileNavCategory();
+            this.tileNavItem1 = new DevExpress.XtraBars.Navigation.TileNavItem();
+            this.tileNavSubItem1 = new DevExpress.XtraBars.Navigation.TileNavSubItem();
             this.tileBar = new DevExpress.XtraBars.Navigation.TileBar();
             this.tileBarGroup2 = new DevExpress.XtraBars.Navigation.TileBarGroup();
             this.tileBarItem1 = new DevExpress.XtraBars.Navigation.TileBarItem();
@@ -71,6 +77,8 @@
             this.tileNavPane.AppearanceSelected.Options.UseBackColor = true;
             this.tileNavPane.AppearanceSelected.Options.UseFont = true;
             this.tileNavPane.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(232)))), ((int)(((byte)(232)))));
+            this.tileNavPane.Buttons.Add(this.navButton2);
+            this.tileNavPane.Buttons.Add(this.tileNavCategory3);
             // 
             // tileNavCategory1
             // 
@@ -81,11 +89,57 @@
             this.tileNavPane.DefaultCategory.Tile.DropDownOptions.BeakColor = System.Drawing.Color.Empty;
             this.tileNavPane.Dock = System.Windows.Forms.DockStyle.Top;
             this.tileNavPane.Location = new System.Drawing.Point(0, 0);
-            this.tileNavPane.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.tileNavPane.Name = "tileNavPane";
-            this.tileNavPane.Size = new System.Drawing.Size(1214, 80);
+            this.tileNavPane.Size = new System.Drawing.Size(1942, 128);
             this.tileNavPane.TabIndex = 0;
             this.tileNavPane.Text = "tileNavPane1";
+            // 
+            // navButton2
+            // 
+            this.navButton2.Alignment = DevExpress.XtraBars.Navigation.NavButtonAlignment.Right;
+            this.navButton2.Caption = null;
+            this.navButton2.ImageOptions.AllowGlyphSkinning = DevExpress.Utils.DefaultBoolean.True;
+            this.navButton2.ImageOptions.ImageUri.Uri = "setup/properties";
+            this.navButton2.Name = "navButton2";
+            this.navButton2.ElementClick += new DevExpress.XtraBars.Navigation.NavElementClickEventHandler(this.navButton2_ElementClick);
+            // 
+            // tileNavCategory3
+            // 
+            this.tileNavCategory3.Alignment = DevExpress.XtraBars.Navigation.NavButtonAlignment.Right;
+            this.tileNavCategory3.Caption = "tileNavCategory3";
+            this.tileNavCategory3.Items.AddRange(new DevExpress.XtraBars.Navigation.TileNavItem[] {
+            this.tileNavItem1});
+            this.tileNavCategory3.Name = "tileNavCategory3";
+            // 
+            // 
+            // 
+            this.tileNavCategory3.Tile.DropDownOptions.BeakColor = System.Drawing.Color.Empty;
+            // 
+            // tileNavItem1
+            // 
+            this.tileNavItem1.Caption = "МуПанель";
+            this.tileNavItem1.Name = "tileNavItem1";
+            this.tileNavItem1.SubItems.AddRange(new DevExpress.XtraBars.Navigation.TileNavSubItem[] {
+            this.tileNavSubItem1});
+            // 
+            // 
+            // 
+            this.tileNavItem1.Tile.DropDownOptions.BeakColor = System.Drawing.Color.Empty;
+            tileItemElement2.Text = "tileNavItem1";
+            this.tileNavItem1.Tile.Elements.Add(tileItemElement2);
+            this.tileNavItem1.Tile.Name = "tileBarItem4";
+            // 
+            // tileNavSubItem1
+            // 
+            this.tileNavSubItem1.Caption = "tileNavSubItem1";
+            this.tileNavSubItem1.Name = "tileNavSubItem1";
+            // 
+            // 
+            // 
+            this.tileNavSubItem1.Tile.DropDownOptions.BeakColor = System.Drawing.Color.Empty;
+            tileItemElement1.Text = "tileNavSubItem1";
+            this.tileNavSubItem1.Tile.Elements.Add(tileItemElement1);
+            this.tileNavSubItem1.Tile.Name = "tileBarItem5";
             // 
             // tileBar
             // 
@@ -105,17 +159,17 @@
             this.tileBar.ItemImageScaleMode = DevExpress.XtraEditors.TileItemImageScaleMode.Squeeze;
             this.tileBar.ItemPadding = new System.Windows.Forms.Padding(8, 6, 8, 6);
             this.tileBar.ItemSize = 100;
-            this.tileBar.Location = new System.Drawing.Point(0, 80);
-            this.tileBar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tileBar.Location = new System.Drawing.Point(0, 128);
+            this.tileBar.Margin = new System.Windows.Forms.Padding(6);
             this.tileBar.MaxId = 4;
             this.tileBar.Name = "tileBar";
-            this.tileBar.Padding = new System.Windows.Forms.Padding(28, 9, 28, 25);
+            this.tileBar.Padding = new System.Windows.Forms.Padding(45, 14, 45, 40);
             this.tileBar.ScrollMode = DevExpress.XtraEditors.TileControlScrollMode.ScrollButtons;
             this.tileBar.SelectionBorderWidth = 2;
             this.tileBar.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
             this.tileBar.SelectionColorMode = DevExpress.XtraBars.Navigation.SelectionColorMode.UseItemBackColor;
             this.tileBar.ShowGroupText = false;
-            this.tileBar.Size = new System.Drawing.Size(1214, 150);
+            this.tileBar.Size = new System.Drawing.Size(1942, 240);
             this.tileBar.TabIndex = 0;
             this.tileBar.Text = "tileBar";
             this.tileBar.VerticalContentAlignment = DevExpress.Utils.VertAlignment.Bottom;
@@ -134,11 +188,11 @@
             // 
             this.tileBarItem1.AllowGlyphSkinning = DevExpress.Utils.DefaultBoolean.True;
             this.tileBarItem1.DropDownOptions.BeakColor = System.Drawing.Color.Empty;
-            tileItemElement4.Appearance.Normal.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            tileItemElement4.Appearance.Normal.Options.UseFont = true;
-            tileItemElement4.ImageOptions.ImageUri.Uri = "hybriddemo_dashboard;Svg";
-            tileItemElement4.Text = "Регион";
-            this.tileBarItem1.Elements.Add(tileItemElement4);
+            tileItemElement3.Appearance.Normal.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            tileItemElement3.Appearance.Normal.Options.UseFont = true;
+            tileItemElement3.ImageOptions.ImageUri.Uri = "hybriddemo_dashboard;Svg";
+            tileItemElement3.Text = "Регион";
+            this.tileBarItem1.Elements.Add(tileItemElement3);
             this.tileBarItem1.Id = 0;
             this.tileBarItem1.ItemSize = DevExpress.XtraBars.Navigation.TileBarItemSize.Wide;
             this.tileBarItem1.Name = "tileBarItem1";
@@ -149,11 +203,11 @@
             // 
             this.tileBarItem2.AllowGlyphSkinning = DevExpress.Utils.DefaultBoolean.True;
             this.tileBarItem2.DropDownOptions.BeakColor = System.Drawing.Color.Empty;
-            tileItemElement5.Appearance.Normal.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            tileItemElement5.Appearance.Normal.Options.UseFont = true;
-            tileItemElement5.ImageOptions.ImageUri.Uri = "arrows/next;Svg";
-            tileItemElement5.Text = "Регион";
-            this.tileBarItem2.Elements.Add(tileItemElement5);
+            tileItemElement4.Appearance.Normal.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            tileItemElement4.Appearance.Normal.Options.UseFont = true;
+            tileItemElement4.ImageOptions.ImageUri.Uri = "arrows/next;Svg";
+            tileItemElement4.Text = "Регион";
+            this.tileBarItem2.Elements.Add(tileItemElement4);
             this.tileBarItem2.Id = 2;
             this.tileBarItem2.ItemSize = DevExpress.XtraBars.Navigation.TileBarItemSize.Wide;
             this.tileBarItem2.Name = "tileBarItem2";
@@ -163,12 +217,12 @@
             this.tileBarItem3.AllowGlyphSkinning = DevExpress.Utils.DefaultBoolean.True;
             this.tileBarItem3.AllowHtmlText = DevExpress.Utils.DefaultBoolean.True;
             this.tileBarItem3.DropDownOptions.BeakColor = System.Drawing.Color.Empty;
-            tileItemElement6.Appearance.Normal.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            tileItemElement6.Appearance.Normal.Options.UseFont = true;
-            tileItemElement6.ImageOptions.ImageSize = new System.Drawing.Size(40, 40);
-            tileItemElement6.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("resource.SvgImage")));
-            tileItemElement6.Text = "Регион";
-            this.tileBarItem3.Elements.Add(tileItemElement6);
+            tileItemElement5.Appearance.Normal.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            tileItemElement5.Appearance.Normal.Options.UseFont = true;
+            tileItemElement5.ImageOptions.ImageSize = new System.Drawing.Size(40, 40);
+            tileItemElement5.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("resource.SvgImage")));
+            tileItemElement5.Text = "Регион";
+            this.tileBarItem3.Elements.Add(tileItemElement5);
             this.tileBarItem3.Id = 3;
             this.tileBarItem3.ItemSize = DevExpress.XtraBars.Navigation.TileBarItemSize.Wide;
             this.tileBarItem3.Name = "tileBarItem3";
@@ -176,11 +230,11 @@
             // navigationFrame
             // 
             this.navigationFrame.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.navigationFrame.Location = new System.Drawing.Point(0, 230);
-            this.navigationFrame.Margin = new System.Windows.Forms.Padding(12, 20, 12, 20);
+            this.navigationFrame.Location = new System.Drawing.Point(0, 368);
+            this.navigationFrame.Margin = new System.Windows.Forms.Padding(19, 32, 19, 32);
             this.navigationFrame.Name = "navigationFrame";
             this.navigationFrame.SelectedPage = null;
-            this.navigationFrame.Size = new System.Drawing.Size(1214, 436);
+            this.navigationFrame.Size = new System.Drawing.Size(1942, 698);
             this.navigationFrame.TabIndex = 2;
             this.navigationFrame.Text = "navigationFrame1";
             this.navigationFrame.TransitionAnimationProperties.FrameInterval = 5000;
@@ -189,10 +243,10 @@
             // button1
             // 
             this.button1.Font = new System.Drawing.Font("Segoe UI", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.button1.Location = new System.Drawing.Point(185, 15);
-            this.button1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button1.Location = new System.Drawing.Point(296, 24);
+            this.button1.Margin = new System.Windows.Forms.Padding(6);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(94, 38);
+            this.button1.Size = new System.Drawing.Size(150, 61);
             this.button1.TabIndex = 0;
             this.button1.Text = "button1";
             this.button1.UseVisualStyleBackColor = true;
@@ -205,10 +259,10 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(349, 18);
-            this.button2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button2.Location = new System.Drawing.Point(558, 29);
+            this.button2.Margin = new System.Windows.Forms.Padding(6);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(94, 38);
+            this.button2.Size = new System.Drawing.Size(150, 61);
             this.button2.TabIndex = 3;
             this.button2.Text = "button2";
             this.button2.UseVisualStyleBackColor = true;
@@ -222,10 +276,10 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(518, 18);
-            this.button3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button3.Location = new System.Drawing.Point(829, 29);
+            this.button3.Margin = new System.Windows.Forms.Padding(6);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(94, 38);
+            this.button3.Size = new System.Drawing.Size(150, 61);
             this.button3.TabIndex = 4;
             this.button3.Text = "button3";
             this.button3.UseVisualStyleBackColor = true;
@@ -233,18 +287,18 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(705, 18);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBox1.Location = new System.Drawing.Point(1128, 29);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(6);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(124, 32);
+            this.textBox1.Size = new System.Drawing.Size(196, 47);
             this.textBox1.TabIndex = 5;
             // 
             // MainForm
             // 
             this.Appearance.Options.UseFont = true;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(16F, 40F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1214, 666);
+            this.ClientSize = new System.Drawing.Size(1942, 1066);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.button3);
@@ -252,7 +306,6 @@
             this.Controls.Add(this.navigationFrame);
             this.Controls.Add(this.tileBar);
             this.Controls.Add(this.tileNavPane);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Полиатлон 2022";
@@ -279,5 +332,9 @@
         public DevExpress.LookAndFeel.DefaultLookAndFeel defaultLookAndFeel1;
         private DevExpress.XtraBars.Navigation.TileBarItem tileBarItem2;
         private DevExpress.XtraBars.Navigation.TileBarItem tileBarItem3;
+        private DevExpress.XtraBars.Navigation.NavButton navButton2;
+        private DevExpress.XtraBars.Navigation.TileNavCategory tileNavCategory3;
+        private DevExpress.XtraBars.Navigation.TileNavItem tileNavItem1;
+        private DevExpress.XtraBars.Navigation.TileNavSubItem tileNavSubItem1;
     }
 }
