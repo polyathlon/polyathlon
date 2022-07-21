@@ -23,12 +23,13 @@ using DevExpress.Utils.MVVM.Services;
 using Polyathlon.DataModel;
 using Polyathlon.ViewModels;
 using CSharp.Ulid;
+using Polyathlon.Views;
 
 using DevExpress.Utils.MVVM;
 //using DevExpress.Utils.Taskbar;
 //using DevExpress.Utils.Taskbar.Core;
 using DevExpress.XtraBars.Navigation;
-using Polyathlon.Helpers.Views;
+using Polyathlon.Helpers;
 
 
 //using Microsoft.VisualStudio.TestTools.UnitTesting;

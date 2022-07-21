@@ -39,9 +39,9 @@ namespace Polyathlon.DataModel
         /// Creates a new unit of work.
         /// </summary>
         TUnitOfWork CreateUnitOfWork();
-        //IInstantFeedbackSource<TProjection> CreateInstantFeedbackSource<TEntity, TProjection, TPrimaryKey>(Func<TUnitOfWork, IRepository<TEntity, TPrimaryKey>> getRepositoryFunc, Func<IRepositoryQuery<TEntity>, IQueryable<TProjection>> projection)
-        //    where TEntity : class, new()
-        //    where TProjection : class;
+        IInstantFeedbackSource<TProjection> CreateInstantFeedbackSource<TEntity, TProjection, TPrimaryKey>(Func<TUnitOfWork, IRepository<TEntity, TPrimaryKey>> getRepositoryFunc, Func<IRepositoryQuery<TEntity>, IQueryable<TProjection>> projection)
+            where TEntity : class, new()
+            where TProjection : class;
     }
 
     public interface IInstantFeedbackSource<TEntity> : IListSource

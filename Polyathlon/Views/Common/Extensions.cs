@@ -2,6 +2,10 @@ using System;
 using System.Drawing;
 using System.Linq.Expressions;
 using System.Windows.Forms;
+using Polyathlon.ViewModels.Common;
+using Polyathlon.DbDataModel;
+using Polyathlon.Helpers;
+
 //using DevExpress.DevAV.Common.ViewModel;
 //using DevExpress.DevAV.DevAVDbDataModel1;
 using DevExpress.XtraBars.Ribbon;
@@ -9,24 +13,22 @@ using DevExpress.XtraEditors;
 using DevExpress.XtraGrid.Views.Base;
 using DevExpress.XtraGrid.Views.Grid;
 using DevExpress.XtraGrid.Views.Tile;
-//using DevExpress.DevAV.ViewModels;
+using DevExpress.DevAV.ViewModels;
 using DevExpress.XtraMap;
 using System.Reflection;
 using System.Linq;
-//using DevExpress.Snap;
 using DevExpress.XtraCharts;
 using DevExpress.Data.Filtering;
 using DevExpress.XtraBars.Docking2010;
 using DevExpress.XtraLayout;
 using System.Collections.Generic;
-
 using DevExpress.Utils;
 using DevExpress.Utils.Design;
 using DevExpress.Utils.Svg;
 using DevExpress.Skins;
 using DevExpress.XtraGrid.Columns;
 
-namespace Polyathlon.Helpers.Views {
+namespace Polyathlon.Views {
     internal static class ToolbarExtension {
         public static void BindCommandAndImage<TViewModel>(this DevExpress.Utils.MVVM.MVVMContextFluentAPI<TViewModel> fluentAPI, DevExpress.XtraEditors.ButtonPanel.IBaseButton button, Expression<Action<TViewModel>> commandSelector, string imageName = null)
             where TViewModel : class {
@@ -41,50 +43,50 @@ namespace Polyathlon.Helpers.Views {
         internal static DxImageUri GetImageUri(string imageName) {
             return CommonExtension.GetImageUri("Toolbar", imageName);
         }
-        //public static TileControl CreateReportsGallery<TViewModel>(this DevExpress.Utils.MVVM.MVVMContextFluentAPI<TViewModel> fluentAPI, Expression<Action<TViewModel, EmployeeReportType>> commandSelector)
-        //    where TViewModel : class {
-        //    TileControl tc = new TileControl();
-        //    tc.AllowDrag = false;
-        //    tc.LayoutMode = TileControlLayoutMode.Adaptive;
-        //    tc.Orientation = Orientation.Vertical;
-        //    tc.OptionsAdaptiveLayout.ItemMinSize = new Size(300, 50);
-        //    tc.Padding = new Padding(0);
-        //    tc.ItemPadding = new Padding(15);
-        //    tc.IndentBetweenItems = 0;
-        //    tc.AppearanceItem.Normal.BackColor = Color.White;
-        //    tc.AppearanceItem.Normal.ForeColor = Color.Black;
-        //    tc.AppearanceItem.Normal.BorderColor = Color.LightGray;
+        public static TileControl CreateReportsGallery<TViewModel>(this DevExpress.Utils.MVVM.MVVMContextFluentAPI<TViewModel> fluentAPI, Expression<Action<TViewModel, EmployeeReportType>> commandSelector)
+            where TViewModel : class {
+            TileControl tc = new TileControl();
+            tc.AllowDrag = false;
+            tc.LayoutMode = TileControlLayoutMode.Adaptive;
+            tc.Orientation = Orientation.Vertical;
+            tc.OptionsAdaptiveLayout.ItemMinSize = new Size(300, 50);
+            tc.Padding = new Padding(0);
+            tc.ItemPadding = new Padding(15);
+            tc.IndentBetweenItems = 0;
+            tc.AppearanceItem.Normal.BackColor = Color.White;
+            tc.AppearanceItem.Normal.ForeColor = Color.Black;
+            tc.AppearanceItem.Normal.BorderColor = Color.LightGray;
 
-        //    var group = new TileGroup();
-        //    tc.Groups.Add(group);
-        //    tc.BeginUpdate();
-        //    CreateItem<TViewModel>(fluentAPI, commandSelector, group, EmployeeReportType.Profile);
-        //    CreateItem<TViewModel>(fluentAPI, commandSelector, group, EmployeeReportType.Directory);
-        //    CreateItem<TViewModel>(fluentAPI, commandSelector, group, EmployeeReportType.TaskList);
-        //    tc.EndUpdate();
-        //    return tc;
-        //}
-        //private static void CreateItem<TViewModel>(DevExpress.Utils.MVVM.MVVMContextFluentAPI<TViewModel> fluentAPI, Expression<Action<TViewModel, EmployeeReportType>> commandSelector, TileGroup group, EmployeeReportType value)
-        //    where TViewModel : class {
-        //    TileItem item = new TileItem();
-        //    item.Text = EnumDisplayTextHelper.GetDisplayText(value);
-        //    item.Image = CommonExtension.GetImage("PrintItems", "Print");
-        //    item.ImageToTextAlignment = TileControlImageToTextAlignment.Left;
-        //    item.ImageAlignment = TileItemContentAlignment.MiddleLeft;
-        //    item.ImageToTextIndent = 15;
-        //    fluentAPI.BindCommand(item, commandSelector, x => value);
-        //    group.Items.Add(item);
-        //}
-        //public static void SetupSearchControl(this SearchControl search, WindowsUIButtonPanel panel) {
-        //    search.Width = 260;
-        //    search.Height = 42;
-        //    search.Left = panel.Width - search.Width - 20;
-        //    search.Top = panel.Height / 2 - search.Height / 2;
-        //    search.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-        //    search.BorderStyle = XtraEditors.Controls.BorderStyles.NoBorder;
-        //    search.Properties.LookAndFeel.UseDefaultLookAndFeel = false;
-        //    search.Properties.LookAndFeel.SetSkinStyle("Metropolis Dark");
-        //}
+            var group = new TileGroup();
+            tc.Groups.Add(group);
+            tc.BeginUpdate();
+            CreateItem<TViewModel>(fluentAPI, commandSelector, group, EmployeeReportType.Profile);
+            CreateItem<TViewModel>(fluentAPI, commandSelector, group, EmployeeReportType.Directory);
+            CreateItem<TViewModel>(fluentAPI, commandSelector, group, EmployeeReportType.TaskList);
+            tc.EndUpdate();
+            return tc;
+        }
+        private static void CreateItem<TViewModel>(DevExpress.Utils.MVVM.MVVMContextFluentAPI<TViewModel> fluentAPI, Expression<Action<TViewModel, EmployeeReportType>> commandSelector, TileGroup group, EmployeeReportType value)
+            where TViewModel : class {
+            TileItem item = new TileItem();
+            item.Text = EnumDisplayTextHelper.GetDisplayText(value);
+            item.Image = CommonExtension.GetImage("PrintItems", "Print");
+            item.ImageToTextAlignment = TileControlImageToTextAlignment.Left;
+            item.ImageAlignment = TileItemContentAlignment.MiddleLeft;
+            item.ImageToTextIndent = 15;
+            fluentAPI.BindCommand(item, commandSelector, x => value);
+            group.Items.Add(item);
+        }
+        public static void SetupSearchControl(this SearchControl search, WindowsUIButtonPanel panel) {
+            search.Width = 260;
+            search.Height = 42;
+            search.Left = panel.Width - search.Width - 20;
+            search.Top = panel.Height / 2 - search.Height / 2;
+            search.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            search.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            search.Properties.LookAndFeel.UseDefaultLookAndFeel = false;
+            search.Properties.LookAndFeel.SetSkinStyle("Metropolis Dark");
+        }
     }
 
     internal static class MenuExtensions {
@@ -182,87 +184,87 @@ namespace Polyathlon.Helpers.Views {
             view.Appearance.GroupPanel.TextOptions.WordWrap = DevExpress.Utils.WordWrap.Wrap;
             view.EndUpdate();
         }
-        //internal static void BindCollectionGrid<TViewModel, TEntity, TProjection>(this DevExpress.Utils.MVVM.MVVMContext context, GridView gridView, BindingSource bindingSource)
-        //    where TViewModel : CollectionViewModelBase<TEntity, TProjection, long, IDevAVDbUnitOfWork>
-        //    where TEntity : class
-        //    where TProjection : class {
-        //    var fluentAPI = context.OfType<TViewModel>();
-        //    fluentAPI.SetObjectDataSourceBinding(bindingSource, x => x.Entities);
-        //    fluentAPI.SetBinding(gridView, gv => gv.LoadingPanelVisible, x => x.IsLoading);
-        //    fluentAPI.WithEvent<ColumnView, FocusedRowObjectChangedEventArgs>(gridView, "FocusedRowObjectChanged")
-        //        .SetBinding(
-        //            x => x.SelectedEntity, args => args.Row as TProjection,
-        //            (gView, entity) => gView.FocusedRowHandle = gView.FindRow(entity));
-        //    fluentAPI.WithEvent<RowClickEventArgs>(gridView, "RowClick")
-        //        .EventToCommand(
-        //            x => x.Edit(null), x => x.SelectedEntity,
-        //            args => (args.Clicks == 2) && (args.Button == MouseButtons.Left));
+        internal static void BindCollectionGrid<TViewModel, TEntity, TProjection>(this DevExpress.Utils.MVVM.MVVMContext context, GridView gridView, BindingSource bindingSource)
+            where TViewModel : CollectionViewModelBase<TEntity, TProjection, long, IDbUnitOfWork>
+            where TEntity : class
+            where TProjection : class {
+            var fluentAPI = context.OfType<TViewModel>();
+            fluentAPI.SetObjectDataSourceBinding(bindingSource, x => x.Entities);
+            fluentAPI.SetBinding(gridView, gv => gv.LoadingPanelVisible, x => x.IsLoading);
+            fluentAPI.WithEvent<ColumnView, FocusedRowObjectChangedEventArgs>(gridView, "FocusedRowObjectChanged")
+                .SetBinding(
+                    x => x.SelectedEntity, args => args.Row as TProjection,
+                    (gView, entity) => gView.FocusedRowHandle = gView.FindRow(entity));
+            fluentAPI.WithEvent<RowClickEventArgs>(gridView, "RowClick")
+                .EventToCommand(
+                    x => x.Edit(null), x => x.SelectedEntity,
+                    args => (args.Clicks == 2) && (args.Button == MouseButtons.Left));
+        }
+        internal static void BindTileGrid<TViewModel, TEntity>(this DevExpress.Utils.MVVM.MVVMContext context, TileView tileView, BindingSource bindingSource)
+            where TViewModel : CollectionViewModel<TEntity, long, IDbUnitOfWork>
+            where TEntity : class {
+            BindTileGrid<TViewModel, TEntity, TEntity>(context, tileView, bindingSource);
+        }
+        internal static void BindTileGrid<TViewModel, TEntity, TProjection>(this DevExpress.Utils.MVVM.MVVMContext context, TileView tileView, BindingSource bindingSource)
+            where TViewModel : CollectionViewModelBase<TEntity, TProjection, long, IDbUnitOfWork>
+            where TEntity : class
+            where TProjection : class {
+            var fluentAPI = context.OfType<TViewModel>();
+            fluentAPI.SetObjectDataSourceBinding(bindingSource, x => x.Entities);
+            fluentAPI.WithEvent<TileView, FocusedRowObjectChangedEventArgs>(tileView, "FocusedRowObjectChanged")
+                .SetBinding(
+                    x => x.SelectedEntity, args => args.Row as TProjection,
+                    (tView, entity) => tView.FocusedRowHandle = tView.FindRow(entity));
+            fluentAPI.WithEvent<TileViewItemClickEventArgs>(tileView, "ItemDoubleClick")
+                .EventToCommand(x => x.Edit(null), x => x.SelectedEntity);
+        }
+        internal static void BindCollectionGrid<TViewModel, TEntity>(this DevExpress.Utils.MVVM.MVVMContext context, GridView view, BindingSource bindingSource)
+            where TViewModel : CollectionViewModel<TEntity, long, IDbUnitOfWork>
+            where TEntity : class {
+            BindCollectionGrid<TViewModel, TEntity, TEntity>(context, view, bindingSource);
+        }
+    }
+    internal static class MapExtension {
+        internal static void InitMap(this MapControl mapControl) {
+            if (Assembly.GetEntryAssembly() == null)
+                return;
+            mapControl.SelectionMode = DevExpress.XtraMap.ElementSelectionMode.None;
+            var mapStreamDbf = Assembly.GetEntryAssembly().GetManifestResourceStream("DevExpress.DevAV.Resources.Map.NorthAmerica.dbf");
+            var mapStream = Assembly.GetEntryAssembly().GetManifestResourceStream("DevExpress.DevAV.Resources.Map.NorthAmerica.shp");
+            VectorItemsLayer layer = mapControl.Layers.OfType<VectorItemsLayer>().Where(l => l.Data is ShapefileDataAdapter).FirstOrDefault();
+            if (layer != null)
+                (layer.Data as ShapefileDataAdapter).LoadFromStream(mapStream, mapStreamDbf);
+        }
+        //internal static DevExpress.XtraMap.MapItem CreateHomeOfficeItemForCustomer(MapItemModel item) {
+        //    MapCallout home = GetHomeOfficeItem(item);
+        //    home.Text = string.Format("TOTAL SALES{3}<color=47,81,165><b><size=+4>{0:c}</color></size></b>{3}TOTAL OPPORTUNITIES{3}<color=206,113,0><b><size=+4>{1:c}</color></size></b>{3}{2}", item.TotalSales, item.TotalQuotes, item.City, "<br>");
+        //    return home;
         //}
-        //internal static void BindTileGrid<TViewModel, TEntity>(this DevExpress.Utils.MVVM.MVVMContext context, TileView tileView, BindingSource bindingSource)
-        //    where TViewModel : CollectionViewModel<TEntity, long, IDevAVDbUnitOfWork>
-        //    where TEntity : class {
-        //    BindTileGrid<TViewModel, TEntity, TEntity>(context, tileView, bindingSource);
+        //internal static DevExpress.XtraMap.MapItem CreateHomeOfficeItemForQuote(MapItemModel item) {
+        //    MapCallout home = GetHomeOfficeItem(item);
+        //    home.Text = string.Format("TOTAL OPPORTUNITIES{2}<color=206,113,0><b><size=+4>{0:c}</color></size></b>{2}{1}", item.TotalSales, item.City, "<br>");
+        //    return home;
         //}
-        //internal static void BindTileGrid<TViewModel, TEntity, TProjection>(this DevExpress.Utils.MVVM.MVVMContext context, TileView tileView, BindingSource bindingSource)
-        //    where TViewModel : CollectionViewModelBase<TEntity, TProjection, long, IDevAVDbUnitOfWork>
-        //    where TEntity : class
-        //    where TProjection : class {
-        //    var fluentAPI = context.OfType<TViewModel>();
-        //    fluentAPI.SetObjectDataSourceBinding(bindingSource, x => x.Entities);
-        //    fluentAPI.WithEvent<TileView, FocusedRowObjectChangedEventArgs>(tileView, "FocusedRowObjectChanged")
-        //        .SetBinding(
-        //            x => x.SelectedEntity, args => args.Row as TProjection,
-        //            (tView, entity) => tView.FocusedRowHandle = tView.FindRow(entity));
-        //    fluentAPI.WithEvent<TileViewItemClickEventArgs>(tileView, "ItemDoubleClick")
-        //        .EventToCommand(x => x.Edit(null), x => x.SelectedEntity);
-        //}
-        //internal static void BindCollectionGrid<TViewModel, TEntity>(this DevExpress.Utils.MVVM.MVVMContext context, GridView view, BindingSource bindingSource)
-        //    where TViewModel : CollectionViewModel<TEntity, long, IDevAVDbUnitOfWork>
-        //    where TEntity : class {
-        //    BindCollectionGrid<TViewModel, TEntity, TEntity>(context, view, bindingSource);
+        //private static MapCallout GetHomeOfficeItem(MapItemModel item) {
+        //    var mc = new MapCallout();
+        //    mc.Location = new GeoPoint(item.Latitude, item.Longitude);
+        //    mc.AllowHtmlText = true;
+        //    mc.TextAlignment = TextAlignment.TopCenter;
+        //    mc.Font = new Font("Segoe UI", 13);
+        //    mc.TextColor = Color.FromArgb(145, 145, 145);            
+        //    return mc;
         //}
     }
-    //internal static class MapExtension {
-    //    internal static void InitMap(this MapControl mapControl) {
-    //        if (Assembly.GetEntryAssembly() == null)
-    //            return;
-    //        mapControl.SelectionMode = DevExpress.XtraMap.ElementSelectionMode.None;
-    //        var mapStreamDbf = Assembly.GetEntryAssembly().GetManifestResourceStream("DevExpress.DevAV.Resources.Map.NorthAmerica.dbf");
-    //        var mapStream = Assembly.GetEntryAssembly().GetManifestResourceStream("DevExpress.DevAV.Resources.Map.NorthAmerica.shp");
-    //        VectorItemsLayer layer = mapControl.Layers.OfType<VectorItemsLayer>().Where(l => l.Data is ShapefileDataAdapter).FirstOrDefault();
-    //        if (layer != null)
-    //            (layer.Data as ShapefileDataAdapter).LoadFromStream(mapStream, mapStreamDbf);
-    //    }
-    //    internal static DevExpress.XtraMap.MapItem CreateHomeOfficeItemForCustomer(MapItemModel item) {
-    //        MapCallout home = GetHomeOfficeItem(item);
-    //        home.Text = string.Format("TOTAL SALES{3}<color=47,81,165><b><size=+4>{0:c}</color></size></b>{3}TOTAL OPPORTUNITIES{3}<color=206,113,0><b><size=+4>{1:c}</color></size></b>{3}{2}", item.TotalSales, item.TotalQuotes, item.City, "<br>");
-    //        return home;
-    //    }
-    //    internal static DevExpress.XtraMap.MapItem CreateHomeOfficeItemForQuote(MapItemModel item) {
-    //        MapCallout home = GetHomeOfficeItem(item);
-    //        home.Text = string.Format("TOTAL OPPORTUNITIES{2}<color=206,113,0><b><size=+4>{0:c}</color></size></b>{2}{1}", item.TotalSales, item.City, "<br>");
-    //        return home;
-    //    }
-    //    private static MapCallout GetHomeOfficeItem(MapItemModel item) {
-    //        var mc = new MapCallout();
-    //        mc.Location = new GeoPoint(item.Latitude, item.Longitude);
-    //        mc.AllowHtmlText = true;
-    //        mc.TextAlignment = TextAlignment.TopCenter;
-    //        mc.Font = new Font("Segoe UI", 13);
-    //        mc.TextColor = Color.FromArgb(145, 145, 145);            
-    //        return mc;
-    //    }
-    //}
-    //internal static class SnapExtension {
-    //    internal static void LoadTemplate(this SnapControl snapControl) {
-    //        var template = "Order.snx";
-    //        using (var stream = MailMergeTemplatesHelper.GetTemplateStream(template)) {
-    //            if (stream != null) {
-    //                snapControl.LoadDocumentTemplate(stream, DevExpress.Snap.Core.API.SnapDocumentFormat.Snap);
-    //            }
-    //        }
-    //    }
-    //}
+    internal static class SnapExtension {
+        //internal static void LoadTemplate(this SnapControl snapControl) {
+        //    var template = "Order.snx";
+        //    using (var stream = MailMergeTemplatesHelper.GetTemplateStream(template)) {
+        //        if (stream != null) {
+        //            //snapControl.LoadDocumentTemplate(stream, DevExpress.Snap.Core.API.SnapDocumentFormat.Snap);
+        //        }
+        //    }
+        //}
+    }
     internal static class ChartExtension {
         internal static void DrawSeries(this ChartControl chartControl, CustomDrawSeriesPointEventArgs e) {
             int imageSizeW = 18, imageSizeH = 14;

@@ -12,9 +12,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using Polyathlon.DataModel;
 using Polyathlon.Helpers;
-using Polyathlon.ViewModels.Common;
 
-namespace Polyathlon.Helpers.ViewModel
+namespace Polyathlon.ViewModels.Common
 {
     /// <summary>
     /// The base class for POCO view models exposing a collection of entities of the given type.

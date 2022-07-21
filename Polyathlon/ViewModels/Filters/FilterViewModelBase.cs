@@ -7,26 +7,28 @@ using System;
 
 namespace Polyathlon.ViewModels {
     public abstract class FilterViewModelBase {
-       // public Action NavigateAction { get; set; }
-        //protected IFilterModelPageSpecificSettings settings;
-        //public FilterViewModelBase(IFilterModelPageSpecificSettings settings) {
-        //    this.settings = settings;
-        //    Init();
-        //}
-
-        protected virtual void Init() {
-            //StaticFilters = CreateFilterItems(settings.StaticFilters);
-            //CustomFilters = CreateFilterItems(settings.CustomFilters);
+        public Action NavigateAction { get; set; }
+        protected IFilterModelPageSpecificSettings settings;
+        public FilterViewModelBase(IFilterModelPageSpecificSettings settings)
+        {
+            this.settings = settings;
+            Init();
         }
 
-        //public virtual IList<FilterItem> StaticFilters { get; protected set; }
-        //public virtual IList<FilterItem> CustomFilters { get; protected set; }
-        //protected virtual void OnStaticFiltersChanged() {
-        //    SelectedItem = StaticFilters.FirstOrDefault();
-        //}
+        protected virtual void Init() {
+            StaticFilters = CreateFilterItems(settings.StaticFilters);
+            CustomFilters = CreateFilterItems(settings.CustomFilters);
+        }
 
-        //public virtual FilterItem SelectedItem { get; set; }
-        //public virtual FilterItem ActiveFilterItem { get; set; }
+        public virtual IList<FilterItem> StaticFilters { get; protected set; }
+        public virtual IList<FilterItem> CustomFilters { get; protected set; }
+        protected virtual void OnStaticFiltersChanged()
+        {
+            SelectedItem = StaticFilters.FirstOrDefault();
+        }
+
+        public virtual FilterItem SelectedItem { get; set; }
+        public virtual FilterItem ActiveFilterItem { get; set; }
         protected virtual void OnSelectedItemChanged() {
         }
 
