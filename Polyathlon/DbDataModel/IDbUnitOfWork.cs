@@ -11,7 +11,12 @@ namespace Polyathlon.DbDataModel
         /// <summary>
         /// The Region entities repository.
         /// </summary>
-        IRepository<Region, long> Regions { get; }
+        IRepository<Polyathlon.DataModel.Entities.Region, long> Regions { get; }
+
+        ///// <summary>
+        ///// The CustomerEmployee entities repository.
+        ///// </summary>
+        //IRepository<CustomerEmployee, long> CustomerEmployees { get; }
 
         ///// <summary>
         ///// The CustomerEmployee entities repository.

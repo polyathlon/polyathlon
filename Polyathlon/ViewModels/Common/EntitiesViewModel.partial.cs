@@ -3,7 +3,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using Polyathlon.DataModel;
 
-namespace Polyathlon.Helpers.ViewModel
+namespace Polyathlon.ViewModels.Common
 {
     partial class EntitiesViewModel<TEntity, TProjection, TUnitOfWork> {
         public virtual IQueryable<TEntity> GetEntities(Expression<Func<TEntity, bool>>? filter = null) {

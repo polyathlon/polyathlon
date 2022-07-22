@@ -1,14 +1,12 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using DevExpress.DevAV.Common.ViewModel;
-using DevExpress.DevAV.DevAVDbDataModel1;
+
 using DevExpress.Mvvm.POCO;
 using System.Drawing;
 using DevExpress.XtraMap;
+using Polyathlon.DbDataModel;
+using Polyathlon.ViewModels.Common;
 
-namespace DevExpress.DevAV.ViewModels {
-    public partial class CustomerViewModel : SingleObjectViewModel<Customer, long, IDevAVDbUnitOfWork> {
+namespace Polyathlon.ViewModels {
+    public partial class RegionViewModel : SingleObjectViewModel<DataModel.Entities.Region, long, IDbUnitOfWork> {
         protected override void OnInitializeInRuntime() {
             base.OnInitializeInRuntime();
             MapViewModel = MapViewModel.Create().SetParentViewModel(this);
@@ -44,21 +42,21 @@ namespace DevExpress.DevAV.ViewModels {
         }
         public List<MapItemModel> GetMapItems() {
             
-            if(Entity != null) {
-                var customerStores = Entity.CustomerStores.GroupBy(s => s.City).Select(s => s.First());
-                return customerStores.Select(s => new MapItemModel() {
-                    City = s.Address.City,
-                    Longitude = s.Address.Longitude,
-                    Latitude = s.Address.Latitude,
-                    TotalSales = s.Customer.Orders.Where(o => o.StoreId == s.Id && o.OrderDate >= DateRange.Minimum && o.OrderDate <= DateRange.Maximum).Sum(o => o.TotalAmount),
-                    TotalQuotes = GetQuotesTotal(s, DateRange.Minimum, DateRange.Maximum)
-                }).Where(s => s.TotalSales != 0M).ToList();
-            }
+            //if(Entity != null) {
+            //    var customerStores = Entity.CustomerStores.GroupBy(s => s.City).Select(s => s.First());
+            //    return customerStores.Select(s => new MapItemModel() {
+            //        City = s.Address.City,
+            //        Longitude = s.Address.Longitude,
+            //        Latitude = s.Address.Latitude,
+            //        TotalSales = s.Customer.Orders.Where(o => o.StoreId == s.Id && o.OrderDate >= DateRange.Minimum && o.OrderDate <= DateRange.Maximum).Sum(o => o.TotalAmount),
+            //        TotalQuotes = GetQuotesTotal(s, DateRange.Minimum, DateRange.Maximum)
+            //    }).Where(s => s.TotalSales != 0M).ToList();
+            //}
             return null;
         }
-        public decimal GetQuotesTotal(CustomerStore store, DateTime begin, DateTime end) {
-            return QueriesHelper.GetQuotesTotal(UnitOfWork.Quotes, store, DateRange.Minimum, DateRange.Maximum);
-        }
+        //public decimal GetQuotesTotal(CustomerStore store, DateTime begin, DateTime end) {
+        //    return QueriesHelper.GetQuotesTotal(UnitOfWork.Quotes, store, DateRange.Minimum, DateRange.Maximum);
+        //}
     }
     public enum DetailKind {
         Orders,

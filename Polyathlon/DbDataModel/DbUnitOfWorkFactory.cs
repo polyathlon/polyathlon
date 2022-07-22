@@ -1,19 +1,13 @@
-using System;
-using System.Linq;
-using System.Data;
-
-using System.Linq.Expressions;
-using System.Collections.Generic;
-
 using DevExpress.Mvvm;
 using System.Collections;
 using System.ComponentModel;
 using DevExpress.Data.Linq;
 using DevExpress.Data.Linq.Helpers;
 using DevExpress.Data.Async.Helpers;
-using Polyathon.DbDataModel;
+using Polyathlon.DataModel;
+using Polyathlon.ViewModels.Common;
 
-namespace Polyathlon.DataModel
+namespace Polyathlon.DbDataModel
 {
     class DbUnitOfWorkFactory<TUnitOfWork> : IUnitOfWorkFactory<TUnitOfWork> where TUnitOfWork : IUnitOfWork
     {

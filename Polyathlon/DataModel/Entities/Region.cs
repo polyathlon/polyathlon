@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Polyathlon.DataModel.Entities
 {
-    internal class Region
+    public class Region
     {
         public string? Name { get; set; }
         public string? ShortName { get; set; }

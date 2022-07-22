@@ -1,6 +1,6 @@
-namespace DevExpress.DevAV.Views
+namespace Polyathlon.Views
 {
-    partial class CustomerCollectionView
+    partial class RegionCollectionView
     {
         /// <summary> 
         /// Required designer variable.
@@ -241,7 +241,7 @@ namespace DevExpress.DevAV.Views
             
             
             
-            this.customerBindingSource.DataSource = typeof(DevExpress.DevAV.CustomerInfoWithSales);
+            //this.customerBindingSource.DataSource = typeof(DevExpress.DevAV.CustomerInfoWithSales);
             
             
             
@@ -367,7 +367,7 @@ namespace DevExpress.DevAV.Views
             this.colMonthlySales});
             this.gridView.GridControl = this.gridControl;
             this.gridView.Name = "gridView";
-            this.gridView.OptionsBehavior.AllowSortAnimation = Utils.DefaultBoolean.True;
+            this.gridView.OptionsBehavior.AllowSortAnimation = DevExpress.Utils.DefaultBoolean.True;
             
             
             
@@ -583,7 +583,7 @@ namespace DevExpress.DevAV.Views
             
             
             this.mvvmContext.ContainerControl = this;
-            this.mvvmContext.ViewModelType = typeof(DevExpress.DevAV.ViewModels.CustomerCollectionViewModel);
+            this.mvvmContext.ViewModelType = typeof(Polyathlon.ViewModels.RegionCollectionViewModel);
             
             
             
@@ -638,45 +638,45 @@ namespace DevExpress.DevAV.Views
 
         #endregion
 
-        private XtraLayout.LayoutControl layoutControl1;
-        private XtraLayout.LayoutControlGroup layoutControlGroup1;
-        private XtraGrid.GridControl gcStores;
-        private XtraGrid.GridControl gcEmployee;
-        private XtraGrid.GridControl gridControl;
-        private XtraGrid.Views.Grid.GridView gridView;
-        private XtraLayout.LayoutControlItem layoutControlItem1;
-        private XtraLayout.LayoutControlItem lciEmployee;
-        private XtraLayout.LayoutControlItem lciStores;
-        private XtraGrid.Views.Tile.TileView tvStores;
-        private XtraGrid.Views.Tile.TileView tvEmployee;
-        private XtraLayout.SimpleLabelItem simpleLabelItem1;
-        private XtraLayout.LayoutControlGroup layoutControlGroup2;
-        private XtraLayout.EmptySpaceItem emptySpaceItem1;
-        private Utils.MVVM.MVVMContext mvvmContext;
+        private DevExpress.XtraLayout.LayoutControl layoutControl1;
+        private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup1;
+        private DevExpress.XtraGrid.GridControl gcStores;
+        private DevExpress.XtraGrid.GridControl gcEmployee;
+        private DevExpress.XtraGrid.GridControl gridControl;
+        private DevExpress.XtraGrid.Views.Grid.GridView gridView;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem1;
+        private DevExpress.XtraLayout.LayoutControlItem lciEmployee;
+        private DevExpress.XtraLayout.LayoutControlItem lciStores;
+        private DevExpress.XtraGrid.Views.Tile.TileView tvStores;
+        private DevExpress.XtraGrid.Views.Tile.TileView tvEmployee;
+        private DevExpress.XtraLayout.SimpleLabelItem simpleLabelItem1;
+        private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup2;
+        private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem1;
+        private DevExpress.Utils.MVVM.MVVMContext mvvmContext;
         private System.Windows.Forms.BindingSource customerBindingSource;
-        private XtraGrid.Columns.GridColumn colName;
-        private XtraGrid.Columns.GridColumn colPhone;
-        private XtraGrid.Columns.GridColumn colFax;
-        private XtraGrid.Columns.GridColumn colAddress;
-        private XtraGrid.Columns.GridColumn colCity;
-        private XtraGrid.Columns.GridColumn colState;
-        private XtraGrid.Columns.GridColumn colZipCode;
-        private XtraGrid.Columns.GridColumn colMonthlySales;
-        private XtraEditors.Repository.RepositoryItemSparklineEdit repositoryItemSparklineEdit1;
+        private DevExpress.XtraGrid.Columns.GridColumn colName;
+        private DevExpress.XtraGrid.Columns.GridColumn colPhone;
+        private DevExpress.XtraGrid.Columns.GridColumn colFax;
+        private DevExpress.XtraGrid.Columns.GridColumn colAddress;
+        private DevExpress.XtraGrid.Columns.GridColumn colCity;
+        private DevExpress.XtraGrid.Columns.GridColumn colState;
+        private DevExpress.XtraGrid.Columns.GridColumn colZipCode;
+        private DevExpress.XtraGrid.Columns.GridColumn colMonthlySales;
+        private DevExpress.XtraEditors.Repository.RepositoryItemSparklineEdit repositoryItemSparklineEdit1;
         private System.Windows.Forms.BindingSource customerEmployeeBindingSource;
-        private XtraGrid.Columns.TileViewColumn colFullName;
-        private XtraGrid.Columns.TileViewColumn colPosition;
-        private XtraGrid.Columns.TileViewColumn colCityAddress;
-        private XtraGrid.Columns.TileViewColumn colPhoto;
+        private DevExpress.XtraGrid.Columns.TileViewColumn colFullName;
+        private DevExpress.XtraGrid.Columns.TileViewColumn colPosition;
+        private DevExpress.XtraGrid.Columns.TileViewColumn colCityAddress;
+        private DevExpress.XtraGrid.Columns.TileViewColumn colPhoto;
         private System.Windows.Forms.BindingSource customerStoreBindingSource;
-        private XtraGrid.Columns.TileViewColumn colCrestImage;
-        private XtraGrid.Columns.TileViewColumn colCityName;
-        private XtraGrid.Columns.TileViewColumn colAddressLine;
-        private XtraGrid.Columns.TileViewColumn colAddressCityLine;
-        private XtraEditors.LabelControl labelName;
-        private XtraLayout.LayoutControlItem layoutControlItem3;
-        private XtraLayout.LayoutControlItem layoutControlItem4;
-        private XtraEditors.ImageComboBoxEdit customerDetailsComboBoxEdit;
-        private XtraEditors.SearchControl searchControl;
+        private DevExpress.XtraGrid.Columns.TileViewColumn colCrestImage;
+        private DevExpress.XtraGrid.Columns.TileViewColumn colCityName;
+        private DevExpress.XtraGrid.Columns.TileViewColumn colAddressLine;
+        private DevExpress.XtraGrid.Columns.TileViewColumn colAddressCityLine;
+        private DevExpress.XtraEditors.LabelControl labelName;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem3;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem4;
+        private DevExpress.XtraEditors.ImageComboBoxEdit customerDetailsComboBoxEdit;
+        private DevExpress.XtraEditors.SearchControl searchControl;
     }
 }

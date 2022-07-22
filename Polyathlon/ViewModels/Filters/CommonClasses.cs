@@ -6,7 +6,7 @@ using DevExpress.Mvvm.POCO;
 using DevExpress.Mvvm;
 using DevExpress.Data.Filtering;
 
-namespace DevExpress.DevAV.ViewModels {
+namespace Polyathlon.ViewModels {
     public struct DateRange {
         public DateRange(DateTime min, DateTime max)
             : this() {

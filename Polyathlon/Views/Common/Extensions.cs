@@ -13,7 +13,7 @@ using DevExpress.XtraEditors;
 using DevExpress.XtraGrid.Views.Base;
 using DevExpress.XtraGrid.Views.Grid;
 using DevExpress.XtraGrid.Views.Tile;
-using DevExpress.DevAV.ViewModels;
+
 using DevExpress.XtraMap;
 using System.Reflection;
 using System.Linq;

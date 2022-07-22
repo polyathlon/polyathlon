@@ -1,7 +1,4 @@
-using System.Linq;
-using System.Windows.Forms;
 using DevExpress.XtraEditors;
-using DevExpress.DevAV.ViewModels;
 using DevExpress.XtraBars.Navigation;
 using Polyathlon.ViewModels;
 

@@ -3,7 +3,7 @@ using DevExpress.Mvvm.POCO;
 using System.Collections.Generic;
 using DevExpress.Data.Filtering;
 
-namespace DevExpress.DevAV.ViewModels {
+namespace Polyathlon.ViewModels {
     public class CustomFilterViewModel {
         public static CustomFilterViewModel Create(Type entityType) {
             return ViewModelSource.Create(() => new CustomFilterViewModel(entityType));

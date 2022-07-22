@@ -1,6 +1,6 @@
-namespace DevExpress.DevAV.Views
+namespace Polyathlon.Views
 {
-    partial class CustomerView
+    partial class RegionView
     {
         /// <summary> 
         /// Required designer variable.
@@ -33,7 +33,7 @@ namespace DevExpress.DevAV.Views
             this.rangeControl = new DevExpress.XtraEditors.RangeControl();
             this.dateTimeChartRangeControlClient = new DevExpress.XtraEditors.DateTimeChartRangeControlClient();
             this.dataLayoutControl = new DevExpress.XtraDataLayout.DataLayoutControl();
-            this.mapView = new DevExpress.DevAV.Views.MapView();
+            this.mapView = new Polyathlon.Views.MapView();
             this.ordersGridControl = new DevExpress.XtraGrid.GridControl();
             this.orderBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.orderGridView = new DevExpress.XtraGrid.Views.Grid.GridView();
@@ -239,7 +239,7 @@ namespace DevExpress.DevAV.Views
             
             
             
-            this.orderBindingSource.DataSource = typeof(DevExpress.DevAV.Order);
+            //this.orderBindingSource.DataSource = typeof(DevExpress.DevAV.Order);
             
             
             
@@ -346,7 +346,7 @@ namespace DevExpress.DevAV.Views
             
             
             
-            this.customerBindingSource.DataSource = typeof(DevExpress.DevAV.Customer);
+            this.customerBindingSource.DataSource = typeof(Polyathlon.DataModel.Entities.Region);
             
             
             
@@ -401,57 +401,57 @@ namespace DevExpress.DevAV.Views
             this.StateImageComboBoxEdit1.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.StateImageComboBoxEdit1.Properties.Items.AddRange(new DevExpress.XtraEditors.Controls.ImageComboBoxItem[] {
-            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("CA", DevExpress.DevAV.StateEnum.CA, 0),
-            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("AR", DevExpress.DevAV.StateEnum.AR, 1),
-            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("AL", DevExpress.DevAV.StateEnum.AL, 2),
-            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("AK", DevExpress.DevAV.StateEnum.AK, 3),
-            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("AZ", DevExpress.DevAV.StateEnum.AZ, 4),
-            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("CO", DevExpress.DevAV.StateEnum.CO, 5),
-            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("CT", DevExpress.DevAV.StateEnum.CT, 6),
-            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("DE", DevExpress.DevAV.StateEnum.DE, 7),
-            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("DC", DevExpress.DevAV.StateEnum.DC, 8),
-            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("FL", DevExpress.DevAV.StateEnum.FL, 9),
-            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("GA", DevExpress.DevAV.StateEnum.GA, 10),
-            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("HI", DevExpress.DevAV.StateEnum.HI, 11),
-            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("ID", DevExpress.DevAV.StateEnum.ID, 12),
-            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("IL", DevExpress.DevAV.StateEnum.IL, 13),
-            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("IN", DevExpress.DevAV.StateEnum.IN, 14),
-            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("IA", DevExpress.DevAV.StateEnum.IA, 15),
-            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("KS", DevExpress.DevAV.StateEnum.KS, 16),
-            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("KY", DevExpress.DevAV.StateEnum.KY, 17),
-            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("LA", DevExpress.DevAV.StateEnum.LA, 18),
-            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("ME", DevExpress.DevAV.StateEnum.ME, 19),
-            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("MD", DevExpress.DevAV.StateEnum.MD, 20),
-            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("MA", DevExpress.DevAV.StateEnum.MA, 21),
-            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("MI", DevExpress.DevAV.StateEnum.MI, 22),
-            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("MN", DevExpress.DevAV.StateEnum.MN, 23),
-            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("MS", DevExpress.DevAV.StateEnum.MS, 24),
-            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("MO", DevExpress.DevAV.StateEnum.MO, 25),
-            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("MT", DevExpress.DevAV.StateEnum.MT, 26),
-            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("NE", DevExpress.DevAV.StateEnum.NE, 27),
-            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("NV", DevExpress.DevAV.StateEnum.NV, 28),
-            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("NH", DevExpress.DevAV.StateEnum.NH, 29),
-            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("NJ", DevExpress.DevAV.StateEnum.NJ, 30),
-            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("NM", DevExpress.DevAV.StateEnum.NM, 31),
-            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("NY", DevExpress.DevAV.StateEnum.NY, 32),
-            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("NC", DevExpress.DevAV.StateEnum.NC, 33),
-            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("OH", DevExpress.DevAV.StateEnum.OH, 34),
-            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("OK", DevExpress.DevAV.StateEnum.OK, 35),
-            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("OR", DevExpress.DevAV.StateEnum.OR, 36),
-            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("PA", DevExpress.DevAV.StateEnum.PA, 37),
-            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("RI", DevExpress.DevAV.StateEnum.RI, 38),
-            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("SC", DevExpress.DevAV.StateEnum.SC, 39),
-            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("SD", DevExpress.DevAV.StateEnum.SD, 40),
-            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("TN", DevExpress.DevAV.StateEnum.TN, 41),
-            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("TX", DevExpress.DevAV.StateEnum.TX, 42),
-            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("UT", DevExpress.DevAV.StateEnum.UT, 43),
-            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("VT", DevExpress.DevAV.StateEnum.VT, 44),
-            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("VA", DevExpress.DevAV.StateEnum.VA, 45),
-            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("WA", DevExpress.DevAV.StateEnum.WA, 46),
-            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("WV", DevExpress.DevAV.StateEnum.WV, 47),
-            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("WI", DevExpress.DevAV.StateEnum.WI, 48),
-            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("WY", DevExpress.DevAV.StateEnum.WY, 49),
-            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("ND", DevExpress.DevAV.StateEnum.ND, 50)});
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("CA", StateEnum.CA, 0),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("AR", StateEnum.AR, 1),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("AL", StateEnum.AL, 2),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("AK", StateEnum.AK, 3),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("AZ", StateEnum.AZ, 4),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("CO", StateEnum.CO, 5),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("CT", StateEnum.CT, 6),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("DE", StateEnum.DE, 7),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("DC", StateEnum.DC, 8),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("FL", StateEnum.FL, 9),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("GA", StateEnum.GA, 10),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("HI", StateEnum.HI, 11),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("ID", StateEnum.ID, 12),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("IL", StateEnum.IL, 13),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("IN", StateEnum.IN, 14),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("IA", StateEnum.IA, 15),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("KS", StateEnum.KS, 16),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("KY", StateEnum.KY, 17),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("LA", StateEnum.LA, 18),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("ME", StateEnum.ME, 19),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("MD", StateEnum.MD, 20),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("MA", StateEnum.MA, 21),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("MI", StateEnum.MI, 22),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("MN", StateEnum.MN, 23),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("MS", StateEnum.MS, 24),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("MO", StateEnum.MO, 25),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("MT", StateEnum.MT, 26),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("NE", StateEnum.NE, 27),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("NV", StateEnum.NV, 28),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("NH", StateEnum.NH, 29),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("NJ", StateEnum.NJ, 30),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("NM", StateEnum.NM, 31),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("NY", StateEnum.NY, 32),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("NC", StateEnum.NC, 33),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("OH", StateEnum.OH, 34),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("OK", StateEnum.OK, 35),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("OR", StateEnum.OR, 36),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("PA", StateEnum.PA, 37),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("RI", StateEnum.RI, 38),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("SC", StateEnum.SC, 39),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("SD", StateEnum.SD, 40),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("TN", StateEnum.TN, 41),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("TX", StateEnum.TX, 42),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("UT", StateEnum.UT, 43),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("VT", StateEnum.VT, 44),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("VA", StateEnum.VA, 45),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("WA", StateEnum.WA, 46),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("WV", StateEnum.WV, 47),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("WI", StateEnum.WI, 48),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("WY", StateEnum.WY, 49),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("ND", StateEnum.ND, 50)});
             this.StateImageComboBoxEdit1.Properties.UseCtrlScroll = true;
             this.StateImageComboBoxEdit1.Size = new System.Drawing.Size(194, 42);
             this.StateImageComboBoxEdit1.StyleController = this.dataLayoutControl;
@@ -497,57 +497,57 @@ namespace DevExpress.DevAV.Views
             this.StateImageComboBoxEdit2.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.StateImageComboBoxEdit2.Properties.Items.AddRange(new DevExpress.XtraEditors.Controls.ImageComboBoxItem[] {
-            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("CA", DevExpress.DevAV.StateEnum.CA, 0),
-            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("AR", DevExpress.DevAV.StateEnum.AR, 1),
-            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("AL", DevExpress.DevAV.StateEnum.AL, 2),
-            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("AK", DevExpress.DevAV.StateEnum.AK, 3),
-            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("AZ", DevExpress.DevAV.StateEnum.AZ, 4),
-            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("CO", DevExpress.DevAV.StateEnum.CO, 5),
-            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("CT", DevExpress.DevAV.StateEnum.CT, 6),
-            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("DE", DevExpress.DevAV.StateEnum.DE, 7),
-            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("DC", DevExpress.DevAV.StateEnum.DC, 8),
-            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("FL", DevExpress.DevAV.StateEnum.FL, 9),
-            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("GA", DevExpress.DevAV.StateEnum.GA, 10),
-            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("HI", DevExpress.DevAV.StateEnum.HI, 11),
-            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("ID", DevExpress.DevAV.StateEnum.ID, 12),
-            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("IL", DevExpress.DevAV.StateEnum.IL, 13),
-            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("IN", DevExpress.DevAV.StateEnum.IN, 14),
-            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("IA", DevExpress.DevAV.StateEnum.IA, 15),
-            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("KS", DevExpress.DevAV.StateEnum.KS, 16),
-            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("KY", DevExpress.DevAV.StateEnum.KY, 17),
-            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("LA", DevExpress.DevAV.StateEnum.LA, 18),
-            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("ME", DevExpress.DevAV.StateEnum.ME, 19),
-            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("MD", DevExpress.DevAV.StateEnum.MD, 20),
-            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("MA", DevExpress.DevAV.StateEnum.MA, 21),
-            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("MI", DevExpress.DevAV.StateEnum.MI, 22),
-            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("MN", DevExpress.DevAV.StateEnum.MN, 23),
-            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("MS", DevExpress.DevAV.StateEnum.MS, 24),
-            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("MO", DevExpress.DevAV.StateEnum.MO, 25),
-            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("MT", DevExpress.DevAV.StateEnum.MT, 26),
-            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("NE", DevExpress.DevAV.StateEnum.NE, 27),
-            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("NV", DevExpress.DevAV.StateEnum.NV, 28),
-            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("NH", DevExpress.DevAV.StateEnum.NH, 29),
-            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("NJ", DevExpress.DevAV.StateEnum.NJ, 30),
-            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("NM", DevExpress.DevAV.StateEnum.NM, 31),
-            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("NY", DevExpress.DevAV.StateEnum.NY, 32),
-            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("NC", DevExpress.DevAV.StateEnum.NC, 33),
-            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("OH", DevExpress.DevAV.StateEnum.OH, 34),
-            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("OK", DevExpress.DevAV.StateEnum.OK, 35),
-            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("OR", DevExpress.DevAV.StateEnum.OR, 36),
-            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("PA", DevExpress.DevAV.StateEnum.PA, 37),
-            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("RI", DevExpress.DevAV.StateEnum.RI, 38),
-            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("SC", DevExpress.DevAV.StateEnum.SC, 39),
-            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("SD", DevExpress.DevAV.StateEnum.SD, 40),
-            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("TN", DevExpress.DevAV.StateEnum.TN, 41),
-            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("TX", DevExpress.DevAV.StateEnum.TX, 42),
-            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("UT", DevExpress.DevAV.StateEnum.UT, 43),
-            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("VT", DevExpress.DevAV.StateEnum.VT, 44),
-            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("VA", DevExpress.DevAV.StateEnum.VA, 45),
-            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("WA", DevExpress.DevAV.StateEnum.WA, 46),
-            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("WV", DevExpress.DevAV.StateEnum.WV, 47),
-            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("WI", DevExpress.DevAV.StateEnum.WI, 48),
-            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("WY", DevExpress.DevAV.StateEnum.WY, 49),
-            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("ND", DevExpress.DevAV.StateEnum.ND, 50)});
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("CA", StateEnum.CA, 0),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("AR", StateEnum.AR, 1),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("AL", StateEnum.AL, 2),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("AK", StateEnum.AK, 3),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("AZ", StateEnum.AZ, 4),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("CO", StateEnum.CO, 5),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("CT", StateEnum.CT, 6),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("DE", StateEnum.DE, 7),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("DC", StateEnum.DC, 8),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("FL", StateEnum.FL, 9),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("GA", StateEnum.GA, 10),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("HI", StateEnum.HI, 11),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("ID", StateEnum.ID, 12),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("IL", StateEnum.IL, 13),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("IN", StateEnum.IN, 14),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("IA", StateEnum.IA, 15),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("KS", StateEnum.KS, 16),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("KY", StateEnum.KY, 17),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("LA", StateEnum.LA, 18),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("ME", StateEnum.ME, 19),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("MD", StateEnum.MD, 20),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("MA", StateEnum.MA, 21),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("MI", StateEnum.MI, 22),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("MN", StateEnum.MN, 23),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("MS", StateEnum.MS, 24),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("MO", StateEnum.MO, 25),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("MT", StateEnum.MT, 26),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("NE", StateEnum.NE, 27),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("NV", StateEnum.NV, 28),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("NH", StateEnum.NH, 29),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("NJ", StateEnum.NJ, 30),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("NM", StateEnum.NM, 31),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("NY", StateEnum.NY, 32),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("NC", StateEnum.NC, 33),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("OH", StateEnum.OH, 34),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("OK", StateEnum.OK, 35),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("OR", StateEnum.OR, 36),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("PA", StateEnum.PA, 37),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("RI", StateEnum.RI, 38),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("SC", StateEnum.SC, 39),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("SD", StateEnum.SD, 40),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("TN", StateEnum.TN, 41),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("TX", StateEnum.TX, 42),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("UT", StateEnum.UT, 43),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("VT", StateEnum.VT, 44),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("VA", StateEnum.VA, 45),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("WA", StateEnum.WA, 46),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("WV", StateEnum.WV, 47),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("WI", StateEnum.WI, 48),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("WY", StateEnum.WY, 49),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("ND", StateEnum.ND, 50)});
             this.StateImageComboBoxEdit2.Properties.UseCtrlScroll = true;
             this.StateImageComboBoxEdit2.Size = new System.Drawing.Size(196, 42);
             this.StateImageComboBoxEdit2.StyleController = this.dataLayoutControl;
@@ -890,7 +890,7 @@ namespace DevExpress.DevAV.Views
             
             
             this.mvvmContext.ContainerControl = this;
-            this.mvvmContext.ViewModelType = typeof(DevExpress.DevAV.ViewModels.CustomerViewModel);
+            this.mvvmContext.ViewModelType = typeof(Polyathlon.ViewModels.RegionViewModel);
             
             
             
@@ -963,63 +963,118 @@ namespace DevExpress.DevAV.Views
 
         #endregion
 
-        private XtraDataLayout.DataLayoutControl dataLayoutControl;
-        private XtraLayout.LayoutControlGroup layoutControlGroup1;
-        private XtraEditors.TextEdit NameTextEdit;
+        private DevExpress.XtraDataLayout.DataLayoutControl dataLayoutControl;
+        private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup1;
+        private DevExpress.XtraEditors.TextEdit NameTextEdit;
         private System.Windows.Forms.BindingSource customerBindingSource;
-        private XtraEditors.TextEdit PhoneTextEdit;
-        private XtraEditors.TextEdit FaxTextEdit;
-        private XtraEditors.TextEdit textEdit1;
-        private XtraEditors.TextEdit textEdit2;
-        private XtraEditors.ImageComboBoxEdit StateImageComboBoxEdit1;
-        private XtraEditors.TextEdit textEdit3;
-        private XtraEditors.TextEdit textEdit7;
-        private XtraEditors.TextEdit textEdit8;
-        private XtraEditors.ImageComboBoxEdit StateImageComboBoxEdit2;
-        private XtraEditors.TextEdit textEdit9;
-        private XtraEditors.MemoEdit ProfileTextEdit;
-        private XtraLayout.LayoutControlGroup layoutControlGroup2;
-        private XtraLayout.LayoutControlItem ItemForName;
-        private XtraLayout.LayoutControlGroup layoutControlGroup4;
-        private XtraLayout.LayoutControlItem layoutControlItem8;
-        private XtraLayout.LayoutControlItem layoutControlItem9;
-        private XtraLayout.LayoutControlItem layoutControlItem11;
-        private XtraLayout.LayoutControlItem layoutControlItem10;
-        private XtraLayout.LayoutControlGroup layoutControlGroup3;
-        private XtraLayout.LayoutControlItem layoutControlItem1;
-        private XtraLayout.LayoutControlItem layoutControlItem2;
-        private XtraLayout.LayoutControlItem layoutControlItem4;
-        private XtraLayout.LayoutControlItem layoutControlItem3;
-        private XtraLayout.LayoutControlItem ItemForPhone;
-        private XtraLayout.LayoutControlItem ItemForFax;
-        private XtraLayout.LayoutControlItem ItemForProfile;
-        private XtraBars.Docking2010.WindowsUIButtonPanel backWindowsUIButtonPanel;
-        private XtraLayout.LayoutControlItem layoutControlItem5;
-        private XtraEditors.RangeControl rangeControl;
-        private XtraEditors.DateTimeChartRangeControlClient dateTimeChartRangeControlClient;
-        private XtraGrid.GridControl ordersGridControl;
-        private XtraGrid.Views.Grid.GridView orderGridView;
-        private XtraLayout.EmptySpaceItem emptySpaceItem1;
-        private XtraLayout.SimpleLabelItem simpleLabelItem1;
-        private XtraLayout.SimpleLabelItem customerNameSimpleLabelItem;
-        private XtraLayout.LayoutControlItem ordersLayoutControlItem;
-        private XtraLayout.LayoutControlItem layoutControlItem7;
-        private Utils.MVVM.MVVMContext mvvmContext;
+        private DevExpress.XtraEditors.TextEdit PhoneTextEdit;
+        private DevExpress.XtraEditors.TextEdit FaxTextEdit;
+        private DevExpress.XtraEditors.TextEdit textEdit1;
+        private DevExpress.XtraEditors.TextEdit textEdit2;
+        private DevExpress.XtraEditors.ImageComboBoxEdit StateImageComboBoxEdit1;
+        private DevExpress.XtraEditors.TextEdit textEdit3;
+        private DevExpress.XtraEditors.TextEdit textEdit7;
+        private DevExpress.XtraEditors.TextEdit textEdit8;
+        private DevExpress.XtraEditors.ImageComboBoxEdit StateImageComboBoxEdit2;
+        private DevExpress.XtraEditors.TextEdit textEdit9;
+        private DevExpress.XtraEditors.MemoEdit ProfileTextEdit;
+        private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup2;
+        private DevExpress.XtraLayout.LayoutControlItem ItemForName;
+        private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup4;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem8;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem9;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem11;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem10;
+        private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup3;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem1;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem2;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem4;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem3;
+        private DevExpress.XtraLayout.LayoutControlItem ItemForPhone;
+        private DevExpress.XtraLayout.LayoutControlItem ItemForFax;
+        private DevExpress.XtraLayout.LayoutControlItem ItemForProfile;
+        private DevExpress.XtraBars.Docking2010.WindowsUIButtonPanel backWindowsUIButtonPanel;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem5;
+        private DevExpress.XtraEditors.RangeControl rangeControl;
+        private DevExpress.XtraEditors.DateTimeChartRangeControlClient dateTimeChartRangeControlClient;
+        private DevExpress.XtraGrid.GridControl ordersGridControl;
+        private DevExpress.XtraGrid.Views.Grid.GridView orderGridView;
+        private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem1;
+        private DevExpress.XtraLayout.SimpleLabelItem simpleLabelItem1;
+        private DevExpress.XtraLayout.SimpleLabelItem customerNameSimpleLabelItem;
+        private DevExpress.XtraLayout.LayoutControlItem ordersLayoutControlItem;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem7;
+        private DevExpress.Utils.MVVM.MVVMContext mvvmContext;
         private System.Windows.Forms.BindingSource orderBindingSource;
-        private XtraGrid.Columns.GridColumn colInvoiceNumber;
-        private XtraGrid.Columns.GridColumn colOrderDate;
-        private XtraGrid.Columns.GridColumn storeColumn;
-        private XtraGrid.Columns.GridColumn colPONumber;
-        private XtraGrid.Columns.GridColumn colSaleAmount;
-        private XtraGrid.Columns.GridColumn colShippingAmount;
-        private XtraGrid.Columns.GridColumn colTotalAmount;
-        private XtraLayout.EmptySpaceItem emptySpaceItem3;
-        private XtraLayout.EmptySpaceItem emptySpaceItem2;
-        private XtraLayout.LayoutControlGroup layoutControlGroup5;
-        private MapView mapView;
-        private XtraLayout.LayoutControlItem storesLayoutControlItem;
-        private XtraEditors.DXErrorProvider.DXErrorProvider dxErrorProvider;
-        private XtraLayout.EmptySpaceItem emptySpaceItem4;
-        private XtraLayout.EmptySpaceItem emptySpaceItem5;
+        private DevExpress.XtraGrid.Columns.GridColumn colInvoiceNumber;
+        private DevExpress.XtraGrid.Columns.GridColumn colOrderDate;
+        private DevExpress.XtraGrid.Columns.GridColumn storeColumn;
+        private DevExpress.XtraGrid.Columns.GridColumn colPONumber;
+        private DevExpress.XtraGrid.Columns.GridColumn colSaleAmount;
+        private DevExpress.XtraGrid.Columns.GridColumn colShippingAmount;
+        private DevExpress.XtraGrid.Columns.GridColumn colTotalAmount;
+        private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem3;
+        private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem2;
+        private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup5;
+        private Polyathlon.Views.MapView mapView;
+        private DevExpress.XtraLayout.LayoutControlItem storesLayoutControlItem;
+        private DevExpress.XtraEditors.DXErrorProvider.DXErrorProvider dxErrorProvider;
+        private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem4;
+        private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem5;
+    }
+
+    public enum StateEnum
+    {
+        CA,
+        AR,
+        AL,
+        AK,
+        AZ,
+        CO,
+        CT,
+        DE,
+        DC,
+        FL,
+        GA,
+        HI,
+        ID,
+        IL,
+        IN,
+        IA,
+        KS,
+        KY,
+        LA,
+        ME,
+        MD,
+        MA,
+        MI,
+        MN,
+        MS,
+        MO,
+        MT,
+        NE,
+        NV,
+        NH,
+        NJ,
+        NM,
+        NY,
+        NC,
+        OH,
+        OK,
+        OR,
+        PA,
+        RI,
+        SC,
+        SD,
+        TN,
+        TX,
+        UT,
+        VT,
+        VA,
+        WA,
+        WV,
+        WI,
+        WY,
+        ND
     }
 }

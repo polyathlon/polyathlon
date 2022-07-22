@@ -2,7 +2,7 @@
 
 namespace Polyathlon.Entities
 {
-    internal class Region : CouchDocument
+    public class Region : CouchDocument
     {
         public string? Name { get; set; }
         public string? ShortName { get; set; }

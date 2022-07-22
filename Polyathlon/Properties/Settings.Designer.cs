@@ -70,5 +70,38 @@ namespace Polyathlon.Properties {
                 this["Port"] = value;
             }
         }
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute(@"<?xml version=""1.0"" encoding=""utf-16""?>
+<ArrayOfFilterInfo xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
+  <FilterInfo>
+    <Name>All Customers</Name>
+    <FilterCriteria />
+  </FilterInfo>
+  <FilterInfo>
+    <Name>My Account</Name>
+    <FilterCriteria>[HomeOffice.State] = ##Enum#DevExpress.DevAV.StateEnum,CA#</FilterCriteria>
+  </FilterInfo>
+  <FilterInfo>
+    <Name>John's Account</Name>
+    <FilterCriteria>[HomeOffice.State] = ##Enum#DevExpress.DevAV.StateEnum,WA#</FilterCriteria>
+  </FilterInfo>
+  <FilterInfo>
+    <Name>Top Stores</Name>
+    <FilterCriteria>[AnnualRevenue] &gt;= 90000000000.0m</FilterCriteria>
+  </FilterInfo>
+</ArrayOfFilterInfo>")]
+        public global::Polyathlon.ViewModels.FilterInfoList RegionCustomFilters
+        {
+            get
+            {
+                return ((global::Polyathlon.ViewModels.FilterInfoList)(this["RegionCustomFilters"]));
+            }
+            set
+            {
+                this["RegionCustomFilters"] = value;
+            }
+        }
     }
 }
+

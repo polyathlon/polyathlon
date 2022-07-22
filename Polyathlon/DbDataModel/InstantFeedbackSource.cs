@@ -12,7 +12,7 @@ using DevExpress.Data.Async.Helpers;
 using Polyathlon.DataModel;
 using Polyathlon.Helpers;
 
-namespace Polyathon.DbDataModel
+namespace Polyathlon.DbDataModel
 {
 
     class InstantFeedbackSource<TEntity> : IInstantFeedbackSource<TEntity>
