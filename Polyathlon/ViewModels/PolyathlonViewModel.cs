@@ -37,8 +37,9 @@ namespace Polyathlon.ViewModels
         protected override List<PolyathlonModuleDescription> CreateModules()
         {
             string moduleContent = @"{'total_rows':4,'offset':0,'rows':[
-                { 'id':'module:8997d7edcad3eae911a0c9abb100097a','key':'module:8997d7edcad3eae911a0c9abb100097a','value':{ 'rev':'1-52dc66bc4a76166e8348d4b76e2b4b78'},'doc':{ '_id':'module:8997d7edcad3eae911a0c9abb100097a','_rev':'1-52dc66bc4a76166e8348d4b76e2b4b78','moduleTitle':'Модуль 1','moduleGroup':'Operation','documentType':'MyView', 'tileColor':'255,255,0', 'tileFontSize':'12'} },
-                { 'id':'module:8997d7edcad3eae911a0c9abb100097a','key':'module:8997d7edcad3eae911a0c9abb100097a','value':{ 'rev':'1-52dc66bc4a76166e8348d4b76e2b4b78'},'doc':{ '_id':'module:8997d7edcad3eae911a0c9abb100097a','_rev':'1-52dc66bc4a76166e8348d4b76e2b4b78','moduleTitle':'Модуль 1','moduleGroup':'Operation','documentType':'MyView2', 'tileColor':'0,255,0', 'tileFontSize':'10'} },
+                { 'id':'module:8997d7edcad3eae911a0c9abb100097a','key':'module:8997d7edcad3eae911a0c9abb100097a','value':{ 'rev':'1-52dc66bc4a76166e8348d4b76e2b4b78'},'doc':{ '_id':'module:8997d7edcad3eae911a0c9abb100097a','_rev':'1-52dc66bc4a76166e8348d4b76e2b4b78','moduleTitle':'Модуль 1','moduleGroup':'Operation','documentType':'MyView', 'tileColor':'255,255,0', 'tileFontSize':'12', 'requests': [{'url':'https://localhost:5984/polyathlon/region?include_docs=true'}, {'url':'https://localhost:5984/polyathlon/clubs?include_docs=true'}]}},
+                { 'id':'module:8997d7edcad3eae911a0c9abb100097a','key':'module:8997d7edcad3eae911a0c9abb100097a','value':{ 'rev':'1-52dc66bc4a76166e8348d4b76e2b4b78'},'doc':{ '_id':'module:8997d7edcad3eae911a0c9abb100097a','_rev':'1-52dc66bc4a76166e8348d4b76e2b4b78','moduleTitle':'Модуль 2','moduleGroup':'Operation','documentType':'MyView2', 'tileColor':'0,255,0', 'tileFontSize':'10'} },
+                { 'id':'module:8997d7edcad3eae911a0c9abb100097c','key':'module:8997d7edcad3eae911a0c9abb100097c','value':{ 'rev':'1-52dc66bc4a76166e8348d4b76e2b4b80'},'doc':{ '_id':'module:8997d7edcad3eae911a0c9abb100097c','_rev':'1-52dc66bc4a76166e8348d4b76e2b4b80','moduleTitle':'Модуль 3','moduleGroup':'Operation','documentType':'RegionCollectionView', 'tileColor':'0,255,255', 'tileFontSize':'10'} }
             ]}";
             
             JObject jModules = JObject.Parse(moduleContent);
@@ -50,7 +51,7 @@ namespace Polyathlon.ViewModels
             foreach (JToken row in rows)
             {
                 //ModuleModel moduleModel = row["doc"].ToObject<ModuleModel>();
-                ModuleModel moduleModel = row["doc"].ToObject<ModuleModel>();
+                //ModuleModel moduleModel = row["doc"].ToObject<ModuleModel>();
                 //PolyathlonModuleDescription moduleDescription = new PolyathlonModuleDescription(tileColor: moduleModel.TileColor, documentType: moduleModel.ViewDocumentType, group: moduleModel.Group, title: moduleModel.Title);
                 PolyathlonModuleDescription moduleDescription = row["doc"].ToObject<PolyathlonModuleDescription>();
                 Modules.Add(moduleDescription);
@@ -83,14 +84,17 @@ namespace Polyathlon.ViewModels
 
     public partial class PolyathlonModuleDescription : ModuleDescription<PolyathlonModuleDescription>
     {
-        [JsonConstructor]
-        public PolyathlonModuleDescription(string moduleTitle, string moduleGroup, string documentType, Color tileColor, int tileFontSize, Func<PolyathlonModuleDescription, object> peekCollectionViewModelFactory = null) : 
-            base(moduleTitle: moduleTitle, moduleGroup: moduleGroup, documentType: documentType, tileColor: tileColor, tileFontSize: tileFontSize, peekCollectionViewModelFactory: peekCollectionViewModelFactory)
+        //[JsonConstructor]
+        public PolyathlonModuleDescription() :
+            base()
         {
-            //for (int i = 0; i < list.Length; i++)
-            //{
-            //    Debug.WriteLine(list[i] + " ");
-            //}
+            
+        }
+
+        public PolyathlonModuleDescription(string moduleTitle, string moduleGroup, string documentType, Func<PolyathlonModuleDescription, object> peekCollectionViewModelFactory = null) : 
+            base(moduleTitle: moduleTitle, moduleGroup: moduleGroup, documentType: documentType, peekCollectionViewModelFactory: peekCollectionViewModelFactory)
+        {
+            
         } 
 
         //public PolyathlonModuleDescription(string title, Color tileColor, string documentType, string group, Func<PolyathlonModuleDescription, object> peekCollectionViewModelFactory = null)
@@ -98,8 +102,8 @@ namespace Polyathlon.ViewModels
         //{
         //}
 
-        public PolyathlonModuleDescription(string moduleTitle, string moduleGroup, string documentType, Color tileColor, int tileFontSize, FilterViewModelBase filterViewModel)
-            : base(moduleTitle: moduleTitle, moduleGroup: moduleGroup, documentType: documentType, tileColor: tileColor, tileFontSize: tileFontSize)
+        public PolyathlonModuleDescription(string moduleTitle, string moduleGroup, string documentType, FilterViewModelBase filterViewModel)
+            : base(moduleTitle: moduleTitle, moduleGroup: moduleGroup, documentType: documentType)
         {
             FilterViewModel = filterViewModel;
         }
@@ -107,4 +111,3 @@ namespace Polyathlon.ViewModels
         public FilterViewModelBase FilterViewModel { get; private set; }
     }
 }
-

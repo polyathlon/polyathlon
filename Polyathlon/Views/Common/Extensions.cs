@@ -185,7 +185,7 @@ namespace Polyathlon.Views {
             view.EndUpdate();
         }
         internal static void BindCollectionGrid<TViewModel, TEntity, TProjection>(this DevExpress.Utils.MVVM.MVVMContext context, GridView gridView, BindingSource bindingSource)
-            where TViewModel : CollectionViewModelBase<TEntity, TProjection, long, IDbUnitOfWork>
+            where TViewModel : CollectionViewModelBase<TEntity, TProjection, long, IDbUnitOfWork> 
             where TEntity : class
             where TProjection : class {
             var fluentAPI = context.OfType<TViewModel>();
@@ -199,6 +199,22 @@ namespace Polyathlon.Views {
                 .EventToCommand(
                     x => x.Edit(null), x => x.SelectedEntity,
                     args => (args.Clicks == 2) && (args.Button == MouseButtons.Left));
+        }
+        internal static void BindCollectionGridMy<TViewModel, TEntity, TViewEntity>(this DevExpress.Utils.MVVM.MVVMContext context, GridView gridView, BindingSource bindingSource)
+            where TViewModel : ViewModels.RegionCollectionViewModel 
+            where TEntity : class
+            where TViewEntity : class {
+            var fluentAPI = context.OfType<TViewModel>();
+            fluentAPI.SetObjectDataSourceBinding(bindingSource, x => x.Entities);
+            //fluentAPI.SetBinding(gridView, gv => gv.LoadingPanelVisible, x => x.IsLoading);
+            //fluentAPI.WithEvent<ColumnView, FocusedRowObjectChangedEventArgs>(gridView, "FocusedRowObjectChanged")
+            //    .SetBinding(
+            //        x => x.SelectedEntity, args => args.Row as TProjection,
+            //        (gView, entity) => gView.FocusedRowHandle = gView.FindRow(entity));
+            //fluentAPI.WithEvent<RowClickEventArgs>(gridView, "RowClick")
+            //    .EventToCommand(
+            //        x => x.Edit(null), x => x.SelectedEntity,
+            //        args => (args.Clicks == 2) && (args.Button == MouseButtons.Left));
         }
         internal static void BindTileGrid<TViewModel, TEntity>(this DevExpress.Utils.MVVM.MVVMContext context, TileView tileView, BindingSource bindingSource)
             where TViewModel : CollectionViewModel<TEntity, long, IDbUnitOfWork>

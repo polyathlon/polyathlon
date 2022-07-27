@@ -52,33 +52,33 @@ namespace Polyathlon
             mvvmContext.RegisterService(DocumentManagerService.Create(navigationFrame));
             mvvmContext.RegisterService("FilterDialogService", DevExpress.Utils.MVVM.Services.DialogService.CreateFlyoutDialogService(this));
 
-            ModuleModel moduleModel1 = new ModuleModel() { Id = "11", Rev = "112", Group = "222", Title = "1", TileColor = Color.FromArgb(255, 254, 253), ViewDocumentType = "1" };
-            string json = JsonConvert.SerializeObject(moduleModel1);
-            Debug.WriteLine(json);
-            ModuleModel moduleModel2 = JsonConvert.DeserializeObject<ModuleModel>(json);
+            //ModuleModel moduleModel1 = new ModuleModel() { Id = "11", Rev = "112", Group = "222", Title = "1", TileColor = Color.FromArgb(255, 254, 253), ViewDocumentType = "1" };
+            //string json = JsonConvert.SerializeObject(moduleModel1);
+            //Debug.WriteLine(json);
+            //ModuleModel moduleModel2 = JsonConvert.DeserializeObject<ModuleModel>(json);
 
-            string modules = @"{""total_rows"":4,""offset"":0,""rows"":[
-                { ""id"":""module:8997d7edcad3eae911a0c9abb100097a"",""key"":""module:8997d7edcad3eae911a0c9abb100097a"",""value"":{ ""rev"":""1-52dc66bc4a76166e8348d4b76e2b4b78""},""doc"":{ ""_id"":""module:8997d7edcad3eae911a0c9abb100097a"",""_rev"":""1-52dc66bc4a76166e8348d4b76e2b4b78"",""title"":""Мой просмотр"",""group"":""Operation"",""ViewDocumentType"":""MyView""} },
-                { ""id"":""module:8997d7edcad3eae911a0c9abb1002c9a"",""key"":""module:8997d7edcad3eae911a0c9abb1002c9a"",""value"":{ ""rev"":""2-f95dbc40cbfc2d4f619df957835df54e""},""doc"":{ ""_id"":""module:8997d7edcad3eae911a0c9abb1002c9a"",""_rev"":""2-f95dbc40cbfc2d4f619df957835df54e"",""title"":""Мой просмотр"",""group"":""Operation"",""ViewDocumentType"":""MyView""} },
-                { ""id"":""module:8997d7edcad3eae911a0c9abb1006720"",""key"":""module:8997d7edcad3eae911a0c9abb1006720"",""value"":{ ""rev"":""2-2f60825a429913c4900c1b1d331eb217""},""doc"":{ ""_id"":""module:8997d7edcad3eae911a0c9abb1006720"",""_rev"":""2-2f60825a429913c4900c1b1d331eb217"",""name"":""Владислав""} },
-                { ""id"":""module:8997d7edcad3eae911a0c9abb100a34b"",""key"":""module:8997d7edcad3eae911a0c9abb100a34b"",""value"":{ ""rev"":""2-7582e5ecd3bdc143cc19789f6856cd5c""},""doc"":{ ""_id"":""module:8997d7edcad3eae911a0c9abb100a34b"",""_rev"":""2-7582e5ecd3bdc143cc19789f6856cd5c"",""name"":""Ektyf""} }
-                ]}";
+            //string modules = @"{""total_rows"":4,""offset"":0,""rows"":[
+            //    { ""id"":""module:8997d7edcad3eae911a0c9abb100097a"",""key"":""module:8997d7edcad3eae911a0c9abb100097a"",""value"":{ ""rev"":""1-52dc66bc4a76166e8348d4b76e2b4b78""},""doc"":{ ""_id"":""module:8997d7edcad3eae911a0c9abb100097a"",""_rev"":""1-52dc66bc4a76166e8348d4b76e2b4b78"",""title"":""Мой просмотр"",""group"":""Operation"",""ViewDocumentType"":""MyView""} },
+            //    { ""id"":""module:8997d7edcad3eae911a0c9abb1002c9a"",""key"":""module:8997d7edcad3eae911a0c9abb1002c9a"",""value"":{ ""rev"":""2-f95dbc40cbfc2d4f619df957835df54e""},""doc"":{ ""_id"":""module:8997d7edcad3eae911a0c9abb1002c9a"",""_rev"":""2-f95dbc40cbfc2d4f619df957835df54e"",""title"":""Мой просмотр"",""group"":""Operation"",""ViewDocumentType"":""MyView""} },
+            //    { ""id"":""module:8997d7edcad3eae911a0c9abb1006720"",""key"":""module:8997d7edcad3eae911a0c9abb1006720"",""value"":{ ""rev"":""2-2f60825a429913c4900c1b1d331eb217""},""doc"":{ ""_id"":""module:8997d7edcad3eae911a0c9abb1006720"",""_rev"":""2-2f60825a429913c4900c1b1d331eb217"",""name"":""Владислав""} },
+            //    { ""id"":""module:8997d7edcad3eae911a0c9abb100a34b"",""key"":""module:8997d7edcad3eae911a0c9abb100a34b"",""value"":{ ""rev"":""2-7582e5ecd3bdc143cc19789f6856cd5c""},""doc"":{ ""_id"":""module:8997d7edcad3eae911a0c9abb100a34b"",""_rev"":""2-7582e5ecd3bdc143cc19789f6856cd5c"",""name"":""Ektyf""} }
+            //    ]}";
 
-            JObject rss = JObject.Parse(modules);
+            //JObject rss = JObject.Parse(modules);
 
-            IList<JToken> rows = rss["rows"].Children().ToList();
+            //IList<JToken> rows = rss["rows"].Children().ToList();
 
-            foreach(JToken row in rows)
-            {
-                ModuleModel moduleModel = row["doc"].ToObject<ModuleModel>();
+            //foreach(JToken row in rows)
+            //{
+            //    ModuleModel moduleModel = row["doc"].ToObject<ModuleModel>();
                 
-                Debug.WriteLine(moduleModel.Id);
-                //SearchResult searchResult = result.ToObject<SearchResult>();
-                //searchResults.Add(searchResult);
-            }
-            //   textBox1.Text = responseBody.Content.ReadAsStringAsync().Result;
-            //JObject rss = rss["rows"];// . JObject.Parse(output);
-            textBox1.Text = rss["rows"].ToString();// responseBody.Content.ReadAsStringAsync().Result;
+            //    Debug.WriteLine(moduleModel.Id);
+            //    //SearchResult searchResult = result.ToObject<SearchResult>();
+            //    //searchResults.Add(searchResult);
+            //}
+            ////   textBox1.Text = responseBody.Content.ReadAsStringAsync().Result;
+            ////JObject rss = rss["rows"];// . JObject.Parse(output);
+            //textBox1.Text = rss["rows"].ToString();// responseBody.Content.ReadAsStringAsync().Result;
 
 
             var fluentAPI = mvvmContext.OfType<PolyathlonViewModel>();
