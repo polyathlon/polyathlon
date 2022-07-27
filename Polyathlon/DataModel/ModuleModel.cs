@@ -9,6 +9,10 @@ namespace Polyathlon.DataModel
 {
     public class ModuleModel
     {
+        public class Request
+        {
+            public string? Url { get; set; }
+        }
         [JsonProperty("_id")]
         public string? Id { get; set; }
         [JsonProperty("_rev")]
@@ -17,5 +21,12 @@ namespace Polyathlon.DataModel
         public string? Group { get; set; }
         public string? ViewDocumentType { get; set; }
         public Color TileColor { get; set; }
+
+        public List<Request> Requests = new List<Request>();
+
+        public ModuleModel(string rev) { 
+            Rev = rev; 
+        }
     }
+
 }

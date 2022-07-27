@@ -26,6 +26,8 @@ namespace Polyathlon.ViewModels.Common
 
         protected readonly IUnitOfWorkFactory<TUnitOfWork> unitOfWorkFactory;
 
+        protected readonly LocalViewDbBase localViewDbBase = new();
+
         /// <summary>
         /// Initializes a new instance of the DocumentsViewModel class.
         /// </summary>
@@ -242,7 +244,7 @@ namespace Polyathlon.ViewModels.Common
     {
 
         readonly Func<TModule, object> peekCollectionViewModelFactory;
-        object peekCollectionViewModel;
+        object? peekCollectionViewModel;
 
         /// <summary>
         /// Initializes a new instance of the ModuleDescription class.
@@ -251,16 +253,18 @@ namespace Polyathlon.ViewModels.Common
         /// <param name = "documentType" > A string value that specifies the view type of corresponding document.</param>
         /// <param name = "group" > A navigation list entry group name.</param>
         /// <param name = "peekCollectionViewModelFactory" > An optional parameter that provides a function used to create a PeekCollectionViewModel that provides quick navigation between collection views.</param>
-        public ModuleDescription(string moduleTitle, string moduleGroup, string documentType, Color tileColor, int tileFontSize, Func<TModule, object> peekCollectionViewModelFactory = null)
+        public ModuleDescription(string moduleTitle, string moduleGroup, string documentType, Func<TModule, object> peekCollectionViewModelFactory = null)
         {
             ModuleTitle = moduleTitle;
             ModuleGroup = moduleGroup;
-            DocumentType = documentType;
-            TileColor = tileColor;
-            TileFontSize = tileFontSize;
+            DocumentType = documentType;            
             this.peekCollectionViewModelFactory = peekCollectionViewModelFactory;
         }
 
+        public ModuleDescription(Func<TModule, object> peekCollectionViewModelFactory = null)
+        {            
+            this.peekCollectionViewModelFactory = peekCollectionViewModelFactory;
+        }
 
         [JsonProperty("_id")]
         public string? ModuleId { get; set; }
@@ -269,28 +273,46 @@ namespace Polyathlon.ViewModels.Common
         /// <summary>
         /// The navigation list entry display text.
         /// </summary>
+        [JsonProperty("moduleTitle")]
         public string ModuleTitle { get; private set; }
 
         /// <summary>
         /// The navigation list entry group name.
         /// </summary>
+        [JsonProperty("moduleGroup")]
         public string ModuleGroup { get; private set; }
 
         /// <summary>
         /// Contains the corresponding document view type.
         /// </summary>
+        [JsonProperty("documentType")]
         public string DocumentType { get; private set; }
 
 
         /// <summary>
         /// Color of tileBarItem.
         /// </summary>
+        [JsonProperty("tileColor")]
         public Color TileColor { get; private set; }
 
         /// <summary>
         /// Font Size of tileBarItem.
         /// </summary>
+        [JsonProperty("tileFontSize")]        
         public int TileFontSize { get; private set; }
+
+        /// <summary>
+        /// A class for storing request's url to the Database.
+        /// </summary>
+        public class Request
+        {
+            public string? Url { get; set; }
+        }
+
+        /// <summary>
+        /// A list of requests to Database.
+        /// </summary>
+        public List<Request> Requests = new List<Request>();
 
         /// <summary>
         /// A primary instance of corresponding PeekCollectionViewModel used to quick navigation between collection views.
