@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 using System.ComponentModel;
 using Polyathlon.DataModel;
 using DevExpress.Mvvm;
@@ -176,12 +172,12 @@ namespace Polyathlon.ViewModels.Common
 
         IDocument CreateDocument(TModule module)
         {
-            var document = DocumentManagerService.CreateDocument(module.DocumentType, null, this);
+            var document = DocumentManagerService.CreateDocument(module.DocumentType, module, this);
             document.Title = GetModuleTitle(module);
-            document.DestroyOnClose = false;
+            document.DestroyOnClose = false;            
             return document;
         }
-
+        
         protected virtual string GetModuleTitle(TModule module)
         {
             return module.ModuleTitle;
@@ -240,103 +236,103 @@ namespace Polyathlon.ViewModels.Common
     /// </summary>
     /// <typeparam name="TModule">A navigation list entry type.</typeparam>
     /// 
-    public abstract class ModuleDescription<TModule> where TModule : ModuleDescription<TModule>
-    {
+    //public abstract class ModuleDescription<TModule> where TModule : ModuleDescription<TModule>
+    //{
 
-        readonly Func<TModule, object> peekCollectionViewModelFactory;
-        object? peekCollectionViewModel;
+    //    readonly Func<TModule, object> peekCollectionViewModelFactory;
+    //    object? peekCollectionViewModel;
 
-        /// <summary>
-        /// Initializes a new instance of the ModuleDescription class.
-        /// </summary>
-        /// <param name = "title" > A navigation list entry display text.</param>
-        /// <param name = "documentType" > A string value that specifies the view type of corresponding document.</param>
-        /// <param name = "group" > A navigation list entry group name.</param>
-        /// <param name = "peekCollectionViewModelFactory" > An optional parameter that provides a function used to create a PeekCollectionViewModel that provides quick navigation between collection views.</param>
-        public ModuleDescription(string moduleTitle, string moduleGroup, string documentType, Func<TModule, object> peekCollectionViewModelFactory = null)
-        {
-            ModuleTitle = moduleTitle;
-            ModuleGroup = moduleGroup;
-            DocumentType = documentType;            
-            this.peekCollectionViewModelFactory = peekCollectionViewModelFactory;
-        }
+    //    /// <summary>
+    //    /// Initializes a new instance of the ModuleDescription class.
+    //    /// </summary>
+    //    /// <param name = "title" > A navigation list entry display text.</param>
+    //    /// <param name = "documentType" > A string value that specifies the view type of corresponding document.</param>
+    //    /// <param name = "group" > A navigation list entry group name.</param>
+    //    /// <param name = "peekCollectionViewModelFactory" > An optional parameter that provides a function used to create a PeekCollectionViewModel that provides quick navigation between collection views.</param>
+    //    public ModuleDescription(string moduleTitle, string moduleGroup, string documentType, Func<TModule, object> peekCollectionViewModelFactory = null)
+    //    {
+    //        ModuleTitle = moduleTitle;
+    //        ModuleGroup = moduleGroup;
+    //        DocumentType = documentType;            
+    //        this.peekCollectionViewModelFactory = peekCollectionViewModelFactory;
+    //    }
 
-        public ModuleDescription(Func<TModule, object> peekCollectionViewModelFactory = null)
-        {            
-            this.peekCollectionViewModelFactory = peekCollectionViewModelFactory;
-        }
+    //    public ModuleDescription(Func<TModule, object> peekCollectionViewModelFactory = null)
+    //    {            
+    //        this.peekCollectionViewModelFactory = peekCollectionViewModelFactory;
+    //    }
 
-        [JsonProperty("_id")]
-        public string? ModuleId { get; set; }
-        [JsonProperty("_rev")]
-        public string? ModuleRev { get; set; }
-        /// <summary>
-        /// The navigation list entry display text.
-        /// </summary>
-        [JsonProperty("moduleTitle")]
-        public string ModuleTitle { get; private set; }
+    //    [JsonProperty("_id")]
+    //    public string? ModuleId { get; set; }
+    //    [JsonProperty("_rev")]
+    //    public string? ModuleRev { get; set; }
+    //    /// <summary>
+    //    /// The navigation list entry display text.
+    //    /// </summary>
+    //    [JsonProperty("moduleTitle")]
+    //    public string ModuleTitle { get; private set; }
 
-        /// <summary>
-        /// The navigation list entry group name.
-        /// </summary>
-        [JsonProperty("moduleGroup")]
-        public string ModuleGroup { get; private set; }
+    //    /// <summary>
+    //    /// The navigation list entry group name.
+    //    /// </summary>
+    //    [JsonProperty("moduleGroup")]
+    //    public string ModuleGroup { get; private set; }
 
-        /// <summary>
-        /// Contains the corresponding document view type.
-        /// </summary>
-        [JsonProperty("documentType")]
-        public string DocumentType { get; private set; }
+    //    /// <summary>
+    //    /// Contains the corresponding document view type.
+    //    /// </summary>
+    //    [JsonProperty("documentType")]
+    //    public string DocumentType { get; private set; }
 
 
-        /// <summary>
-        /// Color of tileBarItem.
-        /// </summary>
-        [JsonProperty("tileColor")]
-        public Color TileColor { get; private set; }
+    //    /// <summary>
+    //    /// Color of tileBarItem.
+    //    /// </summary>
+    //    [JsonProperty("tileColor")]
+    //    public Color TileColor { get; private set; }
 
-        /// <summary>
-        /// Font Size of tileBarItem.
-        /// </summary>
-        [JsonProperty("tileFontSize")]        
-        public int TileFontSize { get; private set; }
+    //    /// <summary>
+    //    /// Font Size of tileBarItem.
+    //    /// </summary>
+    //    [JsonProperty("tileFontSize")]        
+    //    public int TileFontSize { get; private set; }
 
-        /// <summary>
-        /// A class for storing request's url to the Database.
-        /// </summary>
-        public class Request
-        {
-            public string? Url { get; set; }
-        }
+    //    /// <summary>
+    //    /// A class for storing request's url to the Database.
+    //    /// </summary>
+    //    public class Request
+    //    {
+    //        public string? Url { get; set; }
+    //    }
 
-        /// <summary>
-        /// A list of requests to Database.
-        /// </summary>
-        public List<Request> Requests = new List<Request>();
+    //    /// <summary>
+    //    /// A list of requests to Database.
+    //    /// </summary>
+    //    public List<Request> Requests = new List<Request>();
 
-        /// <summary>
-        /// A primary instance of corresponding PeekCollectionViewModel used to quick navigation between collection views.
-        /// </summary>
-        public object? PeekCollectionViewModel
-        {
-            get
-            {
-                if (peekCollectionViewModelFactory == null)
-                    return null;
-                if (peekCollectionViewModel == null)
-                    peekCollectionViewModel = CreatePeekCollectionViewModel();
-                return peekCollectionViewModel;
-            }
-        }
+    //    /// <summary>
+    //    /// A primary instance of corresponding PeekCollectionViewModel used to quick navigation between collection views.
+    //    /// </summary>
+    //    public object? PeekCollectionViewModel
+    //    {
+    //        get
+    //        {
+    //            if (peekCollectionViewModelFactory == null)
+    //                return null;
+    //            if (peekCollectionViewModel == null)
+    //                peekCollectionViewModel = CreatePeekCollectionViewModel();
+    //            return peekCollectionViewModel;
+    //        }
+    //    }
 
-        /// <summary>
-        /// Creates and returns a new instance of the corresponding PeekCollectionViewModel that provides quick navigation between collection views.
-        /// </summary>
-        public object CreatePeekCollectionViewModel()
-        {
-            return peekCollectionViewModelFactory((TModule)this);
-        }
-    }
+    //    /// <summary>
+    //    /// Creates and returns a new instance of the corresponding PeekCollectionViewModel that provides quick navigation between collection views.
+    //    /// </summary>
+    //    public object CreatePeekCollectionViewModel()
+    //    {
+    //        return peekCollectionViewModelFactory((TModule)this);
+    //    }
+    //}
 
     /// <summary>
     /// Represents a navigation pane state.

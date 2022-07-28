@@ -59,9 +59,7 @@ namespace Polyathlon.Views
             this.customerEmployeeBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tvEmployee = new DevExpress.XtraGrid.Views.Tile.TileView();
             this.gridControl = new DevExpress.XtraGrid.GridControl();
-            this.regionBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.gridView = new DevExpress.XtraGrid.Views.Grid.GridView();
-            this.colName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.repositoryItemSparklineEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemSparklineEdit();
             this.customerDetailsComboBoxEdit = new DevExpress.XtraEditors.ImageComboBoxEdit();
             this.layoutControlGroup1 = new DevExpress.XtraLayout.LayoutControlGroup();
@@ -73,6 +71,7 @@ namespace Polyathlon.Views
             this.emptySpaceItem1 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem4 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.regionBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.mvvmContext = new DevExpress.Utils.MVVM.MVVMContext(this.components);
             this.searchControl = new DevExpress.XtraEditors.SearchControl();
             this.windowsUIButtonPanel.SuspendLayout();
@@ -86,7 +85,6 @@ namespace Polyathlon.Views
             ((System.ComponentModel.ISupportInitialize)(this.customerEmployeeBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tvEmployee)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.regionBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemSparklineEdit1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.customerDetailsComboBoxEdit.Properties)).BeginInit();
@@ -99,6 +97,7 @@ namespace Polyathlon.Views
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.regionBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mvvmContext)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.searchControl.Properties)).BeginInit();
             this.SuspendLayout();
@@ -358,7 +357,6 @@ namespace Polyathlon.Views
             // 
             // gridControl
             // 
-            this.gridControl.DataSource = this.regionBindingSource;
             this.gridControl.EmbeddedNavigator.Margin = new System.Windows.Forms.Padding(5);
             this.gridControl.Location = new System.Drawing.Point(52, 46);
             this.gridControl.MainView = this.gridView;
@@ -373,23 +371,10 @@ namespace Polyathlon.Views
             // 
             // gridView
             // 
-            this.gridView.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
-            this.colName});
             this.gridView.DetailHeight = 437;
             this.gridView.GridControl = this.gridControl;
             this.gridView.Name = "gridView";
             this.gridView.OptionsBehavior.AllowSortAnimation = DevExpress.Utils.DefaultBoolean.True;
-            // 
-            // colName
-            // 
-            this.colName.FieldName = "Name";
-            this.colName.MinWidth = 25;
-            this.colName.Name = "colName";
-            this.colName.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
-            new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Count, "Name", "<color=Gray>CUSTOMER COUNT</color><br><b>{0}</b>")});
-            this.colName.Visible = true;
-            this.colName.VisibleIndex = 0;
-            this.colName.Width = 166;
             // 
             // repositoryItemSparklineEdit1
             // 
@@ -566,7 +551,6 @@ namespace Polyathlon.Views
             ((System.ComponentModel.ISupportInitialize)(this.customerEmployeeBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tvEmployee)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.regionBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemSparklineEdit1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.customerDetailsComboBoxEdit.Properties)).EndInit();
@@ -579,6 +563,7 @@ namespace Polyathlon.Views
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.regionBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.mvvmContext)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.searchControl.Properties)).EndInit();
             this.ResumeLayout(false);
@@ -603,7 +588,6 @@ namespace Polyathlon.Views
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem1;
         private DevExpress.Utils.MVVM.MVVMContext mvvmContext;
         private System.Windows.Forms.BindingSource customerBindingSource;
-        private DevExpress.XtraGrid.Columns.GridColumn colName;
         private DevExpress.XtraEditors.Repository.RepositoryItemSparklineEdit repositoryItemSparklineEdit1;
         private System.Windows.Forms.BindingSource customerEmployeeBindingSource;
         private DevExpress.XtraGrid.Columns.TileViewColumn colFullName;

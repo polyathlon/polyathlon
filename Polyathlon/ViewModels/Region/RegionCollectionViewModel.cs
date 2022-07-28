@@ -1,14 +1,17 @@
 using DevExpress.Mvvm.POCO;
 using Polyathlon.DataModel;
 using System.Collections.ObjectModel;
-
+using Polyathlon.DataModel.Entities;
+using System.Diagnostics;
+using DevExpress.Mvvm;
+using Polyathlon.ViewModels.Common;
 
 namespace Polyathlon.ViewModels
 {
     /// <summary>
     /// Represents the Region collection view model.
     /// </summary>
-    public partial class RegionCollectionViewModel //: CollectionViewModel<Entities.Region, RegionInfoWithSales, long, IDbUnitOfWork>
+    public partial class RegionCollectionViewModel : ISupportParameter, ISupportParentViewModel //: CollectionViewModel<Entities.Region, RegionInfoWithSales, long, IDbUnitOfWork> 
     {
         /// <summary>
         /// Creates a new instance of CustomerCollectionViewModel as a POCO view model.
@@ -16,13 +19,18 @@ namespace Polyathlon.ViewModels
         /// <param name="unitOfWorkFactory">A factory used to create a unit of work instance.</param>
 
         private LocalViewDbBase localViewDb;
-        public ObservableCollection<DataModel.Entities.Region> Entities;
-        public static RegionCollectionViewModel Create()
+        
+        private PolyathlonModuleDescription ModuleDescription;
+        public ObservableCollection<RegionViewEntity> Entities;
+        public static RegionCollectionViewModel Create(object a)
         {
+            Debug.WriteLine("111");
             return ViewModelSource.Create(() => new RegionCollectionViewModel(LocalViewDbBase.LocalViewDb));
         }
 
-        public bool IsLoading { get; set; } = false;
+        public bool IsLoading { get; set; } = true;
+        public virtual object Parameter { get; set; }
+        public object ParentViewModel { get; set; }
 
 
         /// <summary>
@@ -48,22 +56,64 @@ namespace Polyathlon.ViewModels
         protected RegionCollectionViewModel(LocalViewDbBase localViewDbBase)
         {
             this.localViewDb = localViewDbBase;
-            Entities = LocalViewDbBase.GetLocalViewTable<DataModel.Entities.Region, DataModel.Entities.Region>("11", createViewEntity);
+            
+            //Entities = LocalViewDbBase.GetLocalViewTable<DataModel.Entities.Region, DataModel.Entities.Region>("11", createViewEntity);
         }
 
-        protected DataModel.Entities.Region createViewEntity(DataModel.Entities.Region Entity)
+        protected RegionViewEntity createViewEntity(DataModel.Entities.Region Entity)
         {
-            DataModel.Entities.Region ViewEntity = new(Entity);
+            RegionViewEntity ViewEntity = new(Entity);
             return ViewEntity;
         }
 
-        protected RegionCollectionViewModel()    
+        private object my;
+        //protected override void OnParameterChanged(object parameter)
+        //{
+        //    my = parameter;
+        //}
+
+        protected void OnParameterChanged()
         {
-            this.localViewDb = LocalViewDbBase.LocalViewDb;
+
+            ModuleDescription = (PolyathlonModuleDescription)Parameter;
+            //Debug.WriteLine(this.ParentViewModel);
+            //Debug.WriteLine(Parameter.ToString());
+            //this.localViewDb = LocalViewDbBase.LocalViewDb;
             //LocalViewDbBase.GetLocalViewTable<DataModel.Entities.Region, DataModel.Entities.Region>('11');
             //Entities = (ObservableCollection<DataModel.Entities.Region>)LocalViewDbBase.GetLocalViewTable<DataModel.Entities.Region, DataModel.Entities.Region>("11");
-            Entities = LocalViewDbBase.GetLocalViewTable<DataModel.Entities.Region, DataModel.Entities.Region>("11", createViewEntity);
-            IsLoading = true;
+            Entities = localViewDb.GetLocalViewCollection<RegionViewEntity, DataModel.Entities.Region>(ModuleDescription, createViewEntity);
+            // Entities = new ObservableCollection<Account>();
+            //Entities.Add(new Account());
+            //Entities.Add(new Account());
+            IsLoading = false;
+        }
+        //protected RegionCollectionViewModel(object a)    
+        //{
+
+        //}
+
+        protected RegionCollectionViewModel(object a)
+        {
+            this.localViewDb = LocalViewDbBase.LocalViewDb;
+        }
+        protected RegionCollectionViewModel()
+        {
+            this.localViewDb = LocalViewDbBase.LocalViewDb;
         }
     }
 }
+//public class Account
+//{
+//    [Key, Display(AutoGenerateField = false)]
+//    public long ID { get; set; }
+//    [Required, StringLength(30, MinimumLength = 4)]
+//    [Display(Name = "ACCOUNT")]
+//    public string Name { get; set; } = "12";
+//    [DataType(DataType.Currency)]
+//    [Display(Name = "AMOUNT")]
+//    public decimal Amount { get; set; } = 1;
+//    public override string ToString()
+//    {
+//        return Name + " (" + Amount.ToString("C") + ")";
+//    }    
+//}

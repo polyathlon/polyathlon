@@ -31,7 +31,7 @@ using DevExpress.Utils.MVVM;
 using DevExpress.XtraBars.Navigation;
 using Polyathlon.Helpers;
 
-
+using Polyathlon.ViewModels.Common;
 //using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Polyathlon

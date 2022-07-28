@@ -1,12 +1,15 @@
 using DevExpress.Utils.MVVM.UI;
 using Polyathlon.ViewModels;
 using Polyathlon.DataModel.Entities;
-
+using DevExpress.Mvvm;
 
 namespace Polyathlon.Views
 {
     [ViewType("RegionCollectionView")]
-    public partial class RegionCollectionView : BaseViewWithWinUIButtons {
+    public partial class RegionCollectionView : BaseViewWithWinUIButtons, ISupportParameter
+    {
+        
+        public object Parameter { get; set; }
         public RegionCollectionView() {
             InitializeComponent();
             
@@ -19,10 +22,14 @@ namespace Polyathlon.Views
                 InitBindings();
         }
         void InitBindings() {
+            
+            //mvvmContext.ViewModelConstructorParameter = new();
             var fluent = mvvmContext.OfType<RegionCollectionViewModel>();
             fluent.SetBinding(gridView, gView => gView.LoadingPanelVisible, x => x.IsLoading);
-            fluent.SetBinding(gridControl, gControl => gControl.DataSource, x => x.Entities);
-           // mvvmContext.BindCollectionGridMy<RegionCollectionViewModel, DataModel.Entities.Region, DataModel.Entities.Region>(gridView, regionBindingSource);
+            gridControl.DataSource = regionBindingSource;
+            regionBindingSource.DataSource = fluent.ViewModel.Entities;
+            //fluent.SetBinding(gridControl, gControl => gControl.DataSource, x => x.Entities);
+     //       mvvmContext.BindCollectionGridMy<RegionCollectionViewModel, DataModel.Entities.Region, DataModel.Entities.Region>(gridView, regionBindingSource);
             //var fluentAPI = mvvmContext.OfType<RegionCollectionViewModel>();
             //fluentAPI.SetBinding(labelName, label => label.Text, x => x.SelectedEntity.Name);
             //customerDetailsComboBoxEdit.Properties.Items.AddEnum<CollectionDetailKind>();

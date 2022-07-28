@@ -1,58 +1,73 @@
 using System.Collections;
 using Newtonsoft.Json.Linq;
 using System.Collections.ObjectModel;
+using Polyathlon.ViewModels.Common;
 
+namespace Polyathlon.DataModel;
 
-namespace Polyathlon.DataModel
+/// <summary>
+/// The base class for unit of works that provides the storage for repositories. 
+/// </summary>
+public sealed class LocalViewDbBase
 {
-    /// <summary>
-    /// The base class for unit of works that provides the storage for repositories. 
-    /// </summary>
-    public sealed class LocalViewDbBase
+    private static volatile LocalViewDbBase localViewDb;
+
+    private static object SyncRoot = new Object();
+
+    private static readonly Dictionary<string, object> tables = new();
+            
+    private LocalViewDbBase() { }
+
+    public static LocalViewDbBase LocalViewDb
     {
-        private static volatile LocalViewDbBase localViewDb;
-
-        private static object looker = new Object();
-
-        private static readonly Dictionary<string, object> tables = new();
-                
-        private LocalViewDbBase() { }
-
-        public static LocalViewDbBase LocalViewDb
+        get
         {
-            get
+            if (localViewDb == null)
             {
-                if (localViewDb == null)
+                lock (SyncRoot)
                 {
-                    lock (looker)
-                    {
-                        if (localViewDb == null)
-                            localViewDb = new LocalViewDbBase();
-                    }
+                    if (localViewDb == null)
+                        localViewDb = new LocalViewDbBase();
                 }
-                return localViewDb;
+            }
+            return localViewDb;
+        }
+    }
+
+    public ObservableCollection<TViewEntity> GetLocalViewCollection<TViewEntity, TEntity>(PolyathlonModuleDescription moduleDescription, Func<TEntity, TViewEntity> createViewEntity)
+        where TEntity : class
+        where TViewEntity : class, new()            
+    {
+        object? result = null;
+        string requests = "";
+        foreach (var item in moduleDescription.Requests)
+        {
+            if (item.Url is not null)
+                requests.Concat(item.Url);
+        }                 
+        if (!tables.TryGetValue(requests, out result))
+        {
+            lock (SyncRoot)
+            {
+                if (!tables.TryGetValue(requests, out result))
+                {
+                    ObservableCollection<TViewEntity> ViewEntities = new ObservableCollection<TViewEntity>();
+                    foreach (var request in moduleDescription.Requests)
+                    {
+
+                        IList EntitiesDb = LocalDbBase.LocalDb.GetLocalDbTable<TEntity>(request.Url);
+                        if (EntitiesDb is not null)
+                        {
+                            foreach (var item in EntitiesDb)
+                            {
+                                ViewEntities.Add(createViewEntity((TEntity)item));
+                            }
+                        }
+                    }
+                    tables[requests] = result = ViewEntities;
+                }
             }
         }
-
-        static public ObservableCollection<TViewEntity> GetLocalViewTable<TViewEntity, TEntity>(string request, Func<TEntity, TViewEntity> createViewEntity)
-            where TEntity : class
-            where TViewEntity : class, new()            
-        {
-            object? result = null;
-            if (!tables.TryGetValue(request, out result))
-            {                
-                IList EntitiesDb = LocalDbBase.GetLocalDbTable<TEntity>(request);
-                ObservableCollection<TViewEntity> ViewEntities = new ObservableCollection<TViewEntity>();
-                if (EntitiesDb is not null)
-                {
-                    foreach (var item in EntitiesDb)
-                    {   
-                        ViewEntities.Add(createViewEntity((TEntity)item));
-                    }
-                }                
-                tables[request] = result = ViewEntities;
-            }
-            return (ObservableCollection<TViewEntity>) result;
-        }        
-    }
+        return (ObservableCollection<TViewEntity>) result;
+    }        
 }
