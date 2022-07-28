@@ -24,7 +24,7 @@ namespace Polyathlon.ViewModels
         public ObservableCollection<RegionViewEntity> Entities;
         public static RegionCollectionViewModel Create(object a)
         {
-            Debug.WriteLine("111");
+            //Debug.WriteLine("111");
             return ViewModelSource.Create(() => new RegionCollectionViewModel(LocalViewDbBase.LocalViewDb));
         }
 
@@ -65,12 +65,7 @@ namespace Polyathlon.ViewModels
             RegionViewEntity ViewEntity = new(Entity);
             return ViewEntity;
         }
-
-        private object my;
-        //protected override void OnParameterChanged(object parameter)
-        //{
-        //    my = parameter;
-        //}
+        
 
         protected void OnParameterChanged()
         {
@@ -81,12 +76,29 @@ namespace Polyathlon.ViewModels
             //this.localViewDb = LocalViewDbBase.LocalViewDb;
             //LocalViewDbBase.GetLocalViewTable<DataModel.Entities.Region, DataModel.Entities.Region>('11');
             //Entities = (ObservableCollection<DataModel.Entities.Region>)LocalViewDbBase.GetLocalViewTable<DataModel.Entities.Region, DataModel.Entities.Region>("11");
-            Entities = localViewDb.GetLocalViewCollection<RegionViewEntity, DataModel.Entities.Region>(ModuleDescription, createViewEntity);
+            //Entities = localViewDb.GetLocalViewCollection<RegionViewEntity, DataModel.Entities.Region>(ModuleDescription, createViewEntity);
             // Entities = new ObservableCollection<Account>();
             //Entities.Add(new Account());
             //Entities.Add(new Account());
-            IsLoading = false;
+            LoadCore();
         }
+
+        CancellationTokenSource LoadCore()
+        {
+            IsLoading = true;
+            var cancellationTokenSource = new CancellationTokenSource();            
+            System.Threading.Tasks.Task.Factory.StartNew(() =>
+            {                
+                var entities = localViewDb.GetLocalViewCollection<RegionViewEntity, DataModel.Entities.Region>(ModuleDescription, createViewEntity);
+                return entities;
+            }).ContinueWith(x =>
+            {                   
+                 Entities = x.Result;                
+                 IsLoading = false;
+            }, cancellationTokenSource.Token, TaskContinuationOptions.None, TaskScheduler.FromCurrentSynchronizationContext());
+            return cancellationTokenSource;
+        }
+
         //protected RegionCollectionViewModel(object a)    
         //{
 
