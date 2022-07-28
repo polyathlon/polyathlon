@@ -80,7 +80,9 @@ namespace Polyathlon.ViewModels
             // Entities = new ObservableCollection<Account>();
             //Entities.Add(new Account());
             //Entities.Add(new Account());
-            LoadCore();
+            //LoadCore();
+            Entities = localViewDb.GetLocalViewCollection<RegionViewEntity, DataModel.Entities.Region>(ModuleDescription, createViewEntity);
+            IsLoading = false;
         }
 
         CancellationTokenSource LoadCore()
