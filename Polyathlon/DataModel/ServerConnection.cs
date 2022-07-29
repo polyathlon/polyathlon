@@ -17,9 +17,7 @@ public sealed class ServerConnection
 {
     private static volatile ServerConnection serverConnection;
 
-    private static object SyncRoot = new();
-
-    private static readonly Dictionary<string, Url> baseUris = new();
+    private static object SyncRoot = new();    
 
     private readonly IFlurlClientFactory flurlClientFactory;
 
