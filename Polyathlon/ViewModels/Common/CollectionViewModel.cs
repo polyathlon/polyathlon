@@ -177,7 +177,7 @@ namespace Polyathlon.ViewModels.Common
         {
             if (canCreateNewEntity != null && !canCreateNewEntity())
                 return;
-            //DocumentManagerService.ShowNewEntityDocument(this, newEntityInitializer);
+            DocumentManagerService.ShowNewEntityDocument(this, newEntityInitializer);
         }
 
         /// <summary>

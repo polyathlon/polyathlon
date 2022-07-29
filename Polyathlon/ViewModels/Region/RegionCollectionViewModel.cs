@@ -6,12 +6,15 @@ using System.Diagnostics;
 using DevExpress.Mvvm;
 using Polyathlon.ViewModels.Common;
 
+using DevExpress.Mvvm;
+using DevExpress.Mvvm.POCO;
+
 namespace Polyathlon.ViewModels
 {
     /// <summary>
     /// Represents the Region collection view model.
     /// </summary>
-    public partial class RegionCollectionViewModel : ISupportParameter, ISupportParentViewModel //: CollectionViewModel<Entities.Region, RegionInfoWithSales, long, IDbUnitOfWork> 
+    public partial class RegionCollectionViewModel : ISupportParameter//, ISupportParentViewModel //: CollectionViewModel<Entities.Region, RegionInfoWithSales, long, IDbUnitOfWork> 
     {
         /// <summary>
         /// Creates a new instance of CustomerCollectionViewModel as a POCO view model.
@@ -20,17 +23,19 @@ namespace Polyathlon.ViewModels
 
         private LocalViewDbBase localViewDb;
         
-        private PolyathlonModuleDescription ModuleDescription;
-        public ObservableCollection<RegionViewEntity> Entities;
+        public PolyathlonModuleDescription ModuleDescription { get; private set; }
+
+        public ObservableCollection<RegionViewEntity> Entities { get; private set; }
+
         public static RegionCollectionViewModel Create(object a)
         {
             //Debug.WriteLine("111");
             return ViewModelSource.Create(() => new RegionCollectionViewModel(LocalViewDbBase.LocalViewDb));
         }
 
-        public bool IsLoading { get; set; } = true;
+        public bool IsLoading { get; set; } = false;
         public virtual object Parameter { get; set; }
-        public object ParentViewModel { get; set; }
+        //public object ParentViewModel { get; set; }
 
 
         /// <summary>
@@ -56,35 +61,37 @@ namespace Polyathlon.ViewModels
         protected RegionCollectionViewModel(LocalViewDbBase localViewDbBase)
         {
             this.localViewDb = localViewDbBase;
-            
-            //Entities = LocalViewDbBase.GetLocalViewTable<DataModel.Entities.Region, DataModel.Entities.Region>("11", createViewEntity);
         }
 
-        protected RegionViewEntity createViewEntity(DataModel.Entities.Region Entity)
+        protected RegionViewEntity createViewEntity(DataModel.Entities.Region entity)
         {
-            RegionViewEntity ViewEntity = new(Entity);
+            RegionViewEntity ViewEntity = new(entity);
             return ViewEntity;
         }
-        
 
+        public virtual RegionViewEntity SelectedEntity { get; set; }
+        
         protected void OnParameterChanged()
         {
 
             ModuleDescription = (PolyathlonModuleDescription)Parameter;
-            //Debug.WriteLine(this.ParentViewModel);
-            //Debug.WriteLine(Parameter.ToString());
-            //this.localViewDb = LocalViewDbBase.LocalViewDb;
-            //LocalViewDbBase.GetLocalViewTable<DataModel.Entities.Region, DataModel.Entities.Region>('11');
-            //Entities = (ObservableCollection<DataModel.Entities.Region>)LocalViewDbBase.GetLocalViewTable<DataModel.Entities.Region, DataModel.Entities.Region>("11");
-            //Entities = localViewDb.GetLocalViewCollection<RegionViewEntity, DataModel.Entities.Region>(ModuleDescription, createViewEntity);
-            // Entities = new ObservableCollection<Account>();
-            //Entities.Add(new Account());
-            //Entities.Add(new Account());
             //LoadCore();
             Entities = localViewDb.GetLocalViewCollection<RegionViewEntity, DataModel.Entities.Region>(ModuleDescription, createViewEntity);
             IsLoading = false;
         }
+        protected IDocumentManagerService DocumentManagerService { get { return this.GetService<IDocumentManagerService>(); } }
 
+        readonly Action<DataModel.Entities.Region> newEntityInitializer;
+
+        public void New()
+        {
+            DocumentManagerService.ShowNewEntityDocument(this, newEntityInitializer);
+        }
+
+        public void Edit(RegionViewEntity viewEntity)
+        {
+            DocumentManagerService.ShowNewEntityDocument(this, newEntityInitializer);
+        }
         CancellationTokenSource LoadCore()
         {
             IsLoading = true;

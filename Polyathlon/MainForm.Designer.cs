@@ -89,8 +89,9 @@
             this.tileNavPane.DefaultCategory.Tile.DropDownOptions.BeakColor = System.Drawing.Color.Empty;
             this.tileNavPane.Dock = System.Windows.Forms.DockStyle.Top;
             this.tileNavPane.Location = new System.Drawing.Point(0, 0);
+            this.tileNavPane.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.tileNavPane.Name = "tileNavPane";
-            this.tileNavPane.Size = new System.Drawing.Size(1942, 128);
+            this.tileNavPane.Size = new System.Drawing.Size(1214, 80);
             this.tileNavPane.TabIndex = 0;
             this.tileNavPane.Text = "tileNavPane1";
             // 
@@ -159,17 +160,17 @@
             this.tileBar.ItemImageScaleMode = DevExpress.XtraEditors.TileItemImageScaleMode.Squeeze;
             this.tileBar.ItemPadding = new System.Windows.Forms.Padding(8, 6, 8, 6);
             this.tileBar.ItemSize = 100;
-            this.tileBar.Location = new System.Drawing.Point(0, 128);
-            this.tileBar.Margin = new System.Windows.Forms.Padding(6);
+            this.tileBar.Location = new System.Drawing.Point(0, 80);
+            this.tileBar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tileBar.MaxId = 4;
             this.tileBar.Name = "tileBar";
-            this.tileBar.Padding = new System.Windows.Forms.Padding(45, 14, 45, 40);
+            this.tileBar.Padding = new System.Windows.Forms.Padding(28, 9, 28, 25);
             this.tileBar.ScrollMode = DevExpress.XtraEditors.TileControlScrollMode.ScrollButtons;
             this.tileBar.SelectionBorderWidth = 2;
             this.tileBar.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
             this.tileBar.SelectionColorMode = DevExpress.XtraBars.Navigation.SelectionColorMode.UseItemBackColor;
             this.tileBar.ShowGroupText = false;
-            this.tileBar.Size = new System.Drawing.Size(1942, 240);
+            this.tileBar.Size = new System.Drawing.Size(1214, 150);
             this.tileBar.TabIndex = 0;
             this.tileBar.Text = "tileBar";
             this.tileBar.VerticalContentAlignment = DevExpress.Utils.VertAlignment.Bottom;
@@ -230,11 +231,11 @@
             // navigationFrame
             // 
             this.navigationFrame.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.navigationFrame.Location = new System.Drawing.Point(0, 368);
-            this.navigationFrame.Margin = new System.Windows.Forms.Padding(19, 32, 19, 32);
+            this.navigationFrame.Location = new System.Drawing.Point(0, 230);
+            this.navigationFrame.Margin = new System.Windows.Forms.Padding(12, 20, 12, 20);
             this.navigationFrame.Name = "navigationFrame";
             this.navigationFrame.SelectedPage = null;
-            this.navigationFrame.Size = new System.Drawing.Size(1942, 698);
+            this.navigationFrame.Size = new System.Drawing.Size(1214, 436);
             this.navigationFrame.TabIndex = 2;
             this.navigationFrame.Text = "navigationFrame1";
             this.navigationFrame.TransitionAnimationProperties.FrameInterval = 5000;
@@ -243,10 +244,10 @@
             // button1
             // 
             this.button1.Font = new System.Drawing.Font("Segoe UI", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.button1.Location = new System.Drawing.Point(296, 24);
-            this.button1.Margin = new System.Windows.Forms.Padding(6);
+            this.button1.Location = new System.Drawing.Point(185, 15);
+            this.button1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(150, 61);
+            this.button1.Size = new System.Drawing.Size(94, 38);
             this.button1.TabIndex = 0;
             this.button1.Text = "button1";
             this.button1.UseVisualStyleBackColor = true;
@@ -259,10 +260,10 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(558, 29);
-            this.button2.Margin = new System.Windows.Forms.Padding(6);
+            this.button2.Location = new System.Drawing.Point(349, 18);
+            this.button2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(150, 61);
+            this.button2.Size = new System.Drawing.Size(94, 38);
             this.button2.TabIndex = 3;
             this.button2.Text = "button2";
             this.button2.UseVisualStyleBackColor = true;
@@ -276,10 +277,10 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(829, 29);
-            this.button3.Margin = new System.Windows.Forms.Padding(6);
+            this.button3.Location = new System.Drawing.Point(518, 18);
+            this.button3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(150, 61);
+            this.button3.Size = new System.Drawing.Size(94, 38);
             this.button3.TabIndex = 4;
             this.button3.Text = "button3";
             this.button3.UseVisualStyleBackColor = true;
@@ -287,18 +288,18 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(1128, 29);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(6);
+            this.textBox1.Location = new System.Drawing.Point(705, 18);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(196, 47);
+            this.textBox1.Size = new System.Drawing.Size(124, 32);
             this.textBox1.TabIndex = 5;
             // 
             // MainForm
             // 
             this.Appearance.Options.UseFont = true;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(16F, 40F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1942, 1066);
+            this.ClientSize = new System.Drawing.Size(1214, 666);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.button3);
@@ -306,9 +307,11 @@
             this.Controls.Add(this.navigationFrame);
             this.Controls.Add(this.tileBar);
             this.Controls.Add(this.tileNavPane);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Полиатлон 2022";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             ((System.ComponentModel.ISupportInitialize)(this.tileNavPane)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.navigationFrame)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.mvvmContext)).EndInit();

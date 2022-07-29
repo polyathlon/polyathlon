@@ -112,7 +112,7 @@ namespace Polyathlon
         TileBarItem RegisterModuleItem(MVVMContextFluentAPI<PolyathlonViewModel> fluentAPI, PolyathlonModuleDescription module)
         {
             TileBarItem item = new TileBarItem() { Tag = module };
-            item.Text = module.ModuleTitle;
+            item.Text = module.TileTitle;
             tileBarItem2.Elements[0].ImageUri = "hybriddemo_dashboard;Svg";
             item.Elements[0].ImageUri = MenuExtensions.GetImageUri(module.ModuleTitle);
             item.AppearanceItem.Normal.BackColor = module.TileColor;//TileColorConverter.GetBackColor(module);

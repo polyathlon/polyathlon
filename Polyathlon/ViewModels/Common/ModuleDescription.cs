@@ -42,11 +42,18 @@ public abstract class ModuleDescription<TModule> where TModule : ModuleDescripti
     public string? ModuleId { get; set; }
     [JsonProperty("_rev")]
     public string? ModuleRev { get; set; }
+    
     /// <summary>
     /// The navigation list entry display text.
     /// </summary>
     [JsonProperty("moduleTitle")]
     public string ModuleTitle { get; private set; }
+
+    /// <summary>
+    /// The navigation list entry display text.
+    /// </summary>
+    [JsonProperty("TileTitle")]
+    public string TileTitle { get; private set; }
 
     /// <summary>
     /// The navigation list entry group name.

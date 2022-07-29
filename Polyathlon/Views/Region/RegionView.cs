@@ -14,7 +14,7 @@ namespace Polyathlon.Views {
         public RegionView() {
             InitializeComponent();
             dataLayoutControl.SetupLayoutControl();
-            orderGridView.SetupCollectionGrid();
+            //orderGridView.SetupCollectionGrid();
             if(!mvvmContext.IsDesignMode)
                 InitBindings();
         }
@@ -23,9 +23,9 @@ namespace Polyathlon.Views {
             //mapView.SetViewModel(fluentAPI.ViewModel.MapViewModel);
             //mapView.MapTemplate = MapExtension.CreateHomeOfficeItemForCustomer;
             //fluentAPI.SetObjectDataSourceBinding(customerBindingSource, x => x.Entity, x => x.Update());
-            //fluentAPI.BindCommand(backWindowsUIButtonPanel.Buttons[0] as WindowsUIButton, x => x.Close());
-            //fluentAPI.BindCommandAndImage(windowsUIButtonPanel.Buttons[0], x => x.SaveAndClose());
-            //fluentAPI.BindCommandAndImage(windowsUIButtonPanel.Buttons[1], x => x.Close(), "Cancel");
+            fluentAPI.BindCommand(backWindowsUIButtonPanel.Buttons[0] as WindowsUIButton, x => x.Close());
+            fluentAPI.BindCommandAndImage(windowsUIButtonPanel.Buttons[0], x => x.SaveAndClose());
+            fluentAPI.BindCommandAndImage(windowsUIButtonPanel.Buttons[1], x => x.Close(), "Cancel");
             //fluentAPI.SetBinding(ordersGridControl, g => g.DataSource, x => x.CustomerOrdersDetails.Entities);
             //fluentAPI.SetBinding(dateTimeChartRangeControlClient.DataProvider, d => d.DataSource, x => x.CustomerOrdersDetails.Entities);
             //fluentAPI.SetBinding(customerNameSimpleLabelItem, l => l.Text, x => x.Entity.Name);
