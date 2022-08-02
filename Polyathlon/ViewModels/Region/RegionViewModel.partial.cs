@@ -6,20 +6,19 @@ using Polyathlon.DbDataModel;
 using Polyathlon.ViewModels.Common;
 
 namespace Polyathlon.ViewModels {
-    public partial class RegionViewModel : SingleObjectViewModel<DataModel.Entities.Region, long, IDbUnitOfWork> {
+    public partial class RegionViewModel : SingleObjectViewModel<DataModel.Entities.Region, DataModel.Entities.RegionViewEntity, long>
+    
+    {
         protected override void OnInitializeInRuntime() {
             base.OnInitializeInRuntime();
-            MapViewModel = MapViewModel.Create().SetParentViewModel(this);
-            DetailKind = DetailKind.Stores;
+           // MapViewModel = MapViewModel.Create().SetParentViewModel(this);
+            //DetailKind = DetailKind.Stores;
         }
         public MapViewModel MapViewModel { get; private set; }
-        public virtual DetailKind DetailKind {
-            get;
-            set;
-        }
+        public virtual DetailKind DetailKind { get; set; }
         protected void OnDetailKindChanged() {
-            this.RaiseCanExecuteChanged(x => x.ShowOrders());
-            this.RaiseCanExecuteChanged(x => x.ShowStores());
+            //this.RaiseCanExecuteChanged(x => x.ShowOrders());
+            //this.RaiseCanExecuteChanged(x => x.ShowStores());
         }
         public void ShowOrders() {
             DetailKind = DetailKind.Orders;
@@ -33,10 +32,7 @@ namespace Polyathlon.ViewModels {
         public bool CanShowStores() {
             return DetailKind != DetailKind.Stores;
         }
-        public virtual DateRange DateRange {
-            get;
-            set;
-        }
+        public virtual DateRange DateRange { get; set; }
         protected void OnDateRangeChanged() {
             MapViewModel.Update(GetMapItems());
         }

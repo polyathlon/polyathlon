@@ -20,7 +20,7 @@ namespace Polyathlon.ViewModels
     /// <summary>
     /// Represents the single Customer object view model.
     /// </summary>
-    public partial class RegionViewModel : SingleObjectViewModel<DataModel.Entities.Region, long, IDbUnitOfWork>
+    public partial class RegionViewModel : SingleObjectViewModel<DataModel.Entities.Region, DataModel.Entities.RegionViewEntity, long>
     {
 
         /// <summary>
@@ -38,7 +38,7 @@ namespace Polyathlon.ViewModels
         /// </summary>
         /// <param name="unitOfWorkFactory">A factory used to create a unit of work instance.</param>
         protected RegionViewModel(IUnitOfWorkFactory<IDbUnitOfWork> unitOfWorkFactory = null)
-            : base(unitOfWorkFactory ?? UnitOfWorkSource.GetUnitOfWorkFactory(), x => x.Regions, x => x.Name)
+            : base(x => x.Name)
         {
         }
 

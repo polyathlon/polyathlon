@@ -201,10 +201,10 @@ namespace Polyathlon.ViewModels.Common
             }
             if (projectionEntity == null)
             {
-                DestroyDocument(DocumentManagerService.FindEntityDocument<TEntity, TPrimaryKey>(primaryKey));
+                //DestroyDocument(DocumentManagerService.FindEntityDocument<TEntity, TViewEntity, TPrimaryKey>(primaryKey));
                 return;
             }
-            DocumentManagerService.ShowExistingEntityDocument<TEntity, TPrimaryKey>(this, primaryKey);
+            //DocumentManagerService.ShowExistingEntityDocument<TEntity, TViewEntity, TPrimaryKey>(this, primaryKey);
         }
 
         /// <summary>

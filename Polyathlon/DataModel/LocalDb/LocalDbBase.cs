@@ -83,10 +83,10 @@ public sealed class LocalDbBase
             {
                 if (!tables.TryGetValue(request, out result))
                 {
-                    /*string content = @"{'total_rows':4,'offset':0,'rows':[
+                    string content = @"{'total_rows':4,'offset':0,'rows':[
                             { 'id':'module:8997d7edcad3eae911a0c9abb100097a','key':'module:8997d7edcad3eae911a0c9abb100097a','value':{ 'rev':'1-52dc66bc4a76166e8348d4b76e2b4b78'},'doc':{ '_id':'module:8997d7edcad3eae911a0c9abb100097a','_rev':'1-52dc66bc4a76166e8348d4b76e2b4b78','name':'Москва', 'shortName': 'М'} },
                             { 'id':'module:8997d7edcad3eae911a0c9abb100097a','key':'module:8997d7edcad3eae911a0c9abb100097a','value':{ 'rev':'1-52dc66bc4a76166e8348d4b76e2b4b78'},'doc':{ '_id':'module:8997d7edcad3eae911a0c9abb100097a','_rev':'1-52dc66bc4a76166e8348d4b76e2b4b78','name':'Рязанская область', 'shortName': 'Ряз. обл.'} }
-                        ]}";*/
+                        ]}";
 
                     //// Start: Get content
                     //string content = string.Empty;
@@ -109,7 +109,7 @@ public sealed class LocalDbBase
                     //}
                     //// End: Get content
                     ///
-                    string content = ServerConnection.Connection.Request(request);
+                    //string content = ServerConnection.Connection.Request(request);
 
                     JObject jModules = JObject.Parse(content);
 

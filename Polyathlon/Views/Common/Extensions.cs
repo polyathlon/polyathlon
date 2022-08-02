@@ -184,22 +184,38 @@ namespace Polyathlon.Views {
             view.Appearance.GroupPanel.TextOptions.WordWrap = DevExpress.Utils.WordWrap.Wrap;
             view.EndUpdate();
         }
-        internal static void BindCollectionGrid<TViewModel, TEntity, TProjection>(this DevExpress.Utils.MVVM.MVVMContext context, GridView gridView, BindingSource bindingSource)
-            where TViewModel : CollectionViewModelBase<TEntity, TProjection, long, IDbUnitOfWork> 
-            where TEntity : class
-            where TProjection : class {
+        internal static void BindCollectionGrid<TViewModel, TEntity, TEntityView>(this DevExpress.Utils.MVVM.MVVMContext context, GridView gridView, BindingSource bindingSource)
+            where TViewModel : BaseCollectionViewModel<TEntity, TEntityView> 
+            where TEntity : class, new()
+            where TEntityView : class, new() {
             var fluentAPI = context.OfType<TViewModel>();
             fluentAPI.SetObjectDataSourceBinding(bindingSource, x => x.Entities);
             fluentAPI.SetBinding(gridView, gv => gv.LoadingPanelVisible, x => x.IsLoading);
             fluentAPI.WithEvent<ColumnView, FocusedRowObjectChangedEventArgs>(gridView, "FocusedRowObjectChanged")
                 .SetBinding(
-                    x => x.SelectedEntity, args => args.Row as TProjection,
+                    x => x.SelectedEntity, args => args.Row as TEntityView,
                     (gView, entity) => gView.FocusedRowHandle = gView.FindRow(entity));
             fluentAPI.WithEvent<RowClickEventArgs>(gridView, "RowClick")
                 .EventToCommand(
                     x => x.Edit(null), x => x.SelectedEntity,
                     args => (args.Clicks == 2) && (args.Button == MouseButtons.Left));
-        }
+        }  
+        //internal static void BindCollectionGrid<TViewModel, TEntity, TProjection>(this DevExpress.Utils.MVVM.MVVMContext context, GridView gridView, BindingSource bindingSource)
+        //    where TViewModel : CollectionViewModelBase<TEntity, TProjection, long, IDbUnitOfWork> 
+        //    where TEntity : class
+        //    where TProjection : class {
+        //    var fluentAPI = context.OfType<TViewModel>();
+        //    fluentAPI.SetObjectDataSourceBinding(bindingSource, x => x.Entities);
+        //    fluentAPI.SetBinding(gridView, gv => gv.LoadingPanelVisible, x => x.IsLoading);
+        //    fluentAPI.WithEvent<ColumnView, FocusedRowObjectChangedEventArgs>(gridView, "FocusedRowObjectChanged")
+        //        .SetBinding(
+        //            x => x.SelectedEntity, args => args.Row as TProjection,
+        //            (gView, entity) => gView.FocusedRowHandle = gView.FindRow(entity));
+        //    fluentAPI.WithEvent<RowClickEventArgs>(gridView, "RowClick")
+        //        .EventToCommand(
+        //            x => x.Edit(null), x => x.SelectedEntity,
+        //            args => (args.Clicks == 2) && (args.Button == MouseButtons.Left));
+        //}
         internal static void BindCollectionGridMy<TViewModel, TEntity, TViewEntity>(this DevExpress.Utils.MVVM.MVVMContext context, GridView gridView, BindingSource bindingSource)
             where TViewModel : ViewModels.RegionCollectionViewModel 
             where TEntity : class
@@ -236,11 +252,11 @@ namespace Polyathlon.Views {
             fluentAPI.WithEvent<TileViewItemClickEventArgs>(tileView, "ItemDoubleClick")
                 .EventToCommand(x => x.Edit(null), x => x.SelectedEntity);
         }
-        internal static void BindCollectionGrid<TViewModel, TEntity>(this DevExpress.Utils.MVVM.MVVMContext context, GridView view, BindingSource bindingSource)
-            where TViewModel : CollectionViewModel<TEntity, long, IDbUnitOfWork>
-            where TEntity : class {
-            BindCollectionGrid<TViewModel, TEntity, TEntity>(context, view, bindingSource);
-        }
+        //internal static void BindCollectionGrid<TViewModel, TEntity>(this DevExpress.Utils.MVVM.MVVMContext context, GridView view, BindingSource bindingSource)
+        //    where TViewModel : CollectionViewModel<TEntity, long, IDbUnitOfWork>
+        //    where TEntity : class {
+        //    BindCollectionGrid<TViewModel, TEntity, TEntity>(context, view, bindingSource);
+        //}
     }
     internal static class MapExtension {
         internal static void InitMap(this MapControl mapControl) {

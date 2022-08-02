@@ -20,9 +20,9 @@ namespace Polyathlon.ViewModels.Common
     /// <typeparam name="TEntity">An entity type.</typeparam>
     /// <typeparam name="TPrimaryKey">A primary key value type.</typeparam>
     /// <typeparam name="TUnitOfWork">A unit of work type.</typeparam>
-    public abstract partial class SingleObjectViewModel<TEntity, TPrimaryKey, TUnitOfWork> : SingleObjectViewModelBase<TEntity, TPrimaryKey, TUnitOfWork>
-        where TEntity : class
-        where TUnitOfWork : IUnitOfWork
+    public abstract class SingleObjectViewModel<TEntity, TViewEntity, TPrimaryKey> : SingleObjectViewModelBase<TEntity, TViewEntity, TPrimaryKey> 
+        where TViewEntity : class, new()
+        where TEntity : class, new()
     {
 
         /// <summary>
@@ -31,8 +31,8 @@ namespace Polyathlon.ViewModels.Common
         /// <param name="unitOfWorkFactory">A factory used to create the unit of work instance.</param>
         /// <param name="getRepositoryFunc">A function that returns the repository representing entities of a given type.</param>
         /// <param name="getEntityDisplayNameFunc">An optional parameter that provides a function to obtain the display text for a given entity. If ommited, the primary key value is used as a display text.</param>
-        protected SingleObjectViewModel(IUnitOfWorkFactory<TUnitOfWork> unitOfWorkFactory, Func<TUnitOfWork, IRepository<TEntity, TPrimaryKey>> getRepositoryFunc, Func<TEntity, object> getEntityDisplayNameFunc = null)
-            : base(unitOfWorkFactory, getRepositoryFunc, getEntityDisplayNameFunc)
+        protected SingleObjectViewModel(Func<TViewEntity, object> getEntityDisplayNameFunc = null)
+            : base(getEntityDisplayNameFunc)
         {
         }
     }
@@ -45,15 +45,14 @@ namespace Polyathlon.ViewModels.Common
     /// <typeparam name="TPrimaryKey">A primary key value type.</typeparam>
     /// <typeparam name="TUnitOfWork">A unit of work type.</typeparam>
     [POCOViewModel]
-    public abstract class SingleObjectViewModelBase<TEntity, TPrimaryKey, TUnitOfWork> : ISingleObjectViewModel<TEntity, TPrimaryKey>, ISupportParameter, IDocumentContent, ISupportLogicalLayout<TPrimaryKey>
-        where TEntity : class
-        where TUnitOfWork : IUnitOfWork
+    public abstract class SingleObjectViewModelBase<TEntity, TViewEntity, TPrimaryKey> : ISingleObjectViewModel<TEntity, TViewEntity, TPrimaryKey>, ISupportParameter, ISupportParentViewModel, IDocumentContent, ISupportLogicalLayout<TPrimaryKey>
+        where TViewEntity : class, new()
     {
 
         object title;
-        protected readonly Func<TUnitOfWork, IRepository<TEntity, TPrimaryKey>> getRepositoryFunc;
-        protected readonly Func<TEntity, object> getEntityDisplayNameFunc;
-        Action<TEntity> entityInitializer;
+        //protected readonly Func<TUnitOfWork, IRepository<TEntity, TPrimaryKey>> getRepositoryFunc;
+        protected readonly Func<TViewEntity, object> getEntityDisplayNameFunc;
+        Action<TViewEntity> entityInitializer;
         bool isEntityNewAndUnmodified;
         readonly Dictionary<string, IDocumentContent> lookUpViewModels = new Dictionary<string, IDocumentContent>();
 
@@ -63,15 +62,15 @@ namespace Polyathlon.ViewModels.Common
         /// <param name="unitOfWorkFactory">A factory used to create the unit of work instance.</param>
         /// <param name="getRepositoryFunc">A function that returns repository representing entities of a given type.</param>
         /// <param name="getEntityDisplayNameFunc">An optional parameter that provides a function to obtain the display text for a given entity. If ommited, the primary key value is used as a display text.</param>
-        protected SingleObjectViewModelBase(IUnitOfWorkFactory<TUnitOfWork> unitOfWorkFactory, Func<TUnitOfWork, IRepository<TEntity, TPrimaryKey>> getRepositoryFunc, Func<TEntity, object> getEntityDisplayNameFunc)
+        protected SingleObjectViewModelBase(Func<TViewEntity, object> getEntityDisplayNameFunc)
         {
-            UnitOfWorkFactory = unitOfWorkFactory;
-            this.getRepositoryFunc = getRepositoryFunc;
+//            UnitOfWorkFactory = unitOfWorkFactory;
+            //this.getRepositoryFunc = getRepositoryFunc;
             this.getEntityDisplayNameFunc = getEntityDisplayNameFunc;
-            UpdateUnitOfWork();
-            if (this.IsInDesignMode())
-                this.Entity = this.Repository.FirstOrDefault();
-            else
+            //UpdateUnitOfWork();
+            //if (this.IsInDesignMode())
+            //    this.Entity = this.Repository.FirstOrDefault();
+            //else
                 OnInitializeInRuntime();
         }
 
@@ -86,7 +85,7 @@ namespace Polyathlon.ViewModels.Common
         /// Since SingleObjectViewModelBase is a POCO view model, this property will raise INotifyPropertyChanged.PropertyEvent when modified so it can be used as a binding source in views.
         /// </summary>
         /// <returns></returns>
-        public virtual TEntity Entity { get; protected set; }
+        public virtual TViewEntity Entity { get; protected set; }
 
         /// <summary>
         /// Updates the Title property value and raises CanExecute changed for relevant commands.
@@ -136,8 +135,8 @@ namespace Polyathlon.ViewModels.Common
         [Command(CanExecuteMethodName = "CanSave")]
         public void SaveAndNew()
         {
-            if (SaveCore())
-                CreateAndInitializeEntity(this.entityInitializer);
+            //if (SaveCore())
+            //    CreateAndInitializeEntity(this.entityInitializer);
         }
 
         /// <summary>
@@ -187,13 +186,13 @@ namespace Polyathlon.ViewModels.Common
                 return;
             try
             {
-                OnBeforeEntityDeleted(PrimaryKey, Entity);
-                Repository.Remove(Entity);
-                UnitOfWork.SaveChanges();
-                TPrimaryKey primaryKeyForMessage = PrimaryKey;
-                TEntity entityForMessage = Entity;
-                Entity = null;
-                OnEntityDeleted(primaryKeyForMessage, entityForMessage);
+                //OnBeforeEntityDeleted(PrimaryKey, Entity);
+                //Repository.Remove(Entity);
+                //UnitOfWork.SaveChanges();
+                //TPrimaryKey primaryKeyForMessage = PrimaryKey;
+                //TEntity entityForMessage = Entity;
+                //Entity = null;
+                //OnEntityDeleted(primaryKeyForMessage, entityForMessage);
                 Close();
             }
             catch (DbException e)
@@ -223,24 +222,24 @@ namespace Polyathlon.ViewModels.Common
                 DocumentOwner.Close(this);
         }
 
-        protected IUnitOfWorkFactory<TUnitOfWork> UnitOfWorkFactory { get; private set; }
+        //protected IUnitOfWorkFactory<TUnitOfWork> UnitOfWorkFactory { get; private set; }
 
-        protected TUnitOfWork UnitOfWork { get; private set; }
+        //protected TUnitOfWork UnitOfWork { get; private set; }
 
         protected virtual bool SaveCore()
         {
             try
             {
                 bool isNewEntity = IsNew();
-                if (!isNewEntity)
-                {
-                    Repository.SetPrimaryKey(Entity, PrimaryKey);
-                    Repository.Update(Entity);
-                }
-                OnBeforeEntitySaved(PrimaryKey, Entity, isNewEntity);
-                UnitOfWork.SaveChanges();
-                LoadEntityByKey(Repository.GetPrimaryKey(Entity));
-                OnEntitySaved(PrimaryKey, Entity, isNewEntity);
+                //if (!isNewEntity)
+                //{
+                //    Repository.SetPrimaryKey(Entity, PrimaryKey);
+                //    Repository.Update(Entity);
+                //}
+                //OnBeforeEntitySaved(PrimaryKey, Entity, isNewEntity);
+                //UnitOfWork.SaveChanges();
+                //LoadEntityByKey(Repository.GetPrimaryKey(Entity));
+                //OnEntitySaved(PrimaryKey, Entity, isNewEntity);
                 return true;
             }
             catch (DbException e)
@@ -280,15 +279,15 @@ namespace Polyathlon.ViewModels.Common
 
         protected virtual void OnEntityChanged()
         {
-            if (Entity != null && Repository.HasPrimaryKey(Entity))
-            {
-                PrimaryKey = Repository.GetPrimaryKey(Entity);
-                RefreshLookUpCollections(true);
-            }
+            //if (Entity != null && Repository.HasPrimaryKey(Entity))
+            //{
+            //    PrimaryKey = Repository.GetPrimaryKey(Entity);
+            //    RefreshLookUpCollections(true);
+            //}
             Update();
         }
 
-        protected IRepository<TEntity, TPrimaryKey> Repository { get { return getRepositoryFunc(UnitOfWork); } }
+        //protected IRepository<TEntity, TPrimaryKey> Repository { get { return getRepositoryFunc(UnitOfWork); } }
 
         protected TPrimaryKey PrimaryKey { get; private set; }
 
@@ -298,7 +297,7 @@ namespace Polyathlon.ViewModels.Common
 
         protected virtual void OnParameterChanged(object parameter)
         {
-            var initializer = parameter as Action<TEntity>;
+            var initializer = parameter as Action<TViewEntity>;
             if (initializer != null)
                 CreateAndInitializeEntity(initializer);
             else if (parameter is TPrimaryKey)
@@ -307,9 +306,9 @@ namespace Polyathlon.ViewModels.Common
                 Entity = null;
         }
 
-        protected virtual TEntity CreateEntity()
+        protected virtual TViewEntity CreateEntity()
         {
-            return Repository.Create();
+            return new();//Repository.Create();
         }
 
         protected void Reload()
@@ -320,27 +319,27 @@ namespace Polyathlon.ViewModels.Common
                 LoadEntityByKey(PrimaryKey);
         }
 
-        protected void CreateAndInitializeEntity(Action<TEntity> entityInitializer)
+        protected void CreateAndInitializeEntity(Action<TViewEntity> entityInitializer)
         {
-            UpdateUnitOfWork();
+            //UpdateUnitOfWork();
             this.entityInitializer = entityInitializer;
             var entity = CreateEntity();
-            if (this.entityInitializer != null)
-                this.entityInitializer(entity);
-            Entity = entity;
+            //if (this.entityInitializer != null)
+            //    this.entityInitializer(entity);
+            //Entity = entity;
             isEntityNewAndUnmodified = true;
         }
 
         protected void LoadEntityByKey(TPrimaryKey primaryKey)
         {
-            UpdateUnitOfWork();
-            Entity = Repository.Find(primaryKey);
+            //UpdateUnitOfWork();
+            //Entity = Repository.Find(primaryKey);
         }
 
-        void UpdateUnitOfWork()
-        {
-            UnitOfWork = UnitOfWorkFactory.CreateUnitOfWork();
-        }
+        //void UpdateUnitOfWork()
+        //{
+        //    UnitOfWork = UnitOfWorkFactory.CreateUnitOfWork();
+        //}
 
         void UpdateTitle()
         {
@@ -441,12 +440,13 @@ namespace Polyathlon.ViewModels.Common
         {
             try
             {
-                return Repository.GetState(Entity);
+                return EntityState.Unchanged;// Repository.GetState(Entity);
             }
             catch (InvalidOperationException)
             {
-                Repository.SetPrimaryKey(Entity, PrimaryKey);
-                return Repository.GetState(Entity);
+                //Repository.SetPrimaryKey(Entity, PrimaryKey);
+                //return Repository.GetState(Entity);
+                return EntityState.Unchanged;
             }
 
         }
@@ -464,139 +464,139 @@ namespace Polyathlon.ViewModels.Common
             }
         }
 
-        protected CollectionViewModel<TDetailEntity, TDetailPrimaryKey, TUnitOfWork> GetDetailsCollectionViewModel<TViewModel, TDetailEntity, TDetailPrimaryKey, TForeignKey>(
-            Expression<Func<TViewModel, CollectionViewModel<TDetailEntity, TDetailPrimaryKey, TUnitOfWork>>> propertyExpression,
-            Func<TUnitOfWork, IRepository<TDetailEntity, TDetailPrimaryKey>> getRepositoryFunc,
-            Expression<Func<TDetailEntity, TForeignKey>> foreignKeyExpression,
-            Action<TDetailEntity, TPrimaryKey> setMasterEntityKeyAction,
-            Func<IRepositoryQuery<TDetailEntity>, IQueryable<TDetailEntity>> projection = null) where TDetailEntity : class
-        {
-            return GetCollectionViewModelCore<CollectionViewModel<TDetailEntity, TDetailPrimaryKey, TUnitOfWork>, TDetailEntity, TDetailEntity, TForeignKey>(propertyExpression,
-                () => CollectionViewModel<TDetailEntity, TDetailPrimaryKey, TUnitOfWork>.CreateCollectionViewModel(UnitOfWorkFactory, getRepositoryFunc, AppendForeignKeyPredicate<TDetailEntity, TDetailEntity, TForeignKey>(foreignKeyExpression, projection), CreateForeignKeyPropertyInitializer(setMasterEntityKeyAction, () => PrimaryKey), () => CanCreateNewEntity(), true));
-        }
+        //protected CollectionViewModel<TDetailEntity, TDetailPrimaryKey, TUnitOfWork> GetDetailsCollectionViewModel<TViewModel, TDetailEntity, TDetailPrimaryKey, TForeignKey>(
+        //    Expression<Func<TViewModel, CollectionViewModel<TDetailEntity, TDetailPrimaryKey, TUnitOfWork>>> propertyExpression,
+        //    Func<TUnitOfWork, IRepository<TDetailEntity, TDetailPrimaryKey>> getRepositoryFunc,
+        //    Expression<Func<TDetailEntity, TForeignKey>> foreignKeyExpression,
+        //    Action<TDetailEntity, TPrimaryKey> setMasterEntityKeyAction,
+        //    Func<IRepositoryQuery<TDetailEntity>, IQueryable<TDetailEntity>> projection = null) where TDetailEntity : class
+        //{
+        //    return GetCollectionViewModelCore<CollectionViewModel<TDetailEntity, TDetailPrimaryKey, TUnitOfWork>, TDetailEntity, TDetailEntity, TForeignKey>(propertyExpression,
+        //        () => CollectionViewModel<TDetailEntity, TDetailPrimaryKey, TUnitOfWork>.CreateCollectionViewModel(UnitOfWorkFactory, getRepositoryFunc, AppendForeignKeyPredicate<TDetailEntity, TDetailEntity, TForeignKey>(foreignKeyExpression, projection), CreateForeignKeyPropertyInitializer(setMasterEntityKeyAction, () => PrimaryKey), () => CanCreateNewEntity(), true));
+        //}
 
-        protected CollectionViewModel<TDetailEntity, TDetailProjection, TDetailPrimaryKey, TUnitOfWork> GetDetailProjectionsCollectionViewModel<TViewModel, TDetailEntity, TDetailProjection, TDetailPrimaryKey, TForeignKey>(
-            Expression<Func<TViewModel, CollectionViewModel<TDetailEntity, TDetailProjection, TDetailPrimaryKey, TUnitOfWork>>> propertyExpression,
-            Func<TUnitOfWork, IRepository<TDetailEntity, TDetailPrimaryKey>> getRepositoryFunc,
-            Expression<Func<TDetailEntity, TForeignKey>> foreignKeyExpression,
-            Action<TDetailEntity, TPrimaryKey> setMasterEntityKeyAction,
-            Func<IRepositoryQuery<TDetailEntity>, IQueryable<TDetailProjection>> projection = null)
-            where TDetailEntity : class
-            where TDetailProjection : class
-        {
-            return GetCollectionViewModelCore<CollectionViewModel<TDetailEntity, TDetailProjection, TDetailPrimaryKey, TUnitOfWork>, TDetailEntity, TDetailProjection, TForeignKey>(propertyExpression,
-                () => CollectionViewModel<TDetailEntity, TDetailProjection, TDetailPrimaryKey, TUnitOfWork>.CreateProjectionCollectionViewModel(UnitOfWorkFactory, getRepositoryFunc, AppendForeignKeyPredicate<TDetailEntity, TDetailProjection, TForeignKey>(foreignKeyExpression, projection), CreateForeignKeyPropertyInitializer(setMasterEntityKeyAction, () => PrimaryKey), () => CanCreateNewEntity(), true));
-        }
+        //protected CollectionViewModel<TDetailEntity, TDetailProjection, TDetailPrimaryKey, TUnitOfWork> GetDetailProjectionsCollectionViewModel<TViewModel, TDetailEntity, TDetailProjection, TDetailPrimaryKey, TForeignKey>(
+        //    Expression<Func<TViewModel, CollectionViewModel<TDetailEntity, TDetailProjection, TDetailPrimaryKey, TUnitOfWork>>> propertyExpression,
+        //    Func<TUnitOfWork, IRepository<TDetailEntity, TDetailPrimaryKey>> getRepositoryFunc,
+        //    Expression<Func<TDetailEntity, TForeignKey>> foreignKeyExpression,
+        //    Action<TDetailEntity, TPrimaryKey> setMasterEntityKeyAction,
+        //    Func<IRepositoryQuery<TDetailEntity>, IQueryable<TDetailProjection>> projection = null)
+        //    where TDetailEntity : class
+        //    where TDetailProjection : class
+        //{
+        //    return GetCollectionViewModelCore<CollectionViewModel<TDetailEntity, TDetailProjection, TDetailPrimaryKey, TUnitOfWork>, TDetailEntity, TDetailProjection, TForeignKey>(propertyExpression,
+        //        () => CollectionViewModel<TDetailEntity, TDetailProjection, TDetailPrimaryKey, TUnitOfWork>.CreateProjectionCollectionViewModel(UnitOfWorkFactory, getRepositoryFunc, AppendForeignKeyPredicate<TDetailEntity, TDetailProjection, TForeignKey>(foreignKeyExpression, projection), CreateForeignKeyPropertyInitializer(setMasterEntityKeyAction, () => PrimaryKey), () => CanCreateNewEntity(), true));
+        //}
 
-        protected InstantFeedbackCollectionViewModel<TDetailEntity, TDetailPrimaryKey, TUnitOfWork> GetDetailsInstantFeedbackCollectionViewModel<TViewModel, TDetailEntity, TDetailPrimaryKey, TForeignKey>(
-            Expression<Func<TViewModel, InstantFeedbackCollectionViewModel<TDetailEntity, TDetailPrimaryKey, TUnitOfWork>>> propertyExpression,
-            Func<TUnitOfWork, IRepository<TDetailEntity, TDetailPrimaryKey>> getRepositoryFunc,
-            Expression<Func<TDetailEntity, TForeignKey>> foreignKeyExpression,
-            Action<TDetailEntity, TPrimaryKey> setMasterEntityKeyAction,
-            Func<IRepositoryQuery<TDetailEntity>, IQueryable<TDetailEntity>> projection = null)
-            where TDetailEntity : class, new()
-        {
-            return GetCollectionViewModelCore<InstantFeedbackCollectionViewModel<TDetailEntity, TDetailPrimaryKey, TUnitOfWork>, TDetailEntity, TDetailEntity, TForeignKey>(propertyExpression,
-                () => InstantFeedbackCollectionViewModel<TDetailEntity, TDetailPrimaryKey, TUnitOfWork>.CreateInstantFeedbackCollectionViewModel(UnitOfWorkFactory, getRepositoryFunc, AppendForeignKeyPredicate<TDetailEntity, TDetailEntity, TForeignKey>(foreignKeyExpression, projection), () => CanCreateNewEntity()));
-        }
+        //protected InstantFeedbackCollectionViewModel<TDetailEntity, TDetailPrimaryKey, TUnitOfWork> GetDetailsInstantFeedbackCollectionViewModel<TViewModel, TDetailEntity, TDetailPrimaryKey, TForeignKey>(
+        //    Expression<Func<TViewModel, InstantFeedbackCollectionViewModel<TDetailEntity, TDetailPrimaryKey, TUnitOfWork>>> propertyExpression,
+        //    Func<TUnitOfWork, IRepository<TDetailEntity, TDetailPrimaryKey>> getRepositoryFunc,
+        //    Expression<Func<TDetailEntity, TForeignKey>> foreignKeyExpression,
+        //    Action<TDetailEntity, TPrimaryKey> setMasterEntityKeyAction,
+        //    Func<IRepositoryQuery<TDetailEntity>, IQueryable<TDetailEntity>> projection = null)
+        //    where TDetailEntity : class, new()
+        //{
+        //    return GetCollectionViewModelCore<InstantFeedbackCollectionViewModel<TDetailEntity, TDetailPrimaryKey, TUnitOfWork>, TDetailEntity, TDetailEntity, TForeignKey>(propertyExpression,
+        //        () => InstantFeedbackCollectionViewModel<TDetailEntity, TDetailPrimaryKey, TUnitOfWork>.CreateInstantFeedbackCollectionViewModel(UnitOfWorkFactory, getRepositoryFunc, AppendForeignKeyPredicate<TDetailEntity, TDetailEntity, TForeignKey>(foreignKeyExpression, projection), () => CanCreateNewEntity()));
+        //}
 
-        protected InstantFeedbackCollectionViewModel<TDetailEntity, TDetailEntityProjection, TDetailPrimaryKey, TUnitOfWork> GetDetailsInstantFeedbackCollectionViewModel<TViewModel, TDetailEntity, TDetailEntityProjection, TDetailPrimaryKey, TForeignKey>(
-            Expression<Func<TViewModel, InstantFeedbackCollectionViewModel<TDetailEntity, TDetailEntityProjection, TDetailPrimaryKey, TUnitOfWork>>> propertyExpression,
-            Func<TUnitOfWork, IRepository<TDetailEntity, TDetailPrimaryKey>> getRepositoryFunc,
-            Expression<Func<TDetailEntity, TForeignKey>> foreignKeyExpression,
-            Action<TDetailEntity, TPrimaryKey> setMasterEntityKeyAction,
-            Func<IRepositoryQuery<TDetailEntity>, IQueryable<TDetailEntityProjection>> projection = null)
-            where TDetailEntity : class, new()
-            where TDetailEntityProjection : class, new()
-        {
-            return GetCollectionViewModelCore<InstantFeedbackCollectionViewModel<TDetailEntity, TDetailEntityProjection, TDetailPrimaryKey, TUnitOfWork>, TDetailEntity, TDetailEntity, TForeignKey>(propertyExpression, () => InstantFeedbackCollectionViewModel<TDetailEntity, TDetailEntityProjection, TDetailPrimaryKey, TUnitOfWork>.CreateInstantFeedbackCollectionViewModel(UnitOfWorkFactory, getRepositoryFunc, AppendForeignKeyPredicate<TDetailEntity, TDetailEntityProjection, TForeignKey>(foreignKeyExpression, projection), () => CanCreateNewEntity()));
-        }
+        //protected InstantFeedbackCollectionViewModel<TDetailEntity, TDetailEntityProjection, TDetailPrimaryKey, TUnitOfWork> GetDetailsInstantFeedbackCollectionViewModel<TViewModel, TDetailEntity, TDetailEntityProjection, TDetailPrimaryKey, TForeignKey>(
+        //    Expression<Func<TViewModel, InstantFeedbackCollectionViewModel<TDetailEntity, TDetailEntityProjection, TDetailPrimaryKey, TUnitOfWork>>> propertyExpression,
+        //    Func<TUnitOfWork, IRepository<TDetailEntity, TDetailPrimaryKey>> getRepositoryFunc,
+        //    Expression<Func<TDetailEntity, TForeignKey>> foreignKeyExpression,
+        //    Action<TDetailEntity, TPrimaryKey> setMasterEntityKeyAction,
+        //    Func<IRepositoryQuery<TDetailEntity>, IQueryable<TDetailEntityProjection>> projection = null)
+        //    where TDetailEntity : class, new()
+        //    where TDetailEntityProjection : class, new()
+        //{
+        //    return GetCollectionViewModelCore<InstantFeedbackCollectionViewModel<TDetailEntity, TDetailEntityProjection, TDetailPrimaryKey, TUnitOfWork>, TDetailEntity, TDetailEntity, TForeignKey>(propertyExpression, () => InstantFeedbackCollectionViewModel<TDetailEntity, TDetailEntityProjection, TDetailPrimaryKey, TUnitOfWork>.CreateInstantFeedbackCollectionViewModel(UnitOfWorkFactory, getRepositoryFunc, AppendForeignKeyPredicate<TDetailEntity, TDetailEntityProjection, TForeignKey>(foreignKeyExpression, projection), () => CanCreateNewEntity()));
+        //}
 
-        protected ReadOnlyCollectionViewModel<TDetailEntity, TUnitOfWork> GetReadOnlyDetailsCollectionViewModel<TViewModel, TDetailEntity, TForeignKey>(
-            Expression<Func<TViewModel, ReadOnlyCollectionViewModel<TDetailEntity, TDetailEntity, TUnitOfWork>>> propertyExpression,
-            Func<TUnitOfWork, IReadOnlyRepository<TDetailEntity>> getRepositoryFunc,
-            Expression<Func<TDetailEntity, TForeignKey>> foreignKeyExpression,
-            Func<IRepositoryQuery<TDetailEntity>, IQueryable<TDetailEntity>> projection = null) where TDetailEntity : class
-        {
-            return GetCollectionViewModelCore<ReadOnlyCollectionViewModel<TDetailEntity, TUnitOfWork>, TDetailEntity, TDetailEntity, TForeignKey>(propertyExpression, () => ReadOnlyCollectionViewModel<TDetailEntity, TUnitOfWork>.CreateReadOnlyCollectionViewModel(UnitOfWorkFactory, getRepositoryFunc, AppendForeignKeyPredicate<TDetailEntity, TDetailEntity, TForeignKey>(foreignKeyExpression, projection)));
-        }
+        //protected ReadOnlyCollectionViewModel<TDetailEntity, TUnitOfWork> GetReadOnlyDetailsCollectionViewModel<TViewModel, TDetailEntity, TForeignKey>(
+        //    Expression<Func<TViewModel, ReadOnlyCollectionViewModel<TDetailEntity, TDetailEntity, TUnitOfWork>>> propertyExpression,
+        //    Func<TUnitOfWork, IReadOnlyRepository<TDetailEntity>> getRepositoryFunc,
+        //    Expression<Func<TDetailEntity, TForeignKey>> foreignKeyExpression,
+        //    Func<IRepositoryQuery<TDetailEntity>, IQueryable<TDetailEntity>> projection = null) where TDetailEntity : class
+        //{
+        //    return GetCollectionViewModelCore<ReadOnlyCollectionViewModel<TDetailEntity, TUnitOfWork>, TDetailEntity, TDetailEntity, TForeignKey>(propertyExpression, () => ReadOnlyCollectionViewModel<TDetailEntity, TUnitOfWork>.CreateReadOnlyCollectionViewModel(UnitOfWorkFactory, getRepositoryFunc, AppendForeignKeyPredicate<TDetailEntity, TDetailEntity, TForeignKey>(foreignKeyExpression, projection)));
+        //}
 
-        protected ReadOnlyCollectionViewModel<TDetailEntity, TDetailProjection, TUnitOfWork> GetReadOnlyDetailProjectionsCollectionViewModel<TViewModel, TDetailEntity, TDetailProjection, TForeignKey>(
-            Expression<Func<TViewModel, ReadOnlyCollectionViewModel<TDetailEntity, TDetailProjection, TUnitOfWork>>> propertyExpression,
-            Func<TUnitOfWork, IReadOnlyRepository<TDetailEntity>> getRepositoryFunc,
-            Expression<Func<TDetailEntity, TForeignKey>> foreignKeyExpression,
-            Func<IRepositoryQuery<TDetailEntity>, IQueryable<TDetailProjection>> projection)
-            where TDetailEntity : class
-            where TDetailProjection : class
-        {
-            return GetCollectionViewModelCore<ReadOnlyCollectionViewModel<TDetailEntity, TDetailProjection, TUnitOfWork>, TDetailEntity, TDetailProjection, TForeignKey>(propertyExpression, () => ReadOnlyCollectionViewModel<TDetailEntity, TDetailProjection, TUnitOfWork>.CreateReadOnlyProjectionCollectionViewModel(UnitOfWorkFactory, getRepositoryFunc, AppendForeignKeyPredicate<TDetailEntity, TDetailProjection, TForeignKey>(foreignKeyExpression, projection)));
-        }
+        //protected ReadOnlyCollectionViewModel<TDetailEntity, TDetailProjection, TUnitOfWork> GetReadOnlyDetailProjectionsCollectionViewModel<TViewModel, TDetailEntity, TDetailProjection, TForeignKey>(
+        //    Expression<Func<TViewModel, ReadOnlyCollectionViewModel<TDetailEntity, TDetailProjection, TUnitOfWork>>> propertyExpression,
+        //    Func<TUnitOfWork, IReadOnlyRepository<TDetailEntity>> getRepositoryFunc,
+        //    Expression<Func<TDetailEntity, TForeignKey>> foreignKeyExpression,
+        //    Func<IRepositoryQuery<TDetailEntity>, IQueryable<TDetailProjection>> projection)
+        //    where TDetailEntity : class
+        //    where TDetailProjection : class
+        //{
+        //    return GetCollectionViewModelCore<ReadOnlyCollectionViewModel<TDetailEntity, TDetailProjection, TUnitOfWork>, TDetailEntity, TDetailProjection, TForeignKey>(propertyExpression, () => ReadOnlyCollectionViewModel<TDetailEntity, TDetailProjection, TUnitOfWork>.CreateReadOnlyProjectionCollectionViewModel(UnitOfWorkFactory, getRepositoryFunc, AppendForeignKeyPredicate<TDetailEntity, TDetailProjection, TForeignKey>(foreignKeyExpression, projection)));
+        //}
 
-        Func<IRepositoryQuery<TDetailEntity>, IQueryable<TDetailProjection>> AppendForeignKeyPredicate<TDetailEntity, TDetailProjection, TForeignKey>(
-            Expression<Func<TDetailEntity, TForeignKey>> foreignKeyExpression,
-            Func<IRepositoryQuery<TDetailEntity>, IQueryable<TDetailProjection>> projection)
-            where TDetailEntity : class
-            where TDetailProjection : class
-        {
-            var predicate = ExpressionHelper.GetValueEqualsExpression(foreignKeyExpression, (TForeignKey)(object)PrimaryKey);
-            return ReadOnlyRepositoryExtensions.AppendToProjection(predicate, projection);
-        }
+        //Func<IRepositoryQuery<TDetailEntity>, IQueryable<TDetailProjection>> AppendForeignKeyPredicate<TDetailEntity, TDetailProjection, TForeignKey>(
+        //    Expression<Func<TDetailEntity, TForeignKey>> foreignKeyExpression,
+        //    Func<IRepositoryQuery<TDetailEntity>, IQueryable<TDetailProjection>> projection)
+        //    where TDetailEntity : class
+        //    where TDetailProjection : class
+        //{
+        //    var predicate = ExpressionHelper.GetValueEqualsExpression(foreignKeyExpression, (TForeignKey)(object)PrimaryKey);
+        //    return ReadOnlyRepositoryExtensions.AppendToProjection(predicate, projection);
+        //}
 
-        protected IEntitiesViewModel<TLookUpEntity> GetLookUpEntitiesViewModel<TViewModel, TLookUpEntity, TLookUpEntityKey>(Expression<Func<TViewModel, IEntitiesViewModel<TLookUpEntity>>> propertyExpression, Func<TUnitOfWork, IRepository<TLookUpEntity, TLookUpEntityKey>> getRepositoryFunc, Func<IRepositoryQuery<TLookUpEntity>, IQueryable<TLookUpEntity>> projection = null) where TLookUpEntity : class
-        {
-            return GetLookUpProjectionsViewModel(propertyExpression, getRepositoryFunc, projection);
-        }
+        //protected IEntitiesViewModel<TLookUpEntity> GetLookUpEntitiesViewModel<TViewModel, TLookUpEntity, TLookUpEntityKey>(Expression<Func<TViewModel, IEntitiesViewModel<TLookUpEntity>>> propertyExpression, Func<TUnitOfWork, IRepository<TLookUpEntity, TLookUpEntityKey>> getRepositoryFunc, Func<IRepositoryQuery<TLookUpEntity>, IQueryable<TLookUpEntity>> projection = null) where TLookUpEntity : class
+        //{
+        //    return GetLookUpProjectionsViewModel(propertyExpression, getRepositoryFunc, projection);
+        //}
 
-        protected virtual IEntitiesViewModel<TLookUpProjection> GetLookUpProjectionsViewModel<TViewModel, TLookUpEntity, TLookUpProjection, TLookUpEntityKey>(Expression<Func<TViewModel, IEntitiesViewModel<TLookUpProjection>>> propertyExpression, Func<TUnitOfWork, IRepository<TLookUpEntity, TLookUpEntityKey>> getRepositoryFunc, Func<IRepositoryQuery<TLookUpEntity>, IQueryable<TLookUpProjection>> projection)
-            where TLookUpEntity : class
-            where TLookUpProjection : class
-        {
-            return GetEntitiesViewModelCore<IEntitiesViewModel<TLookUpProjection>, TLookUpProjection>(propertyExpression, () => LookUpEntitiesViewModel<TLookUpEntity, TLookUpProjection, TLookUpEntityKey, TUnitOfWork>.Create(UnitOfWorkFactory, getRepositoryFunc, projection));
-        }
+        //protected virtual IEntitiesViewModel<TLookUpProjection> GetLookUpProjectionsViewModel<TViewModel, TLookUpEntity, TLookUpProjection, TLookUpEntityKey>(Expression<Func<TViewModel, IEntitiesViewModel<TLookUpProjection>>> propertyExpression, Func<TUnitOfWork, IRepository<TLookUpEntity, TLookUpEntityKey>> getRepositoryFunc, Func<IRepositoryQuery<TLookUpEntity>, IQueryable<TLookUpProjection>> projection)
+        //    where TLookUpEntity : class
+        //    where TLookUpProjection : class
+        //{
+        //    return GetEntitiesViewModelCore<IEntitiesViewModel<TLookUpProjection>, TLookUpProjection>(propertyExpression, () => LookUpEntitiesViewModel<TLookUpEntity, TLookUpProjection, TLookUpEntityKey, TUnitOfWork>.Create(UnitOfWorkFactory, getRepositoryFunc, projection));
+        //}
 
-        Action<TDetailEntity> CreateForeignKeyPropertyInitializer<TDetailEntity, TForeignKey>(Action<TDetailEntity, TPrimaryKey> setMasterEntityKeyAction, Func<TForeignKey> getMasterEntityKey) where TDetailEntity : class
-        {
-            return x => setMasterEntityKeyAction(x, (TPrimaryKey)(object)getMasterEntityKey());
-        }
+        //Action<TDetailEntity> CreateForeignKeyPropertyInitializer<TDetailEntity, TForeignKey>(Action<TDetailEntity, TPrimaryKey> setMasterEntityKeyAction, Func<TForeignKey> getMasterEntityKey) where TDetailEntity : class
+        //{
+        //    return x => setMasterEntityKeyAction(x, (TPrimaryKey)(object)getMasterEntityKey());
+        //}
 
-        protected virtual bool CanCreateNewEntity()
-        {
-            if (!IsNew())
-                return true;
-            string message = string.Format(CommonResources.Confirmation_SaveParent, typeof(TEntity).Name);
-            var result = MessageBoxService.ShowMessage(message, CommonResources.Confirmation_Caption, MessageButton.YesNo);
-            return result == MessageResult.Yes && SaveCore();
-        }
+        //protected virtual bool CanCreateNewEntity()
+        //{
+        //    if (!IsNew())
+        //        return true;
+        //    string message = string.Format(CommonResources.Confirmation_SaveParent, typeof(TEntity).Name);
+        //    var result = MessageBoxService.ShowMessage(message, CommonResources.Confirmation_Caption, MessageButton.YesNo);
+        //    return result == MessageResult.Yes && SaveCore();
+        //}
 
-        TViewModel GetCollectionViewModelCore<TViewModel, TDetailEntity, TDetailProjection, TForeignKey>(
-            LambdaExpression propertyExpression,
-            Func<TViewModel> createViewModelCallback)
-            where TViewModel : IDocumentContent
-            where TDetailEntity : class
-            where TDetailProjection : class
-        {
-            return GetEntitiesViewModelCore<TViewModel, TDetailProjection>(propertyExpression, () =>
-            {
-                var viewModel = createViewModelCallback();
-                viewModel.SetParentViewModel(this);
-                return viewModel;
-            });
-        }
+        //TViewModel GetCollectionViewModelCore<TViewModel, TDetailEntity, TDetailProjection, TForeignKey>(
+        //    LambdaExpression propertyExpression,
+        //    Func<TViewModel> createViewModelCallback)
+        //    where TViewModel : IDocumentContent
+        //    where TDetailEntity : class
+        //    where TDetailProjection : class
+        //{
+        //    return GetEntitiesViewModelCore<TViewModel, TDetailProjection>(propertyExpression, () =>
+        //    {
+        //        var viewModel = createViewModelCallback();
+        //        viewModel.SetParentViewModel(this);
+        //        return viewModel;
+        //    });
+        //}
 
-        TViewModel GetEntitiesViewModelCore<TViewModel, TDetailEntity>(LambdaExpression propertyExpression, Func<TViewModel> createViewModelCallback)
-            where TViewModel : IDocumentContent
-            where TDetailEntity : class
-        {
+        //TViewModel GetEntitiesViewModelCore<TViewModel, TDetailEntity>(LambdaExpression propertyExpression, Func<TViewModel> createViewModelCallback)
+        //    where TViewModel : IDocumentContent
+        //    where TDetailEntity : class
+        //{
 
-            IDocumentContent result = null;
-            string propertyName = ExpressionHelper.GetPropertyName(propertyExpression);
-            if (!lookUpViewModels.TryGetValue(propertyName, out result))
-            {
-                result = createViewModelCallback();
-                lookUpViewModels[propertyName] = result;
-            }
-            return (TViewModel)result;
-        }
+        //    IDocumentContent result = null;
+        //    string propertyName = ExpressionHelper.GetPropertyName(propertyExpression);
+        //    if (!lookUpViewModels.TryGetValue(propertyName, out result))
+        //    {
+        //        result = createViewModelCallback();
+        //        lookUpViewModels[propertyName] = result;
+        //    }
+        //    return (TViewModel)result;
+        //}
         #endregion
 
         #region ISupportParameter
@@ -620,7 +620,6 @@ namespace Polyathlon.ViewModels.Common
         {
             OnDestroy();
         }
-
         IDocumentOwner IDocumentContent.DocumentOwner
         {
             get { return DocumentOwner; }
@@ -629,9 +628,9 @@ namespace Polyathlon.ViewModels.Common
         #endregion
 
         #region ISingleObjectViewModel
-        TEntity ISingleObjectViewModel<TEntity>.Entity { get { return Entity; } }
+        TViewEntity ISingleObjectViewModel<TViewEntity>.Entity { get { return Entity; } }
 
-        TPrimaryKey ISingleObjectViewModel<TEntity, TPrimaryKey>.PrimaryKey { get { return PrimaryKey; } }
+        TPrimaryKey ISingleObjectViewModel<TEntity, TViewEntity, TPrimaryKey>.PrimaryKey { get { return PrimaryKey; } }
         #endregion
 
         #region ISupportLogicalLayout
@@ -659,6 +658,27 @@ namespace Polyathlon.ViewModels.Common
         {
             get { return lookUpViewModels.Values; }
         }
+
+        private object? _ParentViewModel;
+
+        object? ISupportParentViewModel.ParentViewModel
+        { 
+            get => _ParentViewModel;
+            set {
+                _ParentViewModel = value;
+                if (_ParentViewModel is not null)
+                {
+                    OnParentViewModelChanged(_ParentViewModel);
+                }
+            }
+        }
+
+        protected void OnParentViewModelChanged(object ParentViewModel)
+        {
+            int a = 2;
+        }
+        
+
         #endregion
     }
 }

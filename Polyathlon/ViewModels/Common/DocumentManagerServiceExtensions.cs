@@ -13,9 +13,9 @@ namespace Polyathlon.ViewModels.Common
         /// <param name="documentManagerService">An instance of the IDocumentManager interface used to create and show the document.</param>
         /// <param name="parentViewModel">An object that is passed to the view model of the created view.</param>
         /// <param name="primaryKey">An entity primary key.</param>
-        public static IDocument ShowExistingEntityDocument<TEntity, TPrimaryKey>(this IDocumentManagerService documentManagerService, object parentViewModel, TPrimaryKey primaryKey)
+        public static IDocument ShowExistingEntityDocument<TEntity, TViewEntity, TPrimaryKey>(this IDocumentManagerService documentManagerService, object parentViewModel, TPrimaryKey primaryKey)
         {
-            IDocument document = FindEntityDocument<TEntity, TPrimaryKey>(documentManagerService, primaryKey) ?? CreateDocument<TEntity>(documentManagerService, primaryKey, parentViewModel);
+            IDocument document = FindEntityDocument<TEntity, TViewEntity, TPrimaryKey>(documentManagerService, primaryKey) ?? CreateDocument<TEntity>(documentManagerService, primaryKey, parentViewModel);
             if (document != null)
                 document.Show();
             return document;
@@ -39,18 +39,31 @@ namespace Polyathlon.ViewModels.Common
         /// </summary>
         /// <param name="documentManagerService">An instance of the IDocumentManager interface used to find a document.</param>
         /// <param name="primaryKey">An entity primary key.</param>
-        public static IDocument FindEntityDocument<TEntity, TPrimaryKey>(this IDocumentManagerService documentManagerService, TPrimaryKey primaryKey)
+        public static IDocument FindEntityDocument<TEntity, TViewEntity, TPrimaryKey>(this IDocumentManagerService documentManagerService, TPrimaryKey primaryKey)
         {
             if (documentManagerService == null)
                 return null;
             foreach (IDocument document in documentManagerService.Documents)
             {
-                ISingleObjectViewModel<TEntity, TPrimaryKey> entityViewModel = document.Content as ISingleObjectViewModel<TEntity, TPrimaryKey>;
+                ISingleObjectViewModel<TEntity, TViewEntity, TPrimaryKey> entityViewModel = document.Content as ISingleObjectViewModel<TEntity, TViewEntity, TPrimaryKey>;
                 if (entityViewModel != null && object.Equals(entityViewModel.PrimaryKey, primaryKey))
                     return document;
             }
             return null;
         }
+
+        //public static IDocument FindEntityDocument<TEntity, TViewEntity, TPrimaryKey>(this IDocumentManagerService documentManagerService, TPrimaryKey primaryKey)
+        //{
+        //    if (documentManagerService == null)
+        //        return null;
+        //    foreach (IDocument document in documentManagerService.Documents)
+        //    {
+        //        ISingleObjectViewModel<TEntity, TViewEntity, TPrimaryKey> entityViewModel = document.Content as ISingleObjectViewModel<TEntity, TViewEntity, TPrimaryKey>;
+        //        if (entityViewModel != null && object.Equals(entityViewModel.PrimaryKey, primaryKey))
+        //            return document;
+        //    }
+        //    return null;
+        //}
         /// <summary>
         /// Searches for a document that contains a single object view model editing a new entity.
         /// </summary>

@@ -34,9 +34,10 @@ public sealed class LocalViewDbBase
         }
     }
 
-    public ObservableCollection<TViewEntity> GetLocalViewCollection<TViewEntity, TEntity>(PolyathlonModuleDescription moduleDescription, Func<TEntity, TViewEntity> createViewEntity)
-        where TEntity : class
-        where TViewEntity : class, new()            
+     
+    public ObservableCollection<TViewEntity> GetLocalViewCollection<TEntity, TViewEntity>(PolyathlonModuleDescription moduleDescription, Func<TEntity, TViewEntity> createViewEntity)
+        where TViewEntity : class, new()
+        where TEntity : class, new()
     {
         object? result = null;
         string requests = "";
