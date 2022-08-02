@@ -150,10 +150,10 @@ namespace Polyathlon.ViewModels.Common
             TEntity entity = helperRepository.Find(primaryKey);
             if (entity == null)
             {
-                DestroyDocument(DocumentManagerService.FindEntityDocument<TEntity, TPrimaryKey>(primaryKey));
+                //DestroyDocument(DocumentManagerService.FindEntityDocument<TEntity, TPrimaryKey>(primaryKey));
                 return;
             }
-            DocumentManagerService.ShowExistingEntityDocument<TEntity, TPrimaryKey>(this, primaryKey);
+            //DocumentManagerService.ShowExistingEntityDocument<TEntity, TPrimaryKey>(this, primaryKey);
         }
 
         public bool CanEdit(object threadSafeProxy)

@@ -7,7 +7,13 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Polyathlon.DataModel.Entities
 {
-    public class RegionViewEntity
+    public interface IViewEntity
+    {
+        IViewEntity IViewEntity();
+
+    }
+
+    public class RegionViewEntity : IViewEntity
     {
         [Display(AutoGenerateField = false)]
         readonly Region entity;
@@ -34,6 +40,11 @@ namespace Polyathlon.DataModel.Entities
         public RegionViewEntity(Region region)
         {
             entity = region;
+        }
+
+        public IViewEntity IViewEntity()
+        {
+            throw new NotImplementedException();
         }
     }
 }

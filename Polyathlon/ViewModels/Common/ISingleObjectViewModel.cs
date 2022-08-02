@@ -1,40 +1,31 @@
-using System;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Linq.Expressions;
-using DevExpress.Mvvm;
-using DevExpress.Mvvm.POCO;
-using DevExpress.Mvvm.DataAnnotations;
+namespace Polyathlon.ViewModels.Common;
 
-namespace Polyathlon.ViewModels.Common
+/// <summary>
+/// The base interface for view models representing a single entity.
+/// </summary>
+/// <typeparam name="TEntity">An entity type.</typeparam>
+/// <typeparam name="IsNew">Is entity newly created or not.</typeparam>
+public interface ISingleObjectViewModel<TViewEntity>                   
 {
     /// <summary>
-    /// The base interface for view models representing a single entity.
+    /// The entity represented by a view model.
     /// </summary>
-    /// <typeparam name="TEntity">An entity type.</typeparam>
-    /// <typeparam name="IsNew">Is entity newly created or not.</typeparam>
-    public interface ISingleObjectViewModel<TEntity> 
-    {
-        /// <summary>
-        /// The entity represented by a view model.
-        /// </summary>
-        TEntity Entity { get; }
-
-        /// <summary>
-        /// Is entity newly created.
-        /// </summary>
-        bool IsNew();
-    }
+    TViewEntity Entity { get; }
 
     /// <summary>
-    /// The base interface for view models representing a single entity.
+    /// Is entity newly created.
     /// </summary>
-    /// <typeparam name="TPrimaryKey">An entity primary key type.</typeparam>
-    public interface ISingleObjectViewModel<TEntity, TPrimaryKey> : ISingleObjectViewModel<TEntity> 
-    {
-        /// <summary>
-        /// The entity primary key value.
-        /// </summary>
-        TPrimaryKey PrimaryKey { get; }
-    }
+    bool IsNew();
+}
+
+/// <summary>
+/// The base interface for view models representing a single entity.
+/// </summary>
+/// <typeparam name="TPrimaryKey">An entity primary key type.</typeparam>
+public interface ISingleObjectViewModel<TEntity, TViewEntity, TPrimaryKey> : ISingleObjectViewModel<TViewEntity> 
+{
+    /// <summary>
+    /// The entity primary key value.
+    /// </summary>
+    TPrimaryKey PrimaryKey { get; }
 }
