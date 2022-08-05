@@ -13,7 +13,6 @@ using System.Collections.ObjectModel;
 namespace Polyathlon.ViewModels.Common
 {
     [POCOViewModel]
-    public partial class BaseCollectionViewModel<TEntity, TViewEntity> : ISupportParameter, ISupportParentViewModel
        where TEntity : class, new()
        where TViewEntity : class, new() //, ISupportParentViewModel //: CollectionViewModel<Entities.Region, RegionInfoWithSales, long, IDbUnitOfWork>    
     {
@@ -79,6 +78,7 @@ namespace Polyathlon.ViewModels.Common
 
         protected void OnParameterChanged()
         {
+
             ModuleDescription = (PolyathlonModuleDescription)Parameter;
             //LoadCore();
             Entities = localViewDb.GetLocalViewCollection<TEntity, TViewEntity>(ModuleDescription, createViewEntity);
