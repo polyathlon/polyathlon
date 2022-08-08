@@ -297,13 +297,25 @@ namespace Polyathlon.ViewModels.Common
 
         protected virtual void OnParameterChanged(object parameter)
         {
-            var initializer = parameter as Action<TViewEntity>;
-            if (initializer != null)
-                CreateAndInitializeEntity(initializer);
-            else if (parameter is TPrimaryKey)
-                LoadEntityByKey((TPrimaryKey)parameter);
-            else
-                Entity = null;
+            //var initializer = parameter as Action<TViewEntity>;
+            //if (initializer != null)
+            //    CreateAndInitializeEntity(initializer);
+            //else if (parameter is TPrimaryKey)
+            //    LoadEntityByKey((TPrimaryKey)parameter);
+            //else
+            //    Entity = null;
+
+
+            parameter switch {
+                SingleModelAction.New => Entity = null;
+
+            };
+            
+        }
+
+        protected void EditEntity(TViewEntity viewEntity)
+        {
+            Entity = viewEntity;
         }
 
         protected virtual TViewEntity CreateEntity()
@@ -680,5 +692,11 @@ namespace Polyathlon.ViewModels.Common
         
 
         #endregion
+    }
+    public enum SingleModelAction
+    {
+        New,
+        Copy,
+        Edit
     }
 }

@@ -13,6 +13,7 @@ using System.Collections.ObjectModel;
 namespace Polyathlon.ViewModels.Common
 {
     [POCOViewModel]
+    public partial class BaseCollectionViewModel<TEntity, TViewEntity> : ISupportParameter, ISupportParentViewModel
        where TEntity : class, new()
        where TViewEntity : class, new() //, ISupportParentViewModel //: CollectionViewModel<Entities.Region, RegionInfoWithSales, long, IDbUnitOfWork>    
     {
@@ -100,12 +101,12 @@ namespace Polyathlon.ViewModels.Common
 
         public void New()
         {
-            DocumentManagerService.ShowNewEntityDocument(this, newEntityInitializer);
+            DocumentManagerService.MyShowNewEntityDocument<TEntity>(SingleModelAction.New, this);
         }
 
         public void Edit(TViewEntity viewEntity)
         {
-            DocumentManagerService.ShowNewEntityDocument(this, newEntityInitializer);
+            DocumentManagerService.ShowMyExistingEntityDocument<TEntity, TViewEntity>(viewEntity, this);
         }
         //CancellationTokenSource LoadCore()
         //{

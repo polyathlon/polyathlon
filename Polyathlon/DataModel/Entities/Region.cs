@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Polyathlon.DataModel.Entities
 {
-    public class Region
+    public record class Region
     {        
         public string? Name { get; set; }        
         public string? ShortName { get; set; }        

@@ -21,6 +21,15 @@ namespace Polyathlon.ViewModels.Common
             return document;
         }
 
+        public static IDocument ShowMyExistingEntityDocument<TEntity, TViewEntity>(this IDocumentManagerService documentManagerService, object parameter, object parentViewModel)
+        {
+            //IDocument document = FindEntityDocument<TEntity, TViewEntity>(documentManagerService, primaryKey) ?? CreateDocument<TEntity>(documentManagerService, primaryKey, parentViewModel);
+            IDocument document = CreateDocument<TEntity>(documentManagerService, parameter, parentViewModel);
+            if (document != null)
+                document.Show();
+            return document;
+        }
+
         /// <summary>
         /// Creates and shows a document containing a single object view model for new entity.
         /// </summary>
@@ -31,6 +40,18 @@ namespace Polyathlon.ViewModels.Common
         {
             IDocument document = FindNewEntityDocument<TEntity>(documentManagerService) ?? CreateDocument<TEntity>(documentManagerService, newEntityInitializer ?? (x => DefaultEntityInitializer(x)), parentViewModel);
             if(document != null)
+                document.Show();
+        }
+
+        /// <summary>
+        /// Creates and shows a document containing a single object view model for new entity.
+        /// </summary>
+        /// <param name="documentManagerService">An instance of the IDocumentManager interface used to create and show the document.</param>
+        /// <param name="parentViewModel">An object that is passed to the view model of the created view.</param>
+        /// <param name="newEntityInitializer">An optional parameter that provides a function that initializes a new entity.</param>
+        public static void MyShowNewEntityDocument<TEntity>(this IDocumentManagerService documentManagerService, object parameter, object parentViewModel) {
+            IDocument document = CreateDocument<TEntity>(documentManagerService, parameter, parentViewModel);
+            if (document != null)
                 document.Show();
         }
 
