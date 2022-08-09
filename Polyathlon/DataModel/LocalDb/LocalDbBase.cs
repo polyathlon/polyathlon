@@ -7,6 +7,8 @@ using Newtonsoft.Json.Linq;
 using Flurl.Http;
 using Flurl.Http.Configuration;
 
+using Polyathlon.DataModel.Common;
+
 namespace Polyathlon.DataModel;
 
 /// <summary>
@@ -47,8 +49,7 @@ namespace Polyathlon.DataModel;
 /// <summary>
 /// The base class for unit of works that provides the storage for repositories. 
 /// </summary>
-public sealed class LocalDbBase
-{
+public sealed class LocalDbBase {
     private static volatile LocalDbBase localDb;
 
     private static object SyncRoot = new();
@@ -57,14 +58,10 @@ public sealed class LocalDbBase
 
     private LocalDbBase() { }
 
-    public static LocalDbBase LocalDb
-    {
-        get
-        {
-            if (localDb == null)
-            {
-                lock (SyncRoot)
-                {
+    public static LocalDbBase LocalDb {
+        get {
+            if (localDb == null) {
+                lock (SyncRoot) {
                     if (localDb == null)
                         localDb = new LocalDbBase();
                 }
@@ -73,16 +70,12 @@ public sealed class LocalDbBase
         }
     }
 
-    public IList GetLocalDbTable<TEntity>(string request)
-       where TEntity : class
-    {
+    public IDictionary GetLocalDbTable<TEntity>(string request)
+       where TEntity : EntityBase {
         object? result = null;
-        if (!tables.TryGetValue(request, out result))
-        {
-            lock (SyncRoot)
-            {
-                if (!tables.TryGetValue(request, out result))
-                {
+        if (!tables.TryGetValue(request, out result)) {
+            lock (SyncRoot) {
+                if (!tables.TryGetValue(request, out result)) {
                     string content = @"{'total_rows':4,'offset':0,'rows':[
                             { 'id':'module:8997d7edcad3eae911a0c9abb100097a','key':'module:8997d7edcad3eae911a0c9abb100097a','value':{ 'rev':'1-52dc66bc4a76166e8348d4b76e2b4b78'},'doc':{ '_id':'module:8997d7edcad3eae911a0c9abb100097a','_rev':'1-52dc66bc4a76166e8348d4b76e2b4b78','name':'Москва', 'shortName': 'М'} },
                             { 'id':'module:8997d7edcad3eae911a0c9abb100097a','key':'module:8997d7edcad3eae911a0c9abb100097a','value':{ 'rev':'1-52dc66bc4a76166e8348d4b76e2b4b78'},'doc':{ '_id':'module:8997d7edcad3eae911a0c9abb100097a','_rev':'1-52dc66bc4a76166e8348d4b76e2b4b78','name':'Рязанская область', 'shortName': 'Ряз. обл.'} }
@@ -115,17 +108,16 @@ public sealed class LocalDbBase
 
                     IList<JToken> rows = jModules["rows"].Children().ToList();
 
-                    IList<TEntity> Entities = new List<TEntity>(rows.Count);
+                    Dictionary<string, TEntity> Entities = new Dictionary<string, TEntity>(rows.Count);
 
-                    foreach (JToken row in rows)
-                    {
+                    foreach (JToken row in rows) {
                         TEntity Entity = row["doc"].ToObject<TEntity>();
-                        Entities.Add(Entity);
+                        Entities.TryAdd(Entity.Id, Entity);
                     }
                     tables[request] = result = Entities;
-                }                        
-            }                
+                }
+            }
         }
-        return (IList?)result;
+        return (IDictionary?)result;
     }
 }

@@ -10,6 +10,7 @@ using DevExpress.Mvvm.DataAnnotations;
 using Polyathlon.DataModel;
 using Polyathlon.Helpers;
 
+using Polyathlon.DataModel.Common;
 
 namespace Polyathlon.ViewModels.Common
 {
@@ -21,9 +22,8 @@ namespace Polyathlon.ViewModels.Common
     /// <typeparam name="TPrimaryKey">A primary key value type.</typeparam>
     /// <typeparam name="TUnitOfWork">A unit of work type.</typeparam>
     public abstract class SingleObjectViewModel<TEntity, TViewEntity, TPrimaryKey> : SingleObjectViewModelBase<TEntity, TViewEntity, TPrimaryKey> 
-        where TViewEntity : class, new()
-        where TEntity : class, new()
-    {
+        where TViewEntity : ViewEntityBase<TEntity>
+        where TEntity : EntityBase {
 
         /// <summary>
         /// Initializes a new instance of the SingleObjectViewModel class.
@@ -46,8 +46,8 @@ namespace Polyathlon.ViewModels.Common
     /// <typeparam name="TUnitOfWork">A unit of work type.</typeparam>
     [POCOViewModel]
     public abstract class SingleObjectViewModelBase<TEntity, TViewEntity, TPrimaryKey> : ISingleObjectViewModel<TEntity, TViewEntity, TPrimaryKey>, ISupportParameter, ISupportParentViewModel, IDocumentContent, ISupportLogicalLayout<TPrimaryKey>
-        where TViewEntity : class, new()
-    {
+        where TViewEntity : ViewEntityBase<TEntity>
+        where TEntity : EntityBase {
 
         object title;
         //protected readonly Func<TUnitOfWork, IRepository<TEntity, TPrimaryKey>> getRepositoryFunc;
@@ -305,11 +305,13 @@ namespace Polyathlon.ViewModels.Common
             //else
             //    Entity = null;
 
-
-            parameter switch {
-                SingleModelAction.New => Entity = null;
-
-            };
+            if (parameter is SingleModelAction.New) {
+                Entity = null;
+            }
+            //parameter switch {
+            //    SingleModelAction.New => Entity = null,
+            //    _ => null
+            //};
             
         }
 
@@ -320,7 +322,8 @@ namespace Polyathlon.ViewModels.Common
 
         protected virtual TViewEntity CreateEntity()
         {
-            return new();//Repository.Create();
+
+            return null;// new TViewEntity();//Repository.Create();
         }
 
         protected void Reload()

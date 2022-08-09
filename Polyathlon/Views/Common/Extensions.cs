@@ -1,10 +1,7 @@
-using System;
-using System.Drawing;
 using System.Linq.Expressions;
-using System.Windows.Forms;
 using Polyathlon.ViewModels.Common;
 using Polyathlon.DbDataModel;
-using Polyathlon.Helpers;
+
 
 //using DevExpress.DevAV.Common.ViewModel;
 //using DevExpress.DevAV.DevAVDbDataModel1;
@@ -16,17 +13,18 @@ using DevExpress.XtraGrid.Views.Tile;
 
 using DevExpress.XtraMap;
 using System.Reflection;
-using System.Linq;
+
 using DevExpress.XtraCharts;
 using DevExpress.Data.Filtering;
 using DevExpress.XtraBars.Docking2010;
 using DevExpress.XtraLayout;
-using System.Collections.Generic;
+
 using DevExpress.Utils;
 using DevExpress.Utils.Design;
 using DevExpress.Utils.Svg;
 using DevExpress.Skins;
-using DevExpress.XtraGrid.Columns;
+
+using Polyathlon.DataModel.Common;
 
 namespace Polyathlon.Views {
     internal static class ToolbarExtension {
@@ -186,8 +184,8 @@ namespace Polyathlon.Views {
         }
         internal static void BindCollectionGrid<TViewModel, TEntity, TEntityView>(this DevExpress.Utils.MVVM.MVVMContext context, GridView gridView, BindingSource bindingSource)
             where TViewModel : BaseCollectionViewModel<TEntity, TEntityView> 
-            where TEntity : class, new()
-            where TEntityView : class, new() {
+            where TEntity : EntityBase
+            where TEntityView : ViewEntityBase<TEntity> {
             var fluentAPI = context.OfType<TViewModel>();
             fluentAPI.SetObjectDataSourceBinding(bindingSource, x => x.Entities);
             fluentAPI.SetBinding(gridView, gv => gv.LoadingPanelVisible, x => x.IsLoading);

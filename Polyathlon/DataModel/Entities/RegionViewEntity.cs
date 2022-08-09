@@ -1,50 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+using Polyathlon.DataModel.Common;
 
-namespace Polyathlon.DataModel.Entities
-{
-    public interface IViewEntity
+namespace Polyathlon.DataModel.Entities;
+
+public record class RegionViewEntity : ViewEntityBase<Region> {                
+
+    [Display(Name = "Наименование")]
+    public string? Name 
     {
-        IViewEntity IViewEntity();
-
+        get => entity.Name;
+        set => entity.Name = value;
     }
 
-    public class RegionViewEntity : IViewEntity
+    [Display(Name = "Сокращение")]
+    public string? ShortName
     {
-        [Display(AutoGenerateField = false)]
-        readonly Region entity;
+        get => entity.ShortName;
+        set => entity.ShortName = value;
+    }
 
-        [Display(AutoGenerateField = false)]
-        public string Origin { get; set; }
-
-        [Display(Name = "Наименование")]
-        public string? Name 
-        {
-            get => entity.Name;
-            set => entity.Name = value;
-        }
-        [Display(Name = "Сокращение")]
-        public string? ShortName
-        {
-            get => entity.ShortName;
-            set => entity.ShortName = value;
-        }
-        public RegionViewEntity()
-        {
-
-        }
-        public RegionViewEntity(Region region)
-        {
-            entity = region;
-        }
-
-        public IViewEntity IViewEntity()
-        {
-            throw new NotImplementedException();
-        }
+    public RegionViewEntity(Region region, string origin) : base(region, origin) {
+        
     }
 }

@@ -9,10 +9,13 @@
       <Value Profile="(Default)">admin</Value>
     </Setting>
     <Setting Name="HostName" Type="System.String" Scope="User">
-      <Value Profile="(Default)">localhost</Value>
+      <Value Profile="(Default)">127.0.01</Value>
     </Setting>
     <Setting Name="Port" Type="System.String" Scope="User">
       <Value Profile="(Default)">5984</Value>
+    </Setting>
+    <Setting Name="ModuleBaseName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">https://127.0.0.1:5984/</Value>
     </Setting>
   </Settings>
 </SettingsFile>

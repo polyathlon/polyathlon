@@ -62,7 +62,7 @@ public partial class RegionCollectionViewModel : BaseCollectionViewModel<DataMod
 
     protected static RegionViewEntity CreateViewEntity(DataModel.Entities.Region entity)
     {
-        RegionViewEntity ViewEntity = new(entity);
+        RegionViewEntity ViewEntity = new(entity,"11");
         return ViewEntity;
     }
 
