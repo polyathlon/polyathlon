@@ -51,6 +51,9 @@
     <Compile Update="Views\Common\MapView.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Update="Views\ChangeUser\ChangeUserView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
