@@ -29,7 +29,7 @@ public record class Module : EntityBase {
     public int TileFontSize { get; private set; }
     public List<Request> Requests = new List<Request>();
 
-    public ModuleModel(string rev) {
-        Rev = rev;
-    }
+    //public ModuleModel(string rev) {
+    //    Rev = rev;
+    //}
 }

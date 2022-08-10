@@ -89,10 +89,10 @@ namespace Polyathlon.Views
             new DevExpress.XtraBars.Docking2010.WindowsUISeparator(),
             new DevExpress.XtraBars.Docking2010.WindowsUIButton("Custom Filter", true, windowsuiButtonImageOptions3, DevExpress.XtraBars.Docking2010.ButtonStyle.PushButton, "", -1, true, null, true, false, true, null, -1, false)});
             this.windowsUIButtonPanel.Controls.Add(this.searchControl);
-            this.windowsUIButtonPanel.Location = new System.Drawing.Point(0, 605);
-            this.windowsUIButtonPanel.Margin = new System.Windows.Forms.Padding(8);
-            this.windowsUIButtonPanel.PeekFormOptions.Size = new System.Drawing.Size(312, 406);
-            this.windowsUIButtonPanel.Size = new System.Drawing.Size(1191, 111);
+            this.windowsUIButtonPanel.Location = new System.Drawing.Point(0, 968);
+            this.windowsUIButtonPanel.Margin = new System.Windows.Forms.Padding(13, 13, 13, 13);
+            this.windowsUIButtonPanel.PeekFormOptions.Size = new System.Drawing.Size(512, 666);
+            this.windowsUIButtonPanel.Size = new System.Drawing.Size(1906, 178);
             // 
             // layoutControl1
             // 
@@ -100,34 +100,34 @@ namespace Polyathlon.Views
             this.layoutControl1.Controls.Add(this.gridControl);
             this.layoutControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.layoutControl1.Location = new System.Drawing.Point(0, 0);
-            this.layoutControl1.Margin = new System.Windows.Forms.Padding(4);
+            this.layoutControl1.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.layoutControl1.Name = "layoutControl1";
             this.layoutControl1.OptionsCustomizationForm.DesignTimeCustomizationFormPositionAndSize = new System.Drawing.Rectangle(903, 297, 902, 605);
             this.layoutControl1.OptionsView.UseParentAutoScaleFactor = true;
             this.layoutControl1.Root = this.layoutControlGroup1;
-            this.layoutControl1.Size = new System.Drawing.Size(1191, 605);
+            this.layoutControl1.Size = new System.Drawing.Size(1906, 968);
             this.layoutControl1.TabIndex = 8;
             this.layoutControl1.Text = "dr";
             // 
             // gridControl
             // 
             this.gridControl.DataSource = this.regionBindingSource;
-            this.gridControl.EmbeddedNavigator.Margin = new System.Windows.Forms.Padding(5);
-            this.gridControl.Location = new System.Drawing.Point(52, 46);
+            this.gridControl.EmbeddedNavigator.Margin = new System.Windows.Forms.Padding(13, 13, 13, 13);
+            this.gridControl.Location = new System.Drawing.Point(83, 73);
             this.gridControl.MainView = this.gridView;
-            this.gridControl.Margin = new System.Windows.Forms.Padding(4);
+            this.gridControl.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.gridControl.Name = "gridControl";
-            this.gridControl.Padding = new System.Windows.Forms.Padding(0, 0, 0, 50);
+            this.gridControl.Padding = new System.Windows.Forms.Padding(0, 0, 0, 80);
             this.gridControl.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.repositoryItemSparklineEdit1});
-            this.gridControl.Size = new System.Drawing.Size(1087, 516);
+            this.gridControl.Size = new System.Drawing.Size(1740, 826);
             this.gridControl.TabIndex = 4;
             this.gridControl.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView});
             // 
             // gridView
             // 
-            this.gridView.DetailHeight = 437;
+            this.gridView.DetailHeight = 699;
             this.gridView.GridControl = this.gridControl;
             this.gridView.Name = "gridView";
             this.gridView.OptionsBehavior.AllowSortAnimation = DevExpress.Utils.DefaultBoolean.True;
@@ -147,16 +147,16 @@ namespace Polyathlon.Views
             this.titleLabelItem1,
             this.layoutControlGroup2});
             this.layoutControlGroup1.Name = "Root";
-            this.layoutControlGroup1.Padding = new DevExpress.XtraLayout.Utils.Padding(50, 50, 0, 0);
-            this.layoutControlGroup1.Size = new System.Drawing.Size(1191, 605);
+            this.layoutControlGroup1.Padding = new DevExpress.XtraLayout.Utils.Padding(80, 80, 0, 0);
+            this.layoutControlGroup1.Size = new System.Drawing.Size(1906, 968);
             this.layoutControlGroup1.TextVisible = false;
             // 
             // layoutControlItem1
             // 
             this.layoutControlItem1.Control = this.gridControl;
-            this.layoutControlItem1.Location = new System.Drawing.Point(0, 44);
+            this.layoutControlItem1.Location = new System.Drawing.Point(0, 70);
             this.layoutControlItem1.Name = "layoutControlItem1";
-            this.layoutControlItem1.Size = new System.Drawing.Size(1091, 520);
+            this.layoutControlItem1.Size = new System.Drawing.Size(1746, 832);
             this.layoutControlItem1.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem1.TextVisible = false;
             // 
@@ -169,19 +169,19 @@ namespace Polyathlon.Views
             this.titleLabelItem1.AppearanceItemCaption.Options.UseForeColor = true;
             this.titleLabelItem1.Location = new System.Drawing.Point(0, 0);
             this.titleLabelItem1.Name = "titleLabelItem1";
-            this.titleLabelItem1.Padding = new DevExpress.XtraLayout.Utils.Padding(2, 2, 10, 12);
-            this.titleLabelItem1.Size = new System.Drawing.Size(1091, 44);
+            this.titleLabelItem1.Padding = new DevExpress.XtraLayout.Utils.Padding(3, 3, 16, 19);
+            this.titleLabelItem1.Size = new System.Drawing.Size(1746, 70);
             this.titleLabelItem1.Text = "Регионы";
-            this.titleLabelItem1.TextSize = new System.Drawing.Size(68, 22);
+            this.titleLabelItem1.TextSize = new System.Drawing.Size(111, 35);
             // 
             // layoutControlGroup2
             // 
             this.layoutControlGroup2.GroupBordersVisible = false;
             this.layoutControlGroup2.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.emptySpaceItem1});
-            this.layoutControlGroup2.Location = new System.Drawing.Point(0, 564);
+            this.layoutControlGroup2.Location = new System.Drawing.Point(0, 902);
             this.layoutControlGroup2.Name = "layoutControlGroup2";
-            this.layoutControlGroup2.Size = new System.Drawing.Size(1091, 41);
+            this.layoutControlGroup2.Size = new System.Drawing.Size(1746, 66);
             this.layoutControlGroup2.TextVisible = false;
             // 
             // emptySpaceItem1
@@ -189,7 +189,7 @@ namespace Polyathlon.Views
             this.emptySpaceItem1.AllowHotTrack = false;
             this.emptySpaceItem1.Location = new System.Drawing.Point(0, 0);
             this.emptySpaceItem1.Name = "emptySpaceItem1";
-            this.emptySpaceItem1.Size = new System.Drawing.Size(1091, 41);
+            this.emptySpaceItem1.Size = new System.Drawing.Size(1746, 66);
             this.emptySpaceItem1.TextSize = new System.Drawing.Size(0, 0);
             // 
             // customerStoreBindingSource
@@ -205,26 +205,26 @@ namespace Polyathlon.Views
             // 
             this.searchControl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.searchControl.Client = this.gridControl;
-            this.searchControl.Location = new System.Drawing.Point(851, 35);
-            this.searchControl.Margin = new System.Windows.Forms.Padding(4);
+            this.searchControl.Location = new System.Drawing.Point(1362, 56);
+            this.searchControl.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.searchControl.Name = "searchControl";
             this.searchControl.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Repository.ClearButton(),
             new DevExpress.XtraEditors.Repository.SearchButton()});
             this.searchControl.Properties.Client = this.gridControl;
-            this.searchControl.Size = new System.Drawing.Size(325, 22);
+            this.searchControl.Size = new System.Drawing.Size(520, 40);
             this.searchControl.TabIndex = 9;
             // 
             // RegionCollectionView
             // 
             this.Appearance.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.Appearance.Options.UseFont = true;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(16F, 40F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.layoutControl1);
-            this.Margin = new System.Windows.Forms.Padding(8);
+            this.Margin = new System.Windows.Forms.Padding(13, 13, 13, 13);
             this.Name = "RegionCollectionView";
-            this.Size = new System.Drawing.Size(1191, 716);
+            this.Size = new System.Drawing.Size(1906, 1146);
             this.Controls.SetChildIndex(this.windowsUIButtonPanel, 0);
             this.Controls.SetChildIndex(this.layoutControl1, 0);
             this.windowsUIButtonPanel.ResumeLayout(false);
