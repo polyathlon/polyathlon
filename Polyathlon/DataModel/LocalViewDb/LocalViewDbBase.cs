@@ -60,4 +60,27 @@ public sealed class LocalViewDbBase {
         }
         return (ObservableCollection<TViewEntity>)result;
     }
+
+    public ObservableCollection<TViewEntity> GetModuleViewCollection<TEntity, TViewEntity>(string request, Func<TEntity, string, TViewEntity> createViewEntity)
+        where TEntity : EntityBase 
+        where TViewEntity : ViewEntityBase<TEntity> { 
+        object? result = null;        
+        if (!tables.TryGetValue(request, out result)) {
+            lock (SyncRoot) {
+                if (!tables.TryGetValue(request, out result)) {
+                    ObservableCollection<TViewEntity> ViewEntities = new ObservableCollection<TViewEntity>();
+                    IDictionary EntitiesDb = LocalDbBase.LocalDb.GetLocalDbTable<TEntity>(request);
+                    if (EntitiesDb is not null) {
+                        foreach (DictionaryEntry item in EntitiesDb) {
+                            TEntity entity = (TEntity)item.Value;                            
+                            ViewEntities.Add(createViewEntity(entity, request));
+                        }
+                    }                    
+                    tables[request] = result = ViewEntities;
+                }
+            }
+        }
+        return (ObservableCollection<TViewEntity>)result;
+    }
+
 }

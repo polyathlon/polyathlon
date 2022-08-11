@@ -13,4 +13,7 @@ public record class ViewEntityBase<TEntity> {
         this.entity = entity;
         Origin = origin;
     }
+    public ViewEntityBase() {
+        
+    }
 }

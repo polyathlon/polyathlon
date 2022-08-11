@@ -2,6 +2,10 @@
 using Polyathlon.DbDataModel;
 using Newtonsoft.Json.Linq;
 using Polyathlon.ViewModels.Common;
+using Polyathlon.DataModel;
+using Polyathlon.DataModel.Entities;
+//using Polyathlon.DataModel.Entities;
+using System.Collections.ObjectModel;
 
 namespace Polyathlon.ViewModels;
 
@@ -25,8 +29,14 @@ public partial class PolyathlonViewModel : DocumentsViewModel<PolyathlonModuleDe
         : base(UnitOfWorkSource.GetUnitOfWorkFactory())
     {
     }
+    
+    ModuleViewEntity CreateModule(Module entity, string origin) {
+        return new ModuleViewEntity(entity, origin);
+    }
     protected override List<PolyathlonModuleDescription> CreateModules()
     {
+        //LocalViewDbBase.LocalViewDb.GetModuleViewCollection<Module, ModuleViewEntity>("http://base.rsu.edu.ru:5984/polyathlon-modules/_partition/module/_all_docs?include_docs=true", CreateModule);
+        ObservableCollection<ModuleViewEntity> ViewEntities = LocalViewDbBase.LocalViewDb.GetModuleViewCollection<Module, ModuleViewEntity>("http://base.rsu.edu.ru:5984/polyathlon-modules/_partition/module/_all_docs?include_docs=true", CreateModule);
         string moduleContent = @"{'total_rows':4,'offset':0,'rows':[
                 { 'id':'module:8997d7edcad3eae911a0c9abb100097a','key':'module:8997d7edcad3eae911a0c9abb100097a','value':{ 'rev':'1-52dc66bc4a76166e8348d4b76e2b4b78'},'doc':{ '_id':'module:8997d7edcad3eae911a0c9abb100097a','_rev':'1-52dc66bc4a76166e8348d4b76e2b4b78','moduleTitle':'Модуль 1','moduleGroup':'Operation','documentType':'MyView', 'tileColor':'255,255,0', 'tileFontSize':'12', 'tileTitle':'Регионы', 'requests': [{'url':'https://localhost:5984/polyathlon/region?include_docs=true'}, {'url':'https://localhost:5984/polyathlon/clubs?include_docs=true'}]}},
                 { 'id':'module:8997d7edcad3eae911a0c9abb100097a','key':'module:8997d7edcad3eae911a0c9abb100097a','value':{ 'rev':'1-52dc66bc4a76166e8348d4b76e2b4b78'},'doc':{ '_id':'module:8997d7edcad3eae911a0c9abb100097a','_rev':'1-52dc66bc4a76166e8348d4b76e2b4b78','moduleTitle':'Модуль 2','moduleGroup':'Operation','documentType':'MyView2', 'tileColor':'0,255,0', 'tileFontSize':'10', 'tileTitle':'Модуль 2'} },
