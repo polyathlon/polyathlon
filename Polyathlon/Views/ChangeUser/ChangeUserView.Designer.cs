@@ -97,10 +97,10 @@ namespace Polyathlon.Views
             new DevExpress.XtraBars.Docking2010.WindowsUISeparator(),
             new DevExpress.XtraBars.Docking2010.WindowsUIButton("Order List", true, windowsuiButtonImageOptions3, DevExpress.XtraBars.Docking2010.ButtonStyle.PushButton, "", -1, true, null, true, false, true, null, -1, false),
             new DevExpress.XtraBars.Docking2010.WindowsUIButton("Sales Map", true, windowsuiButtonImageOptions4, DevExpress.XtraBars.Docking2010.ButtonStyle.PushButton, "", -1, true, null, true, false, true, null, -1, false)});
-            this.windowsUIButtonPanel.Location = new System.Drawing.Point(0, 1358);
-            this.windowsUIButtonPanel.Margin = new System.Windows.Forms.Padding(12);
-            this.windowsUIButtonPanel.PeekFormOptions.Size = new System.Drawing.Size(800, 1040);
-            this.windowsUIButtonPanel.Size = new System.Drawing.Size(2256, 178);
+            this.windowsUIButtonPanel.Location = new System.Drawing.Point(0, 679);
+            this.windowsUIButtonPanel.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.windowsUIButtonPanel.PeekFormOptions.Size = new System.Drawing.Size(50, 65);
+            this.windowsUIButtonPanel.Size = new System.Drawing.Size(1128, 89);
             // 
             // dateTimeChartRangeControlClient
             // 
@@ -122,12 +122,11 @@ namespace Polyathlon.Views
             this.dataLayoutControl.DataSource = this.userBindingSource;
             this.dataLayoutControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataLayoutControl.Location = new System.Drawing.Point(0, 0);
-            this.dataLayoutControl.Margin = new System.Windows.Forms.Padding(6);
             this.dataLayoutControl.Name = "dataLayoutControl";
             this.dataLayoutControl.OptionsCustomizationForm.DesignTimeCustomizationFormPositionAndSize = new System.Drawing.Rectangle(792, 280, 742, 474);
             this.dataLayoutControl.OptionsView.UseParentAutoScaleFactor = true;
             this.dataLayoutControl.Root = this.layoutControlGroup1;
-            this.dataLayoutControl.Size = new System.Drawing.Size(2256, 1358);
+            this.dataLayoutControl.Size = new System.Drawing.Size(1128, 679);
             this.dataLayoutControl.TabIndex = 8;
             this.dataLayoutControl.Text = "dataLayoutControl1";
             // 
@@ -140,10 +139,9 @@ namespace Polyathlon.Views
             windowsuiButtonImageOptions5.ImageUri.Uri = "hybriddemo_back%20button;Svg";
             this.backWindowsUIButtonPanel.Buttons.AddRange(new DevExpress.XtraEditors.ButtonPanel.IBaseButton[] {
             new DevExpress.XtraBars.Docking2010.WindowsUIButton("Button", false, windowsuiButtonImageOptions5, DevExpress.XtraBars.Docking2010.ButtonStyle.PushButton, "", -1, true, null, true, false, true, null, -1, false)});
-            this.backWindowsUIButtonPanel.Location = new System.Drawing.Point(22, 22);
-            this.backWindowsUIButtonPanel.Margin = new System.Windows.Forms.Padding(6);
+            this.backWindowsUIButtonPanel.Location = new System.Drawing.Point(11, 11);
             this.backWindowsUIButtonPanel.Name = "backWindowsUIButtonPanel";
-            this.backWindowsUIButtonPanel.Size = new System.Drawing.Size(118, 132);
+            this.backWindowsUIButtonPanel.Size = new System.Drawing.Size(59, 66);
             this.backWindowsUIButtonPanel.TabIndex = 29;
             this.backWindowsUIButtonPanel.Text = "windowsUIButtonPanel1";
             this.backWindowsUIButtonPanel.UseButtonBackgroundImages = false;
@@ -151,30 +149,30 @@ namespace Polyathlon.Views
             // loginTextEdit
             // 
             this.loginTextEdit.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.userBindingSource, "Login", true));
-            this.loginTextEdit.Location = new System.Drawing.Point(247, 80);
-            this.loginTextEdit.Margin = new System.Windows.Forms.Padding(6);
+            this.dxErrorProvider.SetErrorType(this.loginTextEdit, DevExpress.XtraEditors.DXErrorProvider.ErrorType.Default);
+            this.loginTextEdit.Location = new System.Drawing.Point(124, 40);
             this.loginTextEdit.Name = "loginTextEdit";
             this.loginTextEdit.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
             this.loginTextEdit.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.loginTextEdit.Properties.Appearance.Options.UseFont = true;
-            this.loginTextEdit.Size = new System.Drawing.Size(1927, 54);
+            this.loginTextEdit.Size = new System.Drawing.Size(963, 26);
             this.loginTextEdit.StyleController = this.dataLayoutControl;
             this.loginTextEdit.TabIndex = 4;
             // 
             // userBindingSource
             // 
-            this.userBindingSource.DataSource = typeof(Polyathlon.ViewModels.User);
+            this.userBindingSource.DataSource = typeof(Polyathlon.DataModel.Entities.User);
             // 
             // passwordTextEdit
             // 
             this.passwordTextEdit.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.userBindingSource, "Password", true));
-            this.passwordTextEdit.Location = new System.Drawing.Point(247, 172);
-            this.passwordTextEdit.Margin = new System.Windows.Forms.Padding(6);
+            this.dxErrorProvider.SetErrorType(this.passwordTextEdit, DevExpress.XtraEditors.DXErrorProvider.ErrorType.Default);
+            this.passwordTextEdit.Location = new System.Drawing.Point(124, 86);
             this.passwordTextEdit.Name = "passwordTextEdit";
             this.passwordTextEdit.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.passwordTextEdit.Properties.Appearance.Options.UseFont = true;
             this.passwordTextEdit.Properties.NullValuePrompt = null;
-            this.passwordTextEdit.Size = new System.Drawing.Size(989, 54);
+            this.passwordTextEdit.Size = new System.Drawing.Size(494, 26);
             this.passwordTextEdit.StyleController = this.dataLayoutControl;
             this.passwordTextEdit.TabIndex = 18;
             // 
@@ -185,8 +183,8 @@ namespace Polyathlon.Views
             this.layoutControlGroup1.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.layoutControlGroup2});
             this.layoutControlGroup1.Name = "Root";
-            this.layoutControlGroup1.Padding = new DevExpress.XtraLayout.Utils.Padding(20, 80, 20, 20);
-            this.layoutControlGroup1.Size = new System.Drawing.Size(2256, 1358);
+            this.layoutControlGroup1.Padding = new DevExpress.XtraLayout.Utils.Padding(10, 40, 10, 10);
+            this.layoutControlGroup1.Size = new System.Drawing.Size(1128, 679);
             this.layoutControlGroup1.TextVisible = false;
             // 
             // layoutControlGroup2
@@ -204,26 +202,26 @@ namespace Polyathlon.Views
             this.emptySpaceItem4});
             this.layoutControlGroup2.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup2.Name = "autoGeneratedGroup0";
-            this.layoutControlGroup2.Size = new System.Drawing.Size(2156, 1318);
+            this.layoutControlGroup2.Size = new System.Drawing.Size(1078, 659);
             // 
             // ItemForName
             // 
             this.ItemForName.Control = this.loginTextEdit;
-            this.ItemForName.Location = new System.Drawing.Point(122, 58);
-            this.ItemForName.MaxSize = new System.Drawing.Size(0, 92);
-            this.ItemForName.MinSize = new System.Drawing.Size(262, 92);
+            this.ItemForName.Location = new System.Drawing.Point(61, 29);
+            this.ItemForName.MaxSize = new System.Drawing.Size(0, 46);
+            this.ItemForName.MinSize = new System.Drawing.Size(131, 46);
             this.ItemForName.Name = "ItemForName";
-            this.ItemForName.Size = new System.Drawing.Size(2034, 92);
+            this.ItemForName.Size = new System.Drawing.Size(1017, 46);
             this.ItemForName.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
             this.ItemForName.Text = "Логин";
-            this.ItemForName.TextSize = new System.Drawing.Size(91, 25);
+            this.ItemForName.TextSize = new System.Drawing.Size(46, 13);
             // 
             // layoutControlGroup4
             // 
             this.layoutControlGroup4.GroupBordersVisible = false;
-            this.layoutControlGroup4.Location = new System.Drawing.Point(122, 242);
+            this.layoutControlGroup4.Location = new System.Drawing.Point(61, 121);
             this.layoutControlGroup4.Name = "innerAutoGeneratedGroup2";
-            this.layoutControlGroup4.Size = new System.Drawing.Size(2034, 1026);
+            this.layoutControlGroup4.Size = new System.Drawing.Size(1017, 513);
             this.layoutControlGroup4.Text = "BILLING ADDRESS";
             // 
             // layoutControlGroup3
@@ -231,31 +229,31 @@ namespace Polyathlon.Views
             this.layoutControlGroup3.GroupBordersVisible = false;
             this.layoutControlGroup3.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.layoutControlItem1});
-            this.layoutControlGroup3.Location = new System.Drawing.Point(122, 150);
+            this.layoutControlGroup3.Location = new System.Drawing.Point(61, 75);
             this.layoutControlGroup3.Name = "innerAutoGeneratedGroup1";
-            this.layoutControlGroup3.Size = new System.Drawing.Size(2034, 92);
+            this.layoutControlGroup3.Size = new System.Drawing.Size(1017, 46);
             this.layoutControlGroup3.Text = "HOME OFFICE";
             // 
             // layoutControlItem1
             // 
             this.layoutControlItem1.Control = this.passwordTextEdit;
             this.layoutControlItem1.Location = new System.Drawing.Point(0, 0);
-            this.layoutControlItem1.MaxSize = new System.Drawing.Size(1096, 92);
-            this.layoutControlItem1.MinSize = new System.Drawing.Size(1096, 92);
+            this.layoutControlItem1.MaxSize = new System.Drawing.Size(548, 46);
+            this.layoutControlItem1.MinSize = new System.Drawing.Size(548, 46);
             this.layoutControlItem1.Name = "ItemForHomeOffice.Line";
-            this.layoutControlItem1.Size = new System.Drawing.Size(2034, 92);
+            this.layoutControlItem1.Size = new System.Drawing.Size(1017, 46);
             this.layoutControlItem1.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
             this.layoutControlItem1.Text = "Пароль";
-            this.layoutControlItem1.TextSize = new System.Drawing.Size(91, 25);
+            this.layoutControlItem1.TextSize = new System.Drawing.Size(46, 13);
             // 
             // layoutControlItem5
             // 
             this.layoutControlItem5.Control = this.backWindowsUIButtonPanel;
             this.layoutControlItem5.Location = new System.Drawing.Point(0, 0);
-            this.layoutControlItem5.MaxSize = new System.Drawing.Size(122, 136);
-            this.layoutControlItem5.MinSize = new System.Drawing.Size(122, 136);
+            this.layoutControlItem5.MaxSize = new System.Drawing.Size(61, 68);
+            this.layoutControlItem5.MinSize = new System.Drawing.Size(61, 68);
             this.layoutControlItem5.Name = "layoutControlItem5";
-            this.layoutControlItem5.Size = new System.Drawing.Size(122, 136);
+            this.layoutControlItem5.Size = new System.Drawing.Size(61, 68);
             this.layoutControlItem5.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
             this.layoutControlItem5.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem5.TextVisible = false;
@@ -263,9 +261,9 @@ namespace Polyathlon.Views
             // emptySpaceItem1
             // 
             this.emptySpaceItem1.AllowHotTrack = false;
-            this.emptySpaceItem1.Location = new System.Drawing.Point(0, 136);
+            this.emptySpaceItem1.Location = new System.Drawing.Point(0, 68);
             this.emptySpaceItem1.Name = "emptySpaceItem1";
-            this.emptySpaceItem1.Size = new System.Drawing.Size(122, 1182);
+            this.emptySpaceItem1.Size = new System.Drawing.Size(61, 591);
             this.emptySpaceItem1.TextSize = new System.Drawing.Size(0, 0);
             // 
             // simpleLabelItem1
@@ -273,14 +271,14 @@ namespace Polyathlon.Views
             this.simpleLabelItem1.AllowHotTrack = false;
             this.simpleLabelItem1.AppearanceItemCaption.FontSizeDelta = 3;
             this.simpleLabelItem1.AppearanceItemCaption.Options.UseFont = true;
-            this.simpleLabelItem1.Location = new System.Drawing.Point(122, 0);
-            this.simpleLabelItem1.MaxSize = new System.Drawing.Size(258, 58);
-            this.simpleLabelItem1.MinSize = new System.Drawing.Size(258, 58);
+            this.simpleLabelItem1.Location = new System.Drawing.Point(61, 0);
+            this.simpleLabelItem1.MaxSize = new System.Drawing.Size(129, 29);
+            this.simpleLabelItem1.MinSize = new System.Drawing.Size(129, 29);
             this.simpleLabelItem1.Name = "simpleLabelItem1";
-            this.simpleLabelItem1.Size = new System.Drawing.Size(258, 58);
+            this.simpleLabelItem1.Size = new System.Drawing.Size(129, 29);
             this.simpleLabelItem1.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
             this.simpleLabelItem1.Text = "Регион";
-            this.simpleLabelItem1.TextSize = new System.Drawing.Size(91, 35);
+            this.simpleLabelItem1.TextSize = new System.Drawing.Size(46, 18);
             // 
             // customerNameSimpleLabelItem
             // 
@@ -289,21 +287,21 @@ namespace Polyathlon.Views
             this.customerNameSimpleLabelItem.AppearanceItemCaption.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(47)))), ((int)(((byte)(82)))), ((int)(((byte)(163)))));
             this.customerNameSimpleLabelItem.AppearanceItemCaption.Options.UseFont = true;
             this.customerNameSimpleLabelItem.AppearanceItemCaption.Options.UseForeColor = true;
-            this.customerNameSimpleLabelItem.Location = new System.Drawing.Point(380, 0);
+            this.customerNameSimpleLabelItem.Location = new System.Drawing.Point(190, 0);
             this.customerNameSimpleLabelItem.Name = "customerNameSimpleLabelItem";
-            this.customerNameSimpleLabelItem.Size = new System.Drawing.Size(1776, 58);
+            this.customerNameSimpleLabelItem.Size = new System.Drawing.Size(888, 29);
             this.customerNameSimpleLabelItem.Text = "%name";
             this.customerNameSimpleLabelItem.TextAlignMode = DevExpress.XtraLayout.TextAlignModeItem.AutoSize;
-            this.customerNameSimpleLabelItem.TextSize = new System.Drawing.Size(98, 35);
+            this.customerNameSimpleLabelItem.TextSize = new System.Drawing.Size(52, 18);
             // 
             // emptySpaceItem4
             // 
             this.emptySpaceItem4.AllowHotTrack = false;
-            this.emptySpaceItem4.Location = new System.Drawing.Point(122, 1268);
-            this.emptySpaceItem4.MaxSize = new System.Drawing.Size(0, 50);
-            this.emptySpaceItem4.MinSize = new System.Drawing.Size(20, 50);
+            this.emptySpaceItem4.Location = new System.Drawing.Point(61, 634);
+            this.emptySpaceItem4.MaxSize = new System.Drawing.Size(0, 25);
+            this.emptySpaceItem4.MinSize = new System.Drawing.Size(10, 25);
             this.emptySpaceItem4.Name = "emptySpaceItem4";
-            this.emptySpaceItem4.Size = new System.Drawing.Size(2034, 50);
+            this.emptySpaceItem4.Size = new System.Drawing.Size(1017, 25);
             this.emptySpaceItem4.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
             this.emptySpaceItem4.TextSize = new System.Drawing.Size(0, 0);
             // 
@@ -321,13 +319,13 @@ namespace Polyathlon.Views
             // 
             this.Appearance.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.Appearance.Options.UseFont = true;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(16F, 40F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange;
             this.Controls.Add(this.dataLayoutControl);
-            this.Margin = new System.Windows.Forms.Padding(12);
+            this.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.Name = "ChangeUserView";
-            this.Size = new System.Drawing.Size(2256, 1536);
+            this.Size = new System.Drawing.Size(1128, 768);
             this.Controls.SetChildIndex(this.windowsUIButtonPanel, 0);
             this.Controls.SetChildIndex(this.dataLayoutControl, 0);
             ((System.ComponentModel.ISupportInitialize)(this.dateTimeChartRangeControlClient)).EndInit();
