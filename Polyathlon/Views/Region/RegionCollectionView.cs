@@ -21,7 +21,7 @@ namespace Polyathlon.Views
             var fluentAPI = mvvmContext.OfType<RegionCollectionViewModel>();
             mvvmContext.BindCollectionGrid<RegionCollectionViewModel, DataModel.Entities.Region, DataModel.Entities.RegionViewEntity>(gridView, regionBindingSource);
             //fluent.SetBinding(gridView, gView => gView.LoadingPanelVisible, x => x.IsLoading);
-            fluentAPI.SetBinding(titleLabelItem1, t => t.Text, x => x.ModuleDescription.ModuleTitle);
+            fluentAPI.SetBinding(titleLabelItem1, t => t.Text, x => x.ModuleDescription.Tile.Title);
 
             //gridControl.DataSource = regionBindingSource;
             //regionBindingSource.DataSource = fluent.ViewModel.Entities;

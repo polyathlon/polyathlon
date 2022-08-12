@@ -3,7 +3,8 @@ using System.ComponentModel;
 using Polyathlon.DataModel;
 using DevExpress.Mvvm;
 using DevExpress.Mvvm.POCO;
-using Newtonsoft.Json;
+using System.Collections.ObjectModel;
+using Polyathlon.DataModel.Entities;
 
 namespace Polyathlon.ViewModels.Common
 {
@@ -14,7 +15,7 @@ namespace Polyathlon.ViewModels.Common
     /// <typeparam name="TUnitOfWork">A unit of work type.</typeparam>
     /// 
     public abstract class DocumentsViewModel<TModule, TUnitOfWork> : ISupportLogicalLayout
-        where TModule : ModuleDescription<TModule>
+        where TModule : ModuleViewEntity
         where TUnitOfWork : IUnitOfWork
     {
 
@@ -50,7 +51,7 @@ namespace Polyathlon.ViewModels.Common
         /// <summary>
         /// Navigation list that represents a collection of module descriptions.
         /// </summary>
-        public List<TModule> Modules { get; private set; }
+        public ObservableCollection<TModule> Modules { get; private set; }
 
         /// <summary>
         /// A currently selected navigation list entry. This property is writable. When this property is assigned a new value, it triggers the navigating to the corresponding document.
@@ -118,7 +119,7 @@ namespace Polyathlon.ViewModels.Common
         {
             if (module == null || DocumentManagerService == null)
                 return null;
-            IDocument document = DocumentManagerService.FindDocumentByIdOrCreate(module.DocumentType, x => CreateDocument(module));
+            IDocument document = DocumentManagerService.FindDocumentByIdOrCreate(module.ViewType, x => CreateDocument(module));
             document.Show();
             return document;
         }
@@ -132,7 +133,7 @@ namespace Polyathlon.ViewModels.Common
         {
             if (WorkspaceDocumentManagerService == null)
                 return;
-            IDocument document = WorkspaceDocumentManagerService.FindDocumentByIdOrCreate(module.DocumentType, x => CreatePinnedPeekCollectionDocument(module));
+            IDocument document = WorkspaceDocumentManagerService.FindDocumentByIdOrCreate(module.ViewType, x => CreatePinnedPeekCollectionDocument(module));
             document.Show();
         }
 
@@ -172,7 +173,7 @@ namespace Polyathlon.ViewModels.Common
 
         IDocument CreateDocument(TModule module)
         {
-            var document = DocumentManagerService.CreateDocument(module.DocumentType, module, this);
+            var document = DocumentManagerService.CreateDocument(module.ViewType, module, this);
             document.Title = GetModuleTitle(module);
             document.DestroyOnClose = false;            
             return document;
@@ -180,13 +181,14 @@ namespace Polyathlon.ViewModels.Common
         
         protected virtual string GetModuleTitle(TModule module)
         {
-            return module.ModuleTitle;
+            return module.Title ?? String.Empty;
         }
 
         IDocument CreatePinnedPeekCollectionDocument(TModule module)
         {
-            var document = WorkspaceDocumentManagerService.CreateDocument("PeekCollectionView", module.CreatePeekCollectionViewModel());
-            document.Title = module.ModuleTitle;
+            //var document = WorkspaceDocumentManagerService.CreateDocument("PeekCollectionView", module.CreatePeekCollectionViewModel());
+            var document = WorkspaceDocumentManagerService.CreateDocument("PeekCollectionView", module.Name);
+            document.Title = module.Title;
             return document;
         }
 
@@ -195,7 +197,7 @@ namespace Polyathlon.ViewModels.Common
             return module => PeekCollectionViewModel<TModule, TEntity, TPrimaryKey, TUnitOfWork>.Create(module, unitOfWorkFactory, getRepositoryFunc).SetParentViewModel(this);
         }
 
-        protected abstract List<TModule> CreateModules();
+        protected abstract ObservableCollection<TModule> CreateModules();
 
         protected TUnitOfWork CreateUnitOfWork()
         {

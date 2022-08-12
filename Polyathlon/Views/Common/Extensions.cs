@@ -323,11 +323,11 @@ namespace Polyathlon.Views {
             return List[@"Toolbar\Cancel"];
         }
         static readonly Dictionary<string, string> List = new Dictionary<string, string>() { 
-            { @"Menu\Customers", "hybriddemo_customers;Svg" },
-            { @"Menu\Dashboard", "hybriddemo_dashboard;Svg" },
-            { @"Menu\Employees", "hybriddemo_employees;Svg" },
-            { @"Menu\Opportunities", "hybriddemo_opportunities;Svg" },
-            { @"Menu\Products", "hybriddemo_products;Svg" },
+            { @"Menu\Sportsmen", "hybriddemo_customers;Svg" },
+            { @"Menu\Regions", "hybriddemo_dashboard;Svg" },
+            { @"Menu\Judges", "hybriddemo_employees;Svg" },
+            { @"Menu\Clubs", "hybriddemo_opportunities;Svg" },
+            { @"Menu\Competitions", "hybriddemo_products;Svg" },
             { @"Menu\Sales", "hybriddemo_sales;Svg" },
             { @"Menu\Tasks", "hybriddemo_tasks;Svg" },
 

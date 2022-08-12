@@ -24,6 +24,9 @@ using Polyathlon.DataModel;
 using Polyathlon.ViewModels;
 using CSharp.Ulid;
 using Polyathlon.Views;
+using Polyathlon.DataModel.Entities;
+
+using DevExpress.Utils;
 
 using DevExpress.Utils.MVVM;
 //using DevExpress.Utils.Taskbar;
@@ -100,22 +103,26 @@ namespace Polyathlon
             //tileBar.SelectedItem = GetItem(fluentAPI.ViewModel.DefaultModule);
         }
 
-        TileBarGroup CreateGroup(MVVMContextFluentAPI<PolyathlonViewModel> fluentAPI, IGrouping<string, PolyathlonModuleDescription> moduleGroup)
+        TileBarGroup CreateGroup(MVVMContextFluentAPI<PolyathlonViewModel> fluentAPI, IGrouping<string, ModuleViewEntity> moduleGroup)
         {
             TileBarGroup group = new TileBarGroup() { Tag = moduleGroup };
             group.Text = moduleGroup.Key.ToUpper();
-            foreach (PolyathlonModuleDescription module in moduleGroup)
+            foreach (var module in moduleGroup)
                 group.Items.Add(RegisterModuleItem(fluentAPI, module));
             return group;
         }
 
-        TileBarItem RegisterModuleItem(MVVMContextFluentAPI<PolyathlonViewModel> fluentAPI, PolyathlonModuleDescription module)
+        TileBarItem RegisterModuleItem(MVVMContextFluentAPI<PolyathlonViewModel> fluentAPI, ModuleViewEntity module)
         {
-            TileBarItem item = new TileBarItem() { Tag = module };
-            item.Text = module.TileTitle;
-            tileBarItem2.Elements[0].ImageUri = "hybriddemo_dashboard;Svg";
-            item.Elements[0].ImageUri = MenuExtensions.GetImageUri(module.ModuleTitle);
-            item.AppearanceItem.Normal.BackColor = module.TileColor;//TileColorConverter.GetBackColor(module);
+            TileBarItem item = new TileBarItem() { Tag = module, AllowGlyphSkinning = DefaultBoolean.True };
+            item.Text = module.Tile.Title;
+            tileBarItem1.Visible = false;
+            tileBarItem2.Visible = false;
+            tileBarItem3.Visible = false;
+            //tileBarItem2.Elements[0].ImageUri = "hybriddemo_dashboard;Svg";
+            item.Elements[0].ImageUri = MenuExtensions.GetImageUri(module.Name ?? "Regions");
+      //      item.Elements[0].ImageUri = hybriddemo_dashboard; Svg
+            item.AppearanceItem.Normal.BackColor = module.Tile.Color;//TileColorConverter.GetBackColor(module);
             item.ItemSize = TileBarItemSize.Wide;
             //if (module.FilterViewModel != null)
             //{

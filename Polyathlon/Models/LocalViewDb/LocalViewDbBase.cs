@@ -1,9 +1,8 @@
 using System.Collections;
-using Newtonsoft.Json.Linq;
 using System.Collections.ObjectModel;
-using Polyathlon.ViewModels.Common;
-
+using Flurl;
 using Polyathlon.DataModel.Common;
+using Polyathlon.DataModel.Entities;
 
 namespace Polyathlon.DataModel;
 
@@ -31,7 +30,7 @@ public sealed class LocalViewDbBase {
         }
     }
 
-    public ObservableCollection<TViewEntity> GetLocalViewCollection<TEntity, TViewEntity>(PolyathlonModuleDescription moduleDescription, Func<TEntity, TViewEntity> createViewEntity)
+    public ObservableCollection<TViewEntity> GetLocalViewCollection<TEntity, TViewEntity>(ModuleViewEntity moduleDescription, Func<TEntity, TViewEntity> createViewEntity)
         where TViewEntity : ViewEntityBase<TEntity>
         where TEntity : EntityBase {
         object? result = null;
@@ -61,19 +60,19 @@ public sealed class LocalViewDbBase {
         return (ObservableCollection<TViewEntity>)result;
     }
 
-    public ObservableCollection<TViewEntity> GetModuleViewCollection<TEntity, TViewEntity>(string request, Func<TEntity, string, TViewEntity> createViewEntity)
+    public ObservableCollection<TViewEntity> GetModuleViewCollection<TEntity, TViewEntity>(Url request, Func<TEntity, string, TViewEntity> createViewEntity)
         where TEntity : EntityBase 
         where TViewEntity : ViewEntityBase<TEntity> { 
-        object? result = null;        
-        if (!tables.TryGetValue(request, out result)) {
+        object? result;        
+        if (!tables.TryGetValue(request.Origin(), out result)) {
             lock (SyncRoot) {
-                if (!tables.TryGetValue(request, out result)) {
+                if (!tables.TryGetValue(request.Origin(), out result)) {
                     ObservableCollection<TViewEntity> ViewEntities = new ObservableCollection<TViewEntity>();
                     IDictionary EntitiesDb = LocalDbBase.LocalDb.GetLocalDbTable<TEntity>(request);
                     if (EntitiesDb is not null) {
                         foreach (DictionaryEntry item in EntitiesDb) {
                             TEntity entity = (TEntity)item.Value;                            
-                            ViewEntities.Add(createViewEntity(entity, request));
+                            ViewEntities.Add(createViewEntity(entity, request.Origin()));
                         }
                     }                    
                     tables[request] = result = ViewEntities;

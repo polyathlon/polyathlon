@@ -4,6 +4,7 @@ using DevExpress.Mvvm.DataAnnotations;
 using System.Collections.ObjectModel;
 using Polyathlon.DataModel;
 using Polyathlon.DataModel.Common;
+using Polyathlon.DataModel.Entities;
 
 namespace Polyathlon.ViewModels.Common;
 
@@ -19,7 +20,7 @@ public partial class BaseCollectionViewModel<TEntity, TViewEntity> : ISupportPar
 
     private LocalViewDbBase localViewDb;
 
-    public PolyathlonModuleDescription ModuleDescription { get; private set; }
+    public ModuleViewEntity ModuleDescription { get; private set; }
 
     public ObservableCollection<TViewEntity> Entities { get; private set; }
 
@@ -75,7 +76,7 @@ public partial class BaseCollectionViewModel<TEntity, TViewEntity> : ISupportPar
     protected void OnParameterChanged()
     {
 
-        ModuleDescription = (PolyathlonModuleDescription)Parameter;
+        ModuleDescription = (ModuleViewEntity)Parameter;
         //LoadCore();
         Entities = localViewDb.GetLocalViewCollection<TEntity, TViewEntity>(ModuleDescription, createViewEntity);
         IsLoading = false;

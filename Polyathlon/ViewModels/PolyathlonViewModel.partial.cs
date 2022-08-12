@@ -1,11 +1,12 @@
 ﻿using Polyathlon.DbDataModel;
 using DevExpress.Mvvm;
 using Polyathlon.ViewModels.Common;
+using Polyathlon.DataModel.Entities;
 
 namespace Polyathlon.ViewModels
 {
     //internal partial class PolyathlonViewModel : DocumentsViewModel<DevAVDbModuleDescription, IDbUnitOfWork>
-    public partial class PolyathlonViewModel : DocumentsViewModel<PolyathlonModuleDescription, IDbUnitOfWork>
+    public partial class PolyathlonViewModel : DocumentsViewModel<ModuleViewEntity, IDbUnitOfWork>
     {
         //    public const string EmployeeCollectionViewDocumentType = "EmployeeCollectionView";
         //    public const string EmployeeViewDocumentType = "EmployeeView";
@@ -26,22 +27,22 @@ namespace Polyathlon.ViewModels
         //    public const string QuoteCollectionViewDocumentType = "QuoteCollectionView";
         //    public const string DashboardViewDocumentType = "DashboardView";
 
-        public override PolyathlonModuleDescription DefaultModule
+        public override ModuleViewEntity DefaultModule
         {
-            get { return Modules.Where(m => m.DocumentType == "MyView").First(); }
+            get { return Modules.Where(m => m.ViewType == "MyView").First(); }
         }
-        public IList<IGrouping<string, PolyathlonModuleDescription>> ModuleGroups
+        public IList<IGrouping<string, ModuleViewEntity>> ModuleGroups
         {
-            get { return Modules.GroupBy(m => m.ModuleGroup).ToList(); }
+            get { return Modules.GroupBy(m => m.Group).ToList(); }
         }
-        protected override void DocumentShown(PolyathlonModuleDescription module, IDocument document)
+        protected override void DocumentShown(ModuleViewEntity module, IDocument document)
         {
             base.DocumentShown(module, document);
-            if (module != null && module.FilterViewModel != null)
-            {
-                module.FilterViewModel.SetViewModel(document.Content);
-                Messenger.Default.Send<DocumentShownMessage>(new DocumentShownMessage(module.DocumentType));
-            }
+            //if (module != null && module.FilterViewModel != null)
+            //{
+            //    module.FilterViewModel.SetViewModel(document.Content);
+            //    Messenger.Default.Send<DocumentShownMessage>(new DocumentShownMessage(module.DocumentType));
+            //}
         }
         //    public void Info()
         //    {
