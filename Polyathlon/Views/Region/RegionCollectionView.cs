@@ -18,14 +18,16 @@ namespace Polyathlon.Views
         }
         void InitBindings() {
             //mvvmContext.ViewModelConstructorParameter = new();
-            var fluentAPI = mvvmContext.OfType<RegionCollectionViewModel>();
             mvvmContext.BindCollectionGrid<RegionCollectionViewModel, DataModel.Entities.Region, DataModel.Entities.RegionViewEntity>(gridView, regionBindingSource);
-            //fluent.SetBinding(gridView, gView => gView.LoadingPanelVisible, x => x.IsLoading);
+            var fluentAPI = mvvmContext.OfType<RegionCollectionViewModel>();
+            //fluentAPI.SetBinding(gridView, gv => gv.LoadingPanelVisible, x => x.IsLoading);
+            //fluentAPI.SetBinding(gridView, gView => gView.LoadingPanelVisible, x => x.IsLoading);
             fluentAPI.SetBinding(titleLabelItem1, t => t.Text, x => x.ModuleDescription.Tile.Title);
+            //fluentAPI.SetBinding(titleLabelItem1, t => t.Text, x => x.IsLoading);
 
             //gridControl.DataSource = regionBindingSource;
             //regionBindingSource.DataSource = fluent.ViewModel.Entities;
-            //fluent.SetBinding(gridControl, gControl => gControl.DataSource, x => x.Entities);
+            //fluentAPI.SetBinding(gridControl, gControl => gControl.DataSource, x => x.Entities);
 
             //var fluentAPI = mvvmContext.OfType<RegionCollectionViewModel>();
             //fluentAPI.SetBinding(labelName, label => label.Text, x => x.SelectedEntity.Name);

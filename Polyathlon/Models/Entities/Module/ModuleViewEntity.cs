@@ -48,7 +48,7 @@ public record class ModuleViewEntity : ViewEntityBase<Module> {
         set => entity.Tile = value;
     }
     
-    public ModuleViewEntity(Module entity, string origin) : base(entity, origin) {
+    public ModuleViewEntity(Module entity, Flurl.Url origin) : base(entity, origin) {
         
     }
 }

@@ -30,7 +30,7 @@ public partial class RegionCollectionViewModel : BaseCollectionViewModel<DataMod
         return ViewModelSource.Create(() => new RegionCollectionViewModel());
     }
 
-    //public bool IsLoading { get; set; } = false;
+    public override bool IsLoading { get; protected set; } = false;
     //public virtual object Parameter { get; set; }
     //public object ParentViewModel { get; set; }
 
@@ -58,6 +58,11 @@ public partial class RegionCollectionViewModel : BaseCollectionViewModel<DataMod
     //protected RegionCollectionViewModel(LocalViewDbBase localViewDbBase)
     //{
     //    this.localViewDb = localViewDbBase;
+    //}
+
+    //public override void Delete(RegionViewEntity ViewEntity) {
+    //    //IsLoading = true;
+    //   // ModuleDescription.Tile.Title = "11";
     //}
 
     protected static RegionViewEntity CreateViewEntity(DataModel.Entities.Region entity, Flurl.Url origin)

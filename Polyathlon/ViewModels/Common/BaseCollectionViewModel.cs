@@ -13,15 +13,15 @@ public partial class BaseCollectionViewModel<TEntity, TViewEntity> : ISupportPar
    where TEntity : EntityBase
    where TViewEntity : ViewEntityBase<TEntity> //, ISupportParentViewModel //: CollectionViewModel<Entities.Region, RegionInfoWithSales, long, IDbUnitOfWork>    
 {
-    private LocalViewDbBase localViewDb;
+    private ModuleDatabase moduleDb;
 
     public ModuleViewEntity ModuleDescription { get; private set; }
 
-    public ObservableCollection<TViewEntity> Entities { get; private set; }
+    public ObservableCollection<TViewEntity> Entities { get; set; }
 
     protected IMessageBoxService MessageBoxService { get { return this.GetRequiredService<IMessageBoxService>(); } }
 
-    public virtual void Delete(TViewEntity ViewEntity) {
+    public virtual void Delete(TViewEntity ViewEntity) {        
         if (MessageBoxService.ShowMessage(string.Format(CommonResources.Confirmation_Delete, typeof(TEntity).Name), CommonResources.Confirmation_Caption, MessageButton.YesNo) != MessageResult.Yes)
             return;
         try {
@@ -46,8 +46,13 @@ public partial class BaseCollectionViewModel<TEntity, TViewEntity> : ISupportPar
     //    return ViewModelSource.Create(() => new RegionCollectionViewModel(LocalViewDbBase.LocalViewDb));
     //}
 
-    public bool IsLoading { get; set; } = false;
+
+
+    public virtual bool IsLoading { get; protected set; } = false;
+    
     public virtual object Parameter { get; set; }
+
+    public object ParentViewModel { get => null; set => OnParentViewModelChanged(value); }
     //public object ParentViewModel { get; set; }
 
 
@@ -73,7 +78,7 @@ public partial class BaseCollectionViewModel<TEntity, TViewEntity> : ISupportPar
 
     protected BaseCollectionViewModel(Func<TEntity, Flurl.Url, TViewEntity> createViewEntity)
     {
-        localViewDb = LocalViewDbBase.LocalViewDb;
+        moduleDb = ModuleDatabase.ModuleDb;
         this.createViewEntity = createViewEntity;
     }
 
@@ -91,14 +96,14 @@ public partial class BaseCollectionViewModel<TEntity, TViewEntity> : ISupportPar
 
     protected void OnParameterChanged()
     {
-
         ModuleDescription = (ModuleViewEntity)Parameter;
-        //LoadCore();
-        Entities = new(localViewDb.GetLocalViewCollection<TEntity, TViewEntity>(ModuleDescription, createViewEntity).Values);
-        IsLoading = false;
+        
+        //LoadEntities();
+        Entities = new(moduleDb.GetModuleViewCollection<TEntity, TViewEntity>(ModuleDescription, createViewEntity).Values);
+        //IsLoading = false;
     }
 
-    protected void OnParentViewModelChanged()
+    protected void OnParentViewModelChanged(object parentViewModel)
     {
         //ModuleDescription = (PolyathlonModuleDescription)Parameter;
         ////LoadCore();
@@ -107,7 +112,7 @@ public partial class BaseCollectionViewModel<TEntity, TViewEntity> : ISupportPar
     }
     protected IDocumentManagerService DocumentManagerService { get { return this.GetService<IDocumentManagerService>(); } }
 
-    public object ParentViewModel { get; set; }
+    //public object ParentViewModel { get; set; }
 
     readonly Action<DataModel.Entities.Region> newEntityInitializer;
 
@@ -125,21 +130,19 @@ public partial class BaseCollectionViewModel<TEntity, TViewEntity> : ISupportPar
         
     //}
 
-    //CancellationTokenSource LoadCore()
-    //{
-    //    IsLoading = true;
-    //    var cancellationTokenSource = new CancellationTokenSource();
-    //    System.Threading.Tasks.Task.Factory.StartNew(() =>
-    //    {
-    //        var entities = localViewDb.GetLocalViewCollection<RegionViewEntity, DataModel.Entities.Region>(ModuleDescription, createViewEntity);
-    //        return entities;
-    //    }).ContinueWith(x =>
-    //    {
-    //        Entities = x.Result;
-    //        IsLoading = false;
-    //    }, cancellationTokenSource.Token, TaskContinuationOptions.None, TaskScheduler.FromCurrentSynchronizationContext());
-    //    return cancellationTokenSource;
-    //}
+    CancellationTokenSource LoadEntities() {
+        IsLoading = true;
+        var cancellationTokenSource = new CancellationTokenSource();
+        System.Threading.Tasks.Task.Factory.StartNew(() => {
+            var entities = new ObservableCollection<TViewEntity>(moduleDb.GetModuleViewCollection<TEntity, TViewEntity>(ModuleDescription, createViewEntity).Values);
+            //var entities = localViewDb.GetLocalViewCollection<RegionViewEntity, DataModel.Entities.Region>(ModuleDescription, createViewEntity);
+            return entities;
+        }).ContinueWith(x => {
+            Entities = x.Result;
+            IsLoading = false;
+        }, cancellationTokenSource.Token, TaskContinuationOptions.None, TaskScheduler.FromCurrentSynchronizationContext());
+        return cancellationTokenSource;
+    }
 
     //protected RegionCollectionViewModel(object a)    
     //{
@@ -152,6 +155,6 @@ public partial class BaseCollectionViewModel<TEntity, TViewEntity> : ISupportPar
     //}
     protected BaseCollectionViewModel()
     {
-        this.localViewDb = LocalViewDbBase.LocalViewDb;
+        moduleDb = ModuleDatabase.ModuleDb;
     }
 }
