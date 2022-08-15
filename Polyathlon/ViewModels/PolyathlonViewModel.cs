@@ -86,8 +86,9 @@ public partial class PolyathlonViewModel : DocumentsViewModel<ModuleViewEntity, 
 
     protected override ObservableCollection<ModuleViewEntity> CreateModules() {
         //LocalViewDbBase.LocalViewDb.GetModuleViewCollection<Module, ModuleViewEntity>("http://base.rsu.edu.ru:5984/polyathlon-modules/_partition/module/_all_docs?include_docs=true", CreateModule);
-        ObservableCollection<ModuleViewEntity> ViewEntities = LocalViewDbBase.LocalViewDb.GetModuleViewCollection<Module, ModuleViewEntity>("http://base.rsu.edu.ru:5984/polyathlon-modules/_partition/module/_all_docs?include_docs=true", CreateModule);
+        ObservableCollection<ModuleViewEntity> ViewEntities = new(LocalViewDbBase.LocalViewDb.GetModuleViewCollection<Module, ModuleViewEntity>("http://base.rsu.edu.ru:5984/polyathlon-modules/_partition/module/_all_docs?include_docs=true", CreateModule).Values);
         //        ViewEntities.
-        return new ObservableCollection<ModuleViewEntity>(ViewEntities.OrderBy(m => m.SortOrder));//  ViewEntities;
+        //return new ObservableCollection<ModuleViewEntity>(ViewEntities.OrderBy(m => m.SortOrder));//  ViewEntities;
+        return ViewEntities;//  ViewEntities;
     }
 }

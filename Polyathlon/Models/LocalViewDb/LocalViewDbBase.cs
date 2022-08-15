@@ -30,7 +30,7 @@ public sealed class LocalViewDbBase {
         }
     }
 
-    public ObservableCollection<TViewEntity> GetLocalViewCollection<TEntity, TViewEntity>(ModuleViewEntity moduleDescription, Func<TEntity, TViewEntity> createViewEntity)
+    public IDictionary<string, TViewEntity>  GetLocalViewCollection<TEntity, TViewEntity>(ModuleViewEntity moduleDescription, Func<TEntity, Flurl.Url, TViewEntity> createViewEntity)
         where TViewEntity : ViewEntityBase<TEntity>
         where TEntity : EntityBase {
         object? result = null;
@@ -42,14 +42,14 @@ public sealed class LocalViewDbBase {
         if (!tables.TryGetValue(requests, out result)) {
             lock (SyncRoot) {
                 if (!tables.TryGetValue(requests, out result)) {
-                    ObservableCollection<TViewEntity> ViewEntities = new ObservableCollection<TViewEntity>();
+                    Dictionary<string, TViewEntity> ViewEntities = new();
                     foreach (var request in moduleDescription.Requests) {
-
-                        IDictionary EntitiesDb = LocalDbBase.LocalDb.GetLocalDbTable<TEntity>(request.Url);
-                        if (EntitiesDb is not null) {
-                            foreach (DictionaryEntry item in EntitiesDb) {
+                        IDictionary Entities = LocalDbBase.LocalDb.GetLocalDbTable<TEntity>(request.Url);
+                        if (Entities is not null) {
+                            Url origin = ((Url)request.Url).Origin();
+                            foreach (DictionaryEntry item in Entities) {
                                 TEntity entity = (TEntity)item.Value;
-                                ViewEntities.Add(createViewEntity(entity));
+                                ViewEntities[entity.Id] = createViewEntity(entity, origin);                                
                             }
                         }
                     }
@@ -57,29 +57,30 @@ public sealed class LocalViewDbBase {
                 }
             }
         }
-        return (ObservableCollection<TViewEntity>)result;
+        return (Dictionary<string, TViewEntity>)result;
     }
 
-    public ObservableCollection<TViewEntity> GetModuleViewCollection<TEntity, TViewEntity>(Url request, Func<TEntity, string, TViewEntity> createViewEntity)
+    public IDictionary<Url, TViewEntity> GetModuleViewCollection<TEntity, TViewEntity>(Url request, Func<TEntity, string, TViewEntity> createViewEntity)
         where TEntity : EntityBase 
         where TViewEntity : ViewEntityBase<TEntity> { 
-        object? result;        
-        if (!tables.TryGetValue(request.Origin(), out result)) {
+        object? result;
+        Url origin = request.Origin();
+        if (!tables.TryGetValue(origin, out result)) {
             lock (SyncRoot) {
-                if (!tables.TryGetValue(request.Origin(), out result)) {
-                    ObservableCollection<TViewEntity> ViewEntities = new ObservableCollection<TViewEntity>();
-                    IDictionary EntitiesDb = LocalDbBase.LocalDb.GetLocalDbTable<TEntity>(request);
-                    if (EntitiesDb is not null) {
-                        foreach (DictionaryEntry item in EntitiesDb) {
-                            TEntity entity = (TEntity)item.Value;                            
-                            ViewEntities.Add(createViewEntity(entity, request.Origin()));
+                if (!tables.TryGetValue(origin, out result)) {
+                    Dictionary<string, TViewEntity>  ViewEntities = new();
+                    IDictionary Entities = LocalDbBase.LocalDb.GetLocalDbTable<TEntity>(request);
+                    if (Entities is not null) {
+                        foreach (DictionaryEntry item in Entities) {
+                            TEntity entity = item.Value as TEntity;
+                            ViewEntities[entity.Id] = createViewEntity(entity, origin);
                         }
-                    }                    
+                    }
                     tables[request] = result = ViewEntities;
                 }
             }
         }
-        return (ObservableCollection<TViewEntity>)result;
+        return result as Dictionary<Url, TViewEntity>;
     }
 
 }

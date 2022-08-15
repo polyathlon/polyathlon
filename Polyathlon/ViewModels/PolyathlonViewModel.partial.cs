@@ -33,7 +33,9 @@ namespace Polyathlon.ViewModels
         }
         public IList<IGrouping<string, ModuleViewEntity>> ModuleGroups
         {
-            get { return Modules.GroupBy(m => m.Group).ToList(); }
+            get { 
+                return Modules.GroupBy(m => m.Group).OrderBy(m => m.Key).ToList(); 
+            }
         }
         protected override void DocumentShown(ModuleViewEntity module, IDocument document)
         {

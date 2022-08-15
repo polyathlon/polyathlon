@@ -106,8 +106,9 @@ namespace Polyathlon
         TileBarGroup CreateGroup(MVVMContextFluentAPI<PolyathlonViewModel> fluentAPI, IGrouping<string, ModuleViewEntity> moduleGroup)
         {
             TileBarGroup group = new TileBarGroup() { Tag = moduleGroup };
-            group.Text = moduleGroup.Key.ToUpper();
-            foreach (var module in moduleGroup)
+            String[] GroupName = moduleGroup.Key.Split('.', 2);
+            group.Text = GroupName.Length == 1 ? GroupName[0] : GroupName[1].TrimStart();
+            foreach (var module in moduleGroup.OrderBy(m => m.SortOrder))
                 group.Items.Add(RegisterModuleItem(fluentAPI, module));
             return group;
         }

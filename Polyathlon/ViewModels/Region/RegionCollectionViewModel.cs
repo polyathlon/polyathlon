@@ -60,9 +60,9 @@ public partial class RegionCollectionViewModel : BaseCollectionViewModel<DataMod
     //    this.localViewDb = localViewDbBase;
     //}
 
-    protected static RegionViewEntity CreateViewEntity(DataModel.Entities.Region entity)
+    protected static RegionViewEntity CreateViewEntity(DataModel.Entities.Region entity, Flurl.Url origin)
     {
-        RegionViewEntity ViewEntity = new(entity,"11");
+        RegionViewEntity ViewEntity = new(entity, origin);
         return ViewEntity;
     }
 
