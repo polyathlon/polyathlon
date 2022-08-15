@@ -65,10 +65,16 @@ public sealed class LocalViewDbBase {
         where TViewEntity : ViewEntityBase<TEntity> { 
         object? result;
         Url origin = request.Origin();
+        Url origin2 = request.Origin();
+        Dictionary<Url, string> dic = new();
+        if (origin == origin2) {
+            dic[origin] = "a";
+            dic[origin2] = "b";
+        }
         if (!tables.TryGetValue(origin, out result)) {
             lock (SyncRoot) {
                 if (!tables.TryGetValue(origin, out result)) {
-                    Dictionary<string, TViewEntity>  ViewEntities = new();
+                    Dictionary<Url, TViewEntity>  ViewEntities = new();
                     IDictionary Entities = LocalDbBase.LocalDb.GetLocalDbTable<TEntity>(request);
                     if (Entities is not null) {
                         foreach (DictionaryEntry item in Entities) {
