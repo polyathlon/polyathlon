@@ -8,77 +8,96 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Polyathlon.Properties {
-    
-    
+namespace Polyathlon.Properties
+{
+
+
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.2.0.0")]
-    internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
-        
+    internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase
+    {
+
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
-        
-        public static Settings Default {
-            get {
+
+        public static Settings Default
+        {
+            get
+            {
                 return defaultInstance;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("admin")]
-        public string UserName {
-            get {
+        public string UserName
+        {
+            get
+            {
                 return ((string)(this["UserName"]));
             }
-            set {
+            set
+            {
                 this["UserName"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("rsucouch")]
-        public string Password {
-            get {
+        public string Password
+        {
+            get
+            {
                 return ((string)(this["Password"]));
             }
-            set {
+            set
+            {
                 this["Password"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("127.0.01")]
-        public string HostName {
-            get {
+        [global::System.Configuration.DefaultSettingValueAttribute("127.0.0.1")]
+        public string HostName
+        {
+            get
+            {
                 return ((string)(this["HostName"]));
             }
-            set {
+            set
+            {
                 this["HostName"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("5984")]
-        public string Port {
-            get {
+        public string Port
+        {
+            get
+            {
                 return ((string)(this["Port"]));
             }
-            set {
+            set
+            {
                 this["Port"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("https://127.0.0.1:5984/")]
-        public string ModuleBaseName {
-            get {
+        public string ModuleBaseName
+        {
+            get
+            {
                 return ((string)(this["ModuleBaseName"]));
             }
-            set {
+            set
+            {
                 this["ModuleBaseName"] = value;
             }
         }
@@ -104,11 +123,14 @@ namespace Polyathlon.Properties {
     <FilterCriteria>[AnnualRevenue] &gt;= 90000000000.0m</FilterCriteria>
   </FilterInfo>
 </ArrayOfFilterInfo>")]
-        public global::Polyathlon.ViewModels.FilterInfoList RegionCustomFilters {
-            get {
+        public global::Polyathlon.ViewModels.FilterInfoList RegionCustomFilters
+        {
+            get
+            {
                 return ((global::Polyathlon.ViewModels.FilterInfoList)(this["RegionCustomFilters"]));
             }
-            set {
+            set
+            {
                 this["RegionCustomFilters"] = value;
             }
         }
