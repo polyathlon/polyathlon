@@ -100,7 +100,7 @@ namespace Polyathlon.Views
             new DevExpress.XtraBars.Docking2010.WindowsUIButton("Order List", true, windowsuiButtonImageOptions3, DevExpress.XtraBars.Docking2010.ButtonStyle.PushButton, "", -1, true, null, true, false, true, null, -1, false),
             new DevExpress.XtraBars.Docking2010.WindowsUIButton("Sales Map", true, windowsuiButtonImageOptions4, DevExpress.XtraBars.Docking2010.ButtonStyle.PushButton, "", -1, true, null, true, false, true, null, -1, false)});
             this.windowsUIButtonPanel.Location = new System.Drawing.Point(0, 679);
-            this.windowsUIButtonPanel.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.windowsUIButtonPanel.Margin = new System.Windows.Forms.Padding(6);
             this.windowsUIButtonPanel.PeekFormOptions.Size = new System.Drawing.Size(128, 166);
             this.windowsUIButtonPanel.Size = new System.Drawing.Size(1128, 89);
             // 
@@ -151,12 +151,12 @@ namespace Polyathlon.Views
             // NameTextEdit
             // 
             this.NameTextEdit.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.customerBindingSource, "Name", true));
-            this.NameTextEdit.Location = new System.Drawing.Point(156, 41);
+            this.NameTextEdit.Location = new System.Drawing.Point(158, 41);
             this.NameTextEdit.Name = "NameTextEdit";
             this.NameTextEdit.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
             this.NameTextEdit.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.NameTextEdit.Properties.Appearance.Options.UseFont = true;
-            this.NameTextEdit.Size = new System.Drawing.Size(930, 26);
+            this.NameTextEdit.Size = new System.Drawing.Size(928, 26);
             this.NameTextEdit.StyleController = this.dataLayoutControl;
             this.NameTextEdit.TabIndex = 4;
             // 
@@ -167,12 +167,12 @@ namespace Polyathlon.Views
             // textEdit1
             // 
             this.textEdit1.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.customerBindingSource, "ShortName", true));
-            this.textEdit1.Location = new System.Drawing.Point(156, 87);
+            this.textEdit1.Location = new System.Drawing.Point(158, 87);
             this.textEdit1.Name = "textEdit1";
             this.textEdit1.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.textEdit1.Properties.Appearance.Options.UseFont = true;
             this.textEdit1.Properties.NullValuePrompt = null;
-            this.textEdit1.Size = new System.Drawing.Size(461, 26);
+            this.textEdit1.Size = new System.Drawing.Size(459, 26);
             this.textEdit1.StyleController = this.dataLayoutControl;
             this.textEdit1.TabIndex = 18;
             // 
@@ -323,7 +323,7 @@ namespace Polyathlon.Views
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange;
             this.Controls.Add(this.dataLayoutControl);
-            this.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.Margin = new System.Windows.Forms.Padding(6);
             this.Name = "RegionView";
             this.Size = new System.Drawing.Size(1128, 768);
             this.Controls.SetChildIndex(this.windowsUIButtonPanel, 0);

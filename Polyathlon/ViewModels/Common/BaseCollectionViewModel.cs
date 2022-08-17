@@ -9,7 +9,7 @@ using Polyathlon.DataModel.Entities;
 namespace Polyathlon.ViewModels.Common;
 
 [POCOViewModel]
-public partial class BaseCollectionViewModel<TEntity, TViewEntity> : ISupportParameter, ISupportParentViewModel
+public partial class BaseCollectionViewModel<TEntity, TViewEntity> : ISupportParameter//, ISupportParentViewModel
    where TEntity : EntityBase
    where TViewEntity : ViewEntityBase<TEntity> //, ISupportParentViewModel //: CollectionViewModel<Entities.Region, RegionInfoWithSales, long, IDbUnitOfWork>    
 {
@@ -52,7 +52,7 @@ public partial class BaseCollectionViewModel<TEntity, TViewEntity> : ISupportPar
     
     public virtual object Parameter { get; set; }
 
-    public object ParentViewModel { get => null; set => OnParentViewModelChanged(value); }
+   // public object ParentViewModel { get => null; set => OnParentViewModelChanged(value); }
     //public object ParentViewModel { get; set; }
 
 
@@ -103,13 +103,13 @@ public partial class BaseCollectionViewModel<TEntity, TViewEntity> : ISupportPar
         //IsLoading = false;
     }
 
-    protected void OnParentViewModelChanged(object parentViewModel)
-    {
-        //ModuleDescription = (PolyathlonModuleDescription)Parameter;
-        ////LoadCore();
-        //Entities = localViewDb.GetLocalViewCollection<TEntity, TViewEntity>(ModuleDescription, createViewEntity);
-        //IsLoading = false;
-    }
+    //protected void OnParentViewModelChanged(object parentViewModel)
+    //{
+    //    //ModuleDescription = (PolyathlonModuleDescription)Parameter;
+    //    ////LoadCore();
+    //    //Entities = localViewDb.GetLocalViewCollection<TEntity, TViewEntity>(ModuleDescription, createViewEntity);
+    //    //IsLoading = false;
+    //}
     protected IDocumentManagerService DocumentManagerService { get { return this.GetService<IDocumentManagerService>(); } }
 
     //public object ParentViewModel { get; set; }
