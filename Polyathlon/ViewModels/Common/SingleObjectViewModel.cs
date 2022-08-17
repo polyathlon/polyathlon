@@ -23,7 +23,7 @@ namespace Polyathlon.ViewModels.Common
     /// <typeparam name="TUnitOfWork">A unit of work type.</typeparam>
     public abstract class SingleObjectViewModel<TEntity, TViewEntity, TPrimaryKey> : SingleObjectViewModelBase<TEntity, TViewEntity, TPrimaryKey> 
         where TViewEntity : ViewEntityBase<TEntity>
-        where TEntity : EntityBase {
+        where TEntity : EntityBase, new() {
 
         /// <summary>
         /// Initializes a new instance of the SingleObjectViewModel class.
@@ -47,7 +47,7 @@ namespace Polyathlon.ViewModels.Common
     [POCOViewModel]
     public abstract class SingleObjectViewModelBase<TEntity, TViewEntity, TPrimaryKey> : ISingleObjectViewModel<TEntity, TViewEntity, TPrimaryKey>, ISupportParameter, ISupportParentViewModel, IDocumentContent, ISupportLogicalLayout<TPrimaryKey>
         where TViewEntity : ViewEntityBase<TEntity>
-        where TEntity : EntityBase {
+        where TEntity : EntityBase, new() {
 
         object title;
         //protected readonly Func<TUnitOfWork, IRepository<TEntity, TPrimaryKey>> getRepositoryFunc;
@@ -304,15 +304,25 @@ namespace Polyathlon.ViewModels.Common
             //    LoadEntityByKey((TPrimaryKey)parameter);
             //else
             //    Entity = null;
-
+            
             if (parameter is SingleModelAction.New) {
+                TEntity ent = new();
                 Entity = null;
             }
+            else if (parameter is System.ValueTuple<TViewEntity, SingleModelAction> a) {
+                if (a.Item2 is SingleModelAction.Copy) {
+                    Entity = a.Item1 with { };
+                }
+                else if (a.Item2 is SingleModelAction.Edit) {
+                    Entity = a.Item1 with { };
+                }
+            }
+            //else parameter is SingleModelAction.New
             //parameter switch {
             //    SingleModelAction.New => Entity = null,
             //    _ => null
             //};
-            
+
         }
 
         protected void EditEntity(TViewEntity viewEntity)

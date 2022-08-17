@@ -199,10 +199,6 @@ namespace Polyathlon.Views
             this.emptySpaceItem1.Size = new System.Drawing.Size(873, 33);
             this.emptySpaceItem1.TextSize = new System.Drawing.Size(0, 0);
             // 
-            // customerStoreBindingSource
-            // 
-            this.customerStoreBindingSource.DataSource = this.customerBindingSource;
-            // 
             // mvvmContext
             // 
             this.mvvmContext.ContainerControl = this;

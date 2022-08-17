@@ -21,11 +21,15 @@ public partial class BaseCollectionViewModel<TEntity, TViewEntity> : ISupportPar
 
     protected IMessageBoxService MessageBoxService { get { return this.GetRequiredService<IMessageBoxService>(); } }
 
+    CancellationTokenSource loadCancellationTokenSource;
+
     public virtual void Delete(TViewEntity ViewEntity) {        
         if (MessageBoxService.ShowMessage(string.Format(CommonResources.Confirmation_Delete, typeof(TEntity).Name), CommonResources.Confirmation_Caption, MessageButton.YesNo) != MessageResult.Yes)
             return;
         try {
             Entities.Remove(ViewEntity);
+            this.RaisePropertyChanged(y => y.Entities);
+            //Entities.Remove(ViewEntity);
             //TPrimaryKey primaryKey = Repository.GetProjectionPrimaryKey(projectionEntity);
             //TEntity entity = Repository.Find(primaryKey);
             //if (entity != null) {
@@ -97,9 +101,9 @@ public partial class BaseCollectionViewModel<TEntity, TViewEntity> : ISupportPar
     protected void OnParameterChanged()
     {
         ModuleDescription = (ModuleViewEntity)Parameter;
-        
+        LoadEntities();
         //LoadEntities();
-        Entities = new(moduleDb.GetModuleViewCollection<TEntity, TViewEntity>(ModuleDescription, createViewEntity).Values);
+        //Entities = new(moduleDb.GetModuleViewCollection<TEntity, TViewEntity>(ModuleDescription, createViewEntity).Values);
         //IsLoading = false;
     }
 
@@ -123,14 +127,24 @@ public partial class BaseCollectionViewModel<TEntity, TViewEntity> : ISupportPar
 
     public void Edit(TViewEntity viewEntity)
     {
-        DocumentManagerService.ShowMyExistingEntityDocument<TEntity, TViewEntity>(viewEntity, this);
+        DocumentManagerService.ShowMyExistingEntityDocument<TEntity, TViewEntity>((viewEntity, SingleModelAction.Edit), this);
     }
 
-    //public void Delete() {
-        
-    //}
+    public void Copy(TViewEntity viewEntity) {
+        DocumentManagerService.ShowMyExistingEntityDocument<TEntity, TViewEntity>((viewEntity, SingleModelAction.Copy), this);
+    }
 
-    CancellationTokenSource LoadEntities() {
+    protected void LoadEntities(bool forceLoad = false) {
+        if (forceLoad) {
+            if (loadCancellationTokenSource != null)
+                loadCancellationTokenSource.Cancel();
+        } else if (IsLoading) {
+            return;
+        }
+        loadCancellationTokenSource = LoadEntitiesTask();
+    }
+
+    CancellationTokenSource LoadEntitiesTask() {
         IsLoading = true;
         var cancellationTokenSource = new CancellationTokenSource();
         System.Threading.Tasks.Task.Factory.StartNew(() => {
@@ -139,6 +153,7 @@ public partial class BaseCollectionViewModel<TEntity, TViewEntity> : ISupportPar
             return entities;
         }).ContinueWith(x => {
             Entities = x.Result;
+            this.RaisePropertyChanged(m => m.Entities);
             IsLoading = false;
         }, cancellationTokenSource.Token, TaskContinuationOptions.None, TaskScheduler.FromCurrentSynchronizationContext());
         return cancellationTokenSource;

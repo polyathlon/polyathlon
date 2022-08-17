@@ -98,7 +98,7 @@ namespace Polyathlon.Views
             new DevExpress.XtraBars.Docking2010.WindowsUIButton("Order List", true, windowsuiButtonImageOptions3, DevExpress.XtraBars.Docking2010.ButtonStyle.PushButton, "", -1, true, null, true, false, true, null, -1, false),
             new DevExpress.XtraBars.Docking2010.WindowsUIButton("Sales Map", true, windowsuiButtonImageOptions4, DevExpress.XtraBars.Docking2010.ButtonStyle.PushButton, "", -1, true, null, true, false, true, null, -1, false)});
             this.windowsUIButtonPanel.Location = new System.Drawing.Point(0, 679);
-            this.windowsUIButtonPanel.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.windowsUIButtonPanel.Margin = new System.Windows.Forms.Padding(6);
             this.windowsUIButtonPanel.PeekFormOptions.Size = new System.Drawing.Size(50, 65);
             this.windowsUIButtonPanel.Size = new System.Drawing.Size(1128, 89);
             // 
@@ -139,9 +139,9 @@ namespace Polyathlon.Views
             windowsuiButtonImageOptions5.ImageUri.Uri = "hybriddemo_back%20button;Svg";
             this.backWindowsUIButtonPanel.Buttons.AddRange(new DevExpress.XtraEditors.ButtonPanel.IBaseButton[] {
             new DevExpress.XtraBars.Docking2010.WindowsUIButton("Button", false, windowsuiButtonImageOptions5, DevExpress.XtraBars.Docking2010.ButtonStyle.PushButton, "", -1, true, null, true, false, true, null, -1, false)});
-            this.backWindowsUIButtonPanel.Location = new System.Drawing.Point(11, 11);
+            this.backWindowsUIButtonPanel.Location = new System.Drawing.Point(12, 12);
             this.backWindowsUIButtonPanel.Name = "backWindowsUIButtonPanel";
-            this.backWindowsUIButtonPanel.Size = new System.Drawing.Size(59, 66);
+            this.backWindowsUIButtonPanel.Size = new System.Drawing.Size(57, 64);
             this.backWindowsUIButtonPanel.TabIndex = 29;
             this.backWindowsUIButtonPanel.Text = "windowsUIButtonPanel1";
             this.backWindowsUIButtonPanel.UseButtonBackgroundImages = false;
@@ -149,13 +149,12 @@ namespace Polyathlon.Views
             // loginTextEdit
             // 
             this.loginTextEdit.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.userBindingSource, "Login", true));
-            this.dxErrorProvider.SetErrorType(this.loginTextEdit, DevExpress.XtraEditors.DXErrorProvider.ErrorType.Default);
-            this.loginTextEdit.Location = new System.Drawing.Point(124, 40);
+            this.loginTextEdit.Location = new System.Drawing.Point(131, 41);
             this.loginTextEdit.Name = "loginTextEdit";
             this.loginTextEdit.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
             this.loginTextEdit.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.loginTextEdit.Properties.Appearance.Options.UseFont = true;
-            this.loginTextEdit.Size = new System.Drawing.Size(963, 26);
+            this.loginTextEdit.Size = new System.Drawing.Size(955, 26);
             this.loginTextEdit.StyleController = this.dataLayoutControl;
             this.loginTextEdit.TabIndex = 4;
             // 
@@ -166,13 +165,12 @@ namespace Polyathlon.Views
             // passwordTextEdit
             // 
             this.passwordTextEdit.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.userBindingSource, "Password", true));
-            this.dxErrorProvider.SetErrorType(this.passwordTextEdit, DevExpress.XtraEditors.DXErrorProvider.ErrorType.Default);
-            this.passwordTextEdit.Location = new System.Drawing.Point(124, 86);
+            this.passwordTextEdit.Location = new System.Drawing.Point(131, 87);
             this.passwordTextEdit.Name = "passwordTextEdit";
             this.passwordTextEdit.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.passwordTextEdit.Properties.Appearance.Options.UseFont = true;
             this.passwordTextEdit.Properties.NullValuePrompt = null;
-            this.passwordTextEdit.Size = new System.Drawing.Size(494, 26);
+            this.passwordTextEdit.Size = new System.Drawing.Size(486, 26);
             this.passwordTextEdit.StyleController = this.dataLayoutControl;
             this.passwordTextEdit.TabIndex = 18;
             // 
@@ -323,7 +321,7 @@ namespace Polyathlon.Views
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange;
             this.Controls.Add(this.dataLayoutControl);
-            this.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.Margin = new System.Windows.Forms.Padding(6);
             this.Name = "ChangeUserView";
             this.Size = new System.Drawing.Size(1128, 768);
             this.Controls.SetChildIndex(this.windowsUIButtonPanel, 0);
