@@ -3,7 +3,10 @@ using Polyathlon.DataModel.Common;
 
 namespace Polyathlon.DataModel.Entities;
 
-public record class RegionViewEntity : ViewEntityBase<Region> {                
+public class RegionViewEntity : ViewEntityBase<Region> {
+
+    
+    public virtual string Test { get; set; }
 
     [Display(Name = "Наименование")]
     public string? Name 

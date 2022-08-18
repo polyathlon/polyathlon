@@ -150,7 +150,7 @@ namespace Polyathlon.Views
             // 
             // NameTextEdit
             // 
-            this.NameTextEdit.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.customerBindingSource, "Name", true));
+            this.NameTextEdit.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.customerBindingSource, "Test", true));
             this.NameTextEdit.Location = new System.Drawing.Point(158, 41);
             this.NameTextEdit.Name = "NameTextEdit";
             this.NameTextEdit.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
@@ -162,7 +162,7 @@ namespace Polyathlon.Views
             // 
             // customerBindingSource
             // 
-            this.customerBindingSource.DataSource = typeof(Polyathlon.DataModel.Entities.Region);
+            this.customerBindingSource.DataSource = typeof(Polyathlon.DataModel.Entities.RegionViewEntity);
             // 
             // textEdit1
             // 

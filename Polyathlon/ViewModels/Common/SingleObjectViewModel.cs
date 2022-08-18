@@ -85,7 +85,7 @@ namespace Polyathlon.ViewModels.Common
         /// Since SingleObjectViewModelBase is a POCO view model, this property will raise INotifyPropertyChanged.PropertyEvent when modified so it can be used as a binding source in views.
         /// </summary>
         /// <returns></returns>
-        public virtual TViewEntity Entity { get; protected set; }
+        public virtual TViewEntity Entity { get; set; }
 
         /// <summary>
         /// Updates the Title property value and raises CanExecute changed for relevant commands.
@@ -311,10 +311,13 @@ namespace Polyathlon.ViewModels.Common
             }
             else if (parameter is System.ValueTuple<TViewEntity, SingleModelAction> a) {
                 if (a.Item2 is SingleModelAction.Copy) {
-                    Entity = a.Item1 with { };
+                    Entity = a.Item1;// with { };
                 }
                 else if (a.Item2 is SingleModelAction.Edit) {
-                    Entity = a.Item1 with { };
+                    Entity = a.Item1;
+                    this.RaisePropertyChanged(m => m.Entity);
+                    //Entity.Test = "111";
+                   // this.RaisePropertyChanged(m => m.Entity);
                 }
             }
             //else parameter is SingleModelAction.New
@@ -376,7 +379,7 @@ namespace Polyathlon.ViewModels.Common
                 title = GetTitle(GetState() == EntityState.Modified);
             this.RaisePropertyChanged(x => x.Title);
         }
-
+        
         protected virtual void UpdateCommands()
         {
             this.RaiseCanExecuteChanged(x => x.Save());

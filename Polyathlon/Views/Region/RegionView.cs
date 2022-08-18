@@ -22,13 +22,14 @@ namespace Polyathlon.Views {
             var fluentAPI = mvvmContext.OfType<RegionViewModel>();
             //mapView.SetViewModel(fluentAPI.ViewModel.MapViewModel);
             //mapView.MapTemplate = MapExtension.CreateHomeOfficeItemForCustomer;
-            //fluentAPI.SetObjectDataSourceBinding(customerBindingSource, x => x.Entity, x => x.Update());
+            fluentAPI.SetObjectDataSourceBinding(customerBindingSource, x => x.Entity, x => x.Update());
+            //fluentAPI.SetBinding(NameTextEdit, l => l.EditValue, x => x.Entity.Test);
             fluentAPI.BindCommand(backWindowsUIButtonPanel.Buttons[0] as WindowsUIButton, x => x.Close());
             fluentAPI.BindCommandAndImage(windowsUIButtonPanel.Buttons[0], x => x.SaveAndClose());
             fluentAPI.BindCommandAndImage(windowsUIButtonPanel.Buttons[1], x => x.Close(), "Cancel");
             //fluentAPI.SetBinding(ordersGridControl, g => g.DataSource, x => x.CustomerOrdersDetails.Entities);
             //fluentAPI.SetBinding(dateTimeChartRangeControlClient.DataProvider, d => d.DataSource, x => x.CustomerOrdersDetails.Entities);
-            //fluentAPI.SetBinding(customerNameSimpleLabelItem, l => l.Text, x => x.Entity.Name);
+            fluentAPI.SetBinding(customerNameSimpleLabelItem, l => l.Text, x => x.Title);
             //fluentAPI.BindCommandAndImage(windowsUIButtonPanel.Buttons[3] as WindowsUIButton, x => x.ShowOrders(), "OrderList");
             //fluentAPI.BindCommandAndImage(windowsUIButtonPanel.Buttons[4] as WindowsUIButton, x => x.ShowStores(), "SalesMap");
             //fluentAPI.SetTrigger(x => x.DetailKind, (v) =>
@@ -51,5 +52,7 @@ namespace Polyathlon.Views {
             //        });
             //fluentAPI.SetBinding(orderGridView, view => view.ActiveFilterCriteria, x => x.DateRange, range => ConverterExtensions.ConvertEditRangeToFilterCriteria(range, "OrderDate"));
         }
+
+
     }
 }

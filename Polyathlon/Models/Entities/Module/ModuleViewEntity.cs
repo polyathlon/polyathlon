@@ -3,7 +3,7 @@ using Polyathlon.DataModel.Common;
 
 namespace Polyathlon.DataModel.Entities;
 
-public record class ModuleViewEntity : ViewEntityBase<Module> {
+public class ModuleViewEntity : ViewEntityBase<Module> {
 
     [Display(Name = "Название")]
     public string? Name {
