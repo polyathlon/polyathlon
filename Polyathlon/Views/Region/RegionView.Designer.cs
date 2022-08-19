@@ -29,18 +29,18 @@ namespace Polyathlon.Views
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            DevExpress.XtraBars.Docking2010.WindowsUIButtonImageOptions windowsuiButtonImageOptions1 = new DevExpress.XtraBars.Docking2010.WindowsUIButtonImageOptions();
-            DevExpress.XtraBars.Docking2010.WindowsUIButtonImageOptions windowsuiButtonImageOptions2 = new DevExpress.XtraBars.Docking2010.WindowsUIButtonImageOptions();
-            DevExpress.XtraBars.Docking2010.WindowsUIButtonImageOptions windowsuiButtonImageOptions3 = new DevExpress.XtraBars.Docking2010.WindowsUIButtonImageOptions();
-            DevExpress.XtraBars.Docking2010.WindowsUIButtonImageOptions windowsuiButtonImageOptions4 = new DevExpress.XtraBars.Docking2010.WindowsUIButtonImageOptions();
-            DevExpress.XtraEditors.AreaChartRangeControlClientView areaChartRangeControlClientView1 = new DevExpress.XtraEditors.AreaChartRangeControlClientView();
-            DevExpress.XtraBars.Docking2010.WindowsUIButtonImageOptions windowsuiButtonImageOptions5 = new DevExpress.XtraBars.Docking2010.WindowsUIButtonImageOptions();
+            DevExpress.XtraBars.Docking2010.WindowsUIButtonImageOptions windowsuiButtonImageOptions11 = new DevExpress.XtraBars.Docking2010.WindowsUIButtonImageOptions();
+            DevExpress.XtraBars.Docking2010.WindowsUIButtonImageOptions windowsuiButtonImageOptions12 = new DevExpress.XtraBars.Docking2010.WindowsUIButtonImageOptions();
+            DevExpress.XtraBars.Docking2010.WindowsUIButtonImageOptions windowsuiButtonImageOptions13 = new DevExpress.XtraBars.Docking2010.WindowsUIButtonImageOptions();
+            DevExpress.XtraBars.Docking2010.WindowsUIButtonImageOptions windowsuiButtonImageOptions14 = new DevExpress.XtraBars.Docking2010.WindowsUIButtonImageOptions();
+            DevExpress.XtraEditors.AreaChartRangeControlClientView areaChartRangeControlClientView3 = new DevExpress.XtraEditors.AreaChartRangeControlClientView();
+            DevExpress.XtraBars.Docking2010.WindowsUIButtonImageOptions windowsuiButtonImageOptions15 = new DevExpress.XtraBars.Docking2010.WindowsUIButtonImageOptions();
             this.dateTimeChartRangeControlClient = new DevExpress.XtraEditors.DateTimeChartRangeControlClient();
             this.dataLayoutControl = new DevExpress.XtraDataLayout.DataLayoutControl();
             this.backWindowsUIButtonPanel = new DevExpress.XtraBars.Docking2010.WindowsUIButtonPanel();
             this.NameTextEdit = new DevExpress.XtraEditors.TextEdit();
             this.customerBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.textEdit1 = new DevExpress.XtraEditors.TextEdit();
+            this.ShortNameTextEdit = new DevExpress.XtraEditors.TextEdit();
             this.layoutControlGroup1 = new DevExpress.XtraLayout.LayoutControlGroup();
             this.layoutControlGroup2 = new DevExpress.XtraLayout.LayoutControlGroup();
             this.ItemForName = new DevExpress.XtraLayout.LayoutControlItem();
@@ -60,7 +60,7 @@ namespace Polyathlon.Views
             this.dataLayoutControl.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NameTextEdit.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.customerBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.textEdit1.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ShortNameTextEdit.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ItemForName)).BeginInit();
@@ -94,11 +94,11 @@ namespace Polyathlon.Views
             this.windowsUIButtonPanel.AppearanceButton.Pressed.Options.UseFont = true;
             this.windowsUIButtonPanel.AppearanceButton.Pressed.Options.UseForeColor = true;
             this.windowsUIButtonPanel.Buttons.AddRange(new DevExpress.XtraEditors.ButtonPanel.IBaseButton[] {
-            new DevExpress.XtraBars.Docking2010.WindowsUIButton("Save", true, windowsuiButtonImageOptions1, DevExpress.XtraBars.Docking2010.ButtonStyle.PushButton, "", -1, true, null, true, false, true, null, -1, false),
-            new DevExpress.XtraBars.Docking2010.WindowsUIButton("Cancel", true, windowsuiButtonImageOptions2, DevExpress.XtraBars.Docking2010.ButtonStyle.PushButton, "", -1, true, null, true, false, true, null, -1, false),
+            new DevExpress.XtraBars.Docking2010.WindowsUIButton("Save", true, windowsuiButtonImageOptions11, DevExpress.XtraBars.Docking2010.ButtonStyle.PushButton, "", -1, true, null, true, false, true, null, -1, false),
+            new DevExpress.XtraBars.Docking2010.WindowsUIButton("Cancel", true, windowsuiButtonImageOptions12, DevExpress.XtraBars.Docking2010.ButtonStyle.PushButton, "", -1, true, null, true, false, true, null, -1, false),
             new DevExpress.XtraBars.Docking2010.WindowsUISeparator(),
-            new DevExpress.XtraBars.Docking2010.WindowsUIButton("Order List", true, windowsuiButtonImageOptions3, DevExpress.XtraBars.Docking2010.ButtonStyle.PushButton, "", -1, true, null, true, false, true, null, -1, false),
-            new DevExpress.XtraBars.Docking2010.WindowsUIButton("Sales Map", true, windowsuiButtonImageOptions4, DevExpress.XtraBars.Docking2010.ButtonStyle.PushButton, "", -1, true, null, true, false, true, null, -1, false)});
+            new DevExpress.XtraBars.Docking2010.WindowsUIButton("Order List", true, windowsuiButtonImageOptions13, DevExpress.XtraBars.Docking2010.ButtonStyle.PushButton, "", -1, true, null, true, false, true, null, -1, false),
+            new DevExpress.XtraBars.Docking2010.WindowsUIButton("Sales Map", true, windowsuiButtonImageOptions14, DevExpress.XtraBars.Docking2010.ButtonStyle.PushButton, "", -1, true, null, true, false, true, null, -1, false)});
             this.windowsUIButtonPanel.Location = new System.Drawing.Point(0, 679);
             this.windowsUIButtonPanel.Margin = new System.Windows.Forms.Padding(6);
             this.windowsUIButtonPanel.PeekFormOptions.Size = new System.Drawing.Size(128, 166);
@@ -107,8 +107,8 @@ namespace Polyathlon.Views
             // dateTimeChartRangeControlClient
             // 
             this.dateTimeChartRangeControlClient.DataProvider.ArgumentDataMember = "OrderDate";
-            areaChartRangeControlClientView1.Color = System.Drawing.Color.FromArgb(((int)(((byte)(182)))), ((int)(((byte)(194)))), ((int)(((byte)(224)))));
-            this.dateTimeChartRangeControlClient.DataProvider.TemplateView = areaChartRangeControlClientView1;
+            areaChartRangeControlClientView3.Color = System.Drawing.Color.FromArgb(((int)(((byte)(182)))), ((int)(((byte)(194)))), ((int)(((byte)(224)))));
+            this.dateTimeChartRangeControlClient.DataProvider.TemplateView = areaChartRangeControlClientView3;
             this.dateTimeChartRangeControlClient.DataProvider.ValueDataMember = "TotalAmount";
             this.dateTimeChartRangeControlClient.GridOptions.Auto = false;
             this.dateTimeChartRangeControlClient.GridOptions.GridAlignment = DevExpress.XtraEditors.RangeControlDateTimeGridAlignment.Month;
@@ -120,7 +120,7 @@ namespace Polyathlon.Views
             this.dataLayoutControl.AllowGeneratingNestedGroups = DevExpress.Utils.DefaultBoolean.True;
             this.dataLayoutControl.Controls.Add(this.backWindowsUIButtonPanel);
             this.dataLayoutControl.Controls.Add(this.NameTextEdit);
-            this.dataLayoutControl.Controls.Add(this.textEdit1);
+            this.dataLayoutControl.Controls.Add(this.ShortNameTextEdit);
             this.dataLayoutControl.DataSource = this.customerBindingSource;
             this.dataLayoutControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataLayoutControl.Location = new System.Drawing.Point(0, 0);
@@ -138,9 +138,9 @@ namespace Polyathlon.Views
             this.backWindowsUIButtonPanel.AppearanceButton.Normal.Options.UseForeColor = true;
             this.backWindowsUIButtonPanel.AppearanceButton.Pressed.BackColor = System.Drawing.Color.Black;
             this.backWindowsUIButtonPanel.AppearanceButton.Pressed.Options.UseBackColor = true;
-            windowsuiButtonImageOptions5.ImageUri.Uri = "hybriddemo_back%20button;Svg";
+            windowsuiButtonImageOptions15.ImageUri.Uri = "hybriddemo_back%20button;Svg";
             this.backWindowsUIButtonPanel.Buttons.AddRange(new DevExpress.XtraEditors.ButtonPanel.IBaseButton[] {
-            new DevExpress.XtraBars.Docking2010.WindowsUIButton("Button", false, windowsuiButtonImageOptions5, DevExpress.XtraBars.Docking2010.ButtonStyle.PushButton, "", -1, true, null, true, false, true, null, -1, false)});
+            new DevExpress.XtraBars.Docking2010.WindowsUIButton("Button", false, windowsuiButtonImageOptions15, DevExpress.XtraBars.Docking2010.ButtonStyle.PushButton, "", -1, true, null, true, false, true, null, -1, false)});
             this.backWindowsUIButtonPanel.Location = new System.Drawing.Point(12, 12);
             this.backWindowsUIButtonPanel.Name = "backWindowsUIButtonPanel";
             this.backWindowsUIButtonPanel.Size = new System.Drawing.Size(57, 64);
@@ -150,7 +150,7 @@ namespace Polyathlon.Views
             // 
             // NameTextEdit
             // 
-            this.NameTextEdit.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.customerBindingSource, "Test", true));
+            this.NameTextEdit.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.customerBindingSource, "Name", true, DataSourceUpdateMode.OnPropertyChanged));
             this.NameTextEdit.Location = new System.Drawing.Point(158, 41);
             this.NameTextEdit.Name = "NameTextEdit";
             this.NameTextEdit.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
@@ -164,17 +164,17 @@ namespace Polyathlon.Views
             // 
             this.customerBindingSource.DataSource = typeof(Polyathlon.DataModel.Entities.RegionViewEntity);
             // 
-            // textEdit1
+            // ShortNameTextEdit
             // 
-            this.textEdit1.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.customerBindingSource, "ShortName", true));
-            this.textEdit1.Location = new System.Drawing.Point(158, 87);
-            this.textEdit1.Name = "textEdit1";
-            this.textEdit1.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.textEdit1.Properties.Appearance.Options.UseFont = true;
-            this.textEdit1.Properties.NullValuePrompt = null;
-            this.textEdit1.Size = new System.Drawing.Size(459, 26);
-            this.textEdit1.StyleController = this.dataLayoutControl;
-            this.textEdit1.TabIndex = 18;
+            this.ShortNameTextEdit.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.customerBindingSource, "ShortName", true, DataSourceUpdateMode.OnPropertyChanged));
+            this.ShortNameTextEdit.Location = new System.Drawing.Point(158, 87);
+            this.ShortNameTextEdit.Name = "ShortNameTextEdit";
+            this.ShortNameTextEdit.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.ShortNameTextEdit.Properties.Appearance.Options.UseFont = true;
+            this.ShortNameTextEdit.Properties.NullValuePrompt = null;
+            this.ShortNameTextEdit.Size = new System.Drawing.Size(459, 26);
+            this.ShortNameTextEdit.StyleController = this.dataLayoutControl;
+            this.ShortNameTextEdit.TabIndex = 18;
             // 
             // layoutControlGroup1
             // 
@@ -236,7 +236,7 @@ namespace Polyathlon.Views
             // 
             // layoutControlItem1
             // 
-            this.layoutControlItem1.Control = this.textEdit1;
+            this.layoutControlItem1.Control = this.ShortNameTextEdit;
             this.layoutControlItem1.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem1.MaxSize = new System.Drawing.Size(548, 46);
             this.layoutControlItem1.MinSize = new System.Drawing.Size(548, 46);
@@ -333,7 +333,7 @@ namespace Polyathlon.Views
             this.dataLayoutControl.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.NameTextEdit.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.customerBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.textEdit1.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ShortNameTextEdit.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ItemForName)).EndInit();
@@ -358,7 +358,7 @@ namespace Polyathlon.Views
         private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup1;
         private DevExpress.XtraEditors.TextEdit NameTextEdit;
         private System.Windows.Forms.BindingSource customerBindingSource;
-        private DevExpress.XtraEditors.TextEdit textEdit1;
+        private DevExpress.XtraEditors.TextEdit ShortNameTextEdit;
         private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup2;
         private DevExpress.XtraLayout.LayoutControlItem ItemForName;
         private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup4;

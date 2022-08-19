@@ -66,9 +66,9 @@ namespace Polyathlon.ViewModels.Common
                 return null;
             foreach (IDocument document in documentManagerService.Documents)
             {
-                ISingleObjectViewModel<TEntity, TViewEntity, TPrimaryKey> entityViewModel = document.Content as ISingleObjectViewModel<TEntity, TViewEntity, TPrimaryKey>;
-                if (entityViewModel != null && object.Equals(entityViewModel.PrimaryKey, primaryKey))
-                    return document;
+                ISingleObjectViewModel<TViewEntity> entityViewModel = document.Content as ISingleObjectViewModel<TViewEntity>;
+                //if (entityViewModel != null && object.Equals(entityViewModel.PrimaryKey, primaryKey))
+                  //  return document;
             }
             return null;
         }

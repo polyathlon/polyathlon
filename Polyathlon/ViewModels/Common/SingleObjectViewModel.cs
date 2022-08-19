@@ -21,7 +21,7 @@ namespace Polyathlon.ViewModels.Common
     /// <typeparam name="TEntity">An entity type.</typeparam>
     /// <typeparam name="TPrimaryKey">A primary key value type.</typeparam>
     /// <typeparam name="TUnitOfWork">A unit of work type.</typeparam>
-    public abstract class SingleObjectViewModel<TEntity, TViewEntity, TPrimaryKey> : SingleObjectViewModelBase<TEntity, TViewEntity, TPrimaryKey> 
+    public abstract class SingleObjectViewModel<TEntity, TViewEntity, TPrimaryKey> : SingleObjectViewModelBase<TEntity, TViewEntity>
         where TViewEntity : ViewEntityBase<TEntity>
         where TEntity : EntityBase, new() {
 
@@ -45,15 +45,18 @@ namespace Polyathlon.ViewModels.Common
     /// <typeparam name="TPrimaryKey">A primary key value type.</typeparam>
     /// <typeparam name="TUnitOfWork">A unit of work type.</typeparam>
     [POCOViewModel]
-    public abstract class SingleObjectViewModelBase<TEntity, TViewEntity, TPrimaryKey> : ISingleObjectViewModel<TEntity, TViewEntity, TPrimaryKey>, ISupportParameter, ISupportParentViewModel, IDocumentContent, ISupportLogicalLayout<TPrimaryKey>
+    public abstract class SingleObjectViewModelBase<TEntity, TViewEntity> : ISingleObjectViewModel<TViewEntity>, ISupportParameter, ISupportParentViewModel, IDocumentContent, ISupportLogicalLayout<string>
         where TViewEntity : ViewEntityBase<TEntity>
         where TEntity : EntityBase, new() {
 
         object title;
         //protected readonly Func<TUnitOfWork, IRepository<TEntity, TPrimaryKey>> getRepositoryFunc;
         protected readonly Func<TViewEntity, object> getEntityDisplayNameFunc;
+
         Action<TViewEntity> entityInitializer;
+
         bool isEntityNewAndUnmodified;
+
         readonly Dictionary<string, IDocumentContent> lookUpViewModels = new Dictionary<string, IDocumentContent>();
 
         /// <summary>
@@ -249,28 +252,28 @@ namespace Polyathlon.ViewModels.Common
             }
         }
 
-        protected virtual void OnBeforeEntitySaved(TPrimaryKey primaryKey, TEntity entity, bool isNewEntity) { }
+        protected virtual void OnBeforeEntitySaved(TEntity entity, bool isNewEntity) { }
 
-        protected virtual void OnEntitySaved(TPrimaryKey primaryKey, TEntity entity, bool isNewEntity)
+        protected virtual void OnEntitySaved(TEntity entity, bool isNewEntity)
         {
-            Messenger.Default.Send(new EntityMessage<TEntity, TPrimaryKey>(primaryKey, isNewEntity ? EntityMessageType.Added : EntityMessageType.Changed));
+           // Messenger.Default.Send(new EntityMessage<TEntity, string>(primaryKey, isNewEntity ? EntityMessageType.Added : EntityMessageType.Changed));
         }
 
-        protected virtual void OnBeforeEntityDeleted(TPrimaryKey primaryKey, TEntity entity) { }
+        protected virtual void OnBeforeEntityDeleted(TEntity entity) { }
 
-        protected virtual void OnEntityDeleted(TPrimaryKey primaryKey, TEntity entity)
+        protected virtual void OnEntityDeleted(TEntity entity)
         {
-            Messenger.Default.Send(new EntityMessage<TEntity, TPrimaryKey>(primaryKey, EntityMessageType.Deleted));
+            //Messenger.Default.Send(new EntityMessage<TEntity, string>(primaryKey, EntityMessageType.Deleted));
         }
 
         protected virtual void OnInitializeInRuntime()
         {
-            Messenger.Default.Register<EntityMessage<TEntity, TPrimaryKey>>(this, x => OnEntityMessage(x));
+            Messenger.Default.Register<EntityMessage<TEntity, string>>(this, x => OnEntityMessage(x));
             Messenger.Default.Register<SaveAllMessage>(this, x => Save());
             Messenger.Default.Register<CloseAllMessage>(this, x => OnClosing(x));
         }
 
-        protected virtual void OnEntityMessage(EntityMessage<TEntity, TPrimaryKey> message)
+        protected virtual void OnEntityMessage(EntityMessage<TEntity, string> message)
         {
             if (Entity == null) return;
             if (message.MessageType == EntityMessageType.Deleted && object.Equals(message.PrimaryKey, PrimaryKey))
@@ -289,7 +292,7 @@ namespace Polyathlon.ViewModels.Common
 
         //protected IRepository<TEntity, TPrimaryKey> Repository { get { return getRepositoryFunc(UnitOfWork); } }
 
-        protected TPrimaryKey PrimaryKey { get; private set; }
+        protected string PrimaryKey { get; private set; }
 
         protected IMessageBoxService MessageBoxService { get { return this.GetRequiredService<IMessageBoxService>(); } }
         protected ILayoutSerializationService LayoutSerializationService { get { return this.GetService<ILayoutSerializationService>(); } }
@@ -358,7 +361,7 @@ namespace Polyathlon.ViewModels.Common
             isEntityNewAndUnmodified = true;
         }
 
-        protected void LoadEntityByKey(TPrimaryKey primaryKey)
+        protected void LoadEntityByKey(string primaryKey)
         {
             //UpdateUnitOfWork();
             //Entity = Repository.Find(primaryKey);
@@ -658,7 +661,7 @@ namespace Polyathlon.ViewModels.Common
         #region ISingleObjectViewModel
         TViewEntity ISingleObjectViewModel<TViewEntity>.Entity { get { return Entity; } }
 
-        TPrimaryKey ISingleObjectViewModel<TEntity, TViewEntity, TPrimaryKey>.PrimaryKey { get { return PrimaryKey; } }
+        //TPrimaryKey ISingleObjectViewModel<TEntity, TViewEntity, TPrimaryKey>.PrimaryKey { get { return PrimaryKey; } }
         #endregion
 
         #region ISupportLogicalLayout
@@ -667,12 +670,12 @@ namespace Polyathlon.ViewModels.Common
             get { return Entity != null && !IsNew(); }
         }
 
-        TPrimaryKey ISupportLogicalLayout<TPrimaryKey>.SaveState()
+        string ISupportLogicalLayout<string>.SaveState()
         {
             return PrimaryKey;
         }
 
-        void ISupportLogicalLayout<TPrimaryKey>.RestoreState(TPrimaryKey key)
+        void ISupportLogicalLayout<string>.RestoreState(string key)
         {
             LoadEntityByKey(key);
         }
@@ -700,6 +703,8 @@ namespace Polyathlon.ViewModels.Common
                 }
             }
         }
+
+        public TViewEntity OldEntity => throw new NotImplementedException();
 
         protected void OnParentViewModelChanged(object ParentViewModel)
         {

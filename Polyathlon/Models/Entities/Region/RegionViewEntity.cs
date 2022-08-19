@@ -5,9 +5,6 @@ namespace Polyathlon.DataModel.Entities;
 
 public class RegionViewEntity : ViewEntityBase<Region> {
 
-    
-    public virtual string Test { get; set; }
-
     [Display(Name = "Наименование")]
     public string? Name 
     {
