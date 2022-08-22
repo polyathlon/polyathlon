@@ -3,7 +3,7 @@ using Newtonsoft.Json.Linq;
 using Flurl;
 using Flurl.Http;
 using Flurl.Http.Configuration;
-
+using System.Net.Http.Headers;
 using Polyathlon.DataModel.Common;
 
 namespace Polyathlon.DataModel;
@@ -91,6 +91,104 @@ public sealed class LocalDatabase {
             System.Diagnostics.Debug.WriteLine(ex.ToString());
         }
         return content;
+    }
+
+    private string CheckEntityContent(Flurl.Url url) {
+        string content = string.Empty;
+        IFlurlClient flurlClient = flurlClientFactory.Value.Get(url.Root);
+        IFlurlRequest flurlRequest = flurlClient.Request().AppendPathSegments(url.PathSegments)            
+            .WithBasicAuth(Settings.Settings.Data.settingsDB.UserName, Settings.Settings.Data.settingsDB.Password)
+            .AllowAnyHttpStatus();
+        try {
+            var response = flurlRequest.HeadAsync();
+            //response.Wait();
+            var responseBody = response.Result.ResponseMessage;           
+
+            //content = responseBody.Content.ReadAsStringAsync().Result;
+            HttpResponseHeaders headers = responseBody.Headers;
+            string result = headers?.ETag?.Tag ?? "";
+            System.Diagnostics.Debug.WriteLine(result);
+            return result;
+        }
+        catch (Exception ex) {
+            System.Diagnostics.Debug.WriteLine(ex.ToString());
+        }
+        return "11";
+    }
+
+    private string SaveEntityContent(Flurl.Url url) {
+        string content = string.Empty;
+        IFlurlClient flurlClient = flurlClientFactory.Value.Get(url.Root);
+        IFlurlRequest flurlRequest = flurlClient.Request()
+            .AppendPathSegments(url.PathSegments)
+            .SetQueryParam(url.Query)
+            .WithBasicAuth(Settings.Settings.Data.settingsDB.UserName, Settings.Settings.Data.settingsDB.Password)
+            .AppendPathSegments(url.PathSegments)
+            .AllowAnyHttpStatus();
+        try {
+            var response = flurlRequest.PutJsonAsync(new {
+                name = "Республик Адыгея3",
+                code = 2,
+                shortName = "Рес. Адыгея"
+            }
+            ); 
+
+            
+            //response.Wait();
+            var responseBody = response.Result.ResponseMessage;
+
+            //content = responseBody.Content.ReadAsStringAsync().Result;
+            HttpResponseHeaders headers = responseBody.Headers;
+            string result = headers?.ETag?.Tag ?? "";
+            System.Diagnostics.Debug.WriteLine(result);
+            return result;
+        }
+        catch (Exception ex) {
+            System.Diagnostics.Debug.WriteLine(ex.ToString());
+        }
+        return "11";
+    }
+
+    //public TEntity CreateEntity<TEntity>(string request) 
+    //    where TEntity : EntityBase {
+    //    object? result = null;
+    //    string content = GetContent(request);
+
+    //    JObject jModules = JObject.Parse(content);
+    //    IList<JToken> rows = jModules["rows"].Children().ToList();
+
+    //    TEntity entity = row["doc"].ToObject<TEntity>();
+
+    //    return entity;
+    //}
+
+    public void GetEntity<TEntity>(string request)
+        where TEntity : EntityBase {
+        Url url = "http://base.rsu.edu.ru:5984/polyathlon/region:3a1c079241b4d051b71e77e78c024b3a";
+        
+        string content = CheckEntityContent(url);
+
+        //JObject jModules = JObject.Parse(content);
+        //IList<JToken> rows = jModules["rows"].Children().ToList();
+
+        //TEntity entity = row["doc"].ToObject<TEntity>();
+
+        //return new();
+    }
+
+    public void SaveEntity<TEntity>(string request)
+    where TEntity : EntityBase {
+        
+        Url url = "http://base.rsu.edu.ru:5984/polyathlon/region:3a1c079241b4d051b71e77e78c024b3a?rev=2-68f931f3384fae155f530fd6275f6077";
+
+        string content = SaveEntityContent(url);
+
+        //JObject jModules = JObject.Parse(content);
+        //IList<JToken> rows = jModules["rows"].Children().ToList();
+
+        //TEntity entity = row["doc"].ToObject<TEntity>();
+
+        //return new();
     }
 
     public IDictionary GetLocalDbTable<TEntity, TViewEntity>(string request, Func<TEntity, Url, TViewEntity> createViewEntity)

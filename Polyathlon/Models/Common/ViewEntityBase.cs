@@ -5,7 +5,7 @@ using DevExpress.Mvvm.DataAnnotations;
 
 namespace Polyathlon.DataModel.Common;
 
-public class ViewEntityBase<TEntity> : ICloneable
+public abstract class ViewEntityBase<TEntity> : ICloneable
     where TEntity : EntityBase {
 
     [Display(Name = "Идентификатор", AutoGenerateField = false)]
@@ -58,9 +58,10 @@ public class ViewEntityBase<TEntity> : ICloneable
         Origin = origin;
     }
 
-    public object Clone() {
-        TEntity entity = this.entity with { };
-        ViewEntityBase<TEntity> viewEntity = new(entity, "1");
-        return viewEntity;
-    }
+    public abstract object Clone();
+    //{
+    //    TEntity entity = this.entity with { };
+    //    ViewEntityBase<TEntity> viewEntity = new(entity, "1");
+    //    return viewEntity;
+    //}
 }

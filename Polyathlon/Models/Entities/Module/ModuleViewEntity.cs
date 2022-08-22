@@ -51,4 +51,10 @@ public class ModuleViewEntity : ViewEntityBase<Module> {
     public ModuleViewEntity(Module entity, Flurl.Url origin) : base(entity, origin) {
         
     }
+
+    public override object Clone() {
+        Module entity = this.entity with { };
+        ModuleViewEntity viewEntity = new(entity, "1");
+        return viewEntity;
+    }
 }

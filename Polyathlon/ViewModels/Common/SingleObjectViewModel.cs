@@ -31,9 +31,13 @@ namespace Polyathlon.ViewModels.Common
         /// <param name="unitOfWorkFactory">A factory used to create the unit of work instance.</param>
         /// <param name="getRepositoryFunc">A function that returns the repository representing entities of a given type.</param>
         /// <param name="getEntityDisplayNameFunc">An optional parameter that provides a function to obtain the display text for a given entity. If ommited, the primary key value is used as a display text.</param>
-        protected SingleObjectViewModel(Func<TViewEntity, object> getEntityDisplayNameFunc = null)
-            : base(getEntityDisplayNameFunc)
-        {
+        //protected SingleObjectViewModel(Func<TViewEntity, object> getEntityDisplayNameFunc = null)
+        //    : base(getEntityDisplayNameFunc)
+        //{
+        //}
+
+        protected SingleObjectViewModel(Func<TEntity, TViewEntity> createNewViewEntity)
+            : base(createNewViewEntity) {
         }
     }
 
@@ -52,6 +56,8 @@ namespace Polyathlon.ViewModels.Common
         object title;
         //protected readonly Func<TUnitOfWork, IRepository<TEntity, TPrimaryKey>> getRepositoryFunc;
         protected readonly Func<TViewEntity, object> getEntityDisplayNameFunc;
+        
+        protected readonly Func<TEntity, TViewEntity> createNewViewEntity;
 
         Action<TViewEntity> entityInitializer;
 
@@ -65,11 +71,11 @@ namespace Polyathlon.ViewModels.Common
         /// <param name="unitOfWorkFactory">A factory used to create the unit of work instance.</param>
         /// <param name="getRepositoryFunc">A function that returns repository representing entities of a given type.</param>
         /// <param name="getEntityDisplayNameFunc">An optional parameter that provides a function to obtain the display text for a given entity. If ommited, the primary key value is used as a display text.</param>
-        protected SingleObjectViewModelBase(Func<TViewEntity, object> getEntityDisplayNameFunc)
+        protected SingleObjectViewModelBase(Func<TEntity, TViewEntity> createNewViewEntity)
         {
 //            UnitOfWorkFactory = unitOfWorkFactory;
             //this.getRepositoryFunc = getRepositoryFunc;
-            this.getEntityDisplayNameFunc = getEntityDisplayNameFunc;
+            this.createNewViewEntity = createNewViewEntity;
             //UpdateUnitOfWork();
             //if (this.IsInDesignMode())
             //    this.Entity = this.Repository.FirstOrDefault();
@@ -117,7 +123,8 @@ namespace Polyathlon.ViewModels.Common
         /// </summary>
         public virtual bool CanSave()
         {
-            return Entity != null && !HasValidationErrors() && NeedSave();
+            //return Entity != null && !HasValidationErrors() && NeedSave();
+            return Entity.Entity != OldEntity.Entity;
         }
 
         /// <summary>
@@ -234,6 +241,10 @@ namespace Polyathlon.ViewModels.Common
             try
             {
                 bool isNewEntity = IsNew();
+                OldEntity.Entity = Entity.Entity;
+                _ParentViewModel.RaisePropertiesChanged();
+                LocalDatabase.LocalDb.SaveEntity<TEntity>(Entity.Origin);
+                //ViewEntityBase
                 //if (!isNewEntity)
                 //{
                 //    Repository.SetPrimaryKey(Entity, PrimaryKey);
@@ -312,12 +323,18 @@ namespace Polyathlon.ViewModels.Common
                 TEntity ent = new();
                 Entity = null;
             }
-            else if (parameter is System.ValueTuple<TViewEntity, SingleModelAction> a) {
-                if (a.Item2 is SingleModelAction.Copy) {
-                    Entity = a.Item1;// with { };
+            else if (parameter is System.ValueTuple<TViewEntity, SingleModelAction> viewParam) {
+                var (viewEntity, operation) = viewParam;
+                if (operation is SingleModelAction.Copy) {
+                    OldEntity = viewEntity;
+                    Entity = (TViewEntity)OldEntity.Clone();// with { };
                 }
-                else if (a.Item2 is SingleModelAction.Edit) {
-                    Entity = a.Item1;
+                else if (operation is SingleModelAction.Edit) {
+                    OldEntity = viewEntity;
+                    Entity = (TViewEntity)OldEntity.Clone();
+                    // with { };
+                                                            //
+                                                            // OldEntity = viewEntity;
                     this.RaisePropertyChanged(m => m.Entity);
                     //Entity.Test = "111";
                    // this.RaisePropertyChanged(m => m.Entity);
@@ -704,7 +721,10 @@ namespace Polyathlon.ViewModels.Common
             }
         }
 
-        public TViewEntity OldEntity => throw new NotImplementedException();
+        /// <summary>
+        /// public TViewEntity OldEntity => throw new NotImplementedException();
+        /// </summary>
+        public virtual TViewEntity OldEntity { get; set; }
 
         protected void OnParentViewModelChanged(object ParentViewModel)
         {

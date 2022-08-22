@@ -13,6 +13,9 @@ using DevExpress.Mvvm.POCO;
 using Polyathlon.ViewModels.Common;
 using Polyathlon.DbDataModel;
 using Polyathlon.DataModel;
+using Polyathlon.DataModel.Entities;
+
+using Region = Polyathlon.DataModel.Entities.Region;
 
 
 namespace Polyathlon.ViewModels
@@ -20,7 +23,7 @@ namespace Polyathlon.ViewModels
     /// <summary>
     /// Represents the single Customer object view model.
     /// </summary>
-    public partial class RegionViewModel : SingleObjectViewModel<DataModel.Entities.Region, DataModel.Entities.RegionViewEntity, long>
+    public partial class RegionViewModel : SingleObjectViewModel<Region, RegionViewEntity, long>
     {
 
         /// <summary>
@@ -32,13 +35,19 @@ namespace Polyathlon.ViewModels
             return ViewModelSource.Create(() => new RegionViewModel(unitOfWorkFactory));
         }
 
+        protected static RegionViewEntity createNewViewEntity(Region region) {
+            Region entity = region with { };
+            RegionViewEntity regionViewEntity = new(entity, "111");
+            return regionViewEntity;
+        }
+
         /// <summary>
         /// Initializes a new instance of the CustomerViewModel class.
         /// This constructor is declared protected to avoid undesired instantiation of the CustomerViewModel type without the POCO proxy factory.
         /// </summary>
         /// <param name="unitOfWorkFactory">A factory used to create a unit of work instance.</param>
         protected RegionViewModel(IUnitOfWorkFactory<IDbUnitOfWork> unitOfWorkFactory = null)
-            : base(x => x.Name)
+            : base(createNewViewEntity)
         {
         }
 
