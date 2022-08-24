@@ -1,9 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-using DevExpress.Mvvm.POCO;
-using DevExpress.Mvvm.DataAnnotations;
-
-namespace Polyathlon.DataModel.Common;
+namespace Polyathlon.Models.Common;
 
 public abstract class ViewEntityBase<TEntity> : ICloneable
     where TEntity : EntityBase {

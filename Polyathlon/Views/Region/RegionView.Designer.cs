@@ -162,7 +162,7 @@ namespace Polyathlon.Views
             // 
             // customerBindingSource
             // 
-            this.customerBindingSource.DataSource = typeof(Polyathlon.DataModel.Entities.RegionViewEntity);
+            this.customerBindingSource.DataSource = typeof(Polyathlon.Models.Entities.RegionViewEntity);
             // 
             // ShortNameTextEdit
             // 

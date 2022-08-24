@@ -1,6 +1,8 @@
 using DevExpress.Utils.MVVM.UI;
 using Polyathlon.ViewModels;
-using Polyathlon.DataModel.Entities;
+using Polyathlon.Models.Entities;
+using Region = Polyathlon.Models.Entities.Region;
+
 using DevExpress.Mvvm;
 
 namespace Polyathlon.Views
@@ -19,7 +21,7 @@ namespace Polyathlon.Views
         void InitBindings() {
             //mvvmContext.ViewModelConstructorParameter = new();
             var fluentAPI = mvvmContext.OfType<RegionCollectionViewModel>();
-            mvvmContext.BindCollectionGrid<RegionCollectionViewModel, DataModel.Entities.Region, DataModel.Entities.RegionViewEntity>(gridView, regionBindingSource);
+            mvvmContext.BindCollectionGrid<RegionCollectionViewModel, Region, RegionViewEntity>(gridView, regionBindingSource);
             fluentAPI.SetObjectDataSourceBinding(regionBindingSource, x => x.Entities);
             fluentAPI.SetBinding(regionBindingSource, rbs => rbs.DataSource, x => x.Entities);
             //fluentAPI.SetBinding(gridView, gv => gv.LoadingPanelVisible, x => x.IsLoading);

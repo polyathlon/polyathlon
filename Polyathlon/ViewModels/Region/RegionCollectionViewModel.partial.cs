@@ -1,13 +1,14 @@
 using DevExpress.Mvvm;
-using System.Collections.Generic;
-using System.Linq;
-using Polyathlon.DataModel.Entities;
+using Polyathlon.Models.Entities;
+
+using Region = Polyathlon.Models.Entities.Region;
+
 
 
 namespace Polyathlon.ViewModels {
-    public partial class RegionCollectionViewModel : IFilterTreeViewModelContainer<DataModel.Entities.Region, RegionInfoWithSales> {
-        public FilterViewModel<DataModel.Entities.Region, RegionInfoWithSales> FilterViewModel { get; set; }
-        public ICollection<double> GetMonthlySalesByCustomer(DataModel.Entities.Region customer)
+    public partial class RegionCollectionViewModel : IFilterTreeViewModelContainer<Region, RegionInfoWithSales> {
+        public FilterViewModel<Region, RegionInfoWithSales> FilterViewModel { get; set; }
+        public ICollection<double> GetMonthlySalesByCustomer(Region customer)
         {
             //if (customer == null || customer.Orders == null)
                 return new double[0];
@@ -18,7 +19,7 @@ namespace Polyathlon.ViewModels {
         //   // DevExpress.DevAV.QueriesHelper.UpdateCustomerInfoWithSales(entities, unitOfWork.CustomerStores, unitOfWork.CustomerEmployees, unitOfWork.Orders.ActualOrders());
         //}
         public void CustomFilter() {
-            Messenger.Default.Send(new CreateCustomFilterMessage<DataModel.Entities.Region>());
+            Messenger.Default.Send(new CreateCustomFilterMessage<Region>());
         }
     }
 

@@ -3,8 +3,9 @@ using DevExpress.Mvvm.POCO;
 using DevExpress.Mvvm.DataAnnotations;
 using System.Collections.ObjectModel;
 using Polyathlon.DataModel;
-using Polyathlon.DataModel.Common;
-using Polyathlon.DataModel.Entities;
+using Polyathlon.Db.ModuleDb;
+using Polyathlon.Models.Common;
+using Polyathlon.Models.Entities;
 
 namespace Polyathlon.ViewModels.Common;
 
@@ -118,7 +119,7 @@ public partial class BaseCollectionViewModel<TEntity, TViewEntity> : ISupportPar
 
     //public object ParentViewModel { get; set; }
 
-    readonly Action<DataModel.Entities.Region> newEntityInitializer;
+    //readonly Action<DataModel.Entities.Region> newEntityInitializer;
 
     public void New()
     {

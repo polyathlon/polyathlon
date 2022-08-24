@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using Polyathlon.DataModel.Common;
+using Polyathlon.Models.Common;
 
-namespace Polyathlon.DataModel.Entities;
+namespace Polyathlon.Models.Entities;
 
 public class RegionViewEntity : ViewEntityBase<Region> {
 
@@ -21,7 +21,7 @@ public class RegionViewEntity : ViewEntityBase<Region> {
 
     public override object Clone() {
         Region entity = this.entity with { };
-        RegionViewEntity viewEntity = new(entity, "1");
+        RegionViewEntity viewEntity = new(entity, Origin);
         return viewEntity;
     }
 

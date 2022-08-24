@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace Polyathlon.DataModel.Common;
+namespace Polyathlon.Models.Common;
 
 public record class EntityBase {
     [JsonProperty("_id")]

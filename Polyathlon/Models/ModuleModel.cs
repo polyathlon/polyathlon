@@ -1,5 +1,5 @@
 ﻿using Newtonsoft.Json;
-using Polyathlon.DataModel.Common;
+using Polyathlon.Models.Common;
 
 namespace Polyathlon.DataModel; 
 

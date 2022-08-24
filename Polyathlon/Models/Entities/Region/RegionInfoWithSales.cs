@@ -1,47 +1,40 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace Polyathlon.Models.Entities;
 
-namespace Polyathlon.DataModel.Entities
+public class RegionInfoWithSales
 {
-    public class RegionInfoWithSales
-    {
-        //private Lazy<IEnumerable<CustomerStore>> customerStores;
+    //private Lazy<IEnumerable<CustomerStore>> customerStores;
 
-        //private Lazy<IEnumerable<CustomerEmployee>> customerEmployees;
+    //private Lazy<IEnumerable<CustomerEmployee>> customerEmployees;
 
-        public long Id { get; set; }
+    public long Id { get; set; }
 
-        public string Name { get; set; }
+    public string Name { get; set; }
 
-        public string HomeOfficeLine { get; set; }
+    public string HomeOfficeLine { get; set; }
 
-        public string HomeOfficeCity { get; set; }
+    public string HomeOfficeCity { get; set; }
 
-     
+ 
 
-        public string HomeOfficeZipCode { get; set; }
+    public string HomeOfficeZipCode { get; set; }
 
-        public string Phone { get; set; }
+    public string Phone { get; set; }
 
-        public string Fax { get; set; }
+    public string Fax { get; set; }
 
-        public decimal? TotalSales { get; set; }
+    public decimal? TotalSales { get; set; }
 
-        //public IEnumerable<CustomerStore> CustomerStores => customerStores.Value;
+    //public IEnumerable<CustomerStore> CustomerStores => customerStores.Value;
 
-        //public IEnumerable<CustomerEmployee> Employees => customerEmployees.Value;
+    //public IEnumerable<CustomerEmployee> Employees => customerEmployees.Value;
 
-        public IEnumerable<decimal> MonthlySales { get; private set; }
+    public IEnumerable<decimal> MonthlySales { get; private set; }
 
-        //public void Init(Func<IEnumerable<CustomerStore>> getStores, Func<IEnumerable<CustomerEmployee>> getEmployees, IEnumerable<decimal> monthlySales)
-        //{
-        //    customerStores = new Lazy<IEnumerable<CustomerStore>>(getStores);
-        //    customerEmployees = new Lazy<IEnumerable<CustomerEmployee>>(getEmployees);
-        //    MonthlySales = monthlySales;
-        //}
+    //public void Init(Func<IEnumerable<CustomerStore>> getStores, Func<IEnumerable<CustomerEmployee>> getEmployees, IEnumerable<decimal> monthlySales)
+    //{
+    //    customerStores = new Lazy<IEnumerable<CustomerStore>>(getStores);
+    //    customerEmployees = new Lazy<IEnumerable<CustomerEmployee>>(getEmployees);
+    //    MonthlySales = monthlySales;
+    //}
 
-    }
 }

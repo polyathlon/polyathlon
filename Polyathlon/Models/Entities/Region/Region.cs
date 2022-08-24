@@ -1,6 +1,6 @@
-﻿using Polyathlon.DataModel.Common;
+﻿using Polyathlon.Models.Common;
 
-namespace Polyathlon.DataModel.Entities;
+namespace Polyathlon.Models.Entities;
 
 public record class Region : EntityBase {        
     public string? Name { get; set; }

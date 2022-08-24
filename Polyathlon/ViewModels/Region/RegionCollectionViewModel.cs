@@ -1,18 +1,18 @@
 using System.Collections.ObjectModel;
 using DevExpress.Mvvm;
 using DevExpress.Mvvm.POCO;
-using DevExpress.Mvvm.DataAnnotations;
 
-using Polyathlon.DataModel;
-using Polyathlon.DataModel.Entities;
+using Polyathlon.Models.Entities;
 using Polyathlon.ViewModels.Common;
+
+using Region = Polyathlon.Models.Entities.Region;
 
 namespace Polyathlon.ViewModels;
 
 /// <summary>
 /// Represents the Region collection view model.
 /// </summary>
-public partial class RegionCollectionViewModel : BaseCollectionViewModel<DataModel.Entities.Region, RegionViewEntity>, ISupportParameter//, ISupportParentViewModel //: CollectionViewModel<Entities.Region, RegionInfoWithSales, long, IDbUnitOfWork> 
+public partial class RegionCollectionViewModel : BaseCollectionViewModel<Region, RegionViewEntity>, ISupportParameter//, ISupportParentViewModel //: CollectionViewModel<Entities.Region, RegionInfoWithSales, long, IDbUnitOfWork> 
 {
     /// <summary>
     /// Creates a new instance of CustomerCollectionViewModel as a POCO view model.
@@ -65,7 +65,7 @@ public partial class RegionCollectionViewModel : BaseCollectionViewModel<DataMod
     //   // ModuleDescription.Tile.Title = "11";
     //}
 
-    protected static RegionViewEntity CreateViewEntity(DataModel.Entities.Region entity, Flurl.Url origin)
+    protected static RegionViewEntity CreateViewEntity(Region entity, Flurl.Url origin)
     {
         RegionViewEntity ViewEntity = new(entity, origin);
         return ViewEntity;

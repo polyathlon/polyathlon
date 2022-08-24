@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
-using Polyathlon.DataModel.Common;
+using Polyathlon.Models.Common;
 
-namespace Polyathlon.DataModel.Entities;
+namespace Polyathlon.Models.Entities;
 
 public record class Module : EntityBase {
 

@@ -1,10 +1,12 @@
 using System.Collections;
-using System.Collections.ObjectModel;
 using Flurl;
-using Polyathlon.DataModel.Common;
-using Polyathlon.DataModel.Entities;
+using Polyathlon.Db.Common;
+using Polyathlon.Db.LocalDb;
+using Polyathlon.Models.Common;
+using Polyathlon.Models.Entities;
 
-namespace Polyathlon.DataModel;
+namespace Polyathlon.Db.ModuleDb;
+
 
 /// <summary>
 /// The base class for unit of works that provides the storage for repositories. 

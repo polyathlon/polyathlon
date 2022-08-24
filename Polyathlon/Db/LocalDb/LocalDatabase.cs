@@ -4,9 +4,10 @@ using Flurl;
 using Flurl.Http;
 using Flurl.Http.Configuration;
 using System.Net.Http.Headers;
-using Polyathlon.DataModel.Common;
+using Polyathlon.Db.Common;
+using Polyathlon.Models.Common;
+namespace Polyathlon.Db.LocalDb;
 
-namespace Polyathlon.DataModel;
 
 /// <summary>
 /// The base class for unit of works that provides the storage for repositories. 
@@ -93,28 +94,18 @@ public sealed class LocalDatabase {
         return content;
     }
 
-    private string CheckEntityContent(Flurl.Url url) {
+    private async ValueTask<string> CheckEntityContent(Flurl.Url url) {
         string content = string.Empty;
         IFlurlClient flurlClient = flurlClientFactory.Value.Get(url.Root);
         IFlurlRequest flurlRequest = flurlClient.Request()
             .AppendPathSegments(url.PathSegments)            
             .WithBasicAuth(Settings.Settings.Data.settingsDB.UserName, Settings.Settings.Data.settingsDB.Password)
             .AllowAnyHttpStatus();
-        try {
-            var response = flurlRequest.HeadAsync();
-            //response.Wait();
-            var responseBody = response.Result.ResponseMessage;           
-
-            //content = responseBody.Content.ReadAsStringAsync().Result;
-            HttpResponseHeaders headers = responseBody.Headers;
-            string result = headers?.ETag?.Tag ?? "";
-            System.Diagnostics.Debug.WriteLine(result);
-            return result;
-        }
-        catch (Exception ex) {
-            System.Diagnostics.Debug.WriteLine(ex.ToString());
-        }
-        return "11";
+        
+        var response = await flurlRequest.HeadAsync();
+        if (response.IsSuccessful())
+            throw new ConnectException(response.ResponseMessage.ReasonPhrase ?? "Unknown error");            
+        return response.ResponseMessage.Headers?.ETag?.Tag ?? "";
     }
 
     private string SaveEntityContent(Flurl.Url url) {
@@ -268,7 +259,7 @@ public sealed class LocalDatabase {
         where TEntity : EntityBase {
         Url url = "http://base.rsu.edu.ru:5984/polyathlon/region:3a1c079241b4d051b71e77e78c024b3a";
         
-        string content = CheckEntityContent(url);
+        //string content = CheckEntityContent(url);
 
         //JObject jModules = JObject.Parse(content);
         //IList<JToken> rows = jModules["rows"].Children().ToList();
@@ -278,17 +269,43 @@ public sealed class LocalDatabase {
         //return new();
     }
 
-    public void SaveEntity<TEntity>(string request)
-    where TEntity : EntityBase {
+    public async ValueTask<bool> CheckEntity<TViewEntity, TEntity>(TViewEntity viewEntity)
+        where TEntity : EntityBase
+        where TViewEntity : ViewEntityBase<TEntity> {
+
+        ///<summary>
+        /// URL request should be like this: "http://base.rsu.edu.ru:5984/polyathlon/region:3a1c079241b4d051b71e77e78c024b3a";
+        ///</summary>
+        Url url = $@"{viewEntity.Origin}/{viewEntity.Id}";
+
+        try {
+            return await CheckEntityContent(url) == $@"""{viewEntity.Rev}""";
+        }
+        catch (ConnectException e) {
+            throw e;
+        }        
+    }
+
+    public async void SaveEntity<TViewEntity, TEntity>(TViewEntity viewEntity)
+        where TViewEntity : ViewEntityBase<TEntity>
+        where TEntity : EntityBase {
 
         //Url url = "http://base.rsu.edu.ru:5984/polyathlon/region:3a1c079241b4d051b71e77e78c024b3a?rev=3-9dc8f4fb36133da152bd1a525af3c4ee";
         //Url url = "http://base.rsu.edu.ru:5984/polyathlon/my:SpaghettiWithMeatballs?rev=2-b474070511544efa35e9719fe109724f"; //
         //Url url = "http://base.rsu.edu.ru:5984/polyathlon/my:ant"; //
 
 
-        Url url = "http://base.rsu.edu.ru:5984/polyathlon/my:SpaghettiWithMeatballs?rev=2-b474070511544efa35e9719fe109724f";
+        //Url url = "http://base.rsu.edu.ru:5984/polyathlon/my:SpaghettiWithMeatballs?rev=2-b474070511544efa35e9719fe109724f";
 
-        string content = DeleteEntityContent(url);
+        Url url = "http://base.rsu.edu.ru:5984/polyathlon/region:3a1c079241b4d051b71e77e78c024b3a1";
+
+        //string content = DeleteEntityContent(url);
+        //string content = CheckEntityContent(url);
+        await CheckEntity<TViewEntity, TEntity>(viewEntity);
+        if (!await CheckEntity<TViewEntity, TEntity>(viewEntity))
+            throw new ConnectException("Коллизия");
+
+        //string content = CheckEntityContent(url);
 
         //JObject jModules = JObject.Parse(content);
         //IList<JToken> rows = jModules["rows"].Children().ToList();

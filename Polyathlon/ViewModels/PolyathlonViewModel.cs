@@ -2,9 +2,9 @@
 using Polyathlon.DbDataModel;
 using Newtonsoft.Json.Linq;
 using Polyathlon.ViewModels.Common;
-using Polyathlon.DataModel;
-using Polyathlon.DataModel.Entities;
-//using Polyathlon.DataModel.Entities;
+using Polyathlon.Models.Entities;
+using Polyathlon.Db.ModuleDb;
+
 using System.Collections.ObjectModel;
 
 namespace Polyathlon.ViewModels;

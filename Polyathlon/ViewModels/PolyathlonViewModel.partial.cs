@@ -1,7 +1,7 @@
 ﻿using Polyathlon.DbDataModel;
 using DevExpress.Mvvm;
 using Polyathlon.ViewModels.Common;
-using Polyathlon.DataModel.Entities;
+using Polyathlon.Models.Entities;
 
 namespace Polyathlon.ViewModels
 {

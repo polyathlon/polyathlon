@@ -24,7 +24,7 @@ using DevExpress.Utils.Design;
 using DevExpress.Utils.Svg;
 using DevExpress.Skins;
 
-using Polyathlon.DataModel.Common;
+using Polyathlon.Models.Common;
 
 namespace Polyathlon.Views {
     internal static class ToolbarExtension {

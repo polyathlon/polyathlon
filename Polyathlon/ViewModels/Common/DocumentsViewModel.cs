@@ -1,10 +1,10 @@
 ﻿
 using System.ComponentModel;
-using Polyathlon.DataModel;
 using DevExpress.Mvvm;
 using DevExpress.Mvvm.POCO;
 using System.Collections.ObjectModel;
-using Polyathlon.DataModel.Entities;
+using Polyathlon.Models.Entities;
+using Polyathlon.DataModel;
 
 namespace Polyathlon.ViewModels.Common
 {

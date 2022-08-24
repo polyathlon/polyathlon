@@ -1,6 +1,6 @@
 ﻿using Flurl;
 
-namespace Polyathlon.DataModel.Common;
+namespace Polyathlon.Db.Common;
 
 internal static class FlurlExtensions {
     public static string Origin(this Url url) {

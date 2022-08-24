@@ -1,12 +1,9 @@
-
-using DevExpress.Mvvm.POCO;
-using System.Drawing;
-using DevExpress.XtraMap;
-using Polyathlon.DbDataModel;
 using Polyathlon.ViewModels.Common;
+using Polyathlon.Models.Entities;
+using Region = Polyathlon.Models.Entities.Region;
 
 namespace Polyathlon.ViewModels {
-    public partial class RegionViewModel : SingleObjectViewModel<DataModel.Entities.Region, DataModel.Entities.RegionViewEntity, long>
+    public partial class RegionViewModel : SingleObjectViewModel<Region, RegionViewEntity, long>
     
     {
         protected override void OnInitializeInRuntime() {

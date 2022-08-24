@@ -10,7 +10,8 @@ using DevExpress.Mvvm.DataAnnotations;
 using Polyathlon.DataModel;
 using Polyathlon.Helpers;
 
-using Polyathlon.DataModel.Common;
+using Polyathlon.Db.LocalDb;
+using Polyathlon.Models.Common;
 
 namespace Polyathlon.ViewModels.Common
 {
@@ -243,7 +244,7 @@ namespace Polyathlon.ViewModels.Common
                 bool isNewEntity = IsNew();
                 OldEntity.Entity = Entity.Entity;
                 _ParentViewModel.RaisePropertiesChanged();
-                LocalDatabase.LocalDb.SaveEntity<TEntity>(Entity.Origin);
+                LocalDatabase.LocalDb.SaveEntity<TViewEntity, TEntity>(Entity);
                 //ViewEntityBase
                 //if (!isNewEntity)
                 //{

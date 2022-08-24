@@ -1,30 +1,17 @@
-﻿using DevExpress.XtraEditors;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Data;
 using CouchDB.Driver.Extensions;
-using CouchDB.Driver.Options;
 using Flurl;
 using Flurl.Http;
 using Flurl.Http.Configuration;
-using System.Net;
 using System.Diagnostics;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using DevExpress.Utils.MVVM.Services;
-using Polyathlon.DataModel;
+
 using Polyathlon.ViewModels;
 using CSharp.Ulid;
 using Polyathlon.Views;
-using Polyathlon.DataModel.Entities;
+using Polyathlon.Models.Entities;
 
 using DevExpress.Utils;
 
