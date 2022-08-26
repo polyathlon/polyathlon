@@ -10,6 +10,8 @@ using DevExpress.Mvvm.DataAnnotations;
 using Polyathlon.DataModel;
 using Polyathlon.Helpers;
 
+using Polyathlon.Db.Common;
+
 using Polyathlon.Db.LocalDb;
 using Polyathlon.Models.Common;
 
@@ -133,9 +135,9 @@ namespace Polyathlon.ViewModels.Common
         /// Since SingleObjectViewModelBase is a POCO view model, an instance of this class will also expose the SaveAndCloseCommand property that can be used as a binding source in views.
         /// </summary>
         [Command(CanExecuteMethodName = "CanSave")]
-        public void SaveAndClose()
-        {
-            if (SaveCore())
+        public async void SaveAndClose()
+        {   
+            if (await SaveCore())
                 Close();
         }
 
@@ -208,7 +210,7 @@ namespace Polyathlon.ViewModels.Common
             }
             catch (DbException e)
             {
-                MessageBoxService.ShowMessage(e.ErrorMessage, e.ErrorCaption, MessageButton.OK, MessageIcon.Error);
+                //MessageBoxService.ShowMessage(e.ErrorMessage, e.ErrorCaption, MessageButton.OK, MessageIcon.Error);
             }
         }
 
@@ -237,14 +239,14 @@ namespace Polyathlon.ViewModels.Common
 
         //protected TUnitOfWork UnitOfWork { get; private set; }
 
-        protected virtual bool SaveCore()
+        protected async virtual ValueTask<bool> SaveCore()
         {
             try
             {
                 bool isNewEntity = IsNew();
                 OldEntity.Entity = Entity.Entity;
                 _ParentViewModel.RaisePropertiesChanged();
-                LocalDatabase.LocalDb.SaveEntity<TViewEntity, TEntity>(Entity);
+                await LocalDatabase.LocalDb.SaveEntity<TViewEntity, TEntity>(Entity);                
                 //ViewEntityBase
                 //if (!isNewEntity)
                 //{
@@ -257,11 +259,16 @@ namespace Polyathlon.ViewModels.Common
                 //OnEntitySaved(PrimaryKey, Entity, isNewEntity);
                 return true;
             }
-            catch (DbException e)
-            {
-                MessageBoxService.ShowMessage(e.ErrorMessage, e.ErrorCaption, MessageButton.OK, MessageIcon.Error);
-                return false;
+            catch (ConnectException e) {
+                MessageBoxService.ShowMessage(e.Message, e.Reason, MessageButton.OK, MessageIcon.Error);
             }
+            catch (DbException e) {
+                MessageBoxService.ShowMessage(e.Message, "Полиатлон", MessageButton.OK, MessageIcon.Error);
+            }
+            catch (Exception e) {
+                MessageBoxService.ShowMessage(e.Message, "Полиатлон", MessageButton.OK, MessageIcon.Error);
+            }
+            return false;
         }
 
         protected virtual void OnBeforeEntitySaved(TEntity entity, bool isNewEntity) { }
@@ -427,8 +434,8 @@ namespace Polyathlon.ViewModels.Common
             }
             if (!NeedReset()) return true;
             MessageResult result = MessageBoxService.ShowMessage(CommonResources.Confirmation_Save, GetConfirmationMessageTitle(), MessageButton.YesNoCancel);
-            if (result == MessageResult.Yes)
-                return SaveCore();
+            //if (result == MessageResult.Yes)
+            //    return SaveCore();
             if (result == MessageResult.No)
                 Reload();
             return result != MessageResult.Cancel;

@@ -48,11 +48,11 @@ public abstract class ViewEntityBase<TEntity> : ICloneable
     }
 
     [Display(AutoGenerateField = false)]
-    public Flurl.Url Origin { get; set; }
+    public Flurl.Url Url { get; set; }
 
-    public ViewEntityBase(TEntity entity, string origin) {
+    public ViewEntityBase(TEntity entity, Flurl.Url url) {
         this.entity = entity;
-        Origin = origin;
+        Url = url;
     }
 
     public abstract object Clone();

@@ -21,7 +21,7 @@ public class RegionViewEntity : ViewEntityBase<Region> {
 
     public override object Clone() {
         Region entity = this.entity with { };
-        RegionViewEntity viewEntity = new(entity, Origin);
+        RegionViewEntity viewEntity = new(entity, Url);
         return viewEntity;
     }
 

@@ -103,7 +103,7 @@ public sealed class LocalDatabase {
             .AllowAnyHttpStatus();
         
         var response = await flurlRequest.HeadAsync();
-        if (response.IsSuccessful())
+        if (!response.IsSuccessful())
             throw new ConnectException(response.ResponseMessage.ReasonPhrase ?? "Unknown error");            
         return response.ResponseMessage.Headers?.ETag?.Tag ?? "";
     }
@@ -269,50 +269,26 @@ public sealed class LocalDatabase {
         //return new();
     }
 
-    public async ValueTask<bool> CheckEntity<TViewEntity, TEntity>(TViewEntity viewEntity)
-        where TEntity : EntityBase
-        where TViewEntity : ViewEntityBase<TEntity> {
-
+    public async Task<bool> CheckEntity<TViewEntity>(TViewEntity viewEntity)        
+        where TViewEntity : ViewEntityBase<EntityBase> {
         ///<summary>
         /// URL request should be like this: "http://base.rsu.edu.ru:5984/polyathlon/region:3a1c079241b4d051b71e77e78c024b3a";
         ///</summary>
-        Url url = $@"{viewEntity.Origin}/{viewEntity.Id}";
-
-        try {
-            return await CheckEntityContent(url) == $@"""{viewEntity.Rev}""";
-        }
-        catch (ConnectException e) {
-            throw e;
-        }        
+        Url url = $@"{viewEntity.Url.Origin()}/{viewEntity.Id}";
+        return await CheckEntityContent(url) != $@"""{viewEntity.Rev}""";
     }
 
-    public async void SaveEntity<TViewEntity, TEntity>(TViewEntity viewEntity)
-        where TViewEntity : ViewEntityBase<TEntity>
-        where TEntity : EntityBase {
-
+    public async Task SaveEntity<TViewEntity>(TViewEntity viewEntity)
+        where TViewEntity : ViewEntityBase<EntityBase> {
         //Url url = "http://base.rsu.edu.ru:5984/polyathlon/region:3a1c079241b4d051b71e77e78c024b3a?rev=3-9dc8f4fb36133da152bd1a525af3c4ee";
         //Url url = "http://base.rsu.edu.ru:5984/polyathlon/my:SpaghettiWithMeatballs?rev=2-b474070511544efa35e9719fe109724f"; //
-        //Url url = "http://base.rsu.edu.ru:5984/polyathlon/my:ant"; //
-
-
+        //Url url = "http://base.rsu.edu.ru:5984/polyathlon/my:ant";
         //Url url = "http://base.rsu.edu.ru:5984/polyathlon/my:SpaghettiWithMeatballs?rev=2-b474070511544efa35e9719fe109724f";
-
-        Url url = "http://base.rsu.edu.ru:5984/polyathlon/region:3a1c079241b4d051b71e77e78c024b3a1";
-
+        //Url url = "http://base.rsu.edu.ru:5984/polyathlon/region:3a1c079241b4d051b71e77e78c024b3a1";
         //string content = DeleteEntityContent(url);
         //string content = CheckEntityContent(url);
-        await CheckEntity<TViewEntity, TEntity>(viewEntity);
-        if (!await CheckEntity<TViewEntity, TEntity>(viewEntity))
-            throw new ConnectException("Коллизия");
-
-        //string content = CheckEntityContent(url);
-
-        //JObject jModules = JObject.Parse(content);
-        //IList<JToken> rows = jModules["rows"].Children().ToList();
-
-        //TEntity entity = row["doc"].ToObject<TEntity>();
-
-        //return new();
+        if (!await CheckEntity<TViewEntity>(viewEntity))
+            throw new DbException("Конфликт ревизий");
     }
 
     public IDictionary GetLocalDbTable<TEntity, TViewEntity>(string request, Func<TEntity, Url, TViewEntity> createViewEntity)

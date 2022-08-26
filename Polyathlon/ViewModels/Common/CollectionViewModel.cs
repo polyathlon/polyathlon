@@ -8,6 +8,7 @@ using DevExpress.Mvvm;
 using DevExpress.Mvvm.POCO;
 using DevExpress.Mvvm.DataAnnotations;
 using Polyathlon.DataModel;
+using Polyathlon.Db.Common;
 
 namespace Polyathlon.ViewModels.Common
 {
@@ -242,7 +243,7 @@ namespace Polyathlon.ViewModels.Common
             catch (DbException e)
             {
                 Refresh();
-                MessageBoxService.ShowMessage(e.ErrorMessage, e.ErrorCaption, MessageButton.OK, MessageIcon.Error);
+                MessageBoxService.ShowMessage(e.Message, "111", MessageButton.OK, MessageIcon.Error);
             }
         }
 
@@ -275,7 +276,7 @@ namespace Polyathlon.ViewModels.Common
             }
             catch (DbException e)
             {
-                MessageBoxService.ShowMessage(e.ErrorMessage, e.ErrorCaption, MessageButton.OK, MessageIcon.Error);
+                MessageBoxService.ShowMessage(e.Message, "111", MessageButton.OK, MessageIcon.Error);
             }
         }
 

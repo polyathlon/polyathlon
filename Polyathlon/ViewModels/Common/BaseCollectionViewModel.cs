@@ -2,7 +2,7 @@ using DevExpress.Mvvm;
 using DevExpress.Mvvm.POCO;
 using DevExpress.Mvvm.DataAnnotations;
 using System.Collections.ObjectModel;
-using Polyathlon.DataModel;
+using Polyathlon.Db.Common;
 using Polyathlon.Db.ModuleDb;
 using Polyathlon.Models.Common;
 using Polyathlon.Models.Entities;
@@ -42,7 +42,7 @@ public partial class BaseCollectionViewModel<TEntity, TViewEntity> : ISupportPar
         }
         catch (DbException e) {
             //Refresh();
-            MessageBoxService.ShowMessage(e.ErrorMessage, e.ErrorCaption, MessageButton.OK, MessageIcon.Error);
+            MessageBoxService.ShowMessage(e.Message, "Полиатлон", MessageButton.OK, MessageIcon.Error);
         }
     }
     //public static BaseCollectionViewModel Create(object a)
