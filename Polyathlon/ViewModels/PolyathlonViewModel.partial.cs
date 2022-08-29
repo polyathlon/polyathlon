@@ -1,5 +1,4 @@
-﻿using Polyathlon.DbDataModel;
-using DevExpress.Mvvm;
+﻿using DevExpress.Mvvm;
 using Polyathlon.ViewModels.Common;
 using Polyathlon.Models.Entities;
 

@@ -8,7 +8,7 @@ using System.Text.RegularExpressions;
 using System.Collections.Generic;
 using DevExpress.Data.Filtering;
 using Polyathlon.ViewModels.Common;
-using Polyathlon.DbDataModel;
+
 
 
 namespace Polyathlon.ViewModels {

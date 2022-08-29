@@ -1,5 +1,4 @@
 ﻿using DevExpress.Mvvm.POCO;
-using Polyathlon.DbDataModel;
 using Newtonsoft.Json.Linq;
 using Polyathlon.ViewModels.Common;
 using Polyathlon.Models.Entities;

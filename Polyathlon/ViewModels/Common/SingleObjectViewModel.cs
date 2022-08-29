@@ -142,7 +142,7 @@ namespace Polyathlon.ViewModels.Common
 #if DEBUG
             Debug.WriteLine($"Before close: {Thread.CurrentThread.ManagedThreadId}");
 #endif
-            if (await SaveCore()) {
+            if (await SaveCore().ConfigureAwait(false)) {
                 Close();
 
             }

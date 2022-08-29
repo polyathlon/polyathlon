@@ -1,10 +1,6 @@
 using System.Linq.Expressions;
 using Polyathlon.ViewModels.Common;
-using Polyathlon.DbDataModel;
 
-
-//using DevExpress.DevAV.Common.ViewModel;
-//using DevExpress.DevAV.DevAVDbDataModel1;
 using DevExpress.XtraBars.Ribbon;
 using DevExpress.XtraEditors;
 using DevExpress.XtraGrid.Views.Base;
