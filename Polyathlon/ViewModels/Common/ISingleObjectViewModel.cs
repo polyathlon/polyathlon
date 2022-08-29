@@ -10,8 +10,8 @@ public interface ISingleObjectViewModel<TViewEntity>
     /// <summary>
     /// The entity represented by a view model.
     /// </summary>
-    TViewEntity Entity { get; }
-    TViewEntity OldEntity { get; }
+    TViewEntity ViewEntity { get; }
+    TViewEntity OldViewEntity { get; }
 
 
     /// <summary>

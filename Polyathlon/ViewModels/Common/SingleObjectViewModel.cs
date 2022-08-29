@@ -8,7 +8,7 @@ using DevExpress.Mvvm;
 using DevExpress.Mvvm.POCO;
 using DevExpress.Mvvm.DataAnnotations;
 using Polyathlon.DataModel;
-
+using CSharp.Ulid;
 #if DEBUG
     using System.Diagnostics;
 #endif
@@ -100,7 +100,7 @@ namespace Polyathlon.ViewModels.Common
         /// Since SingleObjectViewModelBase is a POCO view model, this property will raise INotifyPropertyChanged.PropertyEvent when modified so it can be used as a binding source in views.
         /// </summary>
         /// <returns></returns>
-        public virtual TViewEntity Entity { get; set; }
+        public virtual TViewEntity ViewEntity { get; set; }
 
         /// <summary>
         /// Updates the Title property value and raises CanExecute changed for relevant commands.
@@ -130,7 +130,7 @@ namespace Polyathlon.ViewModels.Common
         public virtual bool CanSave()
         {
             //return Entity != null && !HasValidationErrors() && NeedSave();
-            return Entity.Entity != OldEntity.Entity;
+            return ViewEntity.Entity != OldViewEntity.Entity;
         }
 
         /// <summary>
@@ -142,9 +142,8 @@ namespace Polyathlon.ViewModels.Common
 #if DEBUG
             Debug.WriteLine($"Before close: {Thread.CurrentThread.ManagedThreadId}");
 #endif
-            if (await SaveCore().ConfigureAwait(false)) {
-                Close();
-
+            if (await SaveCore()) {
+                this.Close();
             }
 #if DEBUG
             Debug.WriteLine($"After close: {Thread.CurrentThread.ManagedThreadId}");
@@ -231,7 +230,7 @@ namespace Polyathlon.ViewModels.Common
         /// </summary>
         public virtual bool CanDelete()
         {
-            return Entity != null && !IsNew();
+            return ViewEntity != null && !IsNew();
         }
 
         /// <summary>
@@ -255,9 +254,9 @@ namespace Polyathlon.ViewModels.Common
             try
             {
                 bool isNewEntity = IsNew();
-                OldEntity.Entity = Entity.Entity;
+                OldViewEntity.Entity = ViewEntity.Entity;
                 _ParentViewModel.RaisePropertiesChanged();
-                await LocalDatabase.LocalDb.SaveEntity<TViewEntity, TEntity>(Entity);                
+                await LocalDatabase.LocalDb.SaveEntityAsync<TViewEntity, TEntity>(ViewEntity).ConfigureAwait(false);
                 //ViewEntityBase
                 //if (!isNewEntity)
                 //{
@@ -305,7 +304,7 @@ namespace Polyathlon.ViewModels.Common
 
         protected virtual void OnEntityMessage(EntityMessage<TEntity, string> message)
         {
-            if (Entity == null) return;
+            if (ViewEntity == null) return;
             if (message.MessageType == EntityMessageType.Deleted && object.Equals(message.PrimaryKey, PrimaryKey))
                 Close();
         }
@@ -340,21 +339,23 @@ namespace Polyathlon.ViewModels.Common
             
             if (parameter is SingleModelAction.New) {
                 TEntity ent = new();
-                Entity = null;
+                ent.Id = Ulid.NewUlid().ToString();
+                ViewEntity = createNewViewEntity(ent);
+                OldViewEntity = (TViewEntity)ViewEntity.Clone();
             }
             else if (parameter is System.ValueTuple<TViewEntity, SingleModelAction> viewParam) {
                 var (viewEntity, operation) = viewParam;
                 if (operation is SingleModelAction.Copy) {
-                    OldEntity = viewEntity;
-                    Entity = (TViewEntity)OldEntity.Clone();// with { };
+                    OldViewEntity = viewEntity;
+                    ViewEntity = (TViewEntity)OldViewEntity.Clone();// with { };
                 }
                 else if (operation is SingleModelAction.Edit) {
-                    OldEntity = viewEntity;
-                    Entity = (TViewEntity)OldEntity.Clone();
-                    // with { };
+                    OldViewEntity = viewEntity;
+                    ViewEntity = (TViewEntity)OldViewEntity.Clone();
+                   
                                                             //
                                                             // OldEntity = viewEntity;
-                    this.RaisePropertyChanged(m => m.Entity);
+                    this.RaisePropertyChanged(m => m.ViewEntity);
                     //Entity.Test = "111";
                    // this.RaisePropertyChanged(m => m.Entity);
                 }
@@ -369,10 +370,10 @@ namespace Polyathlon.ViewModels.Common
 
         protected void EditEntity(TViewEntity viewEntity)
         {
-            Entity = viewEntity;
+            ViewEntity = viewEntity;
         }
 
-        protected virtual TViewEntity CreateEntity()
+        protected virtual TViewEntity CreateEntity(TEntity entity)
         {
 
             return null;// new TViewEntity();//Repository.Create();
@@ -380,7 +381,7 @@ namespace Polyathlon.ViewModels.Common
 
         protected void Reload()
         {
-            if (Entity == null || IsNew())
+            if (ViewEntity == null || IsNew())
                 CreateAndInitializeEntity(this.entityInitializer);
             else
                 LoadEntityByKey(PrimaryKey);
@@ -390,7 +391,9 @@ namespace Polyathlon.ViewModels.Common
         {
             //UpdateUnitOfWork();
             this.entityInitializer = entityInitializer;
-            var entity = CreateEntity();
+            TEntity ent = new();
+            ent.Id = Ulid.NewUlid().ToString();
+            var entity = createNewViewEntity(ent);
             //if (this.entityInitializer != null)
             //    this.entityInitializer(entity);
             //Entity = entity;
@@ -410,7 +413,7 @@ namespace Polyathlon.ViewModels.Common
 
         void UpdateTitle()
         {
-            if (Entity == null)
+            if (ViewEntity == null)
                 title = null;
             else if (IsNew())
                 title = GetTitleForNewEntity();
@@ -470,7 +473,7 @@ namespace Polyathlon.ViewModels.Common
 
         protected virtual bool NeedSave()
         {
-            if (Entity == null)
+            if (ViewEntity == null)
                 return false;
             EntityState state = GetState();
             return state == EntityState.Modified || state == EntityState.Added;
@@ -483,7 +486,7 @@ namespace Polyathlon.ViewModels.Common
 
         protected virtual bool HasValidationErrors()
         {
-            IDataErrorInfo dataErrorInfo = Entity as IDataErrorInfo;
+            IDataErrorInfo dataErrorInfo = ViewEntity as IDataErrorInfo;
             return dataErrorInfo != null && IDataErrorInfoHelper.HasErrors(dataErrorInfo);
         }
 
@@ -499,7 +502,7 @@ namespace Polyathlon.ViewModels.Common
 
         protected virtual string GetTitle()
         {
-            return (typeof(TEntity).Name + " - " + Convert.ToString(getEntityDisplayNameFunc != null ? getEntityDisplayNameFunc(Entity) : PrimaryKey))
+            return (typeof(TEntity).Name + " - " + Convert.ToString(getEntityDisplayNameFunc != null ? getEntityDisplayNameFunc(ViewEntity) : PrimaryKey))
             .Split(new string[] { "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries).FirstOrDefault();
         }
 
@@ -695,15 +698,14 @@ namespace Polyathlon.ViewModels.Common
         #endregion
 
         #region ISingleObjectViewModel
-        TViewEntity ISingleObjectViewModel<TViewEntity>.Entity { get { return Entity; } }
-
-        //TPrimaryKey ISingleObjectViewModel<TEntity, TViewEntity, TPrimaryKey>.PrimaryKey { get { return PrimaryKey; } }
+        TViewEntity ISingleObjectViewModel<TViewEntity>.ViewEntity => ViewEntity;
+        
         #endregion
 
         #region ISupportLogicalLayout
         bool ISupportLogicalLayout.CanSerialize
         {
-            get { return Entity != null && !IsNew(); }
+            get { return ViewEntity != null && !IsNew(); }
         }
 
         string ISupportLogicalLayout<string>.SaveState()
@@ -743,7 +745,7 @@ namespace Polyathlon.ViewModels.Common
         /// <summary>
         /// public TViewEntity OldEntity => throw new NotImplementedException();
         /// </summary>
-        public virtual TViewEntity OldEntity { get; set; }
+        public virtual TViewEntity OldViewEntity { get; set; }
 
         protected void OnParentViewModelChanged(object ParentViewModel)
         {

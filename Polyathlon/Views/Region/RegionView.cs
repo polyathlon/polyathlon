@@ -22,7 +22,7 @@ namespace Polyathlon.Views {
             var fluentAPI = mvvmContext.OfType<RegionViewModel>();
             //mapView.SetViewModel(fluentAPI.ViewModel.MapViewModel);
             //mapView.MapTemplate = MapExtension.CreateHomeOfficeItemForCustomer;
-            fluentAPI.SetObjectDataSourceBinding(customerBindingSource, x => x.Entity, x => x.Update());
+            fluentAPI.SetObjectDataSourceBinding(customerBindingSource, x => x.ViewEntity, x => x.Update());
             //fluentAPI.SetBinding(NameTextEdit, l => l.EditValue, x => x.Entity.Test);
             fluentAPI.BindCommand(backWindowsUIButtonPanel.Buttons[0] as WindowsUIButton, x => x.Close());
             fluentAPI.BindCommandAndImage(windowsUIButtonPanel.Buttons[0], x => x.SaveAndClose());

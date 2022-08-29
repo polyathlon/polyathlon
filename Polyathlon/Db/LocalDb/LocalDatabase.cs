@@ -99,23 +99,40 @@ public sealed class LocalDatabase {
         return content;
     }
 
-    private async ValueTask<string> CheckEntityContent(Flurl.Url url) {
-        string content = string.Empty;
+    private async ValueTask<IFlurlResponse?> CheckEntityResponse(Flurl.Url url) {        
         IFlurlClient flurlClient = flurlClientFactory.Value.Get(url.Root);
         IFlurlRequest flurlRequest = flurlClient.Request()
             .AppendPathSegments(url.PathSegments)            
             .WithBasicAuth(Settings.Settings.Data.settingsDB.UserName, Settings.Settings.Data.settingsDB.Password)
             .AllowAnyHttpStatus();
-#if DEBUG
-        Debug.WriteLine($"before response: {Thread.CurrentThread.ManagedThreadId}");
-#endif        
+        #if DEBUG
+            Debug.WriteLine($"before response: {Thread.CurrentThread.ManagedThreadId}");
+        #endif        
         var response = await flurlRequest.HeadAsync().ConfigureAwait(false);
-#if DEBUG
-        Debug.WriteLine($"After response: {Thread.CurrentThread.ManagedThreadId}");
-#endif
+        #if DEBUG
+            Debug.WriteLine($"After response: {Thread.CurrentThread.ManagedThreadId}");
+        #endif
         if (!response.IsSuccessful())
-            throw new ConnectException(response.ResponseMessage.ReasonPhrase ?? "Unknown error");            
-        return response.ResponseMessage.Headers?.ETag?.Tag ?? "";
+            throw new ConnectException(response.ResponseMessage.ReasonPhrase ?? "Unknown error");        
+        return response;
+    }
+
+    public async ValueTask<bool> CheckEntityAsync<TViewEntity, TEntity>(TViewEntity viewEntity)
+    where TViewEntity : ViewEntityBase<TEntity>
+    where TEntity : EntityBase {
+        ///<summary>
+        /// URL request should be like this: "http://base.rsu.edu.ru:5984/polyathlon/region:3a1c079241b4d051b71e77e78c024b3a";
+        ///</summary>
+#if DEBUG
+        Debug.WriteLine($"Before check: {Thread.CurrentThread.ManagedThreadId}");
+#endif
+        Url url = $@"{viewEntity.Url.Origin()}/{viewEntity.Id}";
+        //return response.ResponseMessage.Headers?.ETag?.Tag ?? "";
+        var response = await CheckEntityResponse(url).ConfigureAwait(false);
+#if DEBUG
+        Debug.WriteLine($"After check: {Thread.CurrentThread.ManagedThreadId}");
+#endif
+        return response?.ResponseMessage.Headers?.ETag?.Tag.Trim('"') == viewEntity.Rev;
     }
 
     private string SaveEntityContent(Flurl.Url url) {
@@ -279,40 +296,76 @@ public sealed class LocalDatabase {
         //return new();
     }
 
-    public async Task<bool> CheckEntity<TViewEntity, TEntity>(TViewEntity viewEntity)        
-        where TViewEntity : ViewEntityBase<TEntity> 
-        where TEntity : EntityBase {
-        ///<summary>
-        /// URL request should be like this: "http://base.rsu.edu.ru:5984/polyathlon/region:3a1c079241b4d051b71e77e78c024b3a";
-        ///</summary>
-        #if DEBUG
-            Debug.WriteLine($"Before check: {Thread.CurrentThread.ManagedThreadId}");
-        #endif
-        Url url = $@"{viewEntity.Url.Origin()}/{viewEntity.Id}";
-        String a = await CheckEntityContent(url).ConfigureAwait(false);
+    public async ValueTask<IFlurlResponse?> SaveNewEntityResponse<TViewEntity, TEntity>(TViewEntity viewEntity)
+    where TViewEntity : ViewEntityBase<TEntity>
+    where TEntity : EntityBase {
+             
+        Url url = $@"{viewEntity.Url.Origin()}";
 
-        #if DEBUG
-            Debug.WriteLine($"After check: {Thread.CurrentThread.ManagedThreadId}");
-        #endif
+        IFlurlClient flurlClient = flurlClientFactory.Value.Get(url.Root);
+        IFlurlRequest flurlRequest = flurlClient.Request()
+            .AppendPathSegments(url.PathSegments)
+            .WithBasicAuth(Settings.Settings.Data.settingsDB.UserName, Settings.Settings.Data.settingsDB.Password)
+            .AllowAnyHttpStatus();
 
-        return a != $@"""{viewEntity.Rev}""";
+        var response = await flurlRequest.PostJsonAsync(viewEntity.Entity).ConfigureAwait(false);
+
+        if (!response.IsSuccessful())
+            throw new ConnectException(response.ResponseMessage.ReasonPhrase ?? "Unknown error");
+        return response;       
     }
 
-    public async Task SaveEntity<TViewEntity, TEntity>(TViewEntity viewEntity)
+    public async ValueTask<IFlurlResponse?> SaveEntityResponse<TViewEntity, TEntity>(TViewEntity viewEntity)
+        where TViewEntity : ViewEntityBase<TEntity>
+        where TEntity : EntityBase {
+
+        Url url = $@"{viewEntity.Url.Origin()}/{viewEntity.Id}";
+
+        IFlurlClient flurlClient = flurlClientFactory.Value.Get(url.Root);
+        IFlurlRequest flurlRequest = flurlClient.Request()
+            .AppendPathSegments(url.PathSegments)
+            .WithBasicAuth(Settings.Settings.Data.settingsDB.UserName, Settings.Settings.Data.settingsDB.Password)
+            .AllowAnyHttpStatus();
+
+        var response = await flurlRequest.PutJsonAsync(viewEntity.Entity).ConfigureAwait(false);
+
+        if (!response.IsSuccessful())
+            throw new ConnectException(response.ResponseMessage.ReasonPhrase ?? "Unknown error");
+        return response;
+    }
+
+    //public async ValueTask<bool> SaveEntityAsync<TViewEntity, TEntity>(TViewEntity viewEntity)
+    //    where TViewEntity : ViewEntityBase<TEntity>
+    //    where TEntity : EntityBase {
+              
+       
+    //    var response = await SaveEntityResponse<TViewEntity, TEntity>(viewEntity).ConfigureAwait(false);
+
+    //    return (response?.ResponseMessage.Headers?.ETag?.Tag ?? "") == $@"""{viewEntity.Rev}""";
+    //}
+
+    public async Task SaveEntityAsync<TViewEntity, TEntity>(TViewEntity viewEntity)
         where TEntity : EntityBase 
-        where TViewEntity : ViewEntityBase<TEntity> { 
+        where TViewEntity : ViewEntityBase<TEntity> {
         //Url url = "http://base.rsu.edu.ru:5984/polyathlon/region:3a1c079241b4d051b71e77e78c024b3a?rev=3-9dc8f4fb36133da152bd1a525af3c4ee";
         //Url url = "http://base.rsu.edu.ru:5984/polyathlon/my:SpaghettiWithMeatballs?rev=2-b474070511544efa35e9719fe109724f"; //
         //Url url = "http://base.rsu.edu.ru:5984/polyathlon/my:ant";
         //Url url = "http://base.rsu.edu.ru:5984/polyathlon/my:SpaghettiWithMeatballs?rev=2-b474070511544efa35e9719fe109724f";
         //Url url = "http://base.rsu.edu.ru:5984/polyathlon/region:3a1c079241b4d051b71e77e78c024b3a1";
         //string content = DeleteEntityContent(url);
-        //string content = CheckEntityContent(url);
-        if (!await CheckEntity<TViewEntity, TEntity>(viewEntity))
+        //string content = CheckEntityContent(url);        
+        if (!await CheckEntityAsync<TViewEntity, TEntity>(viewEntity).ConfigureAwait(false))
             throw new DbException("Конфликт ревизий");
-        #if DEBUG
-            Debug.WriteLine($"After save: {Thread.CurrentThread.ManagedThreadId}");
-        #endif
+        var response = await SaveEntityResponse<TViewEntity, TEntity>(viewEntity).ConfigureAwait(false);
+        viewEntity.Rev = response?.ResponseMessage.Headers?.ETag?.Tag.Trim('"');
+    }
+
+
+    public async Task SaveNewEntityAsync<TViewEntity, TEntity>(TViewEntity viewEntity)
+    where TEntity : EntityBase
+    where TViewEntity : ViewEntityBase<TEntity> {
+        var response = await SaveNewEntityResponse<TViewEntity, TEntity>(viewEntity).ConfigureAwait(false);
+        viewEntity.Rev = response?.ResponseMessage.Headers?.ETag?.Tag.Trim('"');
     }
 
     public IDictionary GetLocalDbTable<TEntity, TViewEntity>(string request, Func<TEntity, Url, TViewEntity> createViewEntity)

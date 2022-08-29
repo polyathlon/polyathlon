@@ -34,7 +34,7 @@ namespace Polyathlon.ViewModels
             return ViewModelSource.Create(() => new RegionViewModel());
         }
 
-        protected static RegionViewEntity createNewViewEntity(Region region) {
+        protected static RegionViewEntity CreateNewViewEntity(Region region) {
             Region entity = region with { };
             RegionViewEntity regionViewEntity = new(entity, "111");
             return regionViewEntity;
@@ -45,7 +45,7 @@ namespace Polyathlon.ViewModels
         /// This constructor is declared protected to avoid undesired instantiation of the CustomerViewModel type without the POCO proxy factory.
         /// </summary>
         /// <param name="unitOfWorkFactory">A factory used to create a unit of work instance.</param>
-        protected RegionViewModel() : base(createNewViewEntity)
+        protected RegionViewModel() : base(CreateNewViewEntity)
         {
         }
 
