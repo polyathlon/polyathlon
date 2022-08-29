@@ -6,27 +6,8 @@ using Polyathlon.Models.Entities;
 namespace Polyathlon.ViewModels
 {
     //internal partial class PolyathlonViewModel : DocumentsViewModel<DevAVDbModuleDescription, IDbUnitOfWork>
-    public partial class PolyathlonViewModel : DocumentsViewModel<ModuleViewEntity, IDbUnitOfWork>
+    public partial class PolyathlonViewModel : DocumentsViewModel<ModuleViewEntity>
     {
-        //    public const string EmployeeCollectionViewDocumentType = "EmployeeCollectionView";
-        //    public const string EmployeeViewDocumentType = "EmployeeView";
-        //    public const string EmployeeMailMergeViewDocumentType = "EmployeeMailMergeView";
-        //    public const string EmployeeTaskCollectionViewDocumentType = "EmployeeTaskCollectionView";
-        //    public const string EmployeeTaskViewDocumentType = "EmployeeTaskView";
-        //    public const string EmployeeNoteViewDocumentType = "EmployeeNoteView";
-        //    public const string ProductCollectionViewDocumentType = "ProductCollectionView";
-        //    public const string ProductViewDocumentType = "ProductView";
-        //    public const string EmployeeReportViewDocumentType = "EmployeeReportView";
-        //    public const string NoteViewDocumentType = "EvaluationView";
-        //    public const string CustomerCollectionViewDocumentType = "CustomerCollectionView";
-        //    public const string PrintableControlPrintPreviewDocumentType = "PrintableControlPrintPreview";
-        //    public const string CustomerViewDocumentType = "CustomerView";
-        //    public const string OrderViewDocumentType = "OrderView";
-        //    public const string CustomFilterViewDocumentType = "CustomFilterView";
-        //    public const string OrderCollectionViewDocumentType = "OrderCollectionView";
-        //    public const string QuoteCollectionViewDocumentType = "QuoteCollectionView";
-        //    public const string DashboardViewDocumentType = "DashboardView";
-
         public override ModuleViewEntity DefaultModule
         {
             get { return Modules.Where(m => m.ViewType == "MyView").First(); }
@@ -46,18 +27,7 @@ namespace Polyathlon.ViewModels
             //    Messenger.Default.Send<DocumentShownMessage>(new DocumentShownMessage(module.DocumentType));
             //}
         }
-        //    public void Info()
-        //    {
-        //        try
-        //        {
-        //            Data.Utils.SafeProcess.Start("https://documentation.devexpress.com/#WindowsForms/CustomDocument114443");
-        //        }
-        //        catch (System.ComponentModel.Win32Exception) { }
-        //    }
-        //    public void About()
-        //    {
-        //        DevExpress.Utils.About.AboutHelper.Show(DevExpress.Utils.About.ProductKind.DXperienceWin, new DevExpress.Utils.About.ProductStringInfo("Hybrid App", "WinForm Controls"));
-        //    }
+        
         public void Exit()
         {
             Program.MainForm?.Close();

@@ -5,9 +5,9 @@ using Polyathlon.DataModel;
 
 namespace Polyathlon.ViewModels.Common
 {
-    partial class EntitiesViewModel<TEntity, TProjection, TUnitOfWork> {
-        public virtual IQueryable<TEntity> GetEntities(Expression<Func<TEntity, bool>>? filter = null) {
-            return getRepositoryFunc(CreateUnitOfWork()).GetFilteredEntities(filter);
-        }
-    }
+    //partial class EntitiesViewModel<TEntity, TProjection, TUnitOfWork> {
+    //    public virtual IQueryable<TEntity> GetEntities(Expression<Func<TEntity, bool>>? filter = null) {
+    //        return getRepositoryFunc(CreateUnitOfWork()).GetFilteredEntities(filter);
+    //    }
+    //}
 }

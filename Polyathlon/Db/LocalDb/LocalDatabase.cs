@@ -6,6 +6,11 @@ using Flurl.Http.Configuration;
 using System.Net.Http.Headers;
 using Polyathlon.Db.Common;
 using Polyathlon.Models.Common;
+
+#if DEBUG
+    using System.Diagnostics;
+#endif
+
 namespace Polyathlon.Db.LocalDb;
 
 
@@ -101,8 +106,13 @@ public sealed class LocalDatabase {
             .AppendPathSegments(url.PathSegments)            
             .WithBasicAuth(Settings.Settings.Data.settingsDB.UserName, Settings.Settings.Data.settingsDB.Password)
             .AllowAnyHttpStatus();
-        
-        var response = await flurlRequest.HeadAsync();
+#if DEBUG
+        Debug.WriteLine($"before response: {Thread.CurrentThread.ManagedThreadId}");
+#endif        
+        var response = await flurlRequest.HeadAsync().ConfigureAwait(false);
+#if DEBUG
+        Debug.WriteLine($"After response: {Thread.CurrentThread.ManagedThreadId}");
+#endif
         if (!response.IsSuccessful())
             throw new ConnectException(response.ResponseMessage.ReasonPhrase ?? "Unknown error");            
         return response.ResponseMessage.Headers?.ETag?.Tag ?? "";
@@ -269,17 +279,28 @@ public sealed class LocalDatabase {
         //return new();
     }
 
-    public async Task<bool> CheckEntity<TViewEntity>(TViewEntity viewEntity)        
-        where TViewEntity : ViewEntityBase<EntityBase> {
+    public async Task<bool> CheckEntity<TViewEntity, TEntity>(TViewEntity viewEntity)        
+        where TViewEntity : ViewEntityBase<TEntity> 
+        where TEntity : EntityBase {
         ///<summary>
         /// URL request should be like this: "http://base.rsu.edu.ru:5984/polyathlon/region:3a1c079241b4d051b71e77e78c024b3a";
         ///</summary>
+        #if DEBUG
+            Debug.WriteLine($"Before check: {Thread.CurrentThread.ManagedThreadId}");
+        #endif
         Url url = $@"{viewEntity.Url.Origin()}/{viewEntity.Id}";
-        return await CheckEntityContent(url) != $@"""{viewEntity.Rev}""";
+        String a = await CheckEntityContent(url).ConfigureAwait(false);
+
+        #if DEBUG
+            Debug.WriteLine($"After check: {Thread.CurrentThread.ManagedThreadId}");
+        #endif
+
+        return a != $@"""{viewEntity.Rev}""";
     }
 
-    public async Task SaveEntity<TViewEntity>(TViewEntity viewEntity)
-        where TViewEntity : ViewEntityBase<EntityBase> {
+    public async Task SaveEntity<TViewEntity, TEntity>(TViewEntity viewEntity)
+        where TEntity : EntityBase 
+        where TViewEntity : ViewEntityBase<TEntity> { 
         //Url url = "http://base.rsu.edu.ru:5984/polyathlon/region:3a1c079241b4d051b71e77e78c024b3a?rev=3-9dc8f4fb36133da152bd1a525af3c4ee";
         //Url url = "http://base.rsu.edu.ru:5984/polyathlon/my:SpaghettiWithMeatballs?rev=2-b474070511544efa35e9719fe109724f"; //
         //Url url = "http://base.rsu.edu.ru:5984/polyathlon/my:ant";
@@ -287,8 +308,11 @@ public sealed class LocalDatabase {
         //Url url = "http://base.rsu.edu.ru:5984/polyathlon/region:3a1c079241b4d051b71e77e78c024b3a1";
         //string content = DeleteEntityContent(url);
         //string content = CheckEntityContent(url);
-        if (!await CheckEntity<TViewEntity>(viewEntity))
+        if (!await CheckEntity<TViewEntity, TEntity>(viewEntity))
             throw new DbException("Конфликт ревизий");
+        #if DEBUG
+            Debug.WriteLine($"After save: {Thread.CurrentThread.ManagedThreadId}");
+        #endif
     }
 
     public IDictionary GetLocalDbTable<TEntity, TViewEntity>(string request, Func<TEntity, Url, TViewEntity> createViewEntity)

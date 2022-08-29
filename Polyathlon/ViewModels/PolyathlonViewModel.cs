@@ -9,7 +9,7 @@ using System.Collections.ObjectModel;
 
 namespace Polyathlon.ViewModels;
 
-public partial class PolyathlonViewModel : DocumentsViewModel<ModuleViewEntity, IDbUnitOfWork>
+public partial class PolyathlonViewModel : DocumentsViewModel<ModuleViewEntity>
 {
     const string MyWorldGroup = "Polyathlon";
     const string OperationsGroup = "Operations";
@@ -25,8 +25,7 @@ public partial class PolyathlonViewModel : DocumentsViewModel<ModuleViewEntity, 
     /// Initializes a new instance of the PolyathlonViewModel class.
     /// This constructor is declared protected to avoid undesired instantiation of the PolyathlonViewModel type without the POCO proxy factory.
     /// </summary>
-    protected PolyathlonViewModel()
-        : base(UnitOfWorkSource.GetUnitOfWorkFactory())
+    protected PolyathlonViewModel() : base()
     {
     }
     

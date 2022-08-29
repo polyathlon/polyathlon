@@ -12,7 +12,7 @@ namespace Polyathlon.ViewModels;
 /// <summary>
 /// Represents the Region collection view model.
 /// </summary>
-public partial class RegionCollectionViewModel : BaseCollectionViewModel<Region, RegionViewEntity>, ISupportParameter//, ISupportParentViewModel //: CollectionViewModel<Entities.Region, RegionInfoWithSales, long, IDbUnitOfWork> 
+public partial class RegionCollectionViewModel : CollectionViewModel<RegionViewEntity, Region>, ISupportParameter//, ISupportParentViewModel //: CollectionViewModel<Entities.Region, RegionInfoWithSales, long, IDbUnitOfWork> 
 {
     /// <summary>
     /// Creates a new instance of CustomerCollectionViewModel as a POCO view model.

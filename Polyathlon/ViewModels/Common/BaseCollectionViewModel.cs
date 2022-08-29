@@ -10,7 +10,7 @@ using Polyathlon.Models.Entities;
 namespace Polyathlon.ViewModels.Common;
 
 [POCOViewModel]
-public partial class BaseCollectionViewModel<TEntity, TViewEntity> : ISupportParameter//, ISupportParentViewModel
+public partial class CollectionViewModel<TViewEntity, TEntity> : CollectionViewModelBase<TViewEntity, TEntity>, ISupportParameter//, ISupportParentViewModel
    where TEntity : EntityBase
    where TViewEntity : ViewEntityBase<TEntity> //, ISupportParentViewModel //: CollectionViewModel<Entities.Region, RegionInfoWithSales, long, IDbUnitOfWork>    
 {
@@ -81,7 +81,7 @@ public partial class BaseCollectionViewModel<TEntity, TViewEntity> : ISupportPar
     //{
     //}
 
-    protected BaseCollectionViewModel(Func<TEntity, Flurl.Url, TViewEntity> createViewEntity)
+    protected CollectionViewModel(Func<TEntity, Flurl.Url, TViewEntity> createViewEntity)
     {
         moduleDb = ModuleDatabase.ModuleDb;
         this.createViewEntity = createViewEntity;
@@ -169,7 +169,7 @@ public partial class BaseCollectionViewModel<TEntity, TViewEntity> : ISupportPar
     //{
     //    this.localViewDb = LocalViewDbBase.LocalViewDb;
     //}
-    protected BaseCollectionViewModel()
+    protected CollectionViewModel()
     {
         moduleDb = ModuleDatabase.ModuleDb;
     }

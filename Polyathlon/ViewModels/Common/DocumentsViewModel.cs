@@ -14,24 +14,21 @@ namespace Polyathlon.ViewModels.Common
     /// <typeparam name="TModule">A navigation list entry type.</typeparam>
     /// <typeparam name="TUnitOfWork">A unit of work type.</typeparam>
     /// 
-    public abstract class DocumentsViewModel<TModule, TUnitOfWork> : ISupportLogicalLayout
+    public abstract class DocumentsViewModel<TModule> : ISupportLogicalLayout
         where TModule : ModuleViewEntity
-        where TUnitOfWork : IUnitOfWork
     {
 
         const string ViewLayoutName = "DocumentViewModel";
 
-        protected readonly IUnitOfWorkFactory<TUnitOfWork> unitOfWorkFactory;
-
+        
         //protected readonly LocalViewDbBase localViewDbBase = new();
 
         /// <summary>
         /// Initializes a new instance of the DocumentsViewModel class.
         /// </summary>
         /// <param name="unitOfWorkFactory">A factory used to create a unit of work instance.</param>
-        protected DocumentsViewModel(IUnitOfWorkFactory<TUnitOfWork> unitOfWorkFactory)
-        {
-            this.unitOfWorkFactory = unitOfWorkFactory;
+        protected DocumentsViewModel()
+        {            
             Modules = CreateModules();
             foreach (var module in Modules)
                 Messenger.Default.Register<NavigateMessage<TModule>>(this, module, x => Show(x.Token));
@@ -192,17 +189,17 @@ namespace Polyathlon.ViewModels.Common
             return document;
         }
 
-        protected Func<TModule, object> GetPeekCollectionViewModelFactory<TEntity, TPrimaryKey>(Func<TUnitOfWork, IRepository<TEntity, TPrimaryKey>> getRepositoryFunc) where TEntity : class
-        {
-            return module => PeekCollectionViewModel<TModule, TEntity, TPrimaryKey, TUnitOfWork>.Create(module, unitOfWorkFactory, getRepositoryFunc).SetParentViewModel(this);
-        }
+        //protected Func<TModule, object> GetPeekCollectionViewModelFactory<TEntity, TPrimaryKey>(Func<TUnitOfWork, IRepository<TEntity, TPrimaryKey>> getRepositoryFunc) where TEntity : class
+        //{
+        //   // return module => PeekCollectionViewModel<TModule, TEntity, TPrimaryKey, TUnitOfWork>.Create(module, unitOfWorkFactory, getRepositoryFunc).SetParentViewModel(this);
+        //}
 
         protected abstract ObservableCollection<TModule> CreateModules();
 
-        protected TUnitOfWork CreateUnitOfWork()
-        {
-            return unitOfWorkFactory.CreateUnitOfWork();
-        }
+        //protected TUnitOfWork CreateUnitOfWork()
+        //{
+        //    return unitOfWorkFactory.CreateUnitOfWork();
+        //}
 
         public void SaveLogicalLayout()
         {

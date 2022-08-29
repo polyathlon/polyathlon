@@ -21,7 +21,7 @@ namespace Polyathlon.Views
         void InitBindings() {
             //mvvmContext.ViewModelConstructorParameter = new();
             var fluentAPI = mvvmContext.OfType<RegionCollectionViewModel>();
-            mvvmContext.BindCollectionGrid<RegionCollectionViewModel, Region, RegionViewEntity>(gridView, regionBindingSource);
+            mvvmContext.BindCollectionGrid<RegionCollectionViewModel, RegionViewEntity, Region>(gridView, regionBindingSource);
             fluentAPI.SetObjectDataSourceBinding(regionBindingSource, x => x.Entities);
             fluentAPI.SetBinding(regionBindingSource, rbs => rbs.DataSource, x => x.Entities);
             //fluentAPI.SetBinding(gridView, gv => gv.LoadingPanelVisible, x => x.IsLoading);
@@ -42,7 +42,7 @@ namespace Polyathlon.Views
             //fluentAPI.BindCommandAndImage(windowsUIButtonPanel.Buttons[1], (x, task) => x.Edit(task), x => x.SelectedEntity);
             fluentAPI.BindCommandAndImage(windowsUIButtonPanel.Buttons[1], (x, entity) => x.Edit(entity), x => x.SelectedEntity);
             fluentAPI.BindCommandAndImage(windowsUIButtonPanel.Buttons[3], (x, entity) => x.Delete(entity), x => x.SelectedEntity);
-            fluentAPI.BindCommandAndImage(windowsUIButtonPanel.Buttons[3], x => x.CustomFilter(), "CustomFilter");
+            //fluentAPI.BindCommandAndImage(windowsUIButtonPanel.Buttons[3], x => x.CustomFilter(), "CustomFilter");
         }
         //void customerDetailsComboBoxEdit_SelectedIndexChanged(object sender, System.EventArgs e) {
         //    CollectionDetailKind kind = (CollectionDetailKind)customerDetailsComboBoxEdit.EditValue;

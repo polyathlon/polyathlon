@@ -20,10 +20,10 @@ namespace Polyathlon.ViewModels {
         //    return ViewModelSource.Create<ProductFilterViewModel>().SetParentViewModel(parentViewModel);
         //}
 
-        public static RegionFilterViewModel GetCustomerFilter(object parentViewModel)
-        {
-            return ViewModelSource.Create<RegionFilterViewModel>().SetParentViewModel(parentViewModel);
-        }
+        //public static RegionFilterViewModel GetCustomerFilter(object parentViewModel)
+        //{
+        //    return ViewModelSource.Create<RegionFilterViewModel>().SetParentViewModel(parentViewModel);
+        //}
 
         public static void RegisterEntityChangedMessageHandler<TEntity, TPrimaryKey>(object recipient, Action handler)
         {

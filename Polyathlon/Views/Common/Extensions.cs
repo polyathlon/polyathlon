@@ -182,8 +182,8 @@ namespace Polyathlon.Views {
             view.Appearance.GroupPanel.TextOptions.WordWrap = DevExpress.Utils.WordWrap.Wrap;
             view.EndUpdate();
         }
-        internal static void BindCollectionGrid<TViewModel, TEntity, TEntityView>(this DevExpress.Utils.MVVM.MVVMContext context, GridView gridView, BindingSource bindingSource)
-            where TViewModel : BaseCollectionViewModel<TEntity, TEntityView> 
+        internal static void BindCollectionGrid<TViewModel, TEntityView, TEntity>(this DevExpress.Utils.MVVM.MVVMContext context, GridView gridView, BindingSource bindingSource)
+            where TViewModel : CollectionViewModel<TEntityView, TEntity> 
             where TEntity : EntityBase
             where TEntityView : ViewEntityBase<TEntity> {
             var fluentAPI = context.OfType<TViewModel>();
@@ -232,20 +232,27 @@ namespace Polyathlon.Views {
                     x => x.Edit(null), x => x.SelectedEntity,
                     args => (args.Clicks == 2) && (args.Button == MouseButtons.Left));
         }
-        internal static void BindTileGrid<TViewModel, TEntity>(this DevExpress.Utils.MVVM.MVVMContext context, TileView tileView, BindingSource bindingSource)
-            where TViewModel : CollectionViewModel<TEntity, long, IDbUnitOfWork>
-            where TEntity : class {
-            BindTileGrid<TViewModel, TEntity, TEntity>(context, tileView, bindingSource);
-        }
-        internal static void BindTileGrid<TViewModel, TEntity, TProjection>(this DevExpress.Utils.MVVM.MVVMContext context, TileView tileView, BindingSource bindingSource)
-            where TViewModel : CollectionViewModelBase<TEntity, TProjection, long, IDbUnitOfWork>
-            where TEntity : class
-            where TProjection : class {
+        //internal static void BindTileGrid<TViewModel, TEntity>(this DevExpress.Utils.MVVM.MVVMContext context, TileView tileView, BindingSource bindingSource)
+        //    where TViewModel : CollectionViewModel<TEntity, long, IDbUnitOfWork>
+        //    where TEntity : class {
+        //    BindTileGrid<TViewModel, TEntity, TEntity>(context, tileView, bindingSource);
+        //}
+
+        //internal static void BindTileGrid<TViewModel, TViewEntity, TEntity>(this DevExpress.Utils.MVVM.MVVMContext context, TileView tileView, BindingSource bindingSource)
+        //    where TViewModel : CollectionViewModelBase<TViewEntity, TEntity>
+        //    where TViewEntity : class 
+        //    where TEntity : class {
+        //    BindTileGrid<TViewModel, TViewEntity, TEntity>(context, tileView, bindingSource);
+        //}
+        internal static void BindTileGrid<TViewModel, TViewEntity, TEntity>(this DevExpress.Utils.MVVM.MVVMContext context, TileView tileView, BindingSource bindingSource)
+            where TViewModel : CollectionViewModel<TViewEntity, TEntity>
+            where TEntity : EntityBase
+            where TViewEntity : ViewEntityBase<TEntity> {
             var fluentAPI = context.OfType<TViewModel>();
             fluentAPI.SetObjectDataSourceBinding(bindingSource, x => x.Entities);
             fluentAPI.WithEvent<TileView, FocusedRowObjectChangedEventArgs>(tileView, "FocusedRowObjectChanged")
                 .SetBinding(
-                    x => x.SelectedEntity, args => args.Row as TProjection,
+                    x => x.SelectedEntity, args => args.Row as TViewEntity,
                     (tView, entity) => tView.FocusedRowHandle = tView.FindRow(entity));
             fluentAPI.WithEvent<TileViewItemClickEventArgs>(tileView, "ItemDoubleClick")
                 .EventToCommand(x => x.Edit(null), x => x.SelectedEntity);

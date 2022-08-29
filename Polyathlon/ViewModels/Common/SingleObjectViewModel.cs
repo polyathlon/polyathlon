@@ -8,7 +8,10 @@ using DevExpress.Mvvm;
 using DevExpress.Mvvm.POCO;
 using DevExpress.Mvvm.DataAnnotations;
 using Polyathlon.DataModel;
-using Polyathlon.Helpers;
+
+#if DEBUG
+    using System.Diagnostics;
+#endif
 
 using Polyathlon.Db.Common;
 
@@ -135,11 +138,19 @@ namespace Polyathlon.ViewModels.Common
         /// Since SingleObjectViewModelBase is a POCO view model, an instance of this class will also expose the SaveAndCloseCommand property that can be used as a binding source in views.
         /// </summary>
         [Command(CanExecuteMethodName = "CanSave")]
-        public async void SaveAndClose()
-        {   
-            if (await SaveCore())
+        public async void SaveAndClose() {
+#if DEBUG
+            Debug.WriteLine($"Before close: {Thread.CurrentThread.ManagedThreadId}");
+#endif
+            if (await SaveCore()) {
                 Close();
+
+            }
+#if DEBUG
+            Debug.WriteLine($"After close: {Thread.CurrentThread.ManagedThreadId}");
+#endif
         }
+
 
         /// <summary>
         /// Saves changes in the underlying unit of work and create new entity.
