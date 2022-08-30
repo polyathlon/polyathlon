@@ -42,7 +42,7 @@ namespace Polyathlon.ViewModels.Common
         //{
         //}
 
-        protected SingleObjectViewModel(Func<TEntity, TViewEntity> createNewViewEntity)
+        protected SingleObjectViewModel(Func<TEntity, Flurl.Url, TViewEntity> createNewViewEntity)
             : base(createNewViewEntity) {
         }
     }
@@ -63,7 +63,7 @@ namespace Polyathlon.ViewModels.Common
         //protected readonly Func<TUnitOfWork, IRepository<TEntity, TPrimaryKey>> getRepositoryFunc;
         protected readonly Func<TViewEntity, object> getEntityDisplayNameFunc;
         
-        protected readonly Func<TEntity, TViewEntity> createNewViewEntity;
+        protected readonly Func<TEntity, Flurl.Url?, TViewEntity> createNewViewEntity;
 
         Action<TViewEntity> entityInitializer;
 
@@ -77,16 +77,10 @@ namespace Polyathlon.ViewModels.Common
         /// <param name="unitOfWorkFactory">A factory used to create the unit of work instance.</param>
         /// <param name="getRepositoryFunc">A function that returns repository representing entities of a given type.</param>
         /// <param name="getEntityDisplayNameFunc">An optional parameter that provides a function to obtain the display text for a given entity. If ommited, the primary key value is used as a display text.</param>
-        protected SingleObjectViewModelBase(Func<TEntity, TViewEntity> createNewViewEntity)
+        protected SingleObjectViewModelBase(Func<TEntity, Flurl.Url, TViewEntity> createNewViewEntity)
         {
-//            UnitOfWorkFactory = unitOfWorkFactory;
-            //this.getRepositoryFunc = getRepositoryFunc;
             this.createNewViewEntity = createNewViewEntity;
-            //UpdateUnitOfWork();
-            //if (this.IsInDesignMode())
-            //    this.Entity = this.Repository.FirstOrDefault();
-            //else
-                OnInitializeInRuntime();
+            OnInitializeInRuntime();
         }
 
         /// <summary>
@@ -203,24 +197,25 @@ namespace Polyathlon.ViewModels.Common
         /// Deletes the entity, save changes and closes the corresponding view if confirmed by a user.
         /// Since SingleObjectViewModelBase is a POCO view model, an instance of this class will also expose the DeleteCommand property that can be used as a binding source in views.
         /// </summary>
-        public virtual void Delete()
+        public async virtual void Delete()
         {
             if (MessageBoxService.ShowMessage(string.Format(CommonResources.Confirmation_Delete, typeof(TEntity).Name), GetConfirmationMessageTitle(), MessageButton.YesNo) != MessageResult.Yes)
                 return;
-            try
-            {
-                //OnBeforeEntityDeleted(PrimaryKey, Entity);
-                //Repository.Remove(Entity);
-                //UnitOfWork.SaveChanges();
-                //TPrimaryKey primaryKeyForMessage = PrimaryKey;
-                //TEntity entityForMessage = Entity;
-                //Entity = null;
-                //OnEntityDeleted(primaryKeyForMessage, entityForMessage);
+
+            try {                
+                if (ViewEntity.Rev is not null)
+                    await LocalDatabase.LocalDb.DeleteEntityAsync<TViewEntity, TEntity>(ViewEntity);
+                _ParentViewModel.RaisePropertiesChanged();
                 Close();
             }
-            catch (DbException e)
-            {
-                //MessageBoxService.ShowMessage(e.ErrorMessage, e.ErrorCaption, MessageButton.OK, MessageIcon.Error);
+            catch (ConnectException e) {
+                MessageBoxService.ShowMessage(e.Message, "Полиатлон", MessageButton.OK, MessageIcon.Error);
+            }
+            catch (DbException e) {
+                MessageBoxService.ShowMessage(e.Message, "Полиатлон", MessageButton.OK, MessageIcon.Error);
+            }
+            catch (Exception e) {
+                MessageBoxService.ShowMessage(e.Message, "Полиатлон", MessageButton.OK, MessageIcon.Error);
             }
         }
 
@@ -230,7 +225,35 @@ namespace Polyathlon.ViewModels.Common
         /// </summary>
         public virtual bool CanDelete()
         {
-            return ViewEntity != null && !IsNew();
+            return (ViewEntity is not null) && (ViewEntity.Rev is not null);
+        }
+
+        public async virtual void Refresh() {
+            if (MessageBoxService.ShowMessage(string.Format(CommonResources.Confirmation_Refresh, typeof(TEntity).Name), GetConfirmationMessageTitle(), MessageButton.YesNo) != MessageResult.Yes)
+                return;
+            try {
+                if (ViewEntity.Rev is not null)
+                    await LocalDatabase.LocalDb.RefreshEntityAsync<TViewEntity, TEntity>(ViewEntity);
+                //_ParentViewModel.RaisePropertiesChanged();
+                Close();
+            }
+            catch (ConnectException e) {
+                MessageBoxService.ShowMessage(e.Message, "Полиатлон", MessageButton.OK, MessageIcon.Error);
+            }
+            catch (DbException e) {
+                MessageBoxService.ShowMessage(e.Message, "Полиатлон", MessageButton.OK, MessageIcon.Error);
+            }
+            catch (Exception e) {
+                MessageBoxService.ShowMessage(e.Message, "Полиатлон", MessageButton.OK, MessageIcon.Error);
+            }
+        }
+
+        /// <summary>
+        /// Determines whether the entity can be deleted.
+        /// Since SingleObjectViewModelBase is a POCO view model, this method will be used as a CanExecute callback for DeleteCommand.
+        /// </summary>
+        public virtual bool CanRefresh() {
+            return (ViewEntity is not null) && (ViewEntity.Rev is not null);
         }
 
         /// <summary>
@@ -255,8 +278,11 @@ namespace Polyathlon.ViewModels.Common
             {
                 bool isNewEntity = IsNew();
                 OldViewEntity.Entity = ViewEntity.Entity;
-                _ParentViewModel.RaisePropertiesChanged();
-                await LocalDatabase.LocalDb.SaveEntityAsync<TViewEntity, TEntity>(ViewEntity).ConfigureAwait(false);
+                if (ViewEntity.Rev is null )
+                    await LocalDatabase.LocalDb.SaveNewEntityAsync<TViewEntity, TEntity>(ViewEntity).ConfigureAwait(false);
+                else
+                //_ParentViewModel.RaisePropertiesChanged();
+                    await LocalDatabase.LocalDb.SaveEntityAsync<TViewEntity, TEntity>(ViewEntity).ConfigureAwait(false);
                 //ViewEntityBase
                 //if (!isNewEntity)
                 //{
@@ -338,10 +364,17 @@ namespace Polyathlon.ViewModels.Common
             //    Entity = null;
             
             if (parameter is SingleModelAction.New) {
-                TEntity ent = new();
-                ent.Id = Ulid.NewUlid().ToString();
-                ViewEntity = createNewViewEntity(ent);
-                OldViewEntity = (TViewEntity)ViewEntity.Clone();
+                if (_ParentViewModel is CollectionViewModel<TViewEntity, TEntity> parent) {
+                    var request = parent.ModuleDescription.Requests[0].Url;
+                    TEntity entity = new();
+                    var idPrefix = string.Empty;
+                    if (request?.PathSegments?[1] is not null) {
+                        idPrefix = request?.PathSegments?[1] == "_partition" ? request?.PathSegments?[2] : string.Empty;
+                    }
+                    entity.Id = idPrefix + ":" + Ulid.NewUlid().ToString();
+                    ViewEntity = createNewViewEntity(entity, request);
+                    OldViewEntity = (TViewEntity)ViewEntity.Clone();
+                }
             }
             else if (parameter is System.ValueTuple<TViewEntity, SingleModelAction> viewParam) {
                 var (viewEntity, operation) = viewParam;
@@ -389,15 +422,18 @@ namespace Polyathlon.ViewModels.Common
 
         protected void CreateAndInitializeEntity(Action<TViewEntity> entityInitializer)
         {
-            //UpdateUnitOfWork();
+            
             this.entityInitializer = entityInitializer;
-            TEntity ent = new();
-            ent.Id = Ulid.NewUlid().ToString();
-            var entity = createNewViewEntity(ent);
-            //if (this.entityInitializer != null)
-            //    this.entityInitializer(entity);
-            //Entity = entity;
-            isEntityNewAndUnmodified = true;
+            if (_ParentViewModel is CollectionViewModel<TViewEntity, TEntity> parent) {
+                var request = parent.ModuleDescription.Requests[0].Url;
+                TEntity entity = new();
+                entity.Id = Ulid.NewUlid().ToString();
+                var NewViewEntity = createNewViewEntity(entity, request);
+                //if (this.entityInitializer != null)
+                //    this.entityInitializer(entity);
+                //Entity = entity;
+                isEntityNewAndUnmodified = true;
+            }
         }
 
         protected void LoadEntityByKey(string primaryKey)

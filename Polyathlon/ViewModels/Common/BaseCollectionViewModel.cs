@@ -6,6 +6,7 @@ using Polyathlon.Db.Common;
 using Polyathlon.Db.ModuleDb;
 using Polyathlon.Models.Common;
 using Polyathlon.Models.Entities;
+using Polyathlon.Db.LocalDb;
 
 namespace Polyathlon.ViewModels.Common;
 
@@ -28,6 +29,7 @@ public partial class CollectionViewModel<TViewEntity, TEntity> : CollectionViewM
         if (MessageBoxService.ShowMessage(string.Format(CommonResources.Confirmation_Delete, typeof(TEntity).Name), CommonResources.Confirmation_Caption, MessageButton.YesNo) != MessageResult.Yes)
             return;
         try {
+            LocalDatabase.LocalDb.DeleteEntityAsync<TViewEntity, TEntity>(ViewEntity);
             Entities.Remove(ViewEntity);
             this.RaisePropertyChanged(y => y.Entities);
             //Entities.Remove(ViewEntity);
@@ -40,10 +42,15 @@ public partial class CollectionViewModel<TViewEntity, TEntity> : CollectionViewM
             //    OnEntityDeleted(primaryKey, entity);
             //}
         }
-        catch (DbException e) {
-            //Refresh();
+        catch (ConnectException e) {
             MessageBoxService.ShowMessage(e.Message, "Полиатлон", MessageButton.OK, MessageIcon.Error);
         }
+        catch (DbException e) {
+            MessageBoxService.ShowMessage(e.Message, "Полиатлон", MessageButton.OK, MessageIcon.Error);
+        }
+        catch (Exception e) {
+            MessageBoxService.ShowMessage(e.Message, "Полиатлон", MessageButton.OK, MessageIcon.Error);
+        }        
     }
     //public static BaseCollectionViewModel Create(object a)
     //{

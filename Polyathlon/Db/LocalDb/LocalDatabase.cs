@@ -13,7 +13,6 @@ using Polyathlon.Models.Common;
 
 namespace Polyathlon.Db.LocalDb;
 
-
 /// <summary>
 /// The base class for unit of works that provides the storage for repositories. 
 /// </summary>
@@ -71,6 +70,13 @@ public sealed class LocalDatabase {
                 lock (SyncRoot) {
                     if (localDb == null)
                         localDb = new LocalDatabase();
+                    //FlurlHttp.Configure(settings => {
+                    //    var jsonSettings = new Newtonsoft.Json.JsonSerializerSettings {
+                    //        NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore,
+                    //        ///ObjectCreationHandling = ObjectCreationHandling.Replace
+                    //    };
+                    //    settings.JsonSerializer = new NewtonsoftJsonSerializer(jsonSettings);
+                    //});
                 }
             }
             return localDb;
@@ -126,13 +132,63 @@ public sealed class LocalDatabase {
 #if DEBUG
         Debug.WriteLine($"Before check: {Thread.CurrentThread.ManagedThreadId}");
 #endif
-        Url url = $@"{viewEntity.Url.Origin()}/{viewEntity.Id}";
+        Url url = $@"{viewEntity.Request.Origin()}/{viewEntity.Id}";
         //return response.ResponseMessage.Headers?.ETag?.Tag ?? "";
         var response = await CheckEntityResponse(url).ConfigureAwait(false);
 #if DEBUG
         Debug.WriteLine($"After check: {Thread.CurrentThread.ManagedThreadId}");
 #endif
         return response?.ResponseMessage.Headers?.ETag?.Tag.Trim('"') == viewEntity.Rev;
+    }
+
+    public async ValueTask<IFlurlResponse?> DeleteEntityResponseAsync<TViewEntity, TEntity>(TViewEntity viewEntity)
+        where TViewEntity : ViewEntityBase<TEntity>
+        where TEntity : EntityBase {
+        ///<summary>
+        /// URL request should be like this: "http://base.rsu.edu.ru:5984/polyathlon/region:3a1c079241b4d051b71e77e78c024b3a?rev=1-23dc079241b4d051b71e77e78c024b3a";
+        ///</summary>
+
+        Url url = $@"{viewEntity.Request.Origin()}/{viewEntity.Id}";
+
+        IFlurlClient flurlClient = flurlClientFactory.Value.Get(url.Root);
+        IFlurlRequest flurlRequest = flurlClient.Request()
+            .AppendPathSegments(url.PathSegments)
+            .SetQueryParam("rev", viewEntity.Rev)
+            .WithBasicAuth(Settings.Settings.Data.settingsDB.UserName, Settings.Settings.Data.settingsDB.Password)
+            .AllowAnyHttpStatus();
+        
+        var response = await flurlRequest.DeleteAsync().ConfigureAwait(false);
+
+        if (!response.IsSuccessful()) {
+            var errorMessage = response.ResponseMessage.Content.ReadAsStringAsync().Result;
+            throw new ConnectException(errorMessage ?? "Unknown error");
+        }
+        return response;
+    }
+
+
+    public async ValueTask<IFlurlResponse?> RefreshEntityResponseAsync<TViewEntity, TEntity>(TViewEntity viewEntity)
+       where TViewEntity : ViewEntityBase<TEntity>
+       where TEntity : EntityBase {
+        ///<summary>
+        /// URL request should be like this: "http://base.rsu.edu.ru:5984/polyathlon/region:3a1c079241b4d051b71e77e78c024b3a";
+        ///</summary>
+
+        Url url = $@"{viewEntity.Request.Origin()}/{viewEntity.Id}";
+
+        IFlurlClient flurlClient = flurlClientFactory.Value.Get(url.Root);
+        IFlurlRequest flurlRequest = flurlClient.Request()
+            .AppendPathSegments(url.PathSegments)
+            .WithBasicAuth(Settings.Settings.Data.settingsDB.UserName, Settings.Settings.Data.settingsDB.Password)
+            .AllowAnyHttpStatus();
+
+        var response = await flurlRequest.GetAsync().ConfigureAwait(false);
+
+        if (!response.IsSuccessful()) {
+            var errorMessage = response.ResponseMessage.Content.ReadAsStringAsync().Result;
+            throw new ConnectException(errorMessage ?? "Unknown error");
+        }
+        return response;
     }
 
     private string SaveEntityContent(Flurl.Url url) {
@@ -300,18 +356,20 @@ public sealed class LocalDatabase {
     where TViewEntity : ViewEntityBase<TEntity>
     where TEntity : EntityBase {
              
-        Url url = $@"{viewEntity.Url.Origin()}";
+        Url url = $@"{viewEntity.Request.Origin()}";
 
         IFlurlClient flurlClient = flurlClientFactory.Value.Get(url.Root);
         IFlurlRequest flurlRequest = flurlClient.Request()
             .AppendPathSegments(url.PathSegments)
             .WithBasicAuth(Settings.Settings.Data.settingsDB.UserName, Settings.Settings.Data.settingsDB.Password)
             .AllowAnyHttpStatus();
-
+        //viewEntity.Entity._rev = "1-view";
         var response = await flurlRequest.PostJsonAsync(viewEntity.Entity).ConfigureAwait(false);
 
-        if (!response.IsSuccessful())
-            throw new ConnectException(response.ResponseMessage.ReasonPhrase ?? "Unknown error");
+        if (!response.IsSuccessful()) {
+            var content = response.ResponseMessage.Content.ReadAsStringAsync().Result;
+            throw new ConnectException(content ?? "Unknown error");
+        }
         return response;       
     }
 
@@ -319,7 +377,7 @@ public sealed class LocalDatabase {
         where TViewEntity : ViewEntityBase<TEntity>
         where TEntity : EntityBase {
 
-        Url url = $@"{viewEntity.Url.Origin()}/{viewEntity.Id}";
+        Url url = $@"{viewEntity.Request.Origin()}/{viewEntity.Id}";
 
         IFlurlClient flurlClient = flurlClientFactory.Value.Get(url.Root);
         IFlurlRequest flurlRequest = flurlClient.Request()
@@ -366,6 +424,23 @@ public sealed class LocalDatabase {
     where TViewEntity : ViewEntityBase<TEntity> {
         var response = await SaveNewEntityResponse<TViewEntity, TEntity>(viewEntity).ConfigureAwait(false);
         viewEntity.Rev = response?.ResponseMessage.Headers?.ETag?.Tag.Trim('"');
+    }
+
+
+    public async Task DeleteEntityAsync<TViewEntity, TEntity>(TViewEntity viewEntity)
+        where TEntity : EntityBase
+        where TViewEntity : ViewEntityBase<TEntity> {
+        await DeleteEntityResponseAsync<TViewEntity, TEntity>(viewEntity).ConfigureAwait(false);        
+    }
+
+    public async Task RefreshEntityAsync<TViewEntity, TEntity>(TViewEntity viewEntity)
+    where TEntity : EntityBase
+    where TViewEntity : ViewEntityBase<TEntity> {
+        var response = await RefreshEntityResponseAsync<TViewEntity, TEntity>(viewEntity).ConfigureAwait(false);
+        if (viewEntity.Rev == response?.ResponseMessage.Headers?.ETag?.Tag.Trim('"')) {
+            string content = response.ResponseMessage.Content.ReadAsStringAsync().Result;
+            TEntity entity = Newtonsoft.Json.JsonConvert.DeserializeObject<TEntity>(content);            
+        }
     }
 
     public IDictionary GetLocalDbTable<TEntity, TViewEntity>(string request, Func<TEntity, Url, TViewEntity> createViewEntity)

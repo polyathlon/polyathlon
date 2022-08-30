@@ -8,9 +8,7 @@ public abstract class ViewEntityBase<TEntity> : ICloneable
     [Display(Name = "Идентификатор", AutoGenerateField = false)]
     public string? Id {
         get => entity.Id;
-        set { 
-            entity.Id = value;            
-        }
+        set => entity.Id = value;        
     }
 
     // [Display(Name = "Тест", AutoGenerateField = false)]
@@ -48,11 +46,11 @@ public abstract class ViewEntityBase<TEntity> : ICloneable
     }
 
     [Display(AutoGenerateField = false)]
-    public Flurl.Url Url { get; set; }
+    public Flurl.Url Request { get; set; }
 
-    public ViewEntityBase(TEntity entity, Flurl.Url url) {
+    public ViewEntityBase(TEntity entity, Flurl.Url request) {
         this.entity = entity;
-        Url = url;
+        Request = request;
     }
 
     public abstract object Clone();

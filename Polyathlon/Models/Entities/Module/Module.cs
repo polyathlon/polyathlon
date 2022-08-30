@@ -20,7 +20,7 @@ public record class Module : EntityBase {
     public TileOptions Tile { get; set; } = new();
 
     public record class Request {
-        public string? Url { get; set; }
+        public Flurl.Url? Url { get; set; }
     }
 
     public record class TileOptions {

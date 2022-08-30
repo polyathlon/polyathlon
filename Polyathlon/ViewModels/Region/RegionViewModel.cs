@@ -34,9 +34,9 @@ namespace Polyathlon.ViewModels
             return ViewModelSource.Create(() => new RegionViewModel());
         }
 
-        protected static RegionViewEntity CreateNewViewEntity(Region region) {
+        protected static RegionViewEntity CreateNewViewEntity(Region region, Flurl.Url request) {
             Region entity = region with { };
-            RegionViewEntity regionViewEntity = new(entity, "111");
+            RegionViewEntity regionViewEntity = new(entity, request);
             return regionViewEntity;
         }
 

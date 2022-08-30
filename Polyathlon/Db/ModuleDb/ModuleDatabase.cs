@@ -60,11 +60,11 @@ public sealed class ModuleDatabase {
         where TEntity : EntityBase 
         where TViewEntity : ViewEntityBase<TEntity> { 
         object? result;
-        if (!tables.TryGetValue(request.Origin(), out result)) {
+        if (!tables.TryGetValue(request, out result)) {
             lock (SyncRoot) {
-                if (!tables.TryGetValue(request.Origin(), out result)) {    
-                    IDictionary ViewEntities = LocalDatabase.LocalDb.GetLocalDbTable<TEntity, TViewEntity>(request, createViewEntity);    
-                    tables[request.Origin()] = result = ViewEntities;
+                if (!tables.TryGetValue(request, out result)) {    
+                    IDictionary ViewEntities = LocalDatabase.LocalDb.GetLocalDbTable<TEntity, TViewEntity>(request, createViewEntity);
+                    tables[request] = result = ViewEntities;
                 }
             }
         }

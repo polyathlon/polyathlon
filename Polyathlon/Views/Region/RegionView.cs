@@ -27,6 +27,8 @@ namespace Polyathlon.Views {
             fluentAPI.BindCommand(backWindowsUIButtonPanel.Buttons[0] as WindowsUIButton, x => x.Close());
             fluentAPI.BindCommandAndImage(windowsUIButtonPanel.Buttons[0], x => x.SaveAndClose());
             fluentAPI.BindCommandAndImage(windowsUIButtonPanel.Buttons[1], x => x.Close(), "Cancel");
+            fluentAPI.BindCommandAndImage(windowsUIButtonPanel.Buttons[3], x => x.Delete(), "Delete");
+            fluentAPI.BindCommandAndImage(windowsUIButtonPanel.Buttons[4], x => x.Refresh(), "Refresh");
             //fluentAPI.SetBinding(ordersGridControl, g => g.DataSource, x => x.CustomerOrdersDetails.Entities);
             //fluentAPI.SetBinding(dateTimeChartRangeControlClient.DataProvider, d => d.DataSource, x => x.CustomerOrdersDetails.Entities);
             fluentAPI.SetBinding(customerNameSimpleLabelItem, l => l.Text, x => x.Title);

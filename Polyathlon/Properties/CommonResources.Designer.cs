@@ -176,5 +176,15 @@ namespace Polyathlon {
                 return ResourceManager.GetString("Warning_SomeFieldsContainInvalidData", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Some fields contain invalid data. Click OK to close the page and lose unsaved changes. Press Cancel to continue editing data..
+        /// </summary>
+        internal static string Confirmation_Refresh {
+            get {
+                return ResourceManager.GetString("Confirmation_Refresh", resourceCulture);
+            }
+        }
+
     }
 }
