@@ -159,4 +159,13 @@
   <data name="Confirmation_Refresh" xml:space="preserve">
     <value>Do you want to refresh this {0}?</value>
   </data>
+  <data name="Entity_Not_Changed" xml:space="preserve">
+    <value>The entry has not changed.</value>
+  </data>
+  <data name="Entity_Not_Saved_Yet" xml:space="preserve">
+    <value>The entry has not been saved yet</value>
+  </data>
+  <data name="Entity_Was_Updated" xml:space="preserve">
+    <value>The entry was updated successful</value>
+  </data>
 </root>

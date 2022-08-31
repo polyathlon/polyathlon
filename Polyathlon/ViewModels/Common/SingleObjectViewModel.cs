@@ -132,8 +132,10 @@ namespace Polyathlon.ViewModels.Common
         public async void SaveAndClose() {
 #if DEBUG
             Debug.WriteLine($"Before close: {Thread.CurrentThread.ManagedThreadId}");
-#endif
+#endif      
             if (await SaveCore()) {
+                this.RaisePropertyChanged(x => x.ViewEntity);
+                _ParentViewModel.RaisePropertiesChanged();
                 this.Close();
             }
 #if DEBUG
@@ -226,13 +228,22 @@ namespace Polyathlon.ViewModels.Common
         }
 
         public async virtual void Refresh() {
-            if (MessageBoxService.ShowMessage(string.Format(CommonResources.Confirmation_Refresh, typeof(TEntity).Name), GetConfirmationMessageTitle(), MessageButton.YesNo) != MessageResult.Yes)
-                return;
             try {
-                if (ViewEntity.Rev is not null)
-                    await LocalDatabase.LocalDb.RefreshEntityAsync<TViewEntity, TEntity>(ViewEntity);
-                //_ParentViewModel.RaisePropertiesChanged();
-                Close();
+                if (ViewEntity.Rev is null) {
+                    MessageBoxService.ShowMessage(CommonResources.Entity_Not_Saved_Yet, GetConfirmationMessageTitle(), MessageButton.OK);
+                    return;
+                }
+                TEntity? entityDb = await LocalDatabase.LocalDb.GetEntityAsync<TViewEntity, TEntity>(ViewEntity);
+                if (entityDb is null) {
+                     MessageBoxService.ShowMessage(CommonResources.Entity_Not_Changed, GetConfirmationMessageTitle(), MessageButton.OK);
+                     return;
+                }
+                if (MessageBoxService.ShowMessage(string.Format(CommonResources.Confirmation_Refresh, typeof(TEntity).Name), GetConfirmationMessageTitle(), MessageButton.YesNo) != MessageResult.Yes)
+                    return;
+                ViewEntity.Entity = entityDb;
+                this.RaisePropertyChanged(x => x.ViewEntity);
+                OnEntityChanged();
+                MessageBoxService.ShowMessage(CommonResources.Entity_Was_Updated, GetConfirmationMessageTitle(), MessageButton.OK);                                
             }
             catch (ConnectException e) {
                 MessageBoxService.ShowMessage(e.Message, "Полиатлон", MessageButton.OK, MessageIcon.Error);
@@ -278,8 +289,7 @@ namespace Polyathlon.ViewModels.Common
                 if (ViewEntity.Rev is null )
                     await LocalDatabase.LocalDb.SaveNewEntityAsync<TViewEntity, TEntity>(ViewEntity).ConfigureAwait(false);
                 else
-                //_ParentViewModel.RaisePropertiesChanged();
-                    await LocalDatabase.LocalDb.SaveEntityAsync<TViewEntity, TEntity>(ViewEntity).ConfigureAwait(false);
+                    await LocalDatabase.LocalDb.SaveEntityAsync<TViewEntity, TEntity>(ViewEntity).ConfigureAwait(false);                
                 //ViewEntityBase
                 //if (!isNewEntity)
                 //{

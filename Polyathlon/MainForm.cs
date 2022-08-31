@@ -130,8 +130,8 @@ namespace Polyathlon
 
         async private void button2_Click(object sender, EventArgs e)
         {
-            await using var context = new MyCouchDBContext();
-            var Rebels = await context.Rebels.Where(r => r.Name == "Владислав").ToListAsync();
+            //await using var context = new MyCouchDBContext();
+            //var Rebels = await context.Rebels.Where(r => r.Name == "Владислав").ToListAsync();
         }
         class myClass
         {
@@ -141,42 +141,42 @@ namespace Polyathlon
 
         private async void button3_Click(object sender, EventArgs e)
         {            
-            couchServer1.UserName = Settings.Settings.Data.settingsDB.UserName;
-            couchServer1.Password = Settings.Settings.Data.settingsDB.Password;
-            textBox1.Text = couchServer1.Uri.ToString();
-            IFlurlClientFactory? flurlClientFactory = new PerBaseUrlFlurlClientFactory();
-            IFlurlClient flurlClient = flurlClientFactory.Get("http://localhost:5984");
-            //IFlurlRequest flurlRequest = flurlClient.Request().AppendPathSegments("polyathlon", "_all_docs").AppendPathSegment("_all_docs")
-            IFlurlRequest flurlRequest = flurlClient.Request().AppendPathSegments("my-base","_partition", "part", "_all_docs")//.AppendPathSegment("_all_docs")
-                .WithBasicAuth("admin", "admin")
-                .AllowAnyHttpStatus();
-            try
-            {
-                var response = await flurlRequest.GetAsync();// JsonAsync();
-                var responseBody = response.ResponseMessage;
-                var output = responseBody.Content.ReadAsStringAsync().Result;
-                JObject rss = JObject.Parse(output);
-                //   textBox1.Text = responseBody.Content.ReadAsStringAsync().Result;
-                //JObject rss = rss["rows"];// . JObject.Parse(output);
-                textBox1.Text = rss["rows"].ToString();// responseBody.Content.ReadAsStringAsync().Result;
+            //couchServer1.UserName = Settings.Settings.Data.settingsDB.UserName;
+            //couchServer1.Password = Settings.Settings.Data.settingsDB.Password;
+            //textBox1.Text = couchServer1.Uri.ToString();
+            //IFlurlClientFactory? flurlClientFactory = new PerBaseUrlFlurlClientFactory();
+            //IFlurlClient flurlClient = flurlClientFactory.Get("http://localhost:5984");
+            ////IFlurlRequest flurlRequest = flurlClient.Request().AppendPathSegments("polyathlon", "_all_docs").AppendPathSegment("_all_docs")
+            //IFlurlRequest flurlRequest = flurlClient.Request().AppendPathSegments("my-base","_partition", "part", "_all_docs")//.AppendPathSegment("_all_docs")
+            //    .WithBasicAuth("admin", "admin")
+            //    .AllowAnyHttpStatus();
+            //try
+            //{
+            //    var response = await flurlRequest.GetAsync();// JsonAsync();
+            //    var responseBody = response.ResponseMessage;
+            //    var output = responseBody.Content.ReadAsStringAsync().Result;
+            //    JObject rss = JObject.Parse(output);
+            //    //   textBox1.Text = responseBody.Content.ReadAsStringAsync().Result;
+            //    //JObject rss = rss["rows"];// . JObject.Parse(output);
+            //    textBox1.Text = rss["rows"].ToString();// responseBody.Content.ReadAsStringAsync().Result;
                 
-                //var myClass = JsonConvert.DeserializeObject<myClass>(output);
-                dynamic results = JsonConvert.DeserializeObject<dynamic>(output);
-                //results
-                //JObject googleSearch = JObject.Parse(googleSearchText);
-                //textBox1.Text = myClass.Status;
-                textBox1.Text = results.rows;
-                //if (response is { StatusCode: (int)HttpStatusCode.OK })
-                {
-                    //var result = await Task.FromResult(response).ReceiveString();
-                }
+            //    //var myClass = JsonConvert.DeserializeObject<myClass>(output);
+            //    dynamic results = JsonConvert.DeserializeObject<dynamic>(output);
+            //    //results
+            //    //JObject googleSearch = JObject.Parse(googleSearchText);
+            //    //textBox1.Text = myClass.Status;
+            //    textBox1.Text = results.rows;
+            //    //if (response is { StatusCode: (int)HttpStatusCode.OK })
+            //    {
+            //        //var result = await Task.FromResult(response).ReceiveString();
+            //    }
                 
-                //textBox1.Text = response.ToString();
-            }
-            catch (Exception ex)
-            {                
-                Debug.WriteLine(ex.ToString());
-            }
+            //    //textBox1.Text = response.ToString();
+            //}
+            //catch (Exception ex)
+            //{                
+            //    Debug.WriteLine(ex.ToString());
+            //}
             
 
 

@@ -23,63 +23,63 @@ namespace Polyathlon.Forms
         private async void CreateDBButton_Click(object sender, EventArgs e)
         {
             // Получение сервера по Host, используя базовую аутентификацию
-            await using var client = new CouchClient(Settings.Settings.Data.settingsDB.Host, builder => builder
-                .UseBasicAuthentication(Settings.Settings.Data.settingsDB.UserName,
-                                        Settings.Settings.Data.settingsDB.Password));
+            //await using var client = new CouchClient(Settings.Settings.Data.settingsDB.Host, builder => builder
+            //    .UseBasicAuthentication(Settings.Settings.Data.settingsDB.UserName,
+            //                            Settings.Settings.Data.settingsDB.Password));
 
-            try
-            {
-                // Получение или создание БД regions
-                var regions = client.GetOrCreateDatabaseAsync<Entities.Region>().Result;
+            //try
+            //{
+            //    // Получение или создание БД regions
+            //    var regions = client.GetOrCreateDatabaseAsync<Entities.Region>().Result;
 
-                var content = regions.ToArray();
-                if (content.Length == 0)
-                {
-                    // Создание документов в БД regions, если их нет
-                    foreach (var name in Entities.Region.Regions)
-                    {
-                        await regions.AddAsync(new Entities.Region(name, name));
-                    }
+            //    var content = regions.ToArray();
+            //    if (content.Length == 0)
+            //    {
+            //        // Создание документов в БД regions, если их нет
+            //        foreach (var name in Entities.Region.Regions)
+            //        {
+            //            await regions.AddAsync(new Entities.Region(name, name));
+            //        }
 
-                    MessageBox.Show("БД создана");
-                }
-                else
-                {
-                    MessageBox.Show("БД уже существует");
-                }
-            }
-            catch
-            {
-                MessageBox.Show("Error");
-            }
+            //        MessageBox.Show("БД создана");
+            //    }
+            //    else
+            //    {
+            //        MessageBox.Show("БД уже существует");
+            //    }
+            //}
+            //catch
+            //{
+            //    MessageBox.Show("Error");
+            //}
         }
 
         private async void OutputRegionsButton_Click(object sender, EventArgs e)
         {
             // Получение клиента по Host, используя базовую аутентификацию
-            await using var client = new CouchClient(Settings.Settings.Data.settingsDB.Host, builder => builder
-                .UseBasicAuthentication(Settings.Settings.Data.settingsDB.UserName,
-                                        Settings.Settings.Data.settingsDB.Password));
+            //await using var client = new CouchClient(Settings.Settings.Data.settingsDB.Host, builder => builder
+            //    .UseBasicAuthentication(Settings.Settings.Data.settingsDB.UserName,
+            //                            Settings.Settings.Data.settingsDB.Password));
 
-            try
-            {
-                // Получение БД regions
-                var regions = client.GetDatabase<Entities.Region>();
-                // Получение документов
-                var content = regions.Take(int.MaxValue).ToList();
-                if (content.Count == 0)
-                {
-                    MessageBox.Show("Документов нет");
-                }
-                else
-                {
-                    gridControl1.DataSource = content;
-                }
-            }
-            catch
-            {
-                MessageBox.Show("Error");
-            }
+            //try
+            //{
+            //    // Получение БД regions
+            //    var regions = client.GetDatabase<Entities.Region>();
+            //    // Получение документов
+            //    var content = regions.Take(int.MaxValue).ToList();
+            //    if (content.Count == 0)
+            //    {
+            //        MessageBox.Show("Документов нет");
+            //    }
+            //    else
+            //    {
+            //        gridControl1.DataSource = content;
+            //    }
+            //}
+            //catch
+            //{
+            //    MessageBox.Show("Error");
+            //}
         }
     }
 }

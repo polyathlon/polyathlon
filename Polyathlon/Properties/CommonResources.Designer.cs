@@ -142,6 +142,33 @@ namespace Polyathlon.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The entry has not changed..
+        /// </summary>
+        internal static string Entity_Not_Changed {
+            get {
+                return ResourceManager.GetString("Entity_Not_Changed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The entry has not been saved yet.
+        /// </summary>
+        internal static string Entity_Not_Saved_Yet {
+            get {
+                return ResourceManager.GetString("Entity_Not_Saved_Yet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The entry was updated successful.
+        /// </summary>
+        internal static string Entity_Was_Updated {
+            get {
+                return ResourceManager.GetString("Entity_Was_Updated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to DataService Request Error.
         /// </summary>
         internal static string Exception_DataServiceRequestErrorCaption {

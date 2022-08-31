@@ -15,19 +15,19 @@ public class ChangeUserViewModel
 
     public void Update()
     {
-        Settings.Settings.Data.settingsDB.UserName = CurrentUser.Login;
-        Settings.Settings.Data.settingsDB.Password = CurrentUser.Password;
+    //    Settings.Settings.Data.settingsDB.UserName = CurrentUser.Login;
+    //    Settings.Settings.Data.settingsDB.Password = CurrentUser.Password;
 
-        Properties.Settings.Default.UserName = CurrentUser.Login;
-        Properties.Settings.Default.Password = CurrentUser.Password;
+    //    Properties.Settings.Default.UserName = CurrentUser.Login;
+    //    Properties.Settings.Default.Password = CurrentUser.Password;
 
-        Properties.Settings.Default.Save();
+    //    Properties.Settings.Default.Save();
     }
 
     [DevExpress.Mvvm.DataAnnotations.Command(false)]
     public void Init()
     {
-        CurrentUser = new(Settings.Settings.Data.settingsDB.UserName,
-                          Settings.Settings.Data.settingsDB.Password);
+        //CurrentUser = new(Settings.Settings.Data.settingsDB.UserName,
+        //                  Settings.Settings.Data.settingsDB.Password);
     }
 }

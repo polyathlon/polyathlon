@@ -10,18 +10,18 @@ using CouchDB.Driver;
 
 namespace Polyathlon
 {
-    internal class MyCouchDBContext : CouchContext
-    {
-        //public CouchDatabase<Entities.Region> Regions { get; set; }
-        public CouchDatabase<Entities.Rebel> Rebels { get; set; }
+    //internal class MyCouchDBContext : CouchContext
+    //{
+    //    //public CouchDatabase<Entities.Region> Regions { get; set; }
+    //    public CouchDatabase<Entities.Rebel> Rebels { get; set; }
 
-        protected override void OnConfiguring(CouchOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder
-                .UseEndpoint(Settings.Settings.Data.settingsDB.Host)
-                .EnsureDatabaseExists()
-                .UseBasicAuthentication(Settings.Settings.Data.settingsDB.UserName,
-                                        Settings.Settings.Data.settingsDB.Password);
-        }
-    }
+    //    protected override void OnConfiguring(CouchOptionsBuilder optionsBuilder)
+    //    {
+    //        optionsBuilder
+    //            .UseEndpoint(Settings.Settings.Data.settingsDB.Host)
+    //            .EnsureDatabaseExists()
+    //            .UseBasicAuthentication(Settings.Settings.Data.settingsDB.UserName,
+    //                                    Settings.Settings.Data.settingsDB.Password);
+    //    }
+    //}
 }
