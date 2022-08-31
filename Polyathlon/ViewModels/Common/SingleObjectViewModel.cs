@@ -1,9 +1,5 @@
-using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
 using DevExpress.Mvvm;
 using DevExpress.Mvvm.POCO;
 using DevExpress.Mvvm.DataAnnotations;
@@ -13,6 +9,7 @@ using CSharp.Ulid;
     using System.Diagnostics;
 #endif
 
+using Polyathlon.Properties;
 using Polyathlon.Db.Common;
 
 using Polyathlon.Db.LocalDb;
@@ -163,7 +160,7 @@ namespace Polyathlon.ViewModels.Common
         [Display(Name = "Reset Changes")]
         public void Reset()
         {
-            MessageResult confirmationResult = MessageBoxService.ShowMessage(Polyathlon.CommonResources.Confirmation_Reset, CommonResources.Confirmation_Caption, MessageButton.OKCancel);
+            MessageResult confirmationResult = MessageBoxService.ShowMessage(CommonResources.Confirmation_Reset, CommonResources.Confirmation_Caption, MessageButton.OKCancel);
             if (confirmationResult == MessageResult.OK)
                 Reload();
         }

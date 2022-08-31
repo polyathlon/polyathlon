@@ -10,6 +10,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="CommonResources.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Images\Menu\Customers.svg" />
   </ItemGroup>
 
@@ -26,6 +30,16 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Properties\CommonResources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>CommonResources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Properties\LayoutSettings.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>LayoutSettings.settings</DependentUpon>
+    </Compile>
     <Compile Update="Properties\Resources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -35,11 +49,6 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
-    </Compile>
-    <Compile Update="Settings\LayoutSettings.Designer.cs">
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>LayoutSettings.settings</DependentUpon>
     </Compile>
     <Compile Update="Views\Common\MapView.cs">
       <SubType>UserControl</SubType>
@@ -54,13 +63,17 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <None Update="Settings\LayoutSettings.settings">
+    <None Update="Properties\LayoutSettings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>LayoutSettings.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="Properties\CommonResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>CommonResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Update="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

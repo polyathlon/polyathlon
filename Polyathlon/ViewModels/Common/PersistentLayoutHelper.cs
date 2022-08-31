@@ -1,6 +1,4 @@
-﻿
-using Polyathlon.Settings;
-using DevExpress.Mvvm;
+﻿using DevExpress.Mvvm;
 
 namespace Polyathlon.ViewModels.Common
 {
@@ -8,8 +6,8 @@ namespace Polyathlon.ViewModels.Common
     {
         public static string? PersistentLogicalLayout
         {
-            get { return Settings.LayoutSettings.Default.LogicalLayout; }
-            set { Settings.LayoutSettings.Default.LogicalLayout = value; }
+            get { return Properties.LayoutSettings.Default.LogicalLayout; }
+            set { Properties.LayoutSettings.Default.LogicalLayout = value; }
         }
 
         static Dictionary<string, string>? persistentViewsLayout;
@@ -19,7 +17,7 @@ namespace Polyathlon.ViewModels.Common
             {
                 if (persistentViewsLayout == null)
                 {
-                    persistentViewsLayout = LogicalLayoutSerializationHelper.Deserialize(Settings.LayoutSettings.Default.ViewsLayout);
+                    persistentViewsLayout = LogicalLayoutSerializationHelper.Deserialize(Properties.LayoutSettings.Default.ViewsLayout);
                 }
                 return persistentViewsLayout;
             }
@@ -44,8 +42,8 @@ namespace Polyathlon.ViewModels.Common
 
         public static void SaveLayout()
         {
-            Settings.LayoutSettings.Default.ViewsLayout = LogicalLayoutSerializationHelper.Serialize(PersistentViewsLayout);
-            Settings.LayoutSettings.Default.Save();
+            Properties.LayoutSettings.Default.ViewsLayout = LogicalLayoutSerializationHelper.Serialize(PersistentViewsLayout);
+            Properties.LayoutSettings.Default.Save();
         }
 
         public static void ResetLayout()

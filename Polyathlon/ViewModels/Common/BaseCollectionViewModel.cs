@@ -7,6 +7,7 @@ using Polyathlon.Db.ModuleDb;
 using Polyathlon.Models.Common;
 using Polyathlon.Models.Entities;
 using Polyathlon.Db.LocalDb;
+using Polyathlon.Properties;
 
 namespace Polyathlon.ViewModels.Common;
 
