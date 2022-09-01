@@ -55,10 +55,16 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Update="Views\Club\ClubCollectionView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Update="Views\Common\MapView.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Update="Views\ChangeUser\ChangeUserView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Views\Club\ClubView.cs">
       <SubType>UserControl</SubType>
     </Compile>
   </ItemGroup>
@@ -86,6 +92,12 @@
     <EmbeddedResource Update="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Club\ClubView.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Club\ClubCollectionView.resx">
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
 
