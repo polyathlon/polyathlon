@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Polyathlon.Models.Common;
+using Polyathlon.Db.ModuleDb;
 
 namespace Polyathlon.Models.Entities;
 
@@ -19,7 +20,7 @@ public class ClubViewEntity : ViewEntityBase<Club> {
     
     [Display(Name = "Команда")]
     public string? RegionName {
-        get => entity.Region;
+        get => ModuleDatabase.ModuleDb.GetViewEntities<RegionViewEntity>("module:01GA69CF93RKFMC2EA07EZ4YHY", entity.Region).Name;
         set => entity.Region = value;
     }
 

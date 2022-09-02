@@ -13,8 +13,7 @@ public partial class ClubCollectionViewModel : CollectionViewModel<ClubViewEntit
 {
     /// <summary>
     /// Creates a new instance of CustomerCollectionViewModel as a POCO view model.
-    /// </summary>
-    /// <param name="unitOfWorkFactory">A factory used to create a unit of work instance.</param>
+    /// </summary>    
 
     //private LocalViewDbBase localViewDb;
     

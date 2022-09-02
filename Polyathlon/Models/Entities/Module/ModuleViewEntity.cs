@@ -40,6 +40,12 @@ public class ModuleViewEntity : ViewEntityBase<Module> {
         get => entity.Requests;
         set => entity.Requests = value;
     }
+    
+    [Display(Name = "Список зависимостей")]
+    public List<Module.Dependency> Dependencies {
+        get => entity.Dependencies;
+        set => entity.Dependencies = value;
+    }
 
     [Display(Name = "Параметры отображения")]
 

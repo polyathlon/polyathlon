@@ -109,7 +109,7 @@ public partial class CollectionViewModel<TViewEntity, TEntity> : CollectionViewM
 
     protected void OnParameterChanged()
     {
-        ModuleDescription = (ModuleViewEntity)Parameter;
+        ModuleDescription = (ModuleViewEntity)Parameter;        
         LoadEntities();
         //LoadEntities();
         //Entities = new(moduleDb.GetModuleViewCollection<TEntity, TViewEntity>(ModuleDescription, createViewEntity).Values);
@@ -167,7 +167,7 @@ public partial class CollectionViewModel<TViewEntity, TEntity> : CollectionViewM
         }, cancellationTokenSource.Token, TaskContinuationOptions.None, TaskScheduler.FromCurrentSynchronizationContext());
         return cancellationTokenSource;
     }
-
+       
     //protected RegionCollectionViewModel(object a)    
     //{
 

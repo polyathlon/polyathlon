@@ -16,11 +16,18 @@ public record class Module : EntityBase {
     public string? SortOrder { get; set; }
 
     public List<Request> Requests = new();
-    
+
+    public List<Dependency> Dependencies = new();
+
     public TileOptions Tile { get; set; } = new();
 
     public record class Request {
         public Flurl.Url? Url { get; set; }
+    }
+    
+    //"module:01GA69CF93RKFMC2EA07EZ4YHY"
+    public record class Dependency {
+        public String? Module { get; set; }
     }
 
     public record class TileOptions {
