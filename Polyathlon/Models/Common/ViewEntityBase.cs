@@ -2,36 +2,20 @@
 
 namespace Polyathlon.Models.Common;
 
-public abstract class ViewEntityBase<TEntity> : ICloneable
-    where TEntity : EntityBase {
-
+public abstract class ViewEntityBase<TEntity>
+    : ICloneable
+    where TEntity : EntityBase
+{
     [Display(Name = "Идентификатор", AutoGenerateField = false)]
-    public string? Id {
+    public string? Id
+    {
         get => entity.Id;
-        set => entity.Id = value;        
+        set => entity.Id = value;
     }
 
-    // [Display(Name = "Тест", AutoGenerateField = false)]
-    //string test = "";
-    //public string? Test {
-    //    get => test;
-    //    set {
-    //        test = value;
-    //        //((IPOCOViewModel)this).RaisePropertyChanged(test);
-    //        //    this.RaisePropertyChanged(x => x.Id);
-    //    }
-    //}
-
-
-    //{
-    //        test = value;
-    //        //((IPOCOViewModel)this).RaisePropertyChanged(test);
-    //        //    this.RaisePropertyChanged(x => x.Id);
-    //    }
-    //}
-
     [Display(Name = "Ревизия", AutoGenerateField = false)]
-    public string? Rev {
+    public string? Rev
+    {
         get => entity.Rev;
         set => entity.Rev = value;
     }
@@ -40,7 +24,8 @@ public abstract class ViewEntityBase<TEntity> : ICloneable
     protected TEntity entity;
 
     [Display(AutoGenerateField = false)]
-    public TEntity Entity {
+    public TEntity Entity
+    {
         get => entity;
         set => entity = value;
     }
@@ -48,15 +33,11 @@ public abstract class ViewEntityBase<TEntity> : ICloneable
     [Display(AutoGenerateField = false)]
     public Flurl.Url Request { get; set; }
 
-    public ViewEntityBase(TEntity entity, Flurl.Url request) {
+    public ViewEntityBase(TEntity entity, Flurl.Url request)
+    {
         this.entity = entity;
         Request = request;
     }
 
     public abstract object Clone();
-    //{
-    //    TEntity entity = this.entity with { };
-    //    ViewEntityBase<TEntity> viewEntity = new(entity, "1");
-    //    return viewEntity;
-    //}
 }

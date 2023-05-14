@@ -10,7 +10,8 @@ namespace Polyathlon.ViewModels.Common
             set { Properties.LayoutSettings.Default.LogicalLayout = value; }
         }
 
-        static Dictionary<string, string>? persistentViewsLayout;
+        private static Dictionary<string, string>? persistentViewsLayout;
+
         public static Dictionary<string, string> PersistentViewsLayout
         {
             get

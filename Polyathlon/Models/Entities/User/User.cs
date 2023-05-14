@@ -1,7 +1,10 @@
-﻿namespace Polyathlon.DataModel.Entities;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Polyathlon.Models.Entities;
 
 public record User
 {
+    [Required]
     public string Login { get; set; }
     public string Password { get; set; }
 

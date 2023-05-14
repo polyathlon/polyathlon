@@ -1,77 +1,42 @@
 using System.Linq.Expressions;
-using Polyathlon.ViewModels.Common;
 
-using DevExpress.XtraBars.Ribbon;
 using DevExpress.XtraEditors;
 using DevExpress.XtraGrid.Views.Base;
 using DevExpress.XtraGrid.Views.Grid;
 using DevExpress.XtraGrid.Views.Tile;
-
-using DevExpress.XtraMap;
-using System.Reflection;
-
-using DevExpress.XtraCharts;
-using DevExpress.Data.Filtering;
 using DevExpress.XtraBars.Docking2010;
 using DevExpress.XtraLayout;
-
 using DevExpress.Utils;
 using DevExpress.Utils.Design;
-using DevExpress.Utils.Svg;
-using DevExpress.Skins;
 
+using Polyathlon.ViewModels.Common;
 using Polyathlon.Models.Common;
 
-namespace Polyathlon.Views {
-    internal static class ToolbarExtension {
+namespace Polyathlon.Views
+{
+    internal static class ToolbarExtension
+    {
         public static void BindCommandAndImage<TViewModel>(this DevExpress.Utils.MVVM.MVVMContextFluentAPI<TViewModel> fluentAPI, DevExpress.XtraEditors.ButtonPanel.IBaseButton button, Expression<Action<TViewModel>> commandSelector, string imageName = null)
-            where TViewModel : class {
+            where TViewModel : class
+        {
             fluentAPI.BindCommand((DevExpress.Utils.MVVM.ISupportCommandBinding)button, commandSelector);
             button.Properties.ImageUri = GetImageUri(imageName ?? ((MethodCallExpression)commandSelector.Body).Method.Name);
         }
+
         public static void BindCommandAndImage<TViewModel, T>(this DevExpress.Utils.MVVM.MVVMContextFluentAPI<TViewModel> fluentAPI, DevExpress.XtraEditors.ButtonPanel.IBaseButton button, Expression<Action<TViewModel, T>> commandSelector, Expression<Func<TViewModel, T>> commandParameterSelector = null, string imageName = null)
-            where TViewModel : class {
+            where TViewModel : class
+        {
             fluentAPI.BindCommand((DevExpress.Utils.MVVM.ISupportCommandBinding)button, commandSelector, commandParameterSelector);
             button.Properties.ImageUri = GetImageUri(imageName ?? ((MethodCallExpression)commandSelector.Body).Method.Name);
         }
-        internal static DxImageUri GetImageUri(string imageName) {
+
+        internal static DxImageUri GetImageUri(string imageName)
+        {
             return CommonExtension.GetImageUri("Toolbar", imageName);
         }
-        public static TileControl CreateReportsGallery<TViewModel>(this DevExpress.Utils.MVVM.MVVMContextFluentAPI<TViewModel> fluentAPI, Expression<Action<TViewModel, EmployeeReportType>> commandSelector)
-            where TViewModel : class {
-            TileControl tc = new TileControl();
-            tc.AllowDrag = false;
-            tc.LayoutMode = TileControlLayoutMode.Adaptive;
-            tc.Orientation = Orientation.Vertical;
-            tc.OptionsAdaptiveLayout.ItemMinSize = new Size(300, 50);
-            tc.Padding = new Padding(0);
-            tc.ItemPadding = new Padding(15);
-            tc.IndentBetweenItems = 0;
-            tc.AppearanceItem.Normal.BackColor = Color.White;
-            tc.AppearanceItem.Normal.ForeColor = Color.Black;
-            tc.AppearanceItem.Normal.BorderColor = Color.LightGray;
 
-            var group = new TileGroup();
-            tc.Groups.Add(group);
-            tc.BeginUpdate();
-            CreateItem<TViewModel>(fluentAPI, commandSelector, group, EmployeeReportType.Profile);
-            CreateItem<TViewModel>(fluentAPI, commandSelector, group, EmployeeReportType.Directory);
-            CreateItem<TViewModel>(fluentAPI, commandSelector, group, EmployeeReportType.TaskList);
-            tc.EndUpdate();
-            return tc;
-        }
-        private static void CreateItem<TViewModel>(DevExpress.Utils.MVVM.MVVMContextFluentAPI<TViewModel> fluentAPI, Expression<Action<TViewModel, EmployeeReportType>> commandSelector, TileGroup group, EmployeeReportType value)
-            where TViewModel : class {
-            TileItem item = new TileItem();
-            item.Text = EnumDisplayTextHelper.GetDisplayText(value);
-            item.Image = CommonExtension.GetImage("PrintItems", "Print");
-            item.ImageToTextAlignment = TileControlImageToTextAlignment.Left;
-            item.ImageAlignment = TileItemContentAlignment.MiddleLeft;
-            item.ImageToTextIndent = 15;
-            fluentAPI.BindCommand(item, commandSelector, x => value);
-            group.Items.Add(item);
-        }
-        public static void SetupSearchControl(this SearchControl search, WindowsUIButtonPanel panel) {
+        public static void SetupSearchControl(this SearchControl search, WindowsUIButtonPanel panel)
+        {
             search.Width = 260;
             search.Height = 42;
             search.Left = panel.Width - search.Width - 20;
@@ -83,54 +48,48 @@ namespace Polyathlon.Views {
         }
     }
 
-    internal static class MenuExtensions {
-        internal static DxImageUri GetImageUri(string imageName) {
+    internal static class MenuExtensions
+    {
+        internal static DxImageUri GetImageUri(string imageName)
+        {
             return CommonExtension.GetImageUri("Menu", imageName);
         }
     }
 
-    internal static class WindowExtensions {
-        internal static Image GetImage(string imageName) {
-            return CommonExtension.GetImage("Window", imageName + ".Glyph");
-        }
-    }
-    internal static class StatusIconsExtension {
-        public static Image GetImage(string name) {
-            return CommonExtension.GetImageByUri("Status", name);
-        }
-    }
-    internal static class PriorityIconsExtension {
-        static SvgPalette palette;
-        static PriorityIconsExtension() {
-            palette = new SvgPalette();
-            palette.Colors.Add(new SvgColor("Black", Color.FromArgb(173, 3, 117)));
-        }
-        public static Image GetImage(string name) {
-            return CommonExtension.GetImageByUri("Priority", name, palette);
-        }
-    }
-    internal static class CommonExtension {
-        static Dictionary<string, DxImageUri> cache = new Dictionary<string, DxImageUri>();
-        internal static Image GetImage(string resourceType, string imageName) {
+    internal static class CommonExtension
+    {
+        private static Dictionary<string, DxImageUri> cache = new Dictionary<string, DxImageUri>();
+
+        internal static Image GetImage(string resourceType, string imageName)
+        {
             string path = String.Format("DevExpress.DevAV.Resources.{0}.{1}.png", resourceType, imageName);
             return ResourceImageHelper.CreateImageFromResources(path, typeof(MainForm).Assembly);
         }
-        internal static Image GetImageByUri(string resourceType, string imageName) {
+
+        internal static Image GetImageByUri(string resourceType, string imageName)
+        {
             return GetImageByUri(resourceType, imageName, null);
         }
-        internal static Image GetImageByUri(string resourceType, string imageName, ISvgPaletteProvider palette) {
+
+        internal static Image GetImageByUri(string resourceType, string imageName, ISvgPaletteProvider palette)
+        {
             var uri = GetImageUri(resourceType, imageName);
-            if(uri.HasSvgImage) return uri.GetSvgImage(Size.Empty, palette);
-            if(uri.HasDefaultImage) return uri.GetDefaultImage();
+            if (uri.HasSvgImage) return uri.GetSvgImage(Size.Empty, palette);
+            if (uri.HasDefaultImage) return uri.GetDefaultImage();
             return null;
         }
-        internal static DxImageUri GetImageUri(string resourceType, string imageName) {
+
+        internal static DxImageUri GetImageUri(string resourceType, string imageName)
+        {
             string uriString = ImageUriDictionary.GetUriByFile(resourceType + @"\" + imageName);
             return GetImageUriFromCache(uriString);
         }
-        static DxImageUri GetImageUriFromCache(string uri) {
+
+        private static DxImageUri GetImageUriFromCache(string uri)
+        {
             DxImageUri result;
-            if(!cache.TryGetValue(uri, out result)) {
+            if (!cache.TryGetValue(uri, out result))
+            {
                 result = new DxImageUri();
                 result.Uri = uri;
                 cache.Add(uri, result);
@@ -139,8 +98,10 @@ namespace Polyathlon.Views {
         }
     }
 
-    internal static class GridExtension {
-        internal static void SetupTileView(this TileView view) {
+    internal static class GridExtension
+    {
+        internal static void SetupTileView(this TileView view)
+        {
             view.Appearance.ItemNormal.BorderColor = Color.Transparent;
             view.Appearance.ItemNormal.FontSizeDelta = -1;
             view.FocusBorderColor = Color.Transparent;
@@ -154,7 +115,9 @@ namespace Polyathlon.Views {
             view.OptionsTiles.VerticalContentAlignment = DevExpress.Utils.VertAlignment.Top;
             view.OptionsTiles.ItemBorderVisibility = DevExpress.XtraEditors.TileItemBorderVisibility.Never;
         }
-        internal static void SetupCollectionGrid(this GridView view) {
+
+        internal static void SetupCollectionGrid(this GridView view)
+        {
             view.BeginUpdate();
             view.FocusRectStyle = DrawFocusRectStyle.None;
             view.FooterPanelHeight = 60;
@@ -178,10 +141,12 @@ namespace Polyathlon.Views {
             view.Appearance.GroupPanel.TextOptions.WordWrap = DevExpress.Utils.WordWrap.Wrap;
             view.EndUpdate();
         }
+
         internal static void BindCollectionGrid<TViewModel, TEntityView, TEntity>(this DevExpress.Utils.MVVM.MVVMContext context, GridView gridView, BindingSource bindingSource)
-            where TViewModel : CollectionViewModel<TEntityView, TEntity> 
+            where TViewModel : CollectionViewModel<TEntityView, TEntity>
             where TEntity : EntityBase
-            where TEntityView : ViewEntityBase<TEntity> {
+            where TEntityView : ViewEntityBase<TEntity>
+        {
             var fluentAPI = context.OfType<TViewModel>();
             fluentAPI.SetObjectDataSourceBinding(bindingSource, x => x.Entities);
             fluentAPI.SetBinding(gridView, gv => gv.LoadingPanelVisible, x => x.IsLoading);
@@ -193,57 +158,27 @@ namespace Polyathlon.Views {
                 .EventToCommand(
                     x => x.Edit(null), x => x.SelectedEntity,
                     args => (args.Clicks == 2) && (args.Button == MouseButtons.Left));
-        }  
-        //internal static void BindCollectionGrid<TViewModel, TEntity, TProjection>(this DevExpress.Utils.MVVM.MVVMContext context, GridView gridView, BindingSource bindingSource)
-        //    where TViewModel : CollectionViewModelBase<TEntity, TProjection, long, IDbUnitOfWork> 
-        //    where TEntity : class
-        //    where TProjection : class {
-        //    var fluentAPI = context.OfType<TViewModel>();
-        //    fluentAPI.SetObjectDataSourceBinding(bindingSource, x => x.Entities);
-        //    fluentAPI.SetBinding(gridView, gv => gv.LoadingPanelVisible, x => x.IsLoading);
-        //    fluentAPI.WithEvent<ColumnView, FocusedRowObjectChangedEventArgs>(gridView, "FocusedRowObjectChanged")
-        //        .SetBinding(
-        //            x => x.SelectedEntity, args => args.Row as TProjection,
-        //            (gView, entity) => gView.FocusedRowHandle = gView.FindRow(entity));
-        //    fluentAPI.WithEvent<RowClickEventArgs>(gridView, "RowClick")
-        //        .EventToCommand(
-        //            x => x.Edit(null), x => x.SelectedEntity,
-        //            args => (args.Clicks == 2) && (args.Button == MouseButtons.Left));
-        //}
+        }
+
         internal static void BindCollectionGridMy<TViewModel, TEntity, TViewEntity>(this DevExpress.Utils.MVVM.MVVMContext context, GridView gridView, BindingSource bindingSource)
-            where TViewModel : ViewModels.RegionCollectionViewModel 
+            where TViewModel : ViewModels.RegionCollectionViewModel
             where TEntity : class
-            where TViewEntity : class {
+            where TViewEntity : class
+        {
             var fluentAPI = context.OfType<TViewModel>();
             fluentAPI.SetBinding(gridView, gv => gv.LoadingPanelVisible, x => x.IsLoading);
             fluentAPI.SetObjectDataSourceBinding(bindingSource, x => x.Entities);
-            // fluentAPI.SetBinding(bindingSource, bs => bs.DataSource, x => x.Entities);
-            //fluentAPI.SetObjectDataSourceBinding(bindingSource, x => x.Entities);            
-            //fluentAPI.WithEvent<ColumnView, FocusedRowObjectChangedEventArgs>(gridView, "FocusedRowObjectChanged")
-            //    .SetBinding(
-            //        x => x.SelectedEntity, args => args.Row as TViewEntity,
-            //        (gView, entity) => gView.FocusedRowHandle = gView.FindRow(entity));            
             fluentAPI.WithEvent<RowClickEventArgs>(gridView, "RowClick")
                 .EventToCommand(
                     x => x.Edit(null), x => x.SelectedEntity,
                     args => (args.Clicks == 2) && (args.Button == MouseButtons.Left));
         }
-        //internal static void BindTileGrid<TViewModel, TEntity>(this DevExpress.Utils.MVVM.MVVMContext context, TileView tileView, BindingSource bindingSource)
-        //    where TViewModel : CollectionViewModel<TEntity, long, IDbUnitOfWork>
-        //    where TEntity : class {
-        //    BindTileGrid<TViewModel, TEntity, TEntity>(context, tileView, bindingSource);
-        //}
 
-        //internal static void BindTileGrid<TViewModel, TViewEntity, TEntity>(this DevExpress.Utils.MVVM.MVVMContext context, TileView tileView, BindingSource bindingSource)
-        //    where TViewModel : CollectionViewModelBase<TViewEntity, TEntity>
-        //    where TViewEntity : class 
-        //    where TEntity : class {
-        //    BindTileGrid<TViewModel, TViewEntity, TEntity>(context, tileView, bindingSource);
-        //}
         internal static void BindTileGrid<TViewModel, TViewEntity, TEntity>(this DevExpress.Utils.MVVM.MVVMContext context, TileView tileView, BindingSource bindingSource)
             where TViewModel : CollectionViewModel<TViewEntity, TEntity>
             where TEntity : EntityBase
-            where TViewEntity : ViewEntityBase<TEntity> {
+            where TViewEntity : ViewEntityBase<TEntity>
+        {
             var fluentAPI = context.OfType<TViewModel>();
             fluentAPI.SetObjectDataSourceBinding(bindingSource, x => x.Entities);
             fluentAPI.WithEvent<TileView, FocusedRowObjectChangedEventArgs>(tileView, "FocusedRowObjectChanged")
@@ -253,79 +188,27 @@ namespace Polyathlon.Views {
             fluentAPI.WithEvent<TileViewItemClickEventArgs>(tileView, "ItemDoubleClick")
                 .EventToCommand(x => x.Edit(null), x => x.SelectedEntity);
         }
-        //internal static void BindCollectionGrid<TViewModel, TEntity>(this DevExpress.Utils.MVVM.MVVMContext context, GridView view, BindingSource bindingSource)
-        //    where TViewModel : CollectionViewModel<TEntity, long, IDbUnitOfWork>
-        //    where TEntity : class {
-        //    BindCollectionGrid<TViewModel, TEntity, TEntity>(context, view, bindingSource);
-        //}
     }
-    internal static class MapExtension {
-        internal static void InitMap(this MapControl mapControl) {
-            if (Assembly.GetEntryAssembly() == null)
-                return;
-            mapControl.SelectionMode = DevExpress.XtraMap.ElementSelectionMode.None;
-            var mapStreamDbf = Assembly.GetEntryAssembly().GetManifestResourceStream("DevExpress.DevAV.Resources.Map.NorthAmerica.dbf");
-            var mapStream = Assembly.GetEntryAssembly().GetManifestResourceStream("DevExpress.DevAV.Resources.Map.NorthAmerica.shp");
-            VectorItemsLayer layer = mapControl.Layers.OfType<VectorItemsLayer>().Where(l => l.Data is ShapefileDataAdapter).FirstOrDefault();
-            if (layer != null)
-                (layer.Data as ShapefileDataAdapter).LoadFromStream(mapStream, mapStreamDbf);
-        }
-        //internal static DevExpress.XtraMap.MapItem CreateHomeOfficeItemForCustomer(MapItemModel item) {
-        //    MapCallout home = GetHomeOfficeItem(item);
-        //    home.Text = string.Format("TOTAL SALES{3}<color=47,81,165><b><size=+4>{0:c}</color></size></b>{3}TOTAL OPPORTUNITIES{3}<color=206,113,0><b><size=+4>{1:c}</color></size></b>{3}{2}", item.TotalSales, item.TotalQuotes, item.City, "<br>");
-        //    return home;
-        //}
-        //internal static DevExpress.XtraMap.MapItem CreateHomeOfficeItemForQuote(MapItemModel item) {
-        //    MapCallout home = GetHomeOfficeItem(item);
-        //    home.Text = string.Format("TOTAL OPPORTUNITIES{2}<color=206,113,0><b><size=+4>{0:c}</color></size></b>{2}{1}", item.TotalSales, item.City, "<br>");
-        //    return home;
-        //}
-        //private static MapCallout GetHomeOfficeItem(MapItemModel item) {
-        //    var mc = new MapCallout();
-        //    mc.Location = new GeoPoint(item.Latitude, item.Longitude);
-        //    mc.AllowHtmlText = true;
-        //    mc.TextAlignment = TextAlignment.TopCenter;
-        //    mc.Font = new Font("Segoe UI", 13);
-        //    mc.TextColor = Color.FromArgb(145, 145, 145);            
-        //    return mc;
-        //}
-    }
-    internal static class SnapExtension {
-        //internal static void LoadTemplate(this SnapControl snapControl) {
-        //    var template = "Order.snx";
-        //    using (var stream = MailMergeTemplatesHelper.GetTemplateStream(template)) {
-        //        if (stream != null) {
-        //            //snapControl.LoadDocumentTemplate(stream, DevExpress.Snap.Core.API.SnapDocumentFormat.Snap);
-        //        }
-        //    }
-        //}
-    }
-    internal static class ChartExtension {
-        internal static void DrawSeries(this ChartControl chartControl, CustomDrawSeriesPointEventArgs e) {
-            int imageSizeW = 18, imageSizeH = 14;
-            var image = new Bitmap(imageSizeW, imageSizeH);
-            using (var graphics = Graphics.FromImage(image)) {
-                graphics.FillRectangle(new SolidBrush(e.LegendDrawOptions.Color), new Rectangle(new Point(0, 0), new Size(imageSizeW, imageSizeH)));
-            }
-            e.LegendMarkerImage = image;
-            e.DisposeLegendMarkerImage = true;
-            e.LegendMarkerVisible = true;
-        }
-    }
-    internal static class LayoutControlExtension {
-        internal static void SetupLayoutControl(this LayoutControl layout) {
+
+    internal static class LayoutControlExtension
+    {
+        internal static void SetupLayoutControl(this LayoutControl layout)
+        {
             layout.AllowCustomization = false;
             layout.OptionsView.UseParentAutoScaleFactor = true;
         }
     }
 
-    internal static class ImageUriDictionary {
-        internal static string GetUriByFile(string file) {
-            if(List.ContainsKey(file))
+    internal static class ImageUriDictionary
+    {
+        internal static string GetUriByFile(string file)
+        {
+            if (List.ContainsKey(file))
                 return List[file];
             return List[@"Toolbar\Cancel"];
         }
-        static readonly Dictionary<string, string> List = new Dictionary<string, string>() { 
+
+        private static readonly Dictionary<string, string> List = new Dictionary<string, string>() {
             { @"Menu\Sportsmen", "hybriddemo_customers;Svg" },
             { @"Menu\Regions", "hybriddemo_dashboard;Svg" },
             { @"Menu\Judges", "hybriddemo_employees;Svg" },
@@ -388,37 +271,5 @@ namespace Polyathlon.Views {
             { @"Priority\MediumPriority", "hybriddemo_priority%20normal;Svg" },
             { @"Priority\NormalPriority", "hybriddemo_priority%20high;Svg" },
         };
-    }
-
-    public class LabelTabController {
-        private object[] list;
-        private object editValue;
-        public event EventHandler EditValueChanged;
-        public LabelTabController(object eValue, params object[] list) {
-            this.list = list;
-            EditValue = eValue;
-            foreach(LabelControl lb in list) {
-                lb.Click += (s, e) => EditValue = ((LabelControl)s).Tag;
-            }
-        }
-        public object EditValue {
-            get {
-                return editValue;
-            }
-            set {
-                editValue = value;
-                if(EditValueChanged != null) {
-                    EditValueChanged(EditValue, EventArgs.Empty);
-                }
-                foreach(LabelControl lc in list) {
-                    if(EditValue.Equals(lc.Tag)) {
-                        lc.Appearance.ForeColor = CommonColors.GetQuestionColor(DevExpress.LookAndFeel.UserLookAndFeel.Default);
-                    }
-                    else {
-                        lc.Appearance.ForeColor = Color.Empty;
-                    }
-                }
-            }
-        }
     }
 }

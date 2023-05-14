@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Windows.Forms;
-using System.Windows;
-using System.Management;
+﻿using System.Management;
 
 namespace Polyathlon.Utils
 {
@@ -36,20 +31,30 @@ namespace Polyathlon.Utils
             RackMountChassis,
             SealedCasePC
         }
-        static string[] dellModel = new string[] { "Venue 8 Pro 5830" };
-        static KnownHardwareKind[] dellModelKind = new KnownHardwareKind[] { KnownHardwareKind.DellPro8 };
-        static void ParseKindDell(HardwareInfo res) { ParseKindCore(res, dellModel, dellModelKind); }
-        static bool ParseKindCore(HardwareInfo res, string[] model, KnownHardwareKind[] kind)
+
+        private static string[] dellModel = new string[] { "Venue 8 Pro 5830" };
+        private static KnownHardwareKind[] dellModelKind = new KnownHardwareKind[] { KnownHardwareKind.DellPro8 };
+
+        private static void ParseKindDell(HardwareInfo res)
+        { ParseKindCore(res, dellModel, dellModelKind); }
+
+        private static bool ParseKindCore(HardwareInfo res, string[] model, KnownHardwareKind[] kind)
         {
             int i = Array.IndexOf<string>(model, res.Model);
             if (i < 0) return false;
             res.Kind = kind[i];
             return true;
         }
-        static string[] msModel = new string[] { "Surface with Windows 8 Pro", "Surface Pro 2", "Surface Pro 3" };
-        static KnownHardwareKind[] msModelKind = new KnownHardwareKind[] { KnownHardwareKind.SurfacePro, KnownHardwareKind.SurfacePro2, KnownHardwareKind.SurfacePro3 };
-        static void ParseKindMicrosoft(HardwareInfo res) { ParseKindCore(res, msModel, msModelKind); }
-        public enum KnownHardwareKind { Unknown, SurfacePro, SurfacePro2, SurfacePro3, DellPro8, DellPro10 }
+
+        private static string[] msModel = new string[] { "Surface with Windows 8 Pro", "Surface Pro 2", "Surface Pro 3" };
+        private static KnownHardwareKind[] msModelKind = new KnownHardwareKind[] { KnownHardwareKind.SurfacePro, KnownHardwareKind.SurfacePro2, KnownHardwareKind.SurfacePro3 };
+
+        private static void ParseKindMicrosoft(HardwareInfo res)
+        { ParseKindCore(res, msModel, msModelKind); }
+
+        public enum KnownHardwareKind
+        { Unknown, SurfacePro, SurfacePro2, SurfacePro3, DellPro8, DellPro10 }
+
         public class HardwareInfo
         {
             public HardwareInfo()
@@ -58,9 +63,11 @@ namespace Polyathlon.Utils
                 Manufacturer = "";
                 Model = "";
             }
+
             public KnownHardwareKind Kind { get; set; }
             public string Manufacturer { get; set; }
             public string Model { get; set; }
+
             public override string ToString()
             {
                 if (Kind == KnownHardwareKind.Unknown)
@@ -70,11 +77,13 @@ namespace Polyathlon.Utils
                 return string.Format("{0}: {1}/{2}", Kind, Manufacturer, Model);
             }
         }
-        static HardwareInfo deviceHardwareInfo = null;
-        static bool? hasBattery = null;
-        static ChassisTypes? chassis = null;
-        static bool? hasTouchSupport = null;
-        static bool? isWindows8 = null;
+
+        private static HardwareInfo deviceHardwareInfo = null;
+        private static bool? hasBattery = null;
+        private static ChassisTypes? chassis = null;
+        private static bool? hasTouchSupport = null;
+        private static bool? isWindows8 = null;
+
         public static bool IsWindows8
         {
             get
@@ -92,7 +101,8 @@ namespace Polyathlon.Utils
             if (deviceHardwareInfo == null) deviceHardwareInfo = ParseHardwareInfo();
             return deviceHardwareInfo;
         }
-        static bool DetectWindows8()
+
+        private static bool DetectWindows8()
         {
             try
             {
@@ -109,6 +119,7 @@ namespace Polyathlon.Utils
             }
             return false;
         }
+
         public static bool IsTablet
         {
             get
@@ -122,9 +133,11 @@ namespace Polyathlon.Utils
                 {
                     return false;
                 }
+
                 return HasBattery;
             }
         }
+
         public static bool IsTabletChassis
         {
             get
@@ -136,6 +149,7 @@ namespace Polyathlon.Utils
                 return false;
             }
         }
+
         public static bool HasTouchSupport
         {
             get
@@ -147,7 +161,8 @@ namespace Polyathlon.Utils
                 return hasTouchSupport.Value;
             }
         }
-        static bool CheckTouch()
+
+        private static bool CheckTouch()
         {
             var device = System.Windows.Input.Tablet.TabletDevices.Cast<System.Windows.Input.TabletDevice>().FirstOrDefault(dev => dev.Type == System.Windows.Input.TabletDeviceType.Touch);
             if (device == null)
@@ -156,6 +171,7 @@ namespace Polyathlon.Utils
             }
             return true;
         }
+
         public static ChassisTypes Chassis
         {
             get
@@ -189,6 +205,7 @@ namespace Polyathlon.Utils
             }
             return ChassisTypes.Unknown;
         }
+
         public static bool HasBattery
         {
             get
@@ -201,7 +218,7 @@ namespace Polyathlon.Utils
             }
         }
 
-        static bool CheckHasBattery()
+        private static bool CheckHasBattery()
         {
             try
             {
@@ -216,6 +233,7 @@ namespace Polyathlon.Utils
             }
             return false;
         }
+
         public static bool SuggestHybridDemoParameters(out float touchScale, out float fontSize)
         {
             touchScale = 2f;
@@ -227,6 +245,7 @@ namespace Polyathlon.Utils
                     touchScale = 1.5f;
                     fontSize = 10;
                     return true;
+
                 case KnownHardwareKind.DellPro10:
                 case KnownHardwareKind.SurfacePro:
                 case KnownHardwareKind.SurfacePro2:
@@ -234,8 +253,6 @@ namespace Polyathlon.Utils
                     touchScale = 2.5f;
                     fontSize = 8.2f;
                     return true;
-
-
             }
             if (Screen.PrimaryScreen.WorkingArea.Width < 1500 || Screen.PrimaryScreen.WorkingArea.Height < 800)
             {
@@ -243,15 +260,16 @@ namespace Polyathlon.Utils
                 fontSize = 10;
             }
             return true;
-
         }
-        static HardwareInfo ParseHardwareInfo()
+
+        private static HardwareInfo ParseHardwareInfo()
         {
             HardwareInfo res = new();
             ParseHardwareInfoCore(res);
             return res;
         }
-        static bool ParseHardwareInfoCore(HardwareInfo res)
+
+        private static bool ParseHardwareInfoCore(HardwareInfo res)
         {
             try
             {
@@ -270,9 +288,9 @@ namespace Polyathlon.Utils
             }
             ParseKind(res);
             return true;
-
         }
-        static void ParseKind(HardwareInfo res)
+
+        private static void ParseKind(HardwareInfo res)
         {
             if (res.Manufacturer == "Microsoft Corporation")
             {

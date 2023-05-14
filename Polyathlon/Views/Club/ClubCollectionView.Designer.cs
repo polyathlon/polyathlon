@@ -217,7 +217,7 @@ namespace Polyathlon.Views
             this.searchControl.Size = new System.Drawing.Size(260, 20);
             this.searchControl.TabIndex = 9;
             // 
-            // RegionCollectionView
+            // ClubCollectionView
             // 
             this.Appearance.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.Appearance.Options.UseFont = true;

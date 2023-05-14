@@ -1,14 +1,13 @@
-namespace Polyathlon.DataModel
+namespace Polyathlon.Models
 {
     /// <summary>
     /// Represents the state of the entity relative to the unit of work.
     /// </summary>
     public enum EntityState
     {
-
         /// <summary>
-        /// The object exists but is not being tracked. 
-        /// An entity is in this state immediately after it has been created and before it is added to the unit of work. 
+        /// The object exists but is not being tracked.
+        /// An entity is in this state immediately after it has been created and before it is added to the unit of work.
         /// An entity is also in this state after it has been removed from the unit of work by calling the IUnitOfWork.Detach method.
         /// </summary>
         Detached = 1,
@@ -19,7 +18,7 @@ namespace Polyathlon.DataModel
         Unchanged = 2,
 
         /// <summary>
-        /// The object is new, has been added to the unit of work, and the IUnitOfWork.SaveChanges method has not been called. 
+        /// The object is new, has been added to the unit of work, and the IUnitOfWork.SaveChanges method has not been called.
         /// After the changes are saved, the object state changes to Unchanged.
         /// </summary>
         Added = 4,
@@ -30,7 +29,7 @@ namespace Polyathlon.DataModel
         Deleted = 8,
 
         /// <summary>
-        /// One of the scalar properties on the object has been modified and the IUnitOfWork.SaveChanges method has not been called. 
+        /// One of the scalar properties on the object has been modified and the IUnitOfWork.SaveChanges method has not been called.
         /// After the changes are saved, the object state changes to Unchanged.
         /// </summary>
         Modified = 16,

@@ -1,17 +1,15 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+
 using DevExpress.Mvvm;
 using DevExpress.Mvvm.POCO;
 using DevExpress.Mvvm.DataAnnotations;
-using Polyathlon.DataModel;
+
 using CSharp.Ulid;
-#if DEBUG
-    using System.Diagnostics;
-#endif
 
 using Polyathlon.Properties;
+using Polyathlon.Models;
 using Polyathlon.Db.Common;
-
 using Polyathlon.Db.LocalDb;
 using Polyathlon.Models.Common;
 
@@ -23,24 +21,13 @@ namespace Polyathlon.ViewModels.Common
     /// </summary>
     /// <typeparam name="TEntity">An entity type.</typeparam>
     /// <typeparam name="TPrimaryKey">A primary key value type.</typeparam>
-    /// <typeparam name="TUnitOfWork">A unit of work type.</typeparam>
     public abstract class SingleObjectViewModel<TEntity, TViewEntity, TPrimaryKey> : SingleObjectViewModelBase<TEntity, TViewEntity>
         where TViewEntity : ViewEntityBase<TEntity>
-        where TEntity : EntityBase, new() {
-
-        /// <summary>
-        /// Initializes a new instance of the SingleObjectViewModel class.
-        /// </summary>
-        /// <param name="unitOfWorkFactory">A factory used to create the unit of work instance.</param>
-        /// <param name="getRepositoryFunc">A function that returns the repository representing entities of a given type.</param>
-        /// <param name="getEntityDisplayNameFunc">An optional parameter that provides a function to obtain the display text for a given entity. If ommited, the primary key value is used as a display text.</param>
-        //protected SingleObjectViewModel(Func<TViewEntity, object> getEntityDisplayNameFunc = null)
-        //    : base(getEntityDisplayNameFunc)
-        //{
-        //}
-
+        where TEntity : EntityBase, new()
+    {
         protected SingleObjectViewModel(Func<TEntity, Flurl.Url, TViewEntity> createNewViewEntity)
-            : base(createNewViewEntity) {
+            : base(createNewViewEntity)
+        {
         }
     }
 
@@ -49,31 +36,26 @@ namespace Polyathlon.ViewModels.Common
     /// It is not recommended to inherit directly from this class. Use the SingleObjectViewModel class instead.
     /// </summary>
     /// <typeparam name="TEntity">An entity type.</typeparam>
-    /// <typeparam name="TPrimaryKey">A primary key value type.</typeparam>
-    /// <typeparam name="TUnitOfWork">A unit of work type.</typeparam>
     [POCOViewModel]
     public abstract class SingleObjectViewModelBase<TEntity, TViewEntity> : ISingleObjectViewModel<TViewEntity>, ISupportParameter, ISupportParentViewModel, IDocumentContent, ISupportLogicalLayout<string>
         where TViewEntity : ViewEntityBase<TEntity>
-        where TEntity : EntityBase, new() {
+        where TEntity : EntityBase, new()
+    {
+        private object title;
 
-        object title;
-        //protected readonly Func<TUnitOfWork, IRepository<TEntity, TPrimaryKey>> getRepositoryFunc;
         protected readonly Func<TViewEntity, object> getEntityDisplayNameFunc;
-        
+
         protected readonly Func<TEntity, Flurl.Url?, TViewEntity> createNewViewEntity;
 
-        Action<TViewEntity> entityInitializer;
+        private Action<TViewEntity> entityInitializer;
 
-        bool isEntityNewAndUnmodified;
+        private bool isEntityNewAndUnmodified;
 
-        readonly Dictionary<string, IDocumentContent> lookUpViewModels = new Dictionary<string, IDocumentContent>();
+        private readonly Dictionary<string, IDocumentContent> lookUpViewModels = new();
 
         /// <summary>
         /// Initializes a new instance of the SingleObjectViewModelBase class.
         /// </summary>
-        /// <param name="unitOfWorkFactory">A factory used to create the unit of work instance.</param>
-        /// <param name="getRepositoryFunc">A function that returns repository representing entities of a given type.</param>
-        /// <param name="getEntityDisplayNameFunc">An optional parameter that provides a function to obtain the display text for a given entity. If ommited, the primary key value is used as a display text.</param>
         protected SingleObjectViewModelBase(Func<TEntity, Flurl.Url, TViewEntity> createNewViewEntity)
         {
             this.createNewViewEntity = createNewViewEntity;
@@ -84,7 +66,8 @@ namespace Polyathlon.ViewModels.Common
         /// The display text for a given entity used as a title in the corresponding view.
         /// </summary>
         /// <returns></returns>
-        public object Title { get { return title; } }
+        public object Title
+        { get { return title; } }
 
         /// <summary>
         /// An entity represented by this view model.
@@ -120,7 +103,6 @@ namespace Polyathlon.ViewModels.Common
         /// </summary>
         public virtual bool CanSave()
         {
-            //return Entity != null && !HasValidationErrors() && NeedSave();
             return ViewEntity.Entity != OldViewEntity.Entity;
         }
 
@@ -129,20 +111,15 @@ namespace Polyathlon.ViewModels.Common
         /// Since SingleObjectViewModelBase is a POCO view model, an instance of this class will also expose the SaveAndCloseCommand property that can be used as a binding source in views.
         /// </summary>
         [Command(CanExecuteMethodName = "CanSave")]
-        public async void SaveAndClose() {
-#if DEBUG
-            Debug.WriteLine($"Before close: {Thread.CurrentThread.ManagedThreadId}");
-#endif      
-            if (await SaveCore()) {
+        public async void SaveAndClose()
+        {
+            if (await SaveCore())
+            {
                 this.RaisePropertyChanged(x => x.ViewEntity);
                 _ParentViewModel.RaisePropertiesChanged();
                 this.Close();
             }
-#if DEBUG
-            Debug.WriteLine($"After close: {Thread.CurrentThread.ManagedThreadId}");
-#endif
         }
-
 
         /// <summary>
         /// Saves changes in the underlying unit of work and create new entity.
@@ -176,7 +153,8 @@ namespace Polyathlon.ViewModels.Common
             return NeedReset();
         }
 
-        string ViewName { get { return typeof(TEntity).Name + "View"; } }
+        private string ViewName
+        { get { return typeof(TEntity).Name + "View"; } }
 
         [DXImage("Save")]
         [Display(Name = "Save Layout")]
@@ -196,24 +174,28 @@ namespace Polyathlon.ViewModels.Common
         /// Deletes the entity, save changes and closes the corresponding view if confirmed by a user.
         /// Since SingleObjectViewModelBase is a POCO view model, an instance of this class will also expose the DeleteCommand property that can be used as a binding source in views.
         /// </summary>
-        public async virtual void Delete()
+        public virtual async void Delete()
         {
             if (MessageBoxService.ShowMessage(string.Format(CommonResources.Confirmation_Delete, typeof(TEntity).Name), GetConfirmationMessageTitle(), MessageButton.YesNo) != MessageResult.Yes)
                 return;
 
-            try {                
+            try
+            {
                 if (ViewEntity.Rev is not null)
                     await LocalDatabase.LocalDb.DeleteEntityAsync<TViewEntity, TEntity>(ViewEntity);
                 _ParentViewModel.RaisePropertiesChanged();
                 Close();
             }
-            catch (ConnectException e) {
+            catch (ConnectException e)
+            {
                 MessageBoxService.ShowMessage(e.Message, "Полиатлон", MessageButton.OK, MessageIcon.Error);
             }
-            catch (DbException e) {
+            catch (DbException e)
+            {
                 MessageBoxService.ShowMessage(e.Message, "Полиатлон", MessageButton.OK, MessageIcon.Error);
             }
-            catch (Exception e) {
+            catch (Exception e)
+            {
                 MessageBoxService.ShowMessage(e.Message, "Полиатлон", MessageButton.OK, MessageIcon.Error);
             }
         }
@@ -227,31 +209,43 @@ namespace Polyathlon.ViewModels.Common
             return (ViewEntity is not null) && (ViewEntity.Rev is not null);
         }
 
-        public async virtual void Refresh() {
-            try {
-                if (ViewEntity.Rev is null) {
+        public virtual async void Refresh()
+        {
+            try
+            {
+                if (ViewEntity.Rev is null)
+                {
                     MessageBoxService.ShowMessage(CommonResources.Entity_Not_Saved_Yet, GetConfirmationMessageTitle(), MessageButton.OK);
                     return;
                 }
+
                 TEntity? entityDb = await LocalDatabase.LocalDb.GetEntityAsync<TViewEntity, TEntity>(ViewEntity);
-                if (entityDb is null) {
-                     MessageBoxService.ShowMessage(CommonResources.Entity_Not_Changed, GetConfirmationMessageTitle(), MessageButton.OK);
-                     return;
-                }
-                if (MessageBoxService.ShowMessage(string.Format(CommonResources.Confirmation_Refresh, typeof(TEntity).Name), GetConfirmationMessageTitle(), MessageButton.YesNo) != MessageResult.Yes)
+                if (entityDb is null)
+                {
+                    MessageBoxService.ShowMessage(CommonResources.Entity_Not_Changed, GetConfirmationMessageTitle(), MessageButton.OK);
                     return;
+                }
+
+                if (MessageBoxService.ShowMessage(string.Format(CommonResources.Confirmation_Refresh, typeof(TEntity).Name), GetConfirmationMessageTitle(), MessageButton.YesNo) != MessageResult.Yes)
+                {
+                    return;
+                }
+
                 ViewEntity.Entity = entityDb;
                 this.RaisePropertyChanged(x => x.ViewEntity);
                 OnEntityChanged();
-                MessageBoxService.ShowMessage(CommonResources.Entity_Was_Updated, GetConfirmationMessageTitle(), MessageButton.OK);                                
+                MessageBoxService.ShowMessage(CommonResources.Entity_Was_Updated, GetConfirmationMessageTitle(), MessageButton.OK);
             }
-            catch (ConnectException e) {
+            catch (ConnectException e)
+            {
                 MessageBoxService.ShowMessage(e.Message, "Полиатлон", MessageButton.OK, MessageIcon.Error);
             }
-            catch (DbException e) {
+            catch (DbException e)
+            {
                 MessageBoxService.ShowMessage(e.Message, "Полиатлон", MessageButton.OK, MessageIcon.Error);
             }
-            catch (Exception e) {
+            catch (Exception e)
+            {
                 MessageBoxService.ShowMessage(e.Message, "Полиатлон", MessageButton.OK, MessageIcon.Error);
             }
         }
@@ -260,7 +254,8 @@ namespace Polyathlon.ViewModels.Common
         /// Determines whether the entity can be deleted.
         /// Since SingleObjectViewModelBase is a POCO view model, this method will be used as a CanExecute callback for DeleteCommand.
         /// </summary>
-        public virtual bool CanRefresh() {
+        public virtual bool CanRefresh()
+        {
             return (ViewEntity is not null) && (ViewEntity.Rev is not null);
         }
 
@@ -271,61 +266,57 @@ namespace Polyathlon.ViewModels.Common
         public void Close()
         {
             if (!TryClose())
+            {
                 return;
+            }
             if (DocumentOwner != null)
+            {
                 DocumentOwner.Close(this);
+            }
         }
 
-        //protected IUnitOfWorkFactory<TUnitOfWork> UnitOfWorkFactory { get; private set; }
-
-        //protected TUnitOfWork UnitOfWork { get; private set; }
-
-        protected async virtual ValueTask<bool> SaveCore()
+        protected virtual async ValueTask<bool> SaveCore()
         {
             try
             {
                 bool isNewEntity = IsNew();
                 OldViewEntity.Entity = ViewEntity.Entity;
-                if (ViewEntity.Rev is null )
+                if (ViewEntity.Rev is null)
                     await LocalDatabase.LocalDb.SaveNewEntityAsync<TViewEntity, TEntity>(ViewEntity).ConfigureAwait(false);
                 else
-                    await LocalDatabase.LocalDb.SaveEntityAsync<TViewEntity, TEntity>(ViewEntity).ConfigureAwait(false);                
-                //ViewEntityBase
-                //if (!isNewEntity)
-                //{
-                //    Repository.SetPrimaryKey(Entity, PrimaryKey);
-                //    Repository.Update(Entity);
-                //}
-                //OnBeforeEntitySaved(PrimaryKey, Entity, isNewEntity);
-                //UnitOfWork.SaveChanges();
-                //LoadEntityByKey(Repository.GetPrimaryKey(Entity));
-                //OnEntitySaved(PrimaryKey, Entity, isNewEntity);
+                    await LocalDatabase.LocalDb.SaveEntityAsync<TViewEntity, TEntity>(ViewEntity).ConfigureAwait(false);
+
                 return true;
             }
-            catch (ConnectException e) {
+            catch (ConnectException e)
+            {
                 MessageBoxService.ShowMessage(e.Message, e.Reason, MessageButton.OK, MessageIcon.Error);
             }
-            catch (DbException e) {
+            catch (DbException e)
+            {
                 MessageBoxService.ShowMessage(e.Message, "Полиатлон", MessageButton.OK, MessageIcon.Error);
             }
-            catch (Exception e) {
+            catch (Exception e)
+            {
                 MessageBoxService.ShowMessage(e.Message, "Полиатлон", MessageButton.OK, MessageIcon.Error);
             }
             return false;
         }
 
-        protected virtual void OnBeforeEntitySaved(TEntity entity, bool isNewEntity) { }
+        protected virtual void OnBeforeEntitySaved(TEntity entity, bool isNewEntity)
+        {
+        }
 
         protected virtual void OnEntitySaved(TEntity entity, bool isNewEntity)
         {
-           // Messenger.Default.Send(new EntityMessage<TEntity, string>(primaryKey, isNewEntity ? EntityMessageType.Added : EntityMessageType.Changed));
         }
 
-        protected virtual void OnBeforeEntityDeleted(TEntity entity) { }
+        protected virtual void OnBeforeEntityDeleted(TEntity entity)
+        {
+        }
 
         protected virtual void OnEntityDeleted(TEntity entity)
         {
-            //Messenger.Default.Send(new EntityMessage<TEntity, string>(primaryKey, EntityMessageType.Deleted));
         }
 
         protected virtual void OnInitializeInRuntime()
@@ -337,45 +328,41 @@ namespace Polyathlon.ViewModels.Common
 
         protected virtual void OnEntityMessage(EntityMessage<TEntity, string> message)
         {
-            if (ViewEntity == null) return;
+            if (ViewEntity == null)
+            {
+                return;
+            }
+
             if (message.MessageType == EntityMessageType.Deleted && object.Equals(message.PrimaryKey, PrimaryKey))
+            {
                 Close();
+            }
         }
 
         protected virtual void OnEntityChanged()
         {
-            //if (Entity != null && Repository.HasPrimaryKey(Entity))
-            //{
-            //    PrimaryKey = Repository.GetPrimaryKey(Entity);
-            //    RefreshLookUpCollections(true);
-            //}
             Update();
         }
 
-        //protected IRepository<TEntity, TPrimaryKey> Repository { get { return getRepositoryFunc(UnitOfWork); } }
-
         protected string PrimaryKey { get; private set; }
 
-        protected IMessageBoxService MessageBoxService { get { return this.GetRequiredService<IMessageBoxService>(); } }
-        protected ILayoutSerializationService LayoutSerializationService { get { return this.GetService<ILayoutSerializationService>(); } }
+        protected IMessageBoxService MessageBoxService
+        { get { return this.GetRequiredService<IMessageBoxService>(); } }
 
+        protected ILayoutSerializationService LayoutSerializationService
+        { get { return this.GetService<ILayoutSerializationService>(); } }
 
         protected virtual void OnParameterChanged(object parameter)
         {
-            //var initializer = parameter as Action<TViewEntity>;
-            //if (initializer != null)
-            //    CreateAndInitializeEntity(initializer);
-            //else if (parameter is TPrimaryKey)
-            //    LoadEntityByKey((TPrimaryKey)parameter);
-            //else
-            //    Entity = null;
-            
-            if (parameter is SingleModelAction.New) {
-                if (_ParentViewModel is CollectionViewModel<TViewEntity, TEntity> parent) {
+            if (parameter is SingleModelAction.New)
+            {
+                if (_ParentViewModel is CollectionViewModel<TViewEntity, TEntity> parent)
+                {
                     var request = parent.ModuleDescription.Requests[0].Url;
                     TEntity entity = new();
                     var idPrefix = string.Empty;
-                    if (request?.PathSegments?[1] is not null) {
+                    if (request?.PathSegments?[1] is not null)
+                    {
                         idPrefix = request?.PathSegments?[1] == "_partition" ? request?.PathSegments?[2] : string.Empty;
                     }
                     entity.Id = idPrefix + ":" + Ulid.NewUlid().ToString();
@@ -383,29 +370,22 @@ namespace Polyathlon.ViewModels.Common
                     OldViewEntity = (TViewEntity)ViewEntity.Clone();
                 }
             }
-            else if (parameter is System.ValueTuple<TViewEntity, SingleModelAction> viewParam) {
+            else if (parameter is ValueTuple<TViewEntity, SingleModelAction> viewParam)
+            {
                 var (viewEntity, operation) = viewParam;
-                if (operation is SingleModelAction.Copy) {
+                if (operation is SingleModelAction.Copy)
+                {
                     OldViewEntity = viewEntity;
                     ViewEntity = (TViewEntity)OldViewEntity.Clone();// with { };
                 }
-                else if (operation is SingleModelAction.Edit) {
+                else if (operation is SingleModelAction.Edit)
+                {
                     OldViewEntity = viewEntity;
                     ViewEntity = (TViewEntity)OldViewEntity.Clone();
-                   
-                                                            //
-                                                            // OldEntity = viewEntity;
+
                     this.RaisePropertyChanged(m => m.ViewEntity);
-                    //Entity.Test = "111";
-                   // this.RaisePropertyChanged(m => m.Entity);
                 }
             }
-            //else parameter is SingleModelAction.New
-            //parameter switch {
-            //    SingleModelAction.New => Entity = null,
-            //    _ => null
-            //};
-
         }
 
         protected void EditEntity(TViewEntity viewEntity)
@@ -415,23 +395,26 @@ namespace Polyathlon.ViewModels.Common
 
         protected virtual TViewEntity CreateEntity(TEntity entity)
         {
-
-            return null;// new TViewEntity();//Repository.Create();
+            return null;
         }
 
         protected void Reload()
         {
             if (ViewEntity == null || IsNew())
-                CreateAndInitializeEntity(this.entityInitializer);
+            {
+                CreateAndInitializeEntity(entityInitializer);
+            }
             else
+            {
                 LoadEntityByKey(PrimaryKey);
+            }
         }
 
         protected void CreateAndInitializeEntity(Action<TViewEntity> entityInitializer)
         {
-            
             this.entityInitializer = entityInitializer;
-            if (_ParentViewModel is CollectionViewModel<TViewEntity, TEntity> parent) {
+            if (_ParentViewModel is CollectionViewModel<TViewEntity, TEntity> parent)
+            {
                 var request = parent.ModuleDescription.Requests[0].Url;
                 TEntity entity = new();
                 entity.Id = Ulid.NewUlid().ToString();
@@ -445,26 +428,26 @@ namespace Polyathlon.ViewModels.Common
 
         protected void LoadEntityByKey(string primaryKey)
         {
-            //UpdateUnitOfWork();
-            //Entity = Repository.Find(primaryKey);
         }
 
-        //void UpdateUnitOfWork()
-        //{
-        //    UnitOfWork = UnitOfWorkFactory.CreateUnitOfWork();
-        //}
-
-        void UpdateTitle()
+        private void UpdateTitle()
         {
             if (ViewEntity == null)
+            {
                 title = null;
+            }
             else if (IsNew())
+            {
                 title = GetTitleForNewEntity();
+            }
             else
+            {
                 title = GetTitle(GetState() == EntityState.Modified);
+            }
+
             this.RaisePropertyChanged(x => x.Title);
         }
-        
+
         protected virtual void UpdateCommands()
         {
             this.RaiseCanExecuteChanged(x => x.Save());
@@ -489,10 +472,13 @@ namespace Polyathlon.ViewModels.Common
                 MessageResult warningResult = MessageBoxService.ShowMessage(CommonResources.Warning_SomeFieldsContainInvalidData, CommonResources.Warning_Caption, MessageButton.OKCancel);
                 return warningResult == MessageResult.OK;
             }
-            if (!NeedReset()) return true;
+            if (!NeedReset())
+            {
+                return true;
+            }
+
             MessageResult result = MessageBoxService.ShowMessage(CommonResources.Confirmation_Save, GetConfirmationMessageTitle(), MessageButton.YesNoCancel);
-            //if (result == MessageResult.Yes)
-            //    return SaveCore();
+
             if (result == MessageResult.No)
                 Reload();
             return result != MessageResult.Cancel;
@@ -501,7 +487,9 @@ namespace Polyathlon.ViewModels.Common
         protected virtual void OnClosing(CloseAllMessage message)
         {
             if (!message.Cancel)
+            {
                 message.Cancel = !TryClose();
+            }
         }
 
         protected virtual string GetConfirmationMessageTitle()
@@ -533,7 +521,7 @@ namespace Polyathlon.ViewModels.Common
             return dataErrorInfo != null && IDataErrorInfoHelper.HasErrors(dataErrorInfo);
         }
 
-        string GetTitle(bool entityModified)
+        private string GetTitle(bool entityModified)
         {
             return GetTitle() + (entityModified ? CommonResources.Entity_Changed : string.Empty);
         }
@@ -553,18 +541,16 @@ namespace Polyathlon.ViewModels.Common
         {
             try
             {
-                return EntityState.Unchanged;// Repository.GetState(Entity);
+                return EntityState.Unchanged;
             }
             catch (InvalidOperationException)
             {
-                //Repository.SetPrimaryKey(Entity, PrimaryKey);
-                //return Repository.GetState(Entity);
                 return EntityState.Unchanged;
             }
-
         }
 
         #region look up and detail view models
+
         protected virtual void RefreshLookUpCollections(bool raisePropertyChanged)
         {
             var values = lookUpViewModels.ToArray();
@@ -577,150 +563,20 @@ namespace Polyathlon.ViewModels.Common
             }
         }
 
-        //protected CollectionViewModel<TDetailEntity, TDetailPrimaryKey, TUnitOfWork> GetDetailsCollectionViewModel<TViewModel, TDetailEntity, TDetailPrimaryKey, TForeignKey>(
-        //    Expression<Func<TViewModel, CollectionViewModel<TDetailEntity, TDetailPrimaryKey, TUnitOfWork>>> propertyExpression,
-        //    Func<TUnitOfWork, IRepository<TDetailEntity, TDetailPrimaryKey>> getRepositoryFunc,
-        //    Expression<Func<TDetailEntity, TForeignKey>> foreignKeyExpression,
-        //    Action<TDetailEntity, TPrimaryKey> setMasterEntityKeyAction,
-        //    Func<IRepositoryQuery<TDetailEntity>, IQueryable<TDetailEntity>> projection = null) where TDetailEntity : class
-        //{
-        //    return GetCollectionViewModelCore<CollectionViewModel<TDetailEntity, TDetailPrimaryKey, TUnitOfWork>, TDetailEntity, TDetailEntity, TForeignKey>(propertyExpression,
-        //        () => CollectionViewModel<TDetailEntity, TDetailPrimaryKey, TUnitOfWork>.CreateCollectionViewModel(UnitOfWorkFactory, getRepositoryFunc, AppendForeignKeyPredicate<TDetailEntity, TDetailEntity, TForeignKey>(foreignKeyExpression, projection), CreateForeignKeyPropertyInitializer(setMasterEntityKeyAction, () => PrimaryKey), () => CanCreateNewEntity(), true));
-        //}
-
-        //protected CollectionViewModel<TDetailEntity, TDetailProjection, TDetailPrimaryKey, TUnitOfWork> GetDetailProjectionsCollectionViewModel<TViewModel, TDetailEntity, TDetailProjection, TDetailPrimaryKey, TForeignKey>(
-        //    Expression<Func<TViewModel, CollectionViewModel<TDetailEntity, TDetailProjection, TDetailPrimaryKey, TUnitOfWork>>> propertyExpression,
-        //    Func<TUnitOfWork, IRepository<TDetailEntity, TDetailPrimaryKey>> getRepositoryFunc,
-        //    Expression<Func<TDetailEntity, TForeignKey>> foreignKeyExpression,
-        //    Action<TDetailEntity, TPrimaryKey> setMasterEntityKeyAction,
-        //    Func<IRepositoryQuery<TDetailEntity>, IQueryable<TDetailProjection>> projection = null)
-        //    where TDetailEntity : class
-        //    where TDetailProjection : class
-        //{
-        //    return GetCollectionViewModelCore<CollectionViewModel<TDetailEntity, TDetailProjection, TDetailPrimaryKey, TUnitOfWork>, TDetailEntity, TDetailProjection, TForeignKey>(propertyExpression,
-        //        () => CollectionViewModel<TDetailEntity, TDetailProjection, TDetailPrimaryKey, TUnitOfWork>.CreateProjectionCollectionViewModel(UnitOfWorkFactory, getRepositoryFunc, AppendForeignKeyPredicate<TDetailEntity, TDetailProjection, TForeignKey>(foreignKeyExpression, projection), CreateForeignKeyPropertyInitializer(setMasterEntityKeyAction, () => PrimaryKey), () => CanCreateNewEntity(), true));
-        //}
-
-        //protected InstantFeedbackCollectionViewModel<TDetailEntity, TDetailPrimaryKey, TUnitOfWork> GetDetailsInstantFeedbackCollectionViewModel<TViewModel, TDetailEntity, TDetailPrimaryKey, TForeignKey>(
-        //    Expression<Func<TViewModel, InstantFeedbackCollectionViewModel<TDetailEntity, TDetailPrimaryKey, TUnitOfWork>>> propertyExpression,
-        //    Func<TUnitOfWork, IRepository<TDetailEntity, TDetailPrimaryKey>> getRepositoryFunc,
-        //    Expression<Func<TDetailEntity, TForeignKey>> foreignKeyExpression,
-        //    Action<TDetailEntity, TPrimaryKey> setMasterEntityKeyAction,
-        //    Func<IRepositoryQuery<TDetailEntity>, IQueryable<TDetailEntity>> projection = null)
-        //    where TDetailEntity : class, new()
-        //{
-        //    return GetCollectionViewModelCore<InstantFeedbackCollectionViewModel<TDetailEntity, TDetailPrimaryKey, TUnitOfWork>, TDetailEntity, TDetailEntity, TForeignKey>(propertyExpression,
-        //        () => InstantFeedbackCollectionViewModel<TDetailEntity, TDetailPrimaryKey, TUnitOfWork>.CreateInstantFeedbackCollectionViewModel(UnitOfWorkFactory, getRepositoryFunc, AppendForeignKeyPredicate<TDetailEntity, TDetailEntity, TForeignKey>(foreignKeyExpression, projection), () => CanCreateNewEntity()));
-        //}
-
-        //protected InstantFeedbackCollectionViewModel<TDetailEntity, TDetailEntityProjection, TDetailPrimaryKey, TUnitOfWork> GetDetailsInstantFeedbackCollectionViewModel<TViewModel, TDetailEntity, TDetailEntityProjection, TDetailPrimaryKey, TForeignKey>(
-        //    Expression<Func<TViewModel, InstantFeedbackCollectionViewModel<TDetailEntity, TDetailEntityProjection, TDetailPrimaryKey, TUnitOfWork>>> propertyExpression,
-        //    Func<TUnitOfWork, IRepository<TDetailEntity, TDetailPrimaryKey>> getRepositoryFunc,
-        //    Expression<Func<TDetailEntity, TForeignKey>> foreignKeyExpression,
-        //    Action<TDetailEntity, TPrimaryKey> setMasterEntityKeyAction,
-        //    Func<IRepositoryQuery<TDetailEntity>, IQueryable<TDetailEntityProjection>> projection = null)
-        //    where TDetailEntity : class, new()
-        //    where TDetailEntityProjection : class, new()
-        //{
-        //    return GetCollectionViewModelCore<InstantFeedbackCollectionViewModel<TDetailEntity, TDetailEntityProjection, TDetailPrimaryKey, TUnitOfWork>, TDetailEntity, TDetailEntity, TForeignKey>(propertyExpression, () => InstantFeedbackCollectionViewModel<TDetailEntity, TDetailEntityProjection, TDetailPrimaryKey, TUnitOfWork>.CreateInstantFeedbackCollectionViewModel(UnitOfWorkFactory, getRepositoryFunc, AppendForeignKeyPredicate<TDetailEntity, TDetailEntityProjection, TForeignKey>(foreignKeyExpression, projection), () => CanCreateNewEntity()));
-        //}
-
-        //protected ReadOnlyCollectionViewModel<TDetailEntity, TUnitOfWork> GetReadOnlyDetailsCollectionViewModel<TViewModel, TDetailEntity, TForeignKey>(
-        //    Expression<Func<TViewModel, ReadOnlyCollectionViewModel<TDetailEntity, TDetailEntity, TUnitOfWork>>> propertyExpression,
-        //    Func<TUnitOfWork, IReadOnlyRepository<TDetailEntity>> getRepositoryFunc,
-        //    Expression<Func<TDetailEntity, TForeignKey>> foreignKeyExpression,
-        //    Func<IRepositoryQuery<TDetailEntity>, IQueryable<TDetailEntity>> projection = null) where TDetailEntity : class
-        //{
-        //    return GetCollectionViewModelCore<ReadOnlyCollectionViewModel<TDetailEntity, TUnitOfWork>, TDetailEntity, TDetailEntity, TForeignKey>(propertyExpression, () => ReadOnlyCollectionViewModel<TDetailEntity, TUnitOfWork>.CreateReadOnlyCollectionViewModel(UnitOfWorkFactory, getRepositoryFunc, AppendForeignKeyPredicate<TDetailEntity, TDetailEntity, TForeignKey>(foreignKeyExpression, projection)));
-        //}
-
-        //protected ReadOnlyCollectionViewModel<TDetailEntity, TDetailProjection, TUnitOfWork> GetReadOnlyDetailProjectionsCollectionViewModel<TViewModel, TDetailEntity, TDetailProjection, TForeignKey>(
-        //    Expression<Func<TViewModel, ReadOnlyCollectionViewModel<TDetailEntity, TDetailProjection, TUnitOfWork>>> propertyExpression,
-        //    Func<TUnitOfWork, IReadOnlyRepository<TDetailEntity>> getRepositoryFunc,
-        //    Expression<Func<TDetailEntity, TForeignKey>> foreignKeyExpression,
-        //    Func<IRepositoryQuery<TDetailEntity>, IQueryable<TDetailProjection>> projection)
-        //    where TDetailEntity : class
-        //    where TDetailProjection : class
-        //{
-        //    return GetCollectionViewModelCore<ReadOnlyCollectionViewModel<TDetailEntity, TDetailProjection, TUnitOfWork>, TDetailEntity, TDetailProjection, TForeignKey>(propertyExpression, () => ReadOnlyCollectionViewModel<TDetailEntity, TDetailProjection, TUnitOfWork>.CreateReadOnlyProjectionCollectionViewModel(UnitOfWorkFactory, getRepositoryFunc, AppendForeignKeyPredicate<TDetailEntity, TDetailProjection, TForeignKey>(foreignKeyExpression, projection)));
-        //}
-
-        //Func<IRepositoryQuery<TDetailEntity>, IQueryable<TDetailProjection>> AppendForeignKeyPredicate<TDetailEntity, TDetailProjection, TForeignKey>(
-        //    Expression<Func<TDetailEntity, TForeignKey>> foreignKeyExpression,
-        //    Func<IRepositoryQuery<TDetailEntity>, IQueryable<TDetailProjection>> projection)
-        //    where TDetailEntity : class
-        //    where TDetailProjection : class
-        //{
-        //    var predicate = ExpressionHelper.GetValueEqualsExpression(foreignKeyExpression, (TForeignKey)(object)PrimaryKey);
-        //    return ReadOnlyRepositoryExtensions.AppendToProjection(predicate, projection);
-        //}
-
-        //protected IEntitiesViewModel<TLookUpEntity> GetLookUpEntitiesViewModel<TViewModel, TLookUpEntity, TLookUpEntityKey>(Expression<Func<TViewModel, IEntitiesViewModel<TLookUpEntity>>> propertyExpression, Func<TUnitOfWork, IRepository<TLookUpEntity, TLookUpEntityKey>> getRepositoryFunc, Func<IRepositoryQuery<TLookUpEntity>, IQueryable<TLookUpEntity>> projection = null) where TLookUpEntity : class
-        //{
-        //    return GetLookUpProjectionsViewModel(propertyExpression, getRepositoryFunc, projection);
-        //}
-
-        //protected virtual IEntitiesViewModel<TLookUpProjection> GetLookUpProjectionsViewModel<TViewModel, TLookUpEntity, TLookUpProjection, TLookUpEntityKey>(Expression<Func<TViewModel, IEntitiesViewModel<TLookUpProjection>>> propertyExpression, Func<TUnitOfWork, IRepository<TLookUpEntity, TLookUpEntityKey>> getRepositoryFunc, Func<IRepositoryQuery<TLookUpEntity>, IQueryable<TLookUpProjection>> projection)
-        //    where TLookUpEntity : class
-        //    where TLookUpProjection : class
-        //{
-        //    return GetEntitiesViewModelCore<IEntitiesViewModel<TLookUpProjection>, TLookUpProjection>(propertyExpression, () => LookUpEntitiesViewModel<TLookUpEntity, TLookUpProjection, TLookUpEntityKey, TUnitOfWork>.Create(UnitOfWorkFactory, getRepositoryFunc, projection));
-        //}
-
-        //Action<TDetailEntity> CreateForeignKeyPropertyInitializer<TDetailEntity, TForeignKey>(Action<TDetailEntity, TPrimaryKey> setMasterEntityKeyAction, Func<TForeignKey> getMasterEntityKey) where TDetailEntity : class
-        //{
-        //    return x => setMasterEntityKeyAction(x, (TPrimaryKey)(object)getMasterEntityKey());
-        //}
-
-        //protected virtual bool CanCreateNewEntity()
-        //{
-        //    if (!IsNew())
-        //        return true;
-        //    string message = string.Format(CommonResources.Confirmation_SaveParent, typeof(TEntity).Name);
-        //    var result = MessageBoxService.ShowMessage(message, CommonResources.Confirmation_Caption, MessageButton.YesNo);
-        //    return result == MessageResult.Yes && SaveCore();
-        //}
-
-        //TViewModel GetCollectionViewModelCore<TViewModel, TDetailEntity, TDetailProjection, TForeignKey>(
-        //    LambdaExpression propertyExpression,
-        //    Func<TViewModel> createViewModelCallback)
-        //    where TViewModel : IDocumentContent
-        //    where TDetailEntity : class
-        //    where TDetailProjection : class
-        //{
-        //    return GetEntitiesViewModelCore<TViewModel, TDetailProjection>(propertyExpression, () =>
-        //    {
-        //        var viewModel = createViewModelCallback();
-        //        viewModel.SetParentViewModel(this);
-        //        return viewModel;
-        //    });
-        //}
-
-        //TViewModel GetEntitiesViewModelCore<TViewModel, TDetailEntity>(LambdaExpression propertyExpression, Func<TViewModel> createViewModelCallback)
-        //    where TViewModel : IDocumentContent
-        //    where TDetailEntity : class
-        //{
-
-        //    IDocumentContent result = null;
-        //    string propertyName = ExpressionHelper.GetPropertyName(propertyExpression);
-        //    if (!lookUpViewModels.TryGetValue(propertyName, out result))
-        //    {
-        //        result = createViewModelCallback();
-        //        lookUpViewModels[propertyName] = result;
-        //    }
-        //    return (TViewModel)result;
-        //}
-        #endregion
+        #endregion look up and detail view models
 
         #region ISupportParameter
+
         object ISupportParameter.Parameter
         {
             get { return null; }
             set { OnParameterChanged(value); }
         }
-        #endregion
+
+        #endregion ISupportParameter
 
         #region IDocumentContent
+
         object IDocumentContent.Title { get { return Title; } }
 
         void IDocumentContent.OnClose(CancelEventArgs e)
@@ -733,19 +589,23 @@ namespace Polyathlon.ViewModels.Common
         {
             OnDestroy();
         }
+
         IDocumentOwner IDocumentContent.DocumentOwner
         {
             get { return DocumentOwner; }
             set { DocumentOwner = value; }
         }
-        #endregion
+
+        #endregion IDocumentContent
 
         #region ISingleObjectViewModel
+
         TViewEntity ISingleObjectViewModel<TViewEntity>.ViewEntity => ViewEntity;
-        
-        #endregion
+
+        #endregion ISingleObjectViewModel
 
         #region ISupportLogicalLayout
+
         bool ISupportLogicalLayout.CanSerialize
         {
             get { return ViewEntity != null && !IsNew(); }
@@ -774,9 +634,10 @@ namespace Polyathlon.ViewModels.Common
         private object? _ParentViewModel;
 
         object? ISupportParentViewModel.ParentViewModel
-        { 
+        {
             get => _ParentViewModel;
-            set {
+            set
+            {
                 _ParentViewModel = value;
                 if (_ParentViewModel is not null)
                 {
@@ -794,10 +655,10 @@ namespace Polyathlon.ViewModels.Common
         {
             int a = 2;
         }
-        
 
-        #endregion
+        #endregion ISupportLogicalLayout
     }
+
     public enum SingleModelAction
     {
         New,

@@ -43,10 +43,10 @@ namespace Polyathlon.Views
             this.passwordTextEdit = new DevExpress.XtraEditors.TextEdit();
             this.layoutControlGroup1 = new DevExpress.XtraLayout.LayoutControlGroup();
             this.layoutControlGroup2 = new DevExpress.XtraLayout.LayoutControlGroup();
-            this.ItemForName = new DevExpress.XtraLayout.LayoutControlItem();
+            this.itemForName = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlGroup4 = new DevExpress.XtraLayout.LayoutControlGroup();
             this.layoutControlGroup3 = new DevExpress.XtraLayout.LayoutControlGroup();
-            this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.itemForPassword = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem5 = new DevExpress.XtraLayout.LayoutControlItem();
             this.emptySpaceItem1 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.simpleLabelItem1 = new DevExpress.XtraLayout.SimpleLabelItem();
@@ -62,10 +62,10 @@ namespace Polyathlon.Views
             ((System.ComponentModel.ISupportInitialize)(this.passwordTextEdit.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ItemForName)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.itemForName)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.itemForPassword)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.simpleLabelItem1)).BeginInit();
@@ -149,28 +149,28 @@ namespace Polyathlon.Views
             // loginTextEdit
             // 
             this.loginTextEdit.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.userBindingSource, "Login", true));
-            this.loginTextEdit.Location = new System.Drawing.Point(131, 41);
+            this.loginTextEdit.Location = new System.Drawing.Point(182, 41);
             this.loginTextEdit.Name = "loginTextEdit";
             this.loginTextEdit.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
             this.loginTextEdit.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.loginTextEdit.Properties.Appearance.Options.UseFont = true;
-            this.loginTextEdit.Size = new System.Drawing.Size(955, 26);
+            this.loginTextEdit.Size = new System.Drawing.Size(904, 26);
             this.loginTextEdit.StyleController = this.dataLayoutControl;
             this.loginTextEdit.TabIndex = 4;
             // 
             // userBindingSource
             // 
-            this.userBindingSource.DataSource = typeof(Polyathlon.DataModel.Entities.User);
+            this.userBindingSource.DataSource = typeof(Polyathlon.Models.Entities.User);
             // 
             // passwordTextEdit
             // 
             this.passwordTextEdit.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.userBindingSource, "Password", true));
-            this.passwordTextEdit.Location = new System.Drawing.Point(131, 87);
+            this.passwordTextEdit.Location = new System.Drawing.Point(182, 87);
             this.passwordTextEdit.Name = "passwordTextEdit";
             this.passwordTextEdit.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.passwordTextEdit.Properties.Appearance.Options.UseFont = true;
             this.passwordTextEdit.Properties.NullValuePrompt = null;
-            this.passwordTextEdit.Size = new System.Drawing.Size(486, 26);
+            this.passwordTextEdit.Size = new System.Drawing.Size(435, 26);
             this.passwordTextEdit.StyleController = this.dataLayoutControl;
             this.passwordTextEdit.TabIndex = 18;
             // 
@@ -190,7 +190,7 @@ namespace Polyathlon.Views
             this.layoutControlGroup2.AllowDrawBackground = false;
             this.layoutControlGroup2.GroupBordersVisible = false;
             this.layoutControlGroup2.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
-            this.ItemForName,
+            this.itemForName,
             this.layoutControlGroup4,
             this.layoutControlGroup3,
             this.layoutControlItem5,
@@ -202,17 +202,17 @@ namespace Polyathlon.Views
             this.layoutControlGroup2.Name = "autoGeneratedGroup0";
             this.layoutControlGroup2.Size = new System.Drawing.Size(1078, 659);
             // 
-            // ItemForName
+            // itemForName
             // 
-            this.ItemForName.Control = this.loginTextEdit;
-            this.ItemForName.Location = new System.Drawing.Point(61, 29);
-            this.ItemForName.MaxSize = new System.Drawing.Size(0, 46);
-            this.ItemForName.MinSize = new System.Drawing.Size(131, 46);
-            this.ItemForName.Name = "ItemForName";
-            this.ItemForName.Size = new System.Drawing.Size(1017, 46);
-            this.ItemForName.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
-            this.ItemForName.Text = "Логин";
-            this.ItemForName.TextSize = new System.Drawing.Size(46, 13);
+            this.itemForName.Control = this.loginTextEdit;
+            this.itemForName.Location = new System.Drawing.Point(61, 29);
+            this.itemForName.MaxSize = new System.Drawing.Size(0, 46);
+            this.itemForName.MinSize = new System.Drawing.Size(131, 46);
+            this.itemForName.Name = "itemForName";
+            this.itemForName.Size = new System.Drawing.Size(1017, 46);
+            this.itemForName.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
+            this.itemForName.Text = "Логин";
+            this.itemForName.TextSize = new System.Drawing.Size(97, 13);
             // 
             // layoutControlGroup4
             // 
@@ -226,23 +226,23 @@ namespace Polyathlon.Views
             // 
             this.layoutControlGroup3.GroupBordersVisible = false;
             this.layoutControlGroup3.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
-            this.layoutControlItem1});
+            this.itemForPassword});
             this.layoutControlGroup3.Location = new System.Drawing.Point(61, 75);
             this.layoutControlGroup3.Name = "innerAutoGeneratedGroup1";
             this.layoutControlGroup3.Size = new System.Drawing.Size(1017, 46);
             this.layoutControlGroup3.Text = "HOME OFFICE";
             // 
-            // layoutControlItem1
+            // itemForPassword
             // 
-            this.layoutControlItem1.Control = this.passwordTextEdit;
-            this.layoutControlItem1.Location = new System.Drawing.Point(0, 0);
-            this.layoutControlItem1.MaxSize = new System.Drawing.Size(548, 46);
-            this.layoutControlItem1.MinSize = new System.Drawing.Size(548, 46);
-            this.layoutControlItem1.Name = "ItemForHomeOffice.Line";
-            this.layoutControlItem1.Size = new System.Drawing.Size(1017, 46);
-            this.layoutControlItem1.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
-            this.layoutControlItem1.Text = "Пароль";
-            this.layoutControlItem1.TextSize = new System.Drawing.Size(46, 13);
+            this.itemForPassword.Control = this.passwordTextEdit;
+            this.itemForPassword.Location = new System.Drawing.Point(0, 0);
+            this.itemForPassword.MaxSize = new System.Drawing.Size(548, 46);
+            this.itemForPassword.MinSize = new System.Drawing.Size(548, 46);
+            this.itemForPassword.Name = "itemForPassword";
+            this.itemForPassword.Size = new System.Drawing.Size(1017, 46);
+            this.itemForPassword.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
+            this.itemForPassword.Text = "Пароль";
+            this.itemForPassword.TextSize = new System.Drawing.Size(97, 13);
             // 
             // layoutControlItem5
             // 
@@ -275,8 +275,8 @@ namespace Polyathlon.Views
             this.simpleLabelItem1.Name = "simpleLabelItem1";
             this.simpleLabelItem1.Size = new System.Drawing.Size(129, 29);
             this.simpleLabelItem1.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
-            this.simpleLabelItem1.Text = "Регион";
-            this.simpleLabelItem1.TextSize = new System.Drawing.Size(46, 18);
+            this.simpleLabelItem1.Text = "Пользователь";
+            this.simpleLabelItem1.TextSize = new System.Drawing.Size(97, 18);
             // 
             // customerNameSimpleLabelItem
             // 
@@ -334,10 +334,10 @@ namespace Polyathlon.Views
             ((System.ComponentModel.ISupportInitialize)(this.passwordTextEdit.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ItemForName)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.itemForName)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.itemForPassword)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.simpleLabelItem1)).EndInit();
@@ -357,10 +357,10 @@ namespace Polyathlon.Views
         private System.Windows.Forms.BindingSource userBindingSource;
         private DevExpress.XtraEditors.TextEdit passwordTextEdit;
         private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup2;
-        private DevExpress.XtraLayout.LayoutControlItem ItemForName;
+        private DevExpress.XtraLayout.LayoutControlItem itemForName;
         private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup4;
         private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup3;
-        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem1;
+        private DevExpress.XtraLayout.LayoutControlItem itemForPassword;
         private DevExpress.XtraBars.Docking2010.WindowsUIButtonPanel backWindowsUIButtonPanel;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem5;
         private DevExpress.XtraEditors.DateTimeChartRangeControlClient dateTimeChartRangeControlClient;

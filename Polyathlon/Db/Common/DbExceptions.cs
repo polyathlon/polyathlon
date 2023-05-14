@@ -7,13 +7,19 @@ public class DbException : Exception
 {
     public string? Reason { get; }
 
-    public DbException() { }
+    public DbException()
+    { }
 
-    public DbException(string message) : base(message) { }
+    public DbException(string message) : base(message)
+    {
+    }
 
-    public DbException(string message, Exception? innerException) : base(message, innerException) { }
+    public DbException(string message, Exception? innerException) : base(message, innerException)
+    {
+    }
 
-    public DbException(string message, Exception? innerException, string reason) : base(message, innerException) {
+    public DbException(string message, Exception? innerException, string reason) : base(message, innerException)
+    {
         Reason = reason;
     }
 }

@@ -4,9 +4,17 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>net6.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
-    <UseWindowsForms>true</UseWindowsForms>
+    <UseWindowsForms>True</UseWindowsForms>
 	<ApplicationDefaultFont>Segoe UI, 11pt</ApplicationDefaultFont>
     <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <WarningLevel>0</WarningLevel>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <WarningLevel>0</WarningLevel>
   </PropertyGroup>
 
   <ItemGroup>
@@ -22,7 +30,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="CouchDB.NET" Version="3.2.0" />
     <PackageReference Include="devexpress.win.design" Version="21.2.5" />
     <PackageReference Include="Flurl.Http" Version="3.2.4" />
     <PackageReference Include="System.Management" Version="6.0.0" />
@@ -45,20 +52,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>LayoutSettings.settings</DependentUpon>
     </Compile>
-    <Compile Update="Properties\Resources.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Update="Properties\Settings.Designer.cs">
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
-    </Compile>
     <Compile Update="Views\Club\ClubCollectionView.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Update="Views\Common\MapView.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Update="Views\ChangeUser\ChangeUserView.cs">
@@ -74,10 +68,6 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>ConnectionSettings.Designer.cs</LastGenOutput>
     </None>
-    <None Update="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
     <None Update="Properties\LayoutSettings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>LayoutSettings.Designer.cs</LastGenOutput>
@@ -88,10 +78,6 @@
     <EmbeddedResource Update="Properties\CommonResources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>CommonResources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\Club\ClubView.resx">
       <SubType>Designer</SubType>

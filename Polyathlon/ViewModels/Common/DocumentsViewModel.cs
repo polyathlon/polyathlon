@@ -1,10 +1,10 @@
-﻿
-using System.ComponentModel;
+﻿using System.ComponentModel;
+using System.Collections.ObjectModel;
+
 using DevExpress.Mvvm;
 using DevExpress.Mvvm.POCO;
-using System.Collections.ObjectModel;
+
 using Polyathlon.Models.Entities;
-using Polyathlon.DataModel;
 
 namespace Polyathlon.ViewModels.Common
 {
@@ -12,30 +12,24 @@ namespace Polyathlon.ViewModels.Common
     /// The base class for POCO view models that operate the collection of documents.
     /// </summary>
     /// <typeparam name="TModule">A navigation list entry type.</typeparam>
-    /// <typeparam name="TUnitOfWork">A unit of work type.</typeparam>
-    /// 
-    public abstract class DocumentsViewModel<TModule> : ISupportLogicalLayout
+    public abstract class DocumentsViewModel<TModule>
+        : ISupportLogicalLayout
         where TModule : ModuleViewEntity
     {
-
-        const string ViewLayoutName = "DocumentViewModel";
-
-        
-        //protected readonly LocalViewDbBase localViewDbBase = new();
+        private const string ViewLayoutName = "DocumentViewModel";
 
         /// <summary>
         /// Initializes a new instance of the DocumentsViewModel class.
         /// </summary>
-        /// <param name="unitOfWorkFactory">A factory used to create a unit of work instance.</param>
         protected DocumentsViewModel()
-        {            
+        {
             Modules = CreateModules();
             foreach (var module in Modules)
                 Messenger.Default.Register<NavigateMessage<TModule>>(this, module, x => Show(x.Token));
             Messenger.Default.Register<DestroyOrphanedDocumentsMessage>(this, x => DestroyOrphanedDocuments());
         }
 
-        void DestroyOrphanedDocuments()
+        private void DestroyOrphanedDocuments()
         {
             var orphans = this.GetOrphanedDocuments().Except(this.GetImmediateChildren());
             foreach (IDocument orphan in orphans)
@@ -100,19 +94,18 @@ namespace Polyathlon.ViewModels.Common
         /// <param name="module">A navigation list entry specifying a document what to be opened.</param>
         public void Show(TModule module)
         {
-            IDocument document = ShowCore(module);
+            IDocument? document = ShowCore(module);
             documentChanging = true;
             ActiveModule = module;
             documentChanging = false;
             DocumentShown(module, document);
         }
 
-        protected virtual void DocumentShown(TModule module, IDocument document)
+        protected virtual void DocumentShown(TModule module, IDocument? document)
         {
-
         }
 
-        public IDocument ShowCore(TModule module)
+        public IDocument? ShowCore(TModule module)
         {
             if (module == null || DocumentManagerService == null)
                 return null;
@@ -144,23 +137,32 @@ namespace Polyathlon.ViewModels.Common
             Show(module);
         }
 
-        bool documentChanging = false;
-        void OnActiveDocumentChanged(object sender, ActiveDocumentChangedEventArgs e)
+        private bool documentChanging = false;
+
+        private void OnActiveDocumentChanged(object sender, ActiveDocumentChangedEventArgs e)
         {
         }
 
-        protected IDocumentManagerService DocumentManagerService { get { return this.GetService<IDocumentManagerService>(); } }
-        protected ILayoutSerializationService LayoutSerializationService { get { return this.GetService<ILayoutSerializationService>(); } }
-        protected IDocumentManagerService WorkspaceDocumentManagerService { get { return this.GetService<IDocumentManagerService>("WorkspaceDocumentManagerService"); } }
+        protected IDocumentManagerService DocumentManagerService
+        { get { return this.GetService<IDocumentManagerService>(); } }
 
-        public virtual TModule DefaultModule { get { return Modules.First(); } }
+        protected ILayoutSerializationService LayoutSerializationService
+        { get { return this.GetService<ILayoutSerializationService>(); } }
+
+        protected IDocumentManagerService WorkspaceDocumentManagerService
+        { get { return this.GetService<IDocumentManagerService>("WorkspaceDocumentManagerService"); } }
+
+        public virtual TModule DefaultModule
+        { get { return Modules.First(); } }
 
         protected bool IsLoaded { get; private set; }
 
         protected virtual void OnSelectedModuleChanged(TModule oldModule)
         {
             if (IsLoaded && !documentChanging)
+            {
                 Show(SelectedModule);
+            }
         }
 
         protected virtual void OnActiveModuleChanged(TModule oldModule)
@@ -168,38 +170,31 @@ namespace Polyathlon.ViewModels.Common
             SelectedModule = ActiveModule;
         }
 
-        IDocument CreateDocument(TModule module)
+        private IDocument CreateDocument(TModule module)
         {
             var document = DocumentManagerService.CreateDocument(module.ViewType, module, this);
+
             document.Title = GetModuleTitle(module);
-            document.DestroyOnClose = false;            
+            document.DestroyOnClose = false;
+
             return document;
         }
-        
+
         protected virtual string GetModuleTitle(TModule module)
         {
-            return module.Title ?? String.Empty;
+            return module.Title ?? string.Empty;
         }
 
-        IDocument CreatePinnedPeekCollectionDocument(TModule module)
+        private IDocument CreatePinnedPeekCollectionDocument(TModule module)
         {
-            //var document = WorkspaceDocumentManagerService.CreateDocument("PeekCollectionView", module.CreatePeekCollectionViewModel());
             var document = WorkspaceDocumentManagerService.CreateDocument("PeekCollectionView", module.Name);
+
             document.Title = module.Title;
+
             return document;
         }
 
-        //protected Func<TModule, object> GetPeekCollectionViewModelFactory<TEntity, TPrimaryKey>(Func<TUnitOfWork, IRepository<TEntity, TPrimaryKey>> getRepositoryFunc) where TEntity : class
-        //{
-        //   // return module => PeekCollectionViewModel<TModule, TEntity, TPrimaryKey, TUnitOfWork>.Create(module, unitOfWorkFactory, getRepositoryFunc).SetParentViewModel(this);
-        //}
-
         protected abstract ObservableCollection<TModule> CreateModules();
-
-        //protected TUnitOfWork CreateUnitOfWork()
-        //{
-        //    return unitOfWorkFactory.CreateUnitOfWork();
-        //}
 
         public void SaveLogicalLayout()
         {
@@ -209,8 +204,12 @@ namespace Polyathlon.ViewModels.Common
         public bool RestoreLogicalLayout()
         {
             if (string.IsNullOrEmpty(PersistentLayoutHelper.PersistentLogicalLayout))
+            {
                 return false;
+            }
+
             this.RestoreDocumentManagerService(PersistentLayoutHelper.PersistentLogicalLayout);
+
             return true;
         }
 
@@ -231,114 +230,10 @@ namespace Polyathlon.ViewModels.Common
     }
 
     /// <summary>
-    /// A base class representing a navigation list entry.
-    /// </summary>
-    /// <typeparam name="TModule">A navigation list entry type.</typeparam>
-    /// 
-    //public abstract class ModuleDescription<TModule> where TModule : ModuleDescription<TModule>
-    //{
-
-    //    readonly Func<TModule, object> peekCollectionViewModelFactory;
-    //    object? peekCollectionViewModel;
-
-    //    /// <summary>
-    //    /// Initializes a new instance of the ModuleDescription class.
-    //    /// </summary>
-    //    /// <param name = "title" > A navigation list entry display text.</param>
-    //    /// <param name = "documentType" > A string value that specifies the view type of corresponding document.</param>
-    //    /// <param name = "group" > A navigation list entry group name.</param>
-    //    /// <param name = "peekCollectionViewModelFactory" > An optional parameter that provides a function used to create a PeekCollectionViewModel that provides quick navigation between collection views.</param>
-    //    public ModuleDescription(string moduleTitle, string moduleGroup, string documentType, Func<TModule, object> peekCollectionViewModelFactory = null)
-    //    {
-    //        ModuleTitle = moduleTitle;
-    //        ModuleGroup = moduleGroup;
-    //        DocumentType = documentType;            
-    //        this.peekCollectionViewModelFactory = peekCollectionViewModelFactory;
-    //    }
-
-    //    public ModuleDescription(Func<TModule, object> peekCollectionViewModelFactory = null)
-    //    {            
-    //        this.peekCollectionViewModelFactory = peekCollectionViewModelFactory;
-    //    }
-
-    //    [JsonProperty("_id")]
-    //    public string? ModuleId { get; set; }
-    //    [JsonProperty("_rev")]
-    //    public string? ModuleRev { get; set; }
-    //    /// <summary>
-    //    /// The navigation list entry display text.
-    //    /// </summary>
-    //    [JsonProperty("moduleTitle")]
-    //    public string ModuleTitle { get; private set; }
-
-    //    /// <summary>
-    //    /// The navigation list entry group name.
-    //    /// </summary>
-    //    [JsonProperty("moduleGroup")]
-    //    public string ModuleGroup { get; private set; }
-
-    //    /// <summary>
-    //    /// Contains the corresponding document view type.
-    //    /// </summary>
-    //    [JsonProperty("documentType")]
-    //    public string DocumentType { get; private set; }
-
-
-    //    /// <summary>
-    //    /// Color of tileBarItem.
-    //    /// </summary>
-    //    [JsonProperty("tileColor")]
-    //    public Color TileColor { get; private set; }
-
-    //    /// <summary>
-    //    /// Font Size of tileBarItem.
-    //    /// </summary>
-    //    [JsonProperty("tileFontSize")]        
-    //    public int TileFontSize { get; private set; }
-
-    //    /// <summary>
-    //    /// A class for storing request's url to the Database.
-    //    /// </summary>
-    //    public class Request
-    //    {
-    //        public string? Url { get; set; }
-    //    }
-
-    //    /// <summary>
-    //    /// A list of requests to Database.
-    //    /// </summary>
-    //    public List<Request> Requests = new List<Request>();
-
-    //    /// <summary>
-    //    /// A primary instance of corresponding PeekCollectionViewModel used to quick navigation between collection views.
-    //    /// </summary>
-    //    public object? PeekCollectionViewModel
-    //    {
-    //        get
-    //        {
-    //            if (peekCollectionViewModelFactory == null)
-    //                return null;
-    //            if (peekCollectionViewModel == null)
-    //                peekCollectionViewModel = CreatePeekCollectionViewModel();
-    //            return peekCollectionViewModel;
-    //        }
-    //    }
-
-    //    /// <summary>
-    //    /// Creates and returns a new instance of the corresponding PeekCollectionViewModel that provides quick navigation between collection views.
-    //    /// </summary>
-    //    public object CreatePeekCollectionViewModel()
-    //    {
-    //        return peekCollectionViewModelFactory((TModule)this);
-    //    }
-    //}
-
-    /// <summary>
     /// Represents a navigation pane state.
     /// </summary>
     public enum NavigationPaneVisibility
     {
-
         /// <summary>
         /// Navigation pane is visible and minimized.
         /// </summary>

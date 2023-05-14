@@ -1,5 +1,4 @@
-﻿
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Security;
 
@@ -7,7 +6,6 @@ namespace Polyathlon.Helpers;
 
 internal class DirectoryHelper
 {
-
     private static class WinApiHelper
     {
         private static class Import
@@ -80,6 +78,7 @@ internal class DirectoryHelper
             return lpwndpl.showCmd == Import.ShowWindowCommands.ShowMaximized;
         }
     }
+
     public static IDisposable SingleInstanceApplicationGuard(string applicationName, out bool exit)
     {
         Mutex mutex = new(initiallyOwned: true, applicationName);

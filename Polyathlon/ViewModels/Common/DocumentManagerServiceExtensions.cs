@@ -36,10 +36,10 @@ namespace Polyathlon.ViewModels.Common
         /// <param name="documentManagerService">An instance of the IDocumentManager interface used to create and show the document.</param>
         /// <param name="parentViewModel">An object that is passed to the view model of the created view.</param>
         /// <param name="newEntityInitializer">An optional parameter that provides a function that initializes a new entity.</param>
-        public static void ShowNewEntityDocument<TEntity>(this IDocumentManagerService documentManagerService, object parentViewModel, Action<TEntity> newEntityInitializer = null) 
+        public static void ShowNewEntityDocument<TEntity>(this IDocumentManagerService documentManagerService, object parentViewModel, Action<TEntity> newEntityInitializer = null)
         {
             IDocument document = FindNewEntityDocument<TEntity>(documentManagerService) ?? CreateDocument<TEntity>(documentManagerService, newEntityInitializer ?? (x => DefaultEntityInitializer(x)), parentViewModel);
-            if(document != null)
+            if (document != null)
                 document.Show();
         }
 
@@ -49,7 +49,8 @@ namespace Polyathlon.ViewModels.Common
         /// <param name="documentManagerService">An instance of the IDocumentManager interface used to create and show the document.</param>
         /// <param name="parentViewModel">An object that is passed to the view model of the created view.</param>
         /// <param name="newEntityInitializer">An optional parameter that provides a function that initializes a new entity.</param>
-        public static void MyShowNewEntityDocument<TEntity>(this IDocumentManagerService documentManagerService, object parameter, object parentViewModel) {
+        public static void MyShowNewEntityDocument<TEntity>(this IDocumentManagerService documentManagerService, object parameter, object parentViewModel)
+        {
             IDocument document = CreateDocument<TEntity>(documentManagerService, parameter, parentViewModel);
             if (document != null)
                 document.Show();
@@ -68,7 +69,7 @@ namespace Polyathlon.ViewModels.Common
             {
                 ISingleObjectViewModel<TViewEntity> entityViewModel = document.Content as ISingleObjectViewModel<TViewEntity>;
                 //if (entityViewModel != null && object.Equals(entityViewModel.PrimaryKey, primaryKey))
-                  //  return document;
+                //  return document;
             }
             return null;
         }
@@ -90,10 +91,11 @@ namespace Polyathlon.ViewModels.Common
         /// </summary>
         /// <param name="documentManagerService">An instance of the IDocumentManager interface used to find a document.</param>
         /// <param name="primaryKey">An entity primary key.</param>
-        public static IDocument FindNewEntityDocument<TEntity>(this IDocumentManagerService documentManagerService) {
-            if(documentManagerService == null)
+        public static IDocument FindNewEntityDocument<TEntity>(this IDocumentManagerService documentManagerService)
+        {
+            if (documentManagerService == null)
                 return null;
-            foreach(IDocument document in documentManagerService.Documents) 
+            foreach (IDocument document in documentManagerService.Documents)
             {
                 ISingleObjectViewModel<TEntity> entityViewModel = document.Content as ISingleObjectViewModel<TEntity>;
                 if (entityViewModel != null && entityViewModel.IsNew())
@@ -102,9 +104,11 @@ namespace Polyathlon.ViewModels.Common
             return null;
         }
 
-        static void DefaultEntityInitializer<TEntity>(TEntity entity) { }
+        private static void DefaultEntityInitializer<TEntity>(TEntity entity)
+        {
+        }
 
-        static IDocument CreateDocument<TEntity>(IDocumentManagerService documentManagerService, object parameter, object parentViewModel)
+        private static IDocument CreateDocument<TEntity>(IDocumentManagerService documentManagerService, object parameter, object parentViewModel)
         {
             if (documentManagerService == null)
                 return null;
