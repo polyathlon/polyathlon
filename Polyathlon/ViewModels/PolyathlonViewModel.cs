@@ -28,7 +28,7 @@ public partial class PolyathlonViewModel : DocumentsViewModel<ModuleViewEntity>
     {
         ObservableCollection<ModuleViewEntity> ViewEntities = new(
             ModuleDatabase.ModuleDb.GetModuleViewCollection<Module, ModuleViewEntity>(
-                "http://localhost:5984/polyathlon-modules/_partition/module/_all_docs?include_docs=true",
+                "http://localhost:5984/polyathlon/_partition/module/_all_docs?include_docs=true",
                 CreateModule)
             .Values);
 

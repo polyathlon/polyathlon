@@ -376,7 +376,7 @@ namespace Polyathlon.ViewModels.Common
                 if (operation is SingleModelAction.Copy)
                 {
                     OldViewEntity = viewEntity;
-                    ViewEntity = (TViewEntity)OldViewEntity.Clone();// with { };
+                    ViewEntity = (TViewEntity)OldViewEntity.Clone();
                 }
                 else if (operation is SingleModelAction.Edit)
                 {

@@ -33,6 +33,7 @@ public partial class CollectionViewModel<TViewEntity, TEntity> : ISupportParamet
     {
         if (MessageBoxService.ShowMessage(string.Format(CommonResources.Confirmation_Delete, typeof(TEntity).Name), CommonResources.Confirmation_Caption, MessageButton.YesNo) != MessageResult.Yes)
             return;
+
         try
         {
             LocalDatabase.LocalDb.DeleteEntityAsync<TViewEntity, TEntity>(ViewEntity);

@@ -27,14 +27,14 @@ public class ModuleViewEntity : ViewEntityBase<Module>
         set => entity.Group = value;
     }
 
-    [Display(Name = "Имя просмотра")]
+    [Display(Name = "Тип представления")]
     public string? ViewType
     {
         get => entity.ViewType;
         set => entity.ViewType = value;
     }
 
-    [Display(Name = "Порядок сортировки")]
+    [Display(Name = "Порядок в группе")]
     public string? SortOrder
     {
         get => entity.SortOrder;

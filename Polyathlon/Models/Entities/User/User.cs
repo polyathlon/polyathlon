@@ -1,8 +1,14 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Runtime.CompilerServices;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
+
+using Polyathlon.Models.Common;
 
 namespace Polyathlon.Models.Entities;
 
-public record User
+[JsonObject(NamingStrategyType = typeof(CamelCaseNamingStrategy))]
+public record User : EntityBase
 {
     [Required]
     public string Login { get; set; }
