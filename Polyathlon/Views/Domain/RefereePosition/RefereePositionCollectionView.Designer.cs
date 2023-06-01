@@ -202,7 +202,7 @@ namespace Polyathlon.Views
             // mvvmContext
             // 
             this.mvvmContext.ContainerControl = this;
-            this.mvvmContext.ViewModelType = typeof(Polyathlon.ViewModels.RefereePositionViewModel);
+            this.mvvmContext.ViewModelType = typeof(Polyathlon.ViewModels.RefereePositionCollectionViewModel);
             // 
             // searchControl
             // 
