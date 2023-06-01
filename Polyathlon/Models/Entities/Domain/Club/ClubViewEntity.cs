@@ -7,24 +7,27 @@ namespace Polyathlon.Models.Entities;
 
 public class ClubViewEntity : ViewEntityBase<Club>
 {
-    [Display(Name = "Наименование")]
+    [Display(Name = "Спортивный клуб")]
     public string? Name
     {
         get => entity.Name;
         set => entity.Name = value;
     }
 
-    [Display(Name = "Регион")]
+    [Display(Name = "Субъект РФ")]
     public string? RegionName
     {
-        get => ModuleDatabase.ModuleDb.GetViewEntities<RegionViewEntity>("module:01GA69CF93RKFMC2EA07EZ4YHY", entity.Region).Name;
+        get => ModuleDatabase.ModuleDb
+            .GetViewEntities<RegionViewEntity>("module:01GA69CF93RKFMC2EA07EZ4YHY", entity.Region).Name;
         set => entity.Region = value;
     }
 
-    [Display(Name = "Сокращение региона")]
+    [Display(Name = "Сокращение Субъекта РФ")]
     public string? RegionShortName
     {
-        get => ModuleDatabase.ModuleDb.GetViewEntities<RegionViewEntity>("module:01GA69CF93RKFMC2EA07EZ4YHY", entity.Region).ShortName;
+        get =>
+            ModuleDatabase.ModuleDb
+            .GetViewEntities<RegionViewEntity>("module:01GA69CF93RKFMC2EA07EZ4YHY", entity.Region).ShortName;
         set => entity.Region = value;
     }
 

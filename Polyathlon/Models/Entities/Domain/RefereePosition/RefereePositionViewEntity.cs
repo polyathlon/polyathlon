@@ -7,7 +7,7 @@ namespace Polyathlon.Models.Entities;
 
 public class RefereePositionViewEntity : ViewEntityBase<RefereePosition>
 {
-    [Display(Name = "Наименование")]
+    [Display(Name = "Должность судьи")]
     public string? Name
     {
         get => entity.Name;
@@ -23,6 +23,7 @@ public class RefereePositionViewEntity : ViewEntityBase<RefereePosition>
     {
         RefereePosition entity = this.entity with { };
         RefereePositionViewEntity viewEntity = new(entity, Request);
+
         return viewEntity;
     }
 }

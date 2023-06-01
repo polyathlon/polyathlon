@@ -7,7 +7,7 @@ namespace Polyathlon.Models.Entities;
 
 public class RefereeCityViewEntity : ViewEntityBase<RefereeCity>
 {
-    [Display(Name = "Наименование")]
+    [Display(Name = "Населенный пункт судьи")]
     public string? Name
     {
         get => entity.Name;

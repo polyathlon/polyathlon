@@ -9,7 +9,8 @@ namespace Polyathlon.Models.Entities;
 public record class Category : EntityBase
 {
     public string? Name { get; set; }
-    public string? ShortName { get; set; }
-    public int? MinBalls { get; set; }
-    public int? MinBallsW { get; set; }
+    public string? ShortNameRoman { get; set; }
+    public string? ShortNameArabic { get; set; }
+    public string? MinBallsMale { get; set; }
+    public string? MinBallsFemale { get; set; }
 }

@@ -7,21 +7,21 @@ namespace Polyathlon.Models.Entities;
 
 public class RefereeViewEntity : ViewEntityBase<Referee>
 {
-    [Display(Name = "Имя")]
+    [Display(Name = "ФИО судьи")]
     public string? Name
     {
         get => entity.Name;
         set => entity.Name = value;
     }
 
-    [Display(Name = "Категория")]
+    [Display(Name = "Категория судьи")]
     public string? RefereeCategory
     {
         get => entity.RefereeCategory;
         set => entity.RefereeCategory = value;
     }
 
-    [Display(Name = "Город")]
+    [Display(Name = "Населенный пункт судьи")]
     public string? RefereeCity
     {
         get => entity.RefereeCity;

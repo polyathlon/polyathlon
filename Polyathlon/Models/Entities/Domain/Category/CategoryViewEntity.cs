@@ -7,32 +7,39 @@ namespace Polyathlon.Models.Entities;
 
 public class CategoryViewEntity : ViewEntityBase<Category>
 {
-    [Display(Name = "Наименование")]
+    [Display(Name = "Разряд")]
     public string? Name
     {
         get => entity.Name;
         set => entity.Name = value;
     }
 
-    [Display(Name = "Сокращение")]
-    public string? ShortName
+    [Display(Name = "Сокращение разряда")]
+    public string? ShortNameRoman
     {
-        get => entity.ShortName;
-        set => entity.ShortName = value;
+        get => entity.ShortNameRoman;
+        set => entity.ShortNameRoman = value;
     }
 
-    [Display(Name = "Минимальные баллы")]
-    public int? MinBalls
+    [Display(Name = "Сокращение разряда")]
+    public string? ShortNameArabic
     {
-        get => entity.MinBalls;
-        set => entity.MinBalls = value;
+        get => entity.ShortNameArabic;
+        set => entity.ShortNameArabic = value;
     }
 
-    [Display(Name = "Минимальные баллы для выигрыша")]
-    public int? MinBallsW
+    [Display(Name = "Минимальные баллы (мужчины)")]
+    public string? MinBallsMale
     {
-        get => entity.MinBallsW;
-        set => entity.MinBallsW = value;
+        get => entity.MinBallsMale;
+        set => entity.MinBallsMale = value;
+    }
+
+    [Display(Name = "Минимальные баллы (женщины)")]
+    public string? MinBallsFemale
+    {
+        get => entity.MinBallsFemale;
+        set => entity.MinBallsFemale = value;
     }
 
     public CategoryViewEntity(Category category, Flurl.Url request)

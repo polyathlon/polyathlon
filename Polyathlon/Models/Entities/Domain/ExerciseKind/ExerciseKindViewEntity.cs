@@ -7,14 +7,14 @@ namespace Polyathlon.Models.Entities;
 
 public class ExerciseKindViewEntity : ViewEntityBase<ExerciseKind>
 {
-    [Display(Name = "Наименование")]
+    [Display(Name = "Вид упражнения")]
     public string? Name
     {
         get => entity.Name;
         set => entity.Name = value;
     }
 
-    [Display(Name = "Сокращение")]
+    [Display(Name = "Сокращение вида упражнения")]
     public string? ShortName
     {
         get => entity.ShortName;
