@@ -7,29 +7,29 @@ namespace Polyathlon.Models.Entities;
 
 public class ExerciseNameViewEntity : ViewEntityBase<ExerciseName>
 {
-    [Display(Name = "Наименование")]
+    [Display(Name = "Упражнение")]
     public string? Name
     {
         get => entity.Name;
         set => entity.Name = value;
     }
 
-    [Display(Name = "Сокращение")]
+    [Display(Name = "Сокращение упражнения")]
     public string? ShortName
     {
         get => entity.ShortName;
         set => entity.ShortName = value;
     }
 
-    [Display(Name = "Вид дисциплины")]
-    public string? DisciplineKind
+    [Display(Name = "Вид упражнения")]
+    public string? ExerciseKind
     {
-        get => entity.DisciplineKind;
-        set => entity.DisciplineKind = value;
+        get => entity.ExerciseKind;
+        set => entity.ExerciseKind = value;
     }
 
-    public ExerciseNameViewEntity(ExerciseName disciplineName, Flurl.Url request)
-        : base(disciplineName, request)
+    public ExerciseNameViewEntity(ExerciseName exerciseName, Flurl.Url request)
+        : base(exerciseName, request)
     {
     }
 

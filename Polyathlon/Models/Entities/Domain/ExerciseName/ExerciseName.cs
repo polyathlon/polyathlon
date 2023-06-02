@@ -10,5 +10,5 @@ public record class ExerciseName : EntityBase
 {
     public string? Name { get; set; }
     public string? ShortName { get; set; }
-    public string? DisciplineKind { get; set; }
+    public string? ExerciseKind { get; set; }
 }
