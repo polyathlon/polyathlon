@@ -8,7 +8,7 @@ namespace Polyathlon.Models.Entities;
 [JsonObject(NamingStrategyType = typeof(CamelCaseNamingStrategy))]
 public record class AgeCoefficient : EntityBase
 {
-    public int? Age { get; set; }
-    public double? Coefficient { get; set; }
+    public string? Age { get; set; }
+    public string? Coefficient { get; set; }
     public string? Competition { get; set; }
 }

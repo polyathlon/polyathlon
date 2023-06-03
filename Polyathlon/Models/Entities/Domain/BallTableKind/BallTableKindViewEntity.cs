@@ -7,11 +7,11 @@ namespace Polyathlon.Models.Entities;
 
 public class BallTableKindViewEntity : ViewEntityBase<BallTableKind>
 {
-    [Display(Name = "Дисциплина")]
-    public string? DisciplineName
+    [Display(Name = "Упражнение")]
+    public string? ExerciseName
     {
-        get => entity.DisciplineName;
-        set => entity.DisciplineName = value;
+        get => entity.ExerciseName;
+        set => entity.ExerciseName = value;
     }
 
     [Display(Name = "Пол")]
@@ -22,14 +22,14 @@ public class BallTableKindViewEntity : ViewEntityBase<BallTableKind>
     }
 
     [Display(Name = "Минимальный возраст")]
-    public int? MinAge
+    public string? MinAge
     {
         get => entity.MinAge;
         set => entity.MinAge = value;
     }
 
     [Display(Name = "Максимальный возраст")]
-    public int? MaxAge
+    public string? MaxAge
     {
         get => entity.MaxAge;
         set => entity.MaxAge = value;

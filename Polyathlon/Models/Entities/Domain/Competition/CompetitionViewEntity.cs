@@ -7,14 +7,14 @@ namespace Polyathlon.Models.Entities;
 
 public class CompetitionViewEntity : ViewEntityBase<Competition>
 {
-    [Display(Name = "Вид соревнования")]
-    public string? BallTableKind
+    [Display(Name = "Дисциплина")]
+    public string? CompetitionKind
     {
         get => entity.CompetitionKind;
         set => entity.CompetitionKind = value;
     }
 
-    [Display(Name = "Наименование")]
+    [Display(Name = "Соревнование")]
     public string? Name
     {
         get => entity.Name;
@@ -35,32 +35,25 @@ public class CompetitionViewEntity : ViewEntityBase<Competition>
         set => entity.EventPlace = value;
     }
 
-    [Display(Name = "Количество регионов")]
-    public int? RegionDelegateNumber
+    [Display(Name = "Язык")]
+    public string? Language
+    {
+        get => entity.Language;
+        set => entity.Language = value;
+    }
+
+    [Display(Name = "Количество команд")]
+    public string? RegionDelegateNumber
     {
         get => entity.RegionDelegateNumber;
         set => entity.RegionDelegateNumber = value;
     }
 
     [Display(Name = "Количество клубов")]
-    public int? ClubDelegateNumber
+    public string? ClubDelegateNumber
     {
         get => entity.ClubDelegateNumber;
         set => entity.ClubDelegateNumber = value;
-    }
-
-    [Display(Name = "Логотип")]
-    public string? Logotype
-    {
-        get => entity.Logotype;
-        set => entity.Logotype = value;
-    }
-
-    [Display(Name = "Язык")]
-    public string? Language
-    {
-        get => entity.Language;
-        set => entity.Language = value;
     }
 
     public CompetitionViewEntity(Competition competition, Flurl.Url request)

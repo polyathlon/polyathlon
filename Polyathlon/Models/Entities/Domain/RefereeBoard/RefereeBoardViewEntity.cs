@@ -14,7 +14,7 @@ public class RefereeBoardViewEntity : ViewEntityBase<RefereeBoard>
         set => entity.Competition = value;
     }
 
-    [Display(Name = "Позиция")]
+    [Display(Name = "Должность")]
     public string? RefereePosition
     {
         get => entity.RefereePosition;
@@ -31,15 +31,15 @@ public class RefereeBoardViewEntity : ViewEntityBase<RefereeBoard>
     [Display(Name = "Категория")]
     public string? RefereeCategory
     {
-        get => entity.RefereeCategory;
-        set => entity.RefereeCategory = value;
+        get => entity.Referee;
+        set => entity.Referee = value;
     }
 
     [Display(Name = "Город")]
     public string? RefereeCity
     {
-        get => entity.RefereeCity;
-        set => entity.RefereeCity = value;
+        get => entity.Referee;
+        set => entity.Referee = value;
     }
 
     public RefereeBoardViewEntity(RefereeBoard refereeBoard, Flurl.Url request)

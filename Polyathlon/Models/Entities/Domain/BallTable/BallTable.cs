@@ -8,7 +8,7 @@ namespace Polyathlon.Models.Entities;
 [JsonObject(NamingStrategyType = typeof(CamelCaseNamingStrategy))]
 public record class BallTable : EntityBase
 {
+    public string? Result { get; set; }
+    public string? Balls { get; set; }
     public string? BallTableKind { get; set; }
-    public int? Balls { get; set; }
-    public double? Result { get; set; }
 }

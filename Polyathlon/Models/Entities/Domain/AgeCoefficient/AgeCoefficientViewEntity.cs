@@ -8,21 +8,21 @@ namespace Polyathlon.Models.Entities;
 public class AgeCoefficientViewEntity : ViewEntityBase<AgeCoefficient>
 {
     [Display(Name = "Возраст")]
-    public int? Age
+    public string? Age
     {
         get => entity.Age;
         set => entity.Age = value;
     }
 
     [Display(Name = "Коэффициент")]
-    public double? Coefficient
+    public string? Coefficient
     {
         get => entity.Coefficient;
         set => entity.Coefficient = value;
     }
 
     [Display(Name = "Соревнование")]
-    public string? CompetitionId
+    public string? Competition
     {
         get => entity.Competition;
         set => entity.Competition = value;

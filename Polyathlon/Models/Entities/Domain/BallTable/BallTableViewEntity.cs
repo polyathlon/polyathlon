@@ -7,22 +7,22 @@ namespace Polyathlon.Models.Entities;
 
 public class BallTableViewEntity : ViewEntityBase<BallTable>
 {
-    [Display(Name = "Вид")]
+    [Display(Name = "Вид таблицы очков")]
     public string? BallTableKind
     {
         get => entity.BallTableKind;
         set => entity.BallTableKind = value;
     }
 
-    [Display(Name = "Баллы")]
-    public int? Balls
+    [Display(Name = "Очки")]
+    public string? Balls
     {
         get => entity.Balls;
         set => entity.Balls = value;
     }
 
     [Display(Name = "Результат")]
-    public double? Result
+    public string? Result
     {
         get => entity.Result;
         set => entity.Result = value;

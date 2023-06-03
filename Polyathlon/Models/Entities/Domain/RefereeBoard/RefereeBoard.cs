@@ -11,6 +11,4 @@ public record class RefereeBoard : EntityBase
     public string? Competition { get; set; }
     public string? RefereePosition { get; set; }
     public string? Referee { get; set; }
-    public string? RefereeCategory { get; set; }
-    public string? RefereeCity { get; set; }
 }
