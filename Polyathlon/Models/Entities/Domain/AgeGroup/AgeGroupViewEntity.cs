@@ -7,13 +7,6 @@ namespace Polyathlon.Models.Entities;
 
 public class AgeGroupViewEntity : ViewEntityBase<AgeGroup>
 {
-    [Display(Name = "Соревнование")]
-    public string? Competition
-    {
-        get => entity.Competition;
-        set => entity.Competition = value;
-    }
-
     [Display(Name = "Наименование")]
     public string? Name
     {

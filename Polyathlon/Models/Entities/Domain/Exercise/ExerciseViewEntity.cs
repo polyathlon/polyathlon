@@ -7,13 +7,6 @@ namespace Polyathlon.Models.Entities;
 
 public class ExerciseViewEntity : ViewEntityBase<Exercise>
 {
-    [Display(Name = "Соревнование")]
-    public string? Competition
-    {
-        get => entity.Competition;
-        set => entity.Competition = value;
-    }
-
     [Display(Name = "Возрастная группа")]
     public string? AgeGroup
     {
@@ -21,15 +14,15 @@ public class ExerciseViewEntity : ViewEntityBase<Exercise>
         set => entity.AgeGroup = value;
     }
 
-    [Display(Name = "Дисциплина")]
+    [Display(Name = "Упраженение")]
     public string? DisciplineName
     {
         get => entity.DiscplineName;
         set => entity.DiscplineName = value;
     }
 
-    public ExerciseViewEntity(Exercise discipline, Flurl.Url request)
-        : base(discipline, request)
+    public ExerciseViewEntity(Exercise exercise, Flurl.Url request)
+        : base(exercise, request)
     {
     }
 

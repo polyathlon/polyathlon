@@ -14,5 +14,4 @@ public record class AgeGroup : EntityBase
     public string? MaxAge { get; set; }
     public string? Gender { get; set; }
     public string? SortOrder { get; set; }
-    public string? Competition { get; set; }
 }

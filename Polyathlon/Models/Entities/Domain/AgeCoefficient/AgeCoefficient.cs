@@ -10,5 +10,4 @@ public record class AgeCoefficient : EntityBase
 {
     public string? Age { get; set; }
     public string? Coefficient { get; set; }
-    public string? Competition { get; set; }
 }

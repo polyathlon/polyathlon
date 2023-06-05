@@ -21,13 +21,6 @@ public class AgeCoefficientViewEntity : ViewEntityBase<AgeCoefficient>
         set => entity.Coefficient = value;
     }
 
-    [Display(Name = "Соревнование")]
-    public string? Competition
-    {
-        get => entity.Competition;
-        set => entity.Competition = value;
-    }
-
     public AgeCoefficientViewEntity(AgeCoefficient ageCoefficient, Flurl.Url request)
         : base(ageCoefficient, request)
     {

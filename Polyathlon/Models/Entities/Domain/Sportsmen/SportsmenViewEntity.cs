@@ -7,13 +7,6 @@ namespace Polyathlon.Models.Entities;
 
 public class SportsmenViewEntity : ViewEntityBase<Sportsmen>
 {
-    [Display(Name = "Соревнование")]
-    public string? Competition
-    {
-        get => entity.Competition;
-        set => entity.Competition = value;
-    }
-
     [Display(Name = "Имя")]
     public string? Name
     {
@@ -29,20 +22,20 @@ public class SportsmenViewEntity : ViewEntityBase<Sportsmen>
     }
 
     [Display(Name = "Год рождения")]
-    public int? BirthYear
+    public string? BirthYear
     {
         get => entity.BirthYear;
         set => entity.BirthYear = value;
     }
 
-    [Display(Name = "Категория")]
+    [Display(Name = "Разряд")]
     public string? Category
     {
         get => entity.Category;
         set => entity.Category = value;
     }
 
-    [Display(Name = "Клуб")]
+    [Display(Name = "Спортивный клуб")]
     public string? Club
     {
         get => entity.Club;
@@ -50,21 +43,21 @@ public class SportsmenViewEntity : ViewEntityBase<Sportsmen>
     }
 
     [Display(Name = "Номер спортсмена")]
-    public int? SportsmenNumber
+    public string? SportsmenNumber
     {
         get => entity.SportsmenNumber;
         set => entity.SportsmenNumber = value;
     }
 
-    [Display(Name = "Количество регионов")]
-    public int? RegionDelegate
+    [Display(Name = "Количество команд")]
+    public string? RegionDelegate
     {
         get => entity.RegionDelegate;
         set => entity.RegionDelegate = value;
     }
 
     [Display(Name = "Количество клубов")]
-    public int? ClubDelegate
+    public string? ClubDelegate
     {
         get => entity.ClubDelegate;
         set => entity.ClubDelegate = value;
@@ -78,20 +71,20 @@ public class SportsmenViewEntity : ViewEntityBase<Sportsmen>
     }
 
     [Display(Name = "Место")]
-    public int? Place
+    public string? Place
     {
         get => entity.Place;
         set => entity.Place = value;
     }
 
-    [Display(Name = "Баллы")]
-    public int? Balls
+    [Display(Name = "Очки")]
+    public string? Balls
     {
         get => entity.Balls;
         set => entity.Balls = value;
     }
 
-    [Display(Name = "Новая категория")]
+    [Display(Name = "Новый разряд")]
     public string? SetCategory
     {
         get => entity.SetCategory;
@@ -113,7 +106,7 @@ public class SportsmenViewEntity : ViewEntityBase<Sportsmen>
     }
 
     [Display(Name = "Активный")]
-    public int? IsActive
+    public string? IsActive
     {
         get => entity.IsActive;
         set => entity.IsActive = value;
