@@ -19,15 +19,13 @@ namespace Polyathlon.Views
         private void InitBindings()
         {
             var fluentAPI = mvvmContext.OfType<RefereePositionViewModel>();
-            fluentAPI.SetObjectDataSourceBinding(customerBindingSource, x => x.ViewEntity, x => x.Update());
+            fluentAPI.SetObjectDataSourceBinding(refereePositionBindingSource, x => x.ViewEntity, x => x.Update());
 
             fluentAPI.BindCommand(backWindowsUIButtonPanel.Buttons[0] as WindowsUIButton, x => x.Close());
             fluentAPI.BindCommandAndImage(windowsUIButtonPanel.Buttons[0], x => x.SaveAndClose());
             fluentAPI.BindCommandAndImage(windowsUIButtonPanel.Buttons[1], x => x.Close(), "Cancel");
             fluentAPI.BindCommandAndImage(windowsUIButtonPanel.Buttons[3], x => x.Delete(), "Delete");
             fluentAPI.BindCommandAndImage(windowsUIButtonPanel.Buttons[4], x => x.Refresh(), "Refresh");
-
-            fluentAPI.SetBinding(customerNameSimpleLabelItem, l => l.Text, x => x.Title);
         }
     }
 }

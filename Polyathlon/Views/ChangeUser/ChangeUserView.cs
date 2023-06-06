@@ -22,12 +22,10 @@ namespace Polyathlon.Views
         private void InitBindings()
         {
             var fluentAPI = mvvmContext.OfType<ChangeUserViewModel>();
+            fluentAPI.ViewModel.Init();
             fluentAPI.SetObjectDataSourceBinding(userBindingSource,
                                                  x => x.CurrentUser,
                                                  x => x.Update());
-
-            fluentAPI.ViewModel.Init();
-            fluentAPI.SetObjectDataSourceBinding(userBindingSource, x => x.CurrentUser, x => x.Update());
         }
     }
 }

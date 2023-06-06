@@ -23,10 +23,10 @@ namespace Polyathlon.Views
         private void InitBindings()
         {
             var fluentAPI = mvvmContext.OfType<RefereePositionCollectionViewModel>();
-            mvvmContext.BindCollectionGrid<RefereePositionCollectionViewModel, RefereePositionViewEntity, RefereePosition>(gridView, regionBindingSource);
+            mvvmContext.BindCollectionGrid<RefereePositionCollectionViewModel, RefereePositionViewEntity, RefereePosition>(gridView, refereePositionBindingSource);
 
-            fluentAPI.SetObjectDataSourceBinding(regionBindingSource, x => x.Entities);
-            fluentAPI.SetBinding(regionBindingSource, rbs => rbs.DataSource, x => x.Entities);
+            fluentAPI.SetObjectDataSourceBinding(refereePositionBindingSource, x => x.Entities);
+            fluentAPI.SetBinding(refereePositionBindingSource, rbs => rbs.DataSource, x => x.Entities);
             fluentAPI.SetBinding(titleLabelItem1, t => t.Text, x => x.ModuleDescription.Tile.Title);
 
             fluentAPI.BindCommandAndImage(windowsUIButtonPanel.Buttons[0], x => x.New());

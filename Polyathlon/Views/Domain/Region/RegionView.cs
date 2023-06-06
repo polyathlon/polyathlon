@@ -26,8 +26,6 @@ namespace Polyathlon.Views
             fluentAPI.BindCommandAndImage(windowsUIButtonPanel.Buttons[1], x => x.Close(), "Cancel");
             fluentAPI.BindCommandAndImage(windowsUIButtonPanel.Buttons[3], x => x.Delete(), "Delete");
             fluentAPI.BindCommandAndImage(windowsUIButtonPanel.Buttons[4], x => x.Refresh(), "Refresh");
-
-            fluentAPI.SetBinding(regionNameSimpleLabelItem, l => l.Text, x => x.Title);
         }
     }
 }

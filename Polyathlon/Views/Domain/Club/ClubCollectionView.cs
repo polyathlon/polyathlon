@@ -23,10 +23,10 @@ namespace Polyathlon.Views
         private void InitBindings()
         {
             var fluentAPI = mvvmContext.OfType<ClubCollectionViewModel>();
-            mvvmContext.BindCollectionGrid<ClubCollectionViewModel, ClubViewEntity, Club>(gridView, regionBindingSource);
+            mvvmContext.BindCollectionGrid<ClubCollectionViewModel, ClubViewEntity, Club>(gridView, clubBindingSource);
 
-            fluentAPI.SetObjectDataSourceBinding(regionBindingSource, x => x.Entities);
-            fluentAPI.SetBinding(regionBindingSource, rbs => rbs.DataSource, x => x.Entities);
+            fluentAPI.SetObjectDataSourceBinding(clubBindingSource, x => x.Entities);
+            fluentAPI.SetBinding(clubBindingSource, rbs => rbs.DataSource, x => x.Entities);
             fluentAPI.SetBinding(titleLabelItem1, t => t.Text, x => x.ModuleDescription.Tile.Title);
 
             fluentAPI.BindCommandAndImage(windowsUIButtonPanel.Buttons[0], x => x.New());
