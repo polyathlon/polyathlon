@@ -5,7 +5,7 @@ using Polyathlon.Db.ModuleDb;
 
 namespace Polyathlon.Models.Entities;
 
-public class CategoriesTableTableViewEntity : ViewEntityBase<CategoriesTable>
+public class CategoryTableViewEntity : ViewEntityBase<CategoryTable>
 {
     [Display(Name = "Спортивная дисциплина")]
     public string? CompetitionKind
@@ -35,15 +35,15 @@ public class CategoriesTableTableViewEntity : ViewEntityBase<CategoriesTable>
         set => entity.BallsFemale = value;
     }
 
-    public CategoriesTableTableViewEntity(CategoriesTable categoryTable, Flurl.Url request)
+    public CategoryTableViewEntity(CategoryTable categoryTable, Flurl.Url request)
         : base(categoryTable, request)
     {
     }
 
     public override object Clone()
     {
-        CategoriesTable entity = this.entity with { };
-        CategoriesTableTableViewEntity viewEntity = new(entity, Request);
+        CategoryTable entity = this.entity with { };
+        CategoryTableViewEntity viewEntity = new(entity, Request);
 
         return viewEntity;
     }
