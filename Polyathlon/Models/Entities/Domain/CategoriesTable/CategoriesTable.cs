@@ -6,7 +6,7 @@ using Polyathlon.Models.Common;
 namespace Polyathlon.Models.Entities;
 
 [JsonObject(NamingStrategyType = typeof(CamelCaseNamingStrategy))]
-public record class CategoryTable : EntityBase
+public record class CategoriesTable : EntityBase
 {
     public string? BallsMale { get; set; }
     public string? BallsFemale { get; set; }
