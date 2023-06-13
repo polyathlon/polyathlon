@@ -122,12 +122,12 @@ namespace Polyathlon.Views
             // NameTextEdit
             // 
             this.NameTextEdit.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.refereePositionBindingSource, "Name", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.NameTextEdit.Location = new System.Drawing.Point(158, 41);
+            this.NameTextEdit.Location = new System.Drawing.Point(236, 41);
             this.NameTextEdit.Name = "NameTextEdit";
             this.NameTextEdit.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
             this.NameTextEdit.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.NameTextEdit.Properties.Appearance.Options.UseFont = true;
-            this.NameTextEdit.Size = new System.Drawing.Size(928, 26);
+            this.NameTextEdit.Size = new System.Drawing.Size(850, 26);
             this.NameTextEdit.StyleController = this.dataLayoutControl;
             this.NameTextEdit.TabIndex = 4;
             // 
@@ -167,7 +167,7 @@ namespace Polyathlon.Views
             this.ItemForName.Size = new System.Drawing.Size(1017, 30);
             this.ItemForName.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.SupportHorzAlignment;
             this.ItemForName.Text = "Наименование";
-            this.ItemForName.TextSize = new System.Drawing.Size(73, 13);
+            this.ItemForName.TextSize = new System.Drawing.Size(151, 13);
             // 
             // layoutControlItem5
             // 
@@ -192,8 +192,8 @@ namespace Polyathlon.Views
             this.simpleLabelItem1.Name = "simpleLabelItem1";
             this.simpleLabelItem1.Size = new System.Drawing.Size(1017, 29);
             this.simpleLabelItem1.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
-            this.simpleLabelItem1.Text = "Регион";
-            this.simpleLabelItem1.TextSize = new System.Drawing.Size(73, 18);
+            this.simpleLabelItem1.Text = "Судейская должность";
+            this.simpleLabelItem1.TextSize = new System.Drawing.Size(151, 18);
             // 
             // emptySpaceItem4
             // 

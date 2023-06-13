@@ -61,6 +61,12 @@
     <Compile Update="Views\Domain\Club\ClubView.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Update="Views\Domain\BallTableKind\BallTableKindCollectionView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Views\Domain\BallTableKind\BallTableKindView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Update="Views\Domain\RefereePosition\RefereePositionCollectionView.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -89,6 +95,12 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\Domain\Club\ClubCollectionView.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Domain\BallTableKind\BallTableKindCollectionView.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Domain\BallTableKind\BallTableKindView.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\Domain\RefereePosition\RefereePositionCollectionView.resx">

@@ -169,8 +169,8 @@ namespace Polyathlon.Views
             this.titleLabelItem1.Name = "titleLabelItem1";
             this.titleLabelItem1.Padding = new DevExpress.XtraLayout.Utils.Padding(1, 1, 8, 9);
             this.titleLabelItem1.Size = new System.Drawing.Size(873, 35);
-            this.titleLabelItem1.Text = "Регионы";
-            this.titleLabelItem1.TextSize = new System.Drawing.Size(56, 18);
+            this.titleLabelItem1.Text = "Название сущности";
+            this.titleLabelItem1.TextSize = new System.Drawing.Size(137, 18);
             // 
             // layoutControlGroup2
             // 
@@ -199,7 +199,7 @@ namespace Polyathlon.Views
             // 
             this.searchControl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.searchControl.Client = this.gridControl;
-            this.searchControl.Location = new System.Drawing.Point(681, 28);
+            this.searchControl.Location = new System.Drawing.Point(650, 35);
             this.searchControl.Name = "searchControl";
             this.searchControl.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Repository.ClearButton(),

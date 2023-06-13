@@ -47,9 +47,9 @@ namespace Polyathlon.Views
             this.layoutControlItem5 = new DevExpress.XtraLayout.LayoutControlItem();
             this.simpleLabelItem1 = new DevExpress.XtraLayout.SimpleLabelItem();
             this.emptySpaceItem4 = new DevExpress.XtraLayout.EmptySpaceItem();
+            this.ItemForShortName = new DevExpress.XtraLayout.LayoutControlItem();
             this.mvvmContext = new DevExpress.Utils.MVVM.MVVMContext(this.components);
             this.dxErrorProvider = new DevExpress.XtraEditors.DXErrorProvider.DXErrorProvider(this.components);
-            this.ItemForShortName = new DevExpress.XtraLayout.LayoutControlItem();
             ((System.ComponentModel.ISupportInitialize)(this.dataLayoutControl)).BeginInit();
             this.dataLayoutControl.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NameTextEdit.Properties)).BeginInit();
@@ -61,9 +61,9 @@ namespace Polyathlon.Views
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.simpleLabelItem1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ItemForShortName)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mvvmContext)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dxErrorProvider)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ItemForShortName)).BeginInit();
             this.SuspendLayout();
             // 
             // windowsUIButtonPanel
@@ -228,16 +228,6 @@ namespace Polyathlon.Views
             this.emptySpaceItem4.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
             this.emptySpaceItem4.TextSize = new System.Drawing.Size(0, 0);
             // 
-            // mvvmContext
-            // 
-            this.mvvmContext.ContainerControl = this;
-            this.mvvmContext.ViewModelType = typeof(Polyathlon.ViewModels.RegionViewModel);
-            // 
-            // dxErrorProvider
-            // 
-            this.dxErrorProvider.ContainerControl = this;
-            this.dxErrorProvider.DataSource = this.regionBindingSource;
-            // 
             // ItemForShortName
             // 
             this.ItemForShortName.Control = this.ShortNameTextEdit;
@@ -247,6 +237,16 @@ namespace Polyathlon.Views
             this.ItemForShortName.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.SupportHorzAlignment;
             this.ItemForShortName.Text = "Сокращение";
             this.ItemForShortName.TextSize = new System.Drawing.Size(73, 13);
+            // 
+            // mvvmContext
+            // 
+            this.mvvmContext.ContainerControl = this;
+            this.mvvmContext.ViewModelType = typeof(Polyathlon.ViewModels.RegionViewModel);
+            // 
+            // dxErrorProvider
+            // 
+            this.dxErrorProvider.ContainerControl = this;
+            this.dxErrorProvider.DataSource = this.regionBindingSource;
             // 
             // RegionView
             // 
@@ -272,9 +272,9 @@ namespace Polyathlon.Views
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.simpleLabelItem1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ItemForShortName)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.mvvmContext)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dxErrorProvider)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ItemForShortName)).EndInit();
             this.ResumeLayout(false);
 
         }
