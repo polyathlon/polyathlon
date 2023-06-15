@@ -3,7 +3,7 @@ using System.Net;
 
 namespace Polyathlon.Db.Common;
 
-internal static class RequestExtensions
+internal static class RequestExtension
 {
     public static bool IsSuccessful(this IFlurlResponse response)
     {

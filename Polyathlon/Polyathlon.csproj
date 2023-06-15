@@ -52,6 +52,108 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>LayoutSettings.settings</DependentUpon>
     </Compile>
+    <Compile Update="Views\Domain\SportsmenResult\SportsmenResultCollectionView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Views\Domain\SportsmenResult\SportsmenResultKindView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Views\Domain\Sportsmen\SportsmenCollectionView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Views\Domain\Sportsmen\SportsmenView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Views\Domain\ThrowResult\ThrowResultCollectionView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Views\Domain\ThrowResult\ThrowResultView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Views\Domain\RefereeBoard\RefereeBoardCollectionView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Views\Domain\RefereeBoard\RefereeBoardView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Views\Domain\Category\CategoryCollectionView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Views\Domain\Category\CategoryKindView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Views\Domain\CategoryTable\CategoryTableCollectionView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Views\Domain\CategoryTable\CategoryTableView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Views\Domain\CompetitionKind\CompetitionKindCollectionView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Views\Domain\CompetitionKind\CompetitionKindView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Views\Domain\Competition\CompetitionCollectionView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Views\Domain\Competition\CompetitionKindView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Views\Domain\ExerciseKind\ExerciseKindCollectionView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Views\Domain\ExerciseKind\ExerciseKindView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Views\Domain\ExerciseName\ExerciseNameCollectionView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Views\Domain\ExerciseName\ExerciseNameView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Views\Domain\Referee\RefereeCollectionView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Views\Domain\Referee\RefereeView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Views\Domain\RefereeCategory\RefereeCategoryCollectionView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Views\Domain\RefereeCategory\RefereeCategoryKindView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Views\Domain\RefereeCity\RefereeCityCollectionView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Views\Domain\RefereeCity\RefereeCityView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Views\Domain\AgeCoefficient\AgeCoefficientCollectionView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Views\Domain\AgeCoefficient\AgeCoefficientView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Views\Domain\AgeGroup\AgeGroupCollectionView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Views\Domain\AgeGroup\AgeGroupView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Views\Domain\Exercise\ExerciseCollectionView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Views\Domain\Exercise\ExerciseView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Views\Domain\BallTable\BallTableCollectionView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Views\Domain\BallTable\BallTableView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Update="Views\Domain\Club\ClubCollectionView.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -90,6 +192,108 @@
     <EmbeddedResource Update="Properties\CommonResources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>CommonResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Domain\SportsmenResult\SportsmenResultCollectionView.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Domain\SportsmenResult\SportsmenResultKindView.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Domain\Sportsmen\SportsmenCollectionView.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Domain\Sportsmen\SportsmenView.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Domain\ThrowResult\ThrowResultCollectionView.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Domain\ThrowResult\ThrowResultView.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Domain\RefereeBoard\RefereeBoardCollectionView.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Domain\RefereeBoard\RefereeBoardView.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Domain\Category\CategoryCollectionView.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Domain\Category\CategoryKindView.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Domain\CategoryTable\CategoryTableCollectionView.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Domain\CategoryTable\CategoryTableView.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Domain\CompetitionKind\CompetitionKindCollectionView.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Domain\CompetitionKind\CompetitionKindView.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Domain\Competition\CompetitionCollectionView.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Domain\Competition\CompetitionKindView.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Domain\ExerciseKind\ExerciseKindCollectionView.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Domain\ExerciseKind\ExerciseKindView.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Domain\ExerciseName\ExerciseNameCollectionView.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Domain\ExerciseName\ExerciseNameView.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Domain\Referee\RefereeCollectionView.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Domain\Referee\RefereeView.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Domain\RefereeCategory\RefereeCategoryCollectionView.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Domain\RefereeCategory\RefereeCategoryKindView.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Domain\RefereeCity\RefereeCityCollectionView.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Domain\RefereeCity\RefereeCityView.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Domain\AgeCoefficient\AgeCoefficientCollectionView.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Domain\AgeCoefficient\AgeCoefficientView.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Domain\AgeGroup\AgeGroupCollectionView.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Domain\AgeGroup\AgeGroupView.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Domain\Exercise\ExerciseCollectionView.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Domain\Exercise\ExerciseView.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Domain\BallTable\BallTableCollectionView.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Domain\BallTable\BallTableView.resx">
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\Domain\Club\ClubView.resx">
       <SubType>Designer</SubType>
