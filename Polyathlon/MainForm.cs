@@ -15,8 +15,8 @@ namespace Polyathlon
     {
         public MainForm()
         {
-            // using Forms.SplashScreenForm splashScreenForm = new();
-            // splashScreenForm.ShowDialog();
+            using Forms.SplashScreenForm splashScreenForm = new();
+            splashScreenForm.ShowDialog();
 
             InitializeComponent();
             if (!mvvmContext.IsDesignMode)

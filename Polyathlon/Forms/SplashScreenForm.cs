@@ -33,8 +33,6 @@ namespace Polyathlon.Forms
             else
             {
                 timer.Stop();
-                progressBarControl.Position += 10;
-                timer.Stop();
 
                 Hide();
             }

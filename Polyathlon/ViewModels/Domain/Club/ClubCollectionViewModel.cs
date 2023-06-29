@@ -6,7 +6,7 @@ using Polyathlon.ViewModels.Common;
 
 namespace Polyathlon.ViewModels;
 
-public partial class ClubCollectionViewModel
+public class ClubCollectionViewModel
     : CollectionViewModel<ClubViewEntity, Club>, ISupportParameter
 {
     public override bool IsLoading { get; protected set; } = false;
